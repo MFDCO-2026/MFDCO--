@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>作品審査 | MFDCO ADMIN</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/admin-work.css"
+    >
+</head>
+
+
+<body class="admin-work-page">
+
+
+    <div id="header-container"></div>
+
+
+    <main class="review-main">
+
+        <div class="review-container">
+
+
+            <div class="review-back">
+
+                <a href="admin-works.html">
+                    ← 作品審査一覧
+                </a>
+
+            </div>
+
+
+            <header class="review-page-header">
+
+                <p class="section-label">
+                    WORK REVIEW
+                </p>
+
+                <h1>
+                    作品審査
+                </h1>
+
+            </header>
+
+
+            <div
+                id="review-loading"
+                class="review-message"
+            >
+                作品を読み込んでいます...
+            </div>
+
+
+            <div
+                id="review-error"
+                class="review-message review-message-error"
+                hidden
+            ></div>
+
+
+            <div
+                id="review-content"
+                hidden
+            >
+
+
+                <!-- BASIC -->
+
+                <section class="review-card">
+
+                    <div class="review-image">
+
+                        <img
+                            id="work-image"
+                            alt="作品画像"
+                            hidden
+                        >
+
+                        <div
+                            id="work-image-placeholder"
+                            class="review-image-placeholder"
+                        >
+                            NO IMAGE
+                        </div>
+
+                    </div>
+
+
+                    <div class="review-basic">
+
+                        <span
+                            id="work-status"
+                            class="review-status"
+                        ></span>
+
+                        <h2 id="work-title">
+                            -
+                        </h2>
+
+                        <dl class="review-meta">
+
+                            <div>
+                                <dt>作者</dt>
+                                <dd id="work-author">-</dd>
+                            </div>
+
+                            <div>
+                                <dt>投稿日時</dt>
+                                <dd id="work-date">-</dd>
+                            </div>
+
+                            <div>
+                                <dt>提出方法</dt>
+                                <dd id="work-submission-type">-</dd>
+                            </div>
+
+                            <div>
+                                <dt>ファイル形式</dt>
+                                <dd id="work-file-type">-</dd>
+                            </div>
+
+                        </dl>
+
+                    </div>
+
+                </section>
+
+
+                <!-- DESCRIPTION -->
+
+                <section class="review-card">
+
+                    <p class="review-section-label">
+                        DESCRIPTION
+                    </p>
+
+                    <h2>
+                        作品説明
+                    </h2>
+
+                    <p
+                        id="work-description"
+                        class="review-text"
+                    >
+                        -
+                    </p>
+
+                </section>
+
+
+                <!-- TAGS -->
+
+                <section class="review-card">
+
+                    <p class="review-section-label">
+                        TAGS
+                    </p>
+
+                    <h2>
+                        タグ
+                    </h2>
+
+                    <div
+                        id="work-tags"
+                        class="review-tags"
+                    ></div>
+
+                </section>
+
+
+                <!-- DATA -->
+
+                <section class="review-card">
+
+                    <p class="review-section-label">
+                        WORK DATA
+                    </p>
+
+                    <h2>
+                        作品データ
+                    </h2>
+
+
+                    <dl class="review-data-list">
+
+                        <div>
+                            <dt>提出方法</dt>
+                            <dd id="data-submission-type">-</dd>
+                        </div>
+
+                        <div>
+                            <dt>元ファイル名</dt>
+                            <dd id="data-filename">-</dd>
+                        </div>
+
+                        <div>
+                            <dt>ファイルサイズ</dt>
+                            <dd id="data-filesize">-</dd>
+                        </div>
+
+                        <div>
+                            <dt>Storage Path</dt>
+                            <dd id="data-file-path">-</dd>
+                        </div>
+
+                    </dl>
+
+
+                    <div
+                        id="external-url-box"
+                        class="review-external-url"
+                        hidden
+                    >
+
+                        <a
+                            id="external-url"
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            外部作品URLを開く
+                        </a>
+
+                    </div>
+
+                </section>
+
+
+                <!-- CONDITIONS -->
+
+                <section class="review-card">
+
+                    <p class="review-section-label">
+                        USAGE CONDITIONS
+                    </p>
+
+                    <h2>
+                        利用条件
+                    </h2>
+
+
+                    <div class="review-condition-list">
+
+                        <div>
+                            <span>商用利用</span>
+                            <strong id="condition-commercial">-</strong>
+                        </div>
+
+                        <div>
+                            <span>形状などの改変</span>
+                            <strong id="condition-modification">-</strong>
+                        </div>
+
+                        <div>
+                            <span>名称や設定の改変</span>
+                            <strong id="condition-setting">-</strong>
+                        </div>
+
+                        <div>
+                            <span>破壊描写</span>
+                            <strong id="condition-destruction">-</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="review-other-terms">
+
+                        <h3>
+                            その他の条件
+                        </h3>
+
+                        <p id="other-terms">
+                            -
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+                <!-- CREDIT -->
+
+                <section class="review-card">
+
+                    <p class="review-section-label">
+                        CREDIT
+                    </p>
+
+                    <h2>
+                        クレジット
+                    </h2>
+
+
+                    <dl class="review-data-list">
+
+                        <div>
+                            <dt>種類</dt>
+                            <dd id="credit-type">-</dd>
+                        </div>
+
+                        <div>
+                            <dt>表記内容</dt>
+                            <dd id="credit-text">-</dd>
+                        </div>
+
+                    </dl>
+
+                </section>
+
+
+                <!-- REVIEW -->
+
+                <section class="review-card review-admin-card">
+
+                    <p class="review-section-label">
+                        ADMIN REVIEW
+                    </p>
+
+                    <h2>
+                        審査
+                    </h2>
+
+
+                    <label
+                        for="admin-note"
+                        class="admin-note-label"
+                    >
+                        管理者メモ / 差し戻し理由
+                    </label>
+
+                    <textarea
+                        id="admin-note"
+                        maxlength="3000"
+                        placeholder="差し戻しの場合は、修正してほしい内容を記入してください。"
+                    ></textarea>
+
+
+                    <div
+                        id="action-error"
+                        class="review-action-message review-action-error"
+                        hidden
+                    ></div>
+
+
+                    <div
+                        id="action-success"
+                        class="review-action-message review-action-success"
+                        hidden
+                    ></div>
+
+
+                    <div class="review-actions">
+
+                        <button
+                            type="button"
+                            id="reject-button"
+                            class="review-button review-button-reject"
+                        >
+                            差し戻す
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="approve-button"
+                            class="review-button review-button-approve"
+                        >
+                            承認して公開
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/header.js"></script>
+
+    <script src="js/admin-work.js"></script>
+
+</body>
+
+</html>

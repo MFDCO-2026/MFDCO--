@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>作品詳細 | MFDCO</title>
+
+    <meta
+        name="description"
+        content="MFDCO提供作品の詳細ページです。"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/work.css"
+    >
+</head>
+
+
+<body class="work-detail-page">
+
+
+    <!-- COMMON HEADER -->
+
+    <div id="header-container"></div>
+
+
+    <main class="work-detail-main">
+
+        <div class="work-detail-container">
+
+
+            <!-- BACK -->
+
+            <div class="work-back">
+
+                <a href="works.html">
+                    ← 提供作品一覧へ戻る
+                </a>
+
+            </div>
+
+
+            <!-- LOADING -->
+
+            <div
+                id="work-loading"
+                class="work-message"
+            >
+                作品を読み込んでいます...
+            </div>
+
+
+            <!-- ERROR -->
+
+            <div
+                id="work-error"
+                class="work-message work-message-error"
+                hidden
+            >
+
+                <h1>
+                    作品を表示できません
+                </h1>
+
+                <p id="work-error-text">
+                    作品情報の取得に失敗しました。
+                </p>
+
+                <a
+                    href="works.html"
+                    class="work-primary-button"
+                >
+                    作品一覧へ戻る
+                </a>
+
+            </div>
+
+
+            <!-- CONTENT -->
+
+            <div
+                id="work-content"
+                hidden
+            >
+
+
+                <!-- =================================
+                     HERO
+                ================================== -->
+
+                <section class="work-hero">
+
+
+                    <div class="work-main-image">
+
+                        <img
+                            id="work-image"
+                            alt=""
+                            hidden
+                        >
+
+                        <div
+                            id="work-image-placeholder"
+                            class="work-image-placeholder"
+                        >
+                            NO IMAGE
+                        </div>
+
+                    </div>
+
+
+                    <div class="work-hero-content">
+
+                        <p class="work-eyebrow">
+                            MFDCO PROVIDED WORK
+                        </p>
+
+
+                        <h1 id="work-title">
+                            -
+                        </h1>
+
+
+                        <div class="work-author">
+
+                            <img
+                                id="author-icon"
+                                class="work-author-icon"
+                                alt=""
+                                hidden
+                            >
+
+                            <div>
+
+                                <span class="work-author-label">
+                                    CREATED BY
+                                </span>
+
+                                <strong id="author-name">
+                                    MFDCO MEMBER
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="work-meta">
+
+                            <div>
+
+                                <span>
+                                    公開日
+                                </span>
+
+                                <strong id="work-date">
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    提供形式
+                                </span>
+
+                                <strong id="work-type">
+                                    -
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="work-tags"
+                            class="work-tags"
+                        ></div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================
+                     DESCRIPTION
+                ================================== -->
+
+                <section class="work-section">
+
+                    <header class="work-section-header">
+
+                        <p>
+                            01
+                            <span>
+                                DESCRIPTION
+                            </span>
+                        </p>
+
+                        <h2>
+                            作品について
+                        </h2>
+
+                    </header>
+
+
+                    <p
+                        id="work-description"
+                        class="work-description"
+                    >
+                        -
+                    </p>
+
+                </section>
+
+
+
+                <!-- =================================
+                     USAGE CONDITIONS
+                ================================== -->
+
+                <section class="work-section">
+
+                    <header class="work-section-header">
+
+                        <p>
+                            02
+                            <span>
+                                USAGE CONDITIONS
+                            </span>
+                        </p>
+
+                        <h2>
+                            利用条件
+                        </h2>
+
+                    </header>
+
+
+                    <div class="condition-grid">
+
+
+                        <article class="condition-item">
+
+                            <span>
+                                商用利用
+                            </span>
+
+                            <strong id="commercial-use">
+                                -
+                            </strong>
+
+                        </article>
+
+
+                        <article class="condition-item">
+
+                            <span>
+                                形状などの改変
+                            </span>
+
+                            <strong id="modification">
+                                -
+                            </strong>
+
+                        </article>
+
+
+                        <article class="condition-item">
+
+                            <span>
+                                名称・設定の改変
+                            </span>
+
+                            <strong id="setting-modification">
+                                -
+                            </strong>
+
+                        </article>
+
+
+                        <article class="condition-item">
+
+                            <span>
+                                破壊描写
+                            </span>
+
+                            <strong id="destruction-depiction">
+                                -
+                            </strong>
+
+                        </article>
+
+
+                    </div>
+
+
+                    <div class="other-terms">
+
+                        <h3>
+                            その他の条件
+                        </h3>
+
+                        <p id="other-terms">
+                            特になし
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================
+                     CREDIT
+                ================================== -->
+
+                <section class="work-section">
+
+                    <header class="work-section-header">
+
+                        <p>
+                            03
+                            <span>
+                                CREDIT
+                            </span>
+                        </p>
+
+                        <h2>
+                            クレジット
+                        </h2>
+
+                    </header>
+
+
+                    <div class="credit-box">
+
+                        <div>
+
+                            <span class="credit-label">
+                                CREDIT POLICY
+                            </span>
+
+                            <strong id="credit-type">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <p id="credit-text">
+                            -
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================
+                     DOWNLOAD
+                ================================== -->
+
+                <section class="work-section work-download-section">
+
+                    <header class="work-section-header">
+
+                        <p>
+                            04
+                            <span>
+                                DOWNLOAD
+                            </span>
+                        </p>
+
+                        <h2>
+                            作品データ
+                        </h2>
+
+                    </header>
+
+
+                    <div class="download-panel">
+
+
+                        <div class="download-information">
+
+
+                            <dl>
+
+                                <div>
+
+                                    <dt>
+                                        提供方法
+                                    </dt>
+
+                                    <dd id="download-type">
+                                        -
+                                    </dd>
+
+                                </div>
+
+
+                                <div
+                                    id="filename-row"
+                                >
+
+                                    <dt>
+                                        ファイル名
+                                    </dt>
+
+                                    <dd id="filename">
+                                        -
+                                    </dd>
+
+                                </div>
+
+
+                                <div
+                                    id="filesize-row"
+                                >
+
+                                    <dt>
+                                        ファイルサイズ
+                                    </dt>
+
+                                    <dd id="filesize">
+                                        -
+                                    </dd>
+
+                                </div>
+
+
+                                <div
+                                    id="filetype-row"
+                                >
+
+                                    <dt>
+                                        ファイル形式
+                                    </dt>
+
+                                    <dd id="filetype">
+                                        -
+                                    </dd>
+
+                                </div>
+
+                            </dl>
+
+
+                            <p class="download-notice">
+
+                                作品を利用する際は、
+                                このページに記載されている利用条件と
+                                クレジット条件を確認してください。
+
+                            </p>
+
+                        </div>
+
+
+                        <div class="download-action">
+
+
+                            <button
+                                type="button"
+                                id="download-button"
+                                class="download-button"
+                                hidden
+                            >
+
+                                <span class="download-button-small">
+                                    DOWNLOAD
+                                </span>
+
+                                <strong>
+                                    作品をダウンロード
+                                </strong>
+
+                                <span>
+                                    ↓
+                                </span>
+
+                            </button>
+
+
+                            <a
+                                id="external-button"
+                                class="download-button"
+                                href="#"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                hidden
+                            >
+
+                                <span class="download-button-small">
+                                    EXTERNAL LINK
+                                </span>
+
+                                <strong>
+                                    配布ページを開く
+                                </strong>
+
+                                <span>
+                                    →
+                                </span>
+
+                            </a>
+
+
+                            <div
+                                id="download-error"
+                                class="download-error"
+                                hidden
+                            ></div>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <div id="footer-container"></div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/header.js"></script>
+
+    <script src="js/work.js"></script>
+
+
+</body>
+
+</html>

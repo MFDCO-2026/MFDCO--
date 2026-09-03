@@ -1,0 +1,676 @@
+/* =========================================
+   MFDCO ADMIN WORK REVIEW
+========================================= */
+
+.admin-work-page {
+    background: #f4f5f5;
+}
+
+
+.review-main {
+    min-height: 100vh;
+}
+
+
+.review-container {
+    width: min(
+        1000px,
+        calc(100% - 50px)
+    );
+
+    margin: 0 auto;
+
+    padding: 135px 0 130px;
+}
+
+
+.admin-work-page [hidden] {
+    display: none !important;
+}
+
+
+/* =========================================
+   BACK
+========================================= */
+
+.review-back {
+    margin-bottom: 35px;
+}
+
+
+.review-back a {
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    font-size: 12px;
+
+    text-decoration: none;
+}
+
+
+.review-back a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.review-page-header {
+    margin-bottom: 50px;
+}
+
+
+.review-page-header h1 {
+    margin-top: 10px;
+
+    font-size:
+        clamp(
+            38px,
+            6vw,
+            60px
+        );
+
+    font-weight: 500;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.review-card {
+    margin-bottom: 20px;
+
+    padding: 42px;
+
+    border: 1px solid #dddddd;
+
+    background: #ffffff;
+}
+
+
+.review-card > h2 {
+    margin: 7px 0 28px;
+
+    font-size: 24px;
+
+    font-weight: 500;
+}
+
+
+.review-section-label {
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+}
+
+
+/* =========================================
+   BASIC
+========================================= */
+
+.review-card:first-child {
+    display: grid;
+
+    grid-template-columns: 320px 1fr;
+
+    gap: 35px;
+
+    align-items: center;
+}
+
+
+.review-image {
+    width: 100%;
+
+    aspect-ratio: 16 / 10;
+
+    overflow: hidden;
+
+    background: #eeeeee;
+}
+
+
+.review-image img {
+    display: block;
+
+    width: 100% !important;
+
+    height: 100% !important;
+
+    object-fit: cover;
+}
+
+
+.review-image-placeholder {
+    display: flex;
+
+    width: 100%;
+
+    height: 100%;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #999999;
+
+    font-size: 11px;
+
+    letter-spacing: 0.1em;
+}
+
+
+.review-status {
+    display: inline-flex;
+
+    margin-bottom: 12px;
+
+    padding: 5px 9px;
+
+    background: #eeeeee;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+.review-status.status-pending {
+    background: #fff3d7;
+
+    color: #85651c;
+}
+
+
+.review-status.status-approved {
+    background: #e5f1ef;
+
+    color: #164b4b;
+}
+
+
+.review-status.status-rejected {
+    background: #f7e5e5;
+
+    color: #8d3030;
+}
+
+
+.review-basic h2 {
+    margin: 0 0 22px;
+
+    font-size: 27px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================
+   META
+========================================= */
+
+.review-meta,
+.review-data-list {
+    margin: 0;
+}
+
+
+.review-meta > div,
+.review-data-list > div {
+    display: grid;
+
+    grid-template-columns: 130px 1fr;
+
+    gap: 20px;
+
+    padding: 12px 0;
+
+    border-top: 1px solid #eeeeee;
+}
+
+
+.review-meta dt,
+.review-data-list dt {
+    color: #888888;
+
+    font-size: 10px;
+}
+
+
+.review-meta dd,
+.review-data-list dd {
+    margin: 0;
+
+    color: #333333;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    word-break: break-word;
+}
+
+
+/* =========================================
+   TEXT
+========================================= */
+
+.review-text {
+    margin: 0;
+
+    color: #555555;
+
+    font-size: 13px;
+
+    line-height: 2;
+
+    white-space: pre-wrap;
+
+    word-break: break-word;
+}
+
+
+/* =========================================
+   TAG
+========================================= */
+
+.review-tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+}
+
+
+.review-tag {
+    display: inline-flex;
+
+    padding: 7px 11px;
+
+    border: 1px solid #dddddd;
+
+    background: #fafafa;
+
+    color: #555555;
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   CONDITIONS
+========================================= */
+
+.review-condition-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+
+.review-condition-list > div {
+    display: flex;
+
+    min-height: 65px;
+
+    padding: 15px 18px;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e1e1e1;
+
+    background: #fafafa;
+}
+
+
+.review-condition-list span {
+    color: #666666;
+
+    font-size: 11px;
+}
+
+
+.review-condition-list strong {
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    font-size: 12px;
+}
+
+
+.review-other-terms {
+    margin-top: 25px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #eeeeee;
+}
+
+
+.review-other-terms h3 {
+    margin-bottom: 10px;
+
+    font-size: 12px;
+}
+
+
+.review-other-terms p {
+    color: #555555;
+
+    font-size: 12px;
+
+    line-height: 1.9;
+
+    white-space: pre-wrap;
+}
+
+
+/* =========================================
+   EXTERNAL
+========================================= */
+
+.review-external-url {
+    margin-top: 25px;
+}
+
+
+.review-external-url a {
+    display: inline-flex;
+
+    min-height: 44px;
+
+    padding: 10px 20px;
+
+    box-sizing: border-box;
+
+    align-items: center;
+
+    border:
+        1px solid
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+/* =========================================
+   ADMIN
+========================================= */
+
+.review-admin-card {
+    border-top:
+        4px solid
+        var(
+            --main-color,
+            #164b4b
+        );
+}
+
+
+.admin-note-label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #333333;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+#admin-note {
+    display: block;
+
+    width: 100%;
+
+    min-height: 150px;
+
+    box-sizing: border-box;
+
+    padding: 14px 16px;
+
+    border: 1px solid #d5d5d5;
+
+    background: #ffffff;
+
+    font: inherit;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+    resize: vertical;
+}
+
+
+/* =========================================
+   ACTION
+========================================= */
+
+.review-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 30px;
+}
+
+
+.review-button {
+    min-width: 180px;
+
+    min-height: 50px;
+
+    padding: 12px 22px;
+
+    border: 1px solid;
+
+    font: inherit;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.review-button-approve {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    background:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color: #ffffff;
+}
+
+
+.review-button-reject {
+    border-color: #a73b3b;
+
+    background: #ffffff;
+
+    color: #8c2929;
+}
+
+
+.review-button:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.review-message {
+    padding: 40px;
+
+    border: 1px solid #dddddd;
+
+    background: #ffffff;
+
+    color: #666666;
+
+    text-align: center;
+}
+
+
+.review-message-error {
+    border-left: 4px solid #a73b3b;
+
+    color: #8c2929;
+}
+
+
+.review-action-message {
+    margin-top: 20px;
+
+    padding: 15px 18px;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+.review-action-error {
+    border-left: 3px solid #a73b3b;
+
+    background: #faf0f0;
+
+    color: #8c2929;
+}
+
+
+.review-action-success {
+    border-left:
+        3px solid
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    background: #edf5f4;
+
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .review-container {
+        width: calc(100% - 30px);
+
+        padding: 120px 0 90px;
+    }
+
+
+    .review-card:first-child {
+        grid-template-columns: 1fr;
+    }
+
+
+    .review-image {
+        max-width: 500px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .review-container {
+        width: calc(100% - 20px);
+
+        padding: 105px 0 70px;
+    }
+
+
+    .review-card {
+        padding: 28px 20px;
+    }
+
+
+    .review-condition-list {
+        grid-template-columns: 1fr;
+    }
+
+
+    .review-meta > div,
+    .review-data-list > div {
+        grid-template-columns: 100px 1fr;
+    }
+
+
+    .review-actions {
+        flex-direction: column-reverse;
+    }
+
+
+    .review-button {
+        width: 100%;
+    }
+
+}

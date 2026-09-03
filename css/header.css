@@ -1,0 +1,638 @@
+/* =========================================
+   MFDCO COMMON HEADER
+========================================= */
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.site-header {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 9999;
+
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    border-bottom:
+        1px solid rgba(0, 0, 0, 0.08);
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
+    transition:
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+
+}
+
+
+/* =========================================
+   SCROLLED
+========================================= */
+
+.site-header.scrolled {
+
+    background:
+        rgba(255, 255, 255, 0.985);
+
+    box-shadow:
+        0 5px 24px
+        rgba(0, 0, 0, 0.08);
+
+}
+
+
+/* =========================================
+   INNER
+========================================= */
+
+.header-inner {
+
+    width: 100%;
+
+    height: 76px;
+
+    padding:
+        0 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.site-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    flex-shrink: 0;
+
+    text-decoration: none;
+
+    color: #111111;
+
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
+
+.site-logo {
+
+    display: block;
+
+    width: 105px;
+
+    height: auto;
+
+    object-fit: contain;
+
+}
+
+
+/* =========================================
+   SITE TITLE
+========================================= */
+
+.site-title {
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    letter-spacing:
+        0.06em;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.main-nav {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 26px;
+
+}
+
+
+/* =========================================
+   NAV LINKS
+========================================= */
+
+.main-nav > a {
+
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    min-height: 40px;
+
+    color: #111111;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    letter-spacing:
+        0.05em;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    transition:
+        color 0.2s ease;
+
+}
+
+
+.main-nav > a:not(.header-join):not(.header-member-profile)::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 2px;
+
+    width: 0;
+
+    height: 1px;
+
+    background:
+        #164b4b;
+
+    transition:
+        width 0.25s ease;
+
+}
+
+
+.main-nav > a:not(.header-join):not(.header-member-profile):hover {
+
+    color:
+        #164b4b;
+
+}
+
+
+.main-nav > a:not(.header-join):not(.header-member-profile):hover::after {
+
+    width: 100%;
+
+}
+
+
+/* =========================================
+   JOIN / LOGIN
+========================================= */
+
+.header-join {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 42px !important;
+
+    padding:
+        0 20px;
+
+    background:
+        #164b4b;
+
+    border:
+        1px solid #164b4b;
+
+    color:
+        #ffffff !important;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+
+}
+
+
+.header-join:hover {
+
+    background:
+        #0e3838;
+
+    border-color:
+        #0e3838;
+
+}
+
+
+/* =========================================
+   MEMBER PROFILE
+========================================= */
+
+.header-member-profile {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    min-height: 44px;
+
+    padding:
+        4px 12px 4px 5px;
+
+    border:
+        1px solid #dddddd;
+
+    background:
+        #ffffff;
+
+    color:
+        #111111 !important;
+
+}
+
+
+.header-member-profile:hover {
+
+    border-color:
+        #164b4b;
+
+}
+
+
+/* =========================================
+   MEMBER ICON
+========================================= */
+
+.header-member-icon {
+
+    display: block;
+
+    width: 34px;
+
+    height: 34px;
+
+    min-width: 34px;
+
+    border-radius:
+        50%;
+
+    object-fit: cover;
+
+    background:
+        #eeeeee;
+
+}
+
+
+/* =========================================
+   MEMBER NAME
+========================================= */
+
+.header-member-name {
+
+    max-width: 130px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.header-loading {
+
+    opacity: 0.7;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================
+   MOBILE BUTTON
+========================================= */
+
+.menu-button {
+
+    display: none;
+
+    width: 42px;
+
+    height: 42px;
+
+    padding: 8px;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+}
+
+
+.menu-button span {
+
+    display: block;
+
+    width: 25px;
+
+    height: 2px;
+
+    margin:
+        5px auto;
+
+    background:
+        #111111;
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+
+}
+
+
+/* =========================================
+   MOBILE BUTTON ACTIVE
+========================================= */
+
+.menu-button.active span:nth-child(1) {
+
+    transform:
+        translateY(7px)
+        rotate(45deg);
+
+}
+
+
+.menu-button.active span:nth-child(2) {
+
+    opacity: 0;
+
+}
+
+
+.menu-button.active span:nth-child(3) {
+
+    transform:
+        translateY(-7px)
+        rotate(-45deg);
+
+}
+
+
+/* =========================================
+   NORMAL PAGE HEADER OFFSET
+========================================= */
+
+/*
+   fixed header は通常レイアウトから外れるため、
+   通常ページのみ76px下げる。
+*/
+
+.works-page,
+.submit-page,
+.about-page,
+.members-page,
+.movies-page,
+.news-page,
+.join-page,
+.mypage-page {
+
+    padding-top: 76px;
+
+}
+
+
+/*
+   トップページのheroは
+   ヘッダーの後ろから開始するので
+   index.htmlではpadding不要。
+*/
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (
+    max-width: 1100px
+) {
+
+    .site-title {
+
+        display: none;
+
+    }
+
+
+    .main-nav {
+
+        gap: 18px;
+
+    }
+
+}
+
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+@media (
+    max-width: 900px
+) {
+
+    .header-inner {
+
+        height: 65px;
+
+        padding:
+            0 20px;
+
+    }
+
+
+    .site-logo {
+
+        width: 90px;
+
+    }
+
+
+    .menu-button {
+
+        display: block;
+
+    }
+
+
+    .main-nav {
+
+        position: fixed;
+
+        top: 65px;
+
+        left: 0;
+
+        right: 0;
+
+        display: none;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 0;
+
+        max-height:
+            calc(100vh - 65px);
+
+        overflow-y: auto;
+
+        padding:
+            14px 20px 25px;
+
+        background:
+            rgba(255, 255, 255, 0.99);
+
+        border-top:
+            1px solid #eeeeee;
+
+        border-bottom:
+            1px solid #dddddd;
+
+        box-shadow:
+            0 15px 30px
+            rgba(0, 0, 0, 0.08);
+
+    }
+
+
+    .main-nav.mobile-open {
+
+        display: flex;
+
+    }
+
+
+    .main-nav > a {
+
+        width: 100%;
+
+        min-height: 52px;
+
+        padding:
+            0 8px;
+
+        border-bottom:
+            1px solid #eeeeee;
+
+        font-size: 13px;
+
+    }
+
+
+    .main-nav > a::after {
+
+        display: none;
+
+    }
+
+
+    .header-join {
+
+        margin-top: 14px;
+
+        justify-content: center;
+
+        border-bottom:
+            1px solid #164b4b !important;
+
+    }
+
+
+    .header-member-profile {
+
+        margin-top: 14px;
+
+        width: 100%;
+
+        border-bottom:
+            1px solid #dddddd !important;
+
+    }
+
+
+    .header-member-name {
+
+        max-width: none;
+
+    }
+
+
+    .works-page,
+    .submit-page,
+    .about-page,
+    .members-page,
+    .movies-page,
+    .news-page,
+    .join-page,
+    .mypage-page {
+
+        padding-top: 65px;
+
+    }
+
+}

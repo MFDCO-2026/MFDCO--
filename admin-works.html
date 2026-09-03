@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>作品管理 | MFDCO 管理者</title>
+
+
+    <!-- COMMON CSS -->
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+
+    <!-- ADMIN WORKS CSS -->
+
+    <link
+        rel="stylesheet"
+        href="css/admin-works.css"
+    >
+
+</head>
+
+
+<body class="admin-works-page">
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =====================================
+         MAIN
+    ====================================== -->
+
+    <main class="admin-main">
+
+        <div class="admin-container">
+
+
+            <!-- =================================
+                 LOADING
+            ================================== -->
+
+            <section
+                id="admin-loading"
+                class="admin-message"
+            >
+
+                管理者権限を確認しています...
+
+            </section>
+
+
+            <!-- =================================
+                 ACCESS DENIED
+            ================================== -->
+
+            <section
+                id="admin-denied"
+                class="admin-message admin-message-error"
+                hidden
+            >
+
+                <h2>
+                    アクセスできません
+                </h2>
+
+                <p>
+                    このページを表示するには
+                    管理者権限が必要です。
+                </p>
+
+                <a
+                    href="admin-login.html"
+                    class="admin-button"
+                >
+                    管理者ログインへ
+                </a>
+
+            </section>
+
+
+            <!-- =================================
+                 CONTENT
+            ================================== -->
+
+            <div
+                id="admin-content"
+                hidden
+            >
+
+
+                <!-- =============================
+                     PAGE HEADER
+                ============================== -->
+
+                <header class="admin-page-header">
+
+                    <p class="section-number">
+                        ADMIN / WORK MANAGEMENT
+                    </p>
+
+                    <h1>
+                        作品管理
+                    </h1>
+
+                    <p class="admin-page-lead">
+                        MFDCOへ投稿された作品の公開状態を管理します。
+                        新規作品は投稿後すぐに公開され、
+                        問題がある作品は管理者が非公開にできます。
+                    </p>
+
+                </header>
+
+
+                <!-- =============================
+                     SUMMARY
+                ============================== -->
+
+                <section
+                    class="admin-summary"
+                    aria-label="作品状態"
+                >
+
+
+                    <!-- ALL -->
+
+                    <div class="summary-card">
+
+                        <span class="summary-label">
+                            ALL WORKS
+                        </span>
+
+                        <strong id="count-all">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <!-- PUBLIC -->
+
+                    <div class="summary-card">
+
+                        <span class="summary-label">
+                            PUBLIC
+                        </span>
+
+                        <strong id="count-approved">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <!-- HIDDEN -->
+
+                    <div class="summary-card">
+
+                        <span class="summary-label">
+                            HIDDEN
+                        </span>
+
+                        <strong id="count-hidden">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <!-- LEGACY -->
+
+                    <div class="summary-card">
+
+                        <span class="summary-label">
+                            LEGACY
+                        </span>
+
+                        <strong id="count-legacy">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                </section>
+
+
+                <!-- =============================
+                     ERROR
+                ============================== -->
+
+                <div
+                    id="admin-error"
+                    class="admin-result admin-result-error"
+                    hidden
+                ></div>
+
+
+                <!-- =============================
+                     TOOLBAR
+                ============================== -->
+
+                <section class="admin-toolbar">
+
+
+                    <!-- FILTER -->
+
+                    <div class="admin-filter">
+
+                        <label for="status-filter">
+                            表示する作品
+                        </label>
+
+                        <select id="status-filter">
+
+                            <option
+                                value="all"
+                                selected
+                            >
+                                すべて
+                            </option>
+
+                            <option value="approved">
+                                公開中
+                            </option>
+
+                            <option value="hidden">
+                                非公開
+                            </option>
+
+                            <option value="legacy">
+                                旧審査データ
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- RELOAD -->
+
+                    <button
+                        type="button"
+                        id="reload-button"
+                        class="admin-secondary-button"
+                    >
+                        再読み込み
+                    </button>
+
+
+                </section>
+
+
+                <!-- =============================
+                     LOADING WORKS
+                ============================== -->
+
+                <div
+                    id="works-loading"
+                    class="admin-list-message"
+                    hidden
+                >
+
+                    作品を読み込んでいます...
+
+                </div>
+
+
+                <!-- =============================
+                     EMPTY
+                ============================== -->
+
+                <div
+                    id="works-empty"
+                    class="admin-list-message"
+                    hidden
+                >
+
+                    条件に一致する作品はありません。
+
+                </div>
+
+
+                <!-- =============================
+                     WORK LIST
+                ============================== -->
+
+                <section
+                    id="works-list"
+                    class="admin-works-list"
+                    aria-label="作品一覧"
+                ></section>
+
+
+                <!-- =============================
+                     FOOTER ACTION
+                ============================== -->
+
+                <div
+                    style="
+                        margin-top: 35px;
+                        display: flex;
+                        gap: 12px;
+                        flex-wrap: wrap;
+                    "
+                >
+
+                    <a
+                        href="admin.html"
+                        class="admin-secondary-button"
+                    >
+                        ← 管理ダッシュボードへ戻る
+                    </a>
+
+                    <a
+                        href="works.html"
+                        class="admin-secondary-button"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        公開作品一覧を確認
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================
+         SUPABASE
+    ====================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- =====================================
+         MFDCO JS
+    ====================================== -->
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/header.js"></script>
+
+    <script src="js/admin-works.js"></script>
+
+
+</body>
+
+</html>

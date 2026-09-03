@@ -1,0 +1,4133 @@
+/* =========================================
+   MFDCO WEBSITE
+   ========================================= */
+
+
+/* =========================================
+   COLOR
+   ========================================= */
+
+:root {
+
+    --background: #ffffff;
+
+    --text: #111111;
+
+    --text-muted: #666666;
+
+    --line: #dddddd;
+
+    /* MFDCO メインカラー */
+    --main-color: #164b4b;
+
+    --main-color-dark: #0e3838;
+
+    --white: #ffffff;
+
+    --max-width: 1400px;
+
+}
+
+
+/* =========================================
+   RESET
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    background: var(--background);
+
+    color: var(--text);
+
+    font-family:
+        "Noto Sans JP",
+        "Yu Gothic",
+        Arial,
+        sans-serif;
+
+    line-height: 1.7;
+
+}
+
+a {
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+img {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.site-header {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 82px;
+
+    z-index: 1000;
+
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    border-bottom:
+        1px solid transparent;
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+
+.site-header.scrolled {
+
+    background:
+        rgba(255, 255, 255, 0.98);
+
+    border-bottom:
+        1px solid var(--line);
+
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.04);
+
+}
+
+
+/* =========================================
+   HEADER INNER
+   ========================================= */
+
+.header-inner {
+
+    width: 100%;
+
+    max-width: 1500px;
+
+    height: 100%;
+
+    margin: 0 auto;
+
+    padding:
+        0 30px;
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+
+/* =========================================
+   BRAND
+   ========================================= */
+
+.site-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    flex-shrink: 0;
+
+    color:
+        var(--text);
+
+    text-decoration: none;
+
+}
+
+
+.site-logo {
+
+    width: 42px;
+
+    height: 42px;
+
+    object-fit: contain;
+
+}
+
+
+.site-title {
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    letter-spacing:
+        0.08em;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
+
+.main-nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0;
+
+    margin-left: auto;
+
+}
+
+
+.main-nav a {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    height: 82px;
+
+    padding:
+        0 16px;
+
+    color:
+        var(--text);
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    letter-spacing:
+        0.04em;
+
+    white-space: nowrap;
+
+    transition:
+        color 0.2s ease;
+
+}
+
+
+.main-nav a:hover {
+
+    color:
+        var(--main-color);
+
+}
+
+
+/* =========================================
+   NAV UNDERLINE
+   ========================================= */
+
+.main-nav a::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 16px;
+    right: 16px;
+
+    bottom: 0;
+
+    height: 2px;
+
+    background:
+        var(--main-color);
+
+    transform:
+        scaleX(0);
+
+    transform-origin:
+        center;
+
+    transition:
+        transform 0.25s ease;
+
+}
+
+
+.main-nav a:hover::after {
+
+    transform:
+        scaleX(1);
+
+}
+
+
+/* =========================================
+   JOIN BUTTON
+   ========================================= */
+
+.main-nav .header-join {
+
+    margin-left: 10px;
+
+    height: 42px;
+
+    padding:
+        0 20px;
+
+    background:
+        var(--main-color);
+
+    color:
+        white;
+
+}
+
+
+.main-nav .header-join:hover {
+
+    background:
+        var(--main-color-dark);
+
+    color:
+        white;
+
+}
+
+
+.main-nav .header-join::after {
+
+    display: none;
+
+}
+
+
+/* =========================================
+   MOBILE MENU BUTTON
+   ========================================= */
+
+.menu-button {
+
+    display: none;
+
+    width: 42px;
+
+    height: 42px;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+}
+
+
+.menu-button span {
+
+    display: block;
+
+    width: 22px;
+
+    height: 1px;
+
+    margin:
+        5px auto;
+
+    background:
+        var(--text);
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+
+}
+
+
+/* =========================================
+   MOBILE MENU
+   ========================================= */
+
+.menu-button {
+
+    display: none;
+
+    background: none;
+
+    border: none;
+
+    cursor: pointer;
+
+}
+
+.menu-button span {
+
+    display: block;
+
+    width: 26px;
+
+    height: 2px;
+
+    background: var(--text);
+
+    margin: 5px;
+
+}
+
+
+/* =========================================
+   HERO
+   ========================================= */
+
+.hero {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 100vh;
+
+    min-height: 650px;
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================
+   HERO VIDEO
+   ========================================= */
+
+.hero-video {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+/* =========================================
+   HERO OVERLAY
+   ========================================= */
+
+.hero-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    /*
+       動画を暗くするためのオーバーレイ
+       文字を見やすくする
+    */
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0.15) 40%,
+            rgba(0, 0, 0, 0.70)
+        );
+
+}
+
+
+/* =========================================
+   HERO CONTENT
+   ========================================= */
+
+.hero-content {
+
+    position: absolute;
+
+    left: 8%;
+
+    bottom: 15%;
+
+    color: var(--white);
+
+    max-width: 1000px;
+
+}
+
+.hero-label {
+
+    font-size: 12px;
+
+    line-height: 1.8;
+
+    letter-spacing: 0.18em;
+
+    color: rgba(255,255,255,0.85);
+
+}
+
+.hero h1 {
+
+    margin-top: 18px;
+
+    font-size:
+        clamp(36px, 5vw, 72px);
+
+    font-weight: 500;
+
+    letter-spacing: 0.08em;
+
+    line-height: 1.3;
+
+}
+
+.hero-name {
+
+    margin-top: 8px;
+
+    font-size: 15px;
+
+    letter-spacing: 0.35em;
+
+    color: rgba(255,255,255,0.8);
+
+}
+
+.hero-line {
+
+    width: 90px;
+
+    height: 3px;
+
+    margin-top: 28px;
+
+    background: var(--main-color);
+
+}
+
+
+/* =========================================
+   SCROLL INDICATOR
+   ========================================= */
+
+.scroll-indicator {
+
+    position: absolute;
+
+    right: 5%;
+
+    bottom: 45px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: white;
+
+    font-size: 9px;
+
+    letter-spacing: 0.2em;
+
+}
+
+.scroll-indicator div {
+
+    width: 1px;
+
+    height: 50px;
+
+    background: white;
+
+}
+
+
+/* =========================================
+   COMMON SECTION
+   ========================================= */
+
+.section {
+
+    max-width: var(--max-width);
+
+    margin: 0 auto;
+
+    padding: 120px 50px;
+
+}
+
+
+/* =========================================
+   SECTION HEADER
+   ========================================= */
+
+.section-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 25px;
+
+    margin-bottom: 60px;
+
+}
+
+.section-number {
+
+    padding-top: 5px;
+
+    font-size: 12px;
+
+    color: var(--main-color);
+
+    letter-spacing: 0.1em;
+
+}
+
+.section-label {
+
+    font-size: 11px;
+
+    color: var(--main-color);
+
+    letter-spacing: 0.18em;
+
+    font-weight: 600;
+
+}
+
+.section-header h2 {
+
+    margin-top: 5px;
+
+    font-size: 34px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.06em;
+
+}
+
+
+/* =========================================
+   ABOUT
+   ========================================= */
+
+.about-content {
+
+    display: grid;
+
+    grid-template-columns: 1.1fr 1fr;
+
+    gap: 100px;
+
+}
+
+.about-lead {
+
+    font-size: 24px;
+
+    line-height: 1.9;
+
+    font-weight: 500;
+
+}
+
+.about-text {
+
+    color: var(--text-muted);
+
+    font-size: 14px;
+
+}
+
+.about-text p {
+
+    margin-bottom: 25px;
+
+}
+
+
+/* =========================================
+   TEXT LINK
+   ========================================= */
+
+.text-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 10px;
+
+    padding-bottom: 5px;
+
+    color: var(--main-color);
+
+    border-bottom:
+        1px solid var(--main-color);
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    transition: 0.25s;
+
+}
+
+.text-link:hover {
+
+    gap: 22px;
+
+}
+
+
+/* =========================================
+   WORKS
+   ========================================= */
+
+.works-section {
+
+    max-width: none;
+
+    background: #f5f7f7;
+
+}
+
+.works-section > .section-header,
+.works-section > .works-grid,
+.works-section > .section-more {
+
+    max-width: var(--max-width);
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+}
+
+
+/* =========================================
+   WORK GRID
+   ========================================= */
+
+.works-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 24px;
+
+}
+
+
+/* =========================================
+   WORK CARD
+   ========================================= */
+
+.work-card {
+
+    background: var(--white);
+
+    border: 1px solid #e2e2e2;
+
+    transition: 0.3s;
+
+}
+
+.work-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.08);
+
+}
+
+
+/* =========================================
+   WORK IMAGE
+   ========================================= */
+
+.work-image {
+
+    position: relative;
+
+    /*
+       1:1 正方形
+    */
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+}
+
+.work-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.5s;
+
+}
+
+.work-card:hover
+.work-image img {
+
+    transform: scale(1.05);
+
+}
+
+
+/* =========================================
+   IMAGE OVERLAY
+   ========================================= */
+
+.work-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(22, 75, 75, 0.75);
+
+    opacity: 0;
+
+    transition: 0.3s;
+
+}
+
+.work-card:hover
+.work-overlay {
+
+    opacity: 1;
+
+}
+
+.work-overlay span {
+
+    padding:
+        10px 25px;
+
+    border:
+        1px solid white;
+
+    color: white;
+
+    font-size: 11px;
+
+    letter-spacing: 0.18em;
+
+}
+
+
+/* =========================================
+   WORK INFO
+   ========================================= */
+
+.work-info {
+
+    padding: 22px;
+
+}
+
+.work-id {
+
+    font-size: 9px;
+
+    color: var(--main-color);
+
+    letter-spacing: 0.15em;
+
+}
+
+.work-info h3 {
+
+    margin-top: 7px;
+
+    font-size: 18px;
+
+    font-weight: 500;
+
+}
+
+.work-info p:last-child {
+
+    margin-top: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+   OUTLINE BUTTON
+   ========================================= */
+
+.outline-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    padding: 13px 25px;
+
+    border:
+        1px solid var(--main-color);
+
+    color: var(--main-color);
+
+    font-size: 12px;
+
+    transition: 0.25s;
+
+}
+
+.outline-button:hover {
+
+    background: var(--main-color);
+
+    color: white;
+
+}
+
+
+/* =========================================
+   NEWS
+   ========================================= */
+
+.news-list {
+
+    border-top:
+        1px solid var(--line);
+
+}
+
+.news-item {
+
+    display: grid;
+
+    grid-template-columns:
+        130px 100px 1fr 30px;
+
+    align-items: center;
+
+    gap: 25px;
+
+    min-height: 75px;
+
+    border-bottom:
+        1px solid var(--line);
+
+    transition: 0.25s;
+
+}
+
+.news-item:hover {
+
+    padding-left: 10px;
+
+}
+
+.news-item time {
+
+    font-size: 12px;
+
+    color: var(--text-muted);
+
+}
+
+.news-category {
+
+    font-size: 9px;
+
+    color: var(--main-color);
+
+    letter-spacing: 0.15em;
+
+}
+
+.news-item p {
+
+    font-size: 14px;
+
+}
+
+.news-arrow {
+
+    color: var(--main-color);
+
+}
+
+
+/* =========================================
+   JOIN
+   ========================================= */
+
+.join-section {
+
+    position: relative;
+
+    min-height: 480px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    background: var(--main-color);
+
+    color: white;
+
+}
+
+.join-content {
+
+    position: relative;
+
+    max-width: 650px;
+
+    padding: 70px 30px;
+
+}
+
+.join-content .section-label {
+
+    color: rgba(255,255,255,0.7);
+
+}
+
+.join-content h2 {
+
+    margin-top: 10px;
+
+    font-size: 42px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.08em;
+
+}
+
+.join-content > p:not(.section-label) {
+
+    margin-top: 25px;
+
+    color: rgba(255,255,255,0.8);
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================
+   JOIN BUTTON
+   ========================================= */
+
+.join-large-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 30px;
+
+    margin-top: 40px;
+
+    padding: 16px 35px;
+
+    background: white;
+
+    color: var(--main-color);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.25s;
+
+}
+
+.join-large-button:hover {
+
+    background: #eeeeee;
+
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.site-footer {
+
+    padding:
+        60px 50px 40px;
+
+    background: #111111;
+
+    color: white;
+
+}
+
+.footer-logo {
+
+    font-size: 30px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.15em;
+
+}
+
+.footer-name {
+
+    margin-top: 8px;
+
+    font-size: 9px;
+
+    line-height: 1.7;
+
+    letter-spacing: 0.18em;
+
+    color: #999999;
+
+}
+
+.footer-links {
+
+    display: flex;
+
+    gap: 25px;
+
+    margin-top: 35px;
+
+}
+
+.footer-links a {
+
+    font-size: 11px;
+
+    color: #bbbbbb;
+
+}
+
+.footer-links a:hover {
+
+    color: white;
+
+}
+
+.copyright {
+
+    margin-top: 45px;
+
+    font-size: 9px;
+
+    color: #666666;
+
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 800px) {
+
+    .site-header {
+
+        height: 65px;
+
+        padding:
+            0 20px;
+
+    }
+
+    .logo {
+
+        width: 100px;
+
+    }
+
+    .main-nav {
+
+        display: none;
+
+    }
+
+    .menu-button {
+
+        display: block;
+
+    }
+
+    .hero {
+
+        min-height: 600px;
+
+    }
+
+    .hero-content {
+
+        left: 25px;
+
+        right: 25px;
+
+        bottom: 15%;
+
+    }
+
+    .hero h1 {
+
+        font-size: 34px;
+
+    }
+
+    .section {
+
+        padding:
+            85px 25px;
+
+    }
+
+    .section-header {
+
+        margin-bottom: 45px;
+
+    }
+
+    .section-header h2 {
+
+        font-size: 27px;
+
+    }
+
+    .about-content {
+
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+
+    }
+
+    .about-lead {
+
+        font-size: 20px;
+
+    }
+
+
+    /* 作品 */
+
+    .works-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+
+    }
+
+
+    /* お知らせ */
+
+    .news-item {
+
+        grid-template-columns:
+            1fr 30px;
+
+        gap: 10px;
+
+        padding:
+            18px 0;
+
+    }
+
+    .news-item time {
+
+        grid-column: 1;
+
+    }
+
+    .news-category {
+
+        display: none;
+
+    }
+
+    .news-item p {
+
+        grid-column: 1;
+
+        grid-row: 2;
+
+    }
+
+    .news-arrow {
+
+        grid-column: 2;
+
+        grid-row: 1 / 3;
+
+    }
+
+
+    /* 参加 */
+
+    .join-content h2 {
+
+        font-size: 32px;
+
+    }
+
+
+    /* フッター */
+
+    .footer-links {
+
+        flex-wrap: wrap;
+
+    }
+
+}
+
+
+/* =========================================
+   JOIN PAGE
+   ========================================= */
+
+.join-page {
+
+    min-height: 100vh;
+
+    padding:
+        150px 25px 100px;
+
+    background:
+        var(--background);
+
+}
+
+
+.join-container {
+
+    width: 100%;
+
+    max-width: 760px;
+
+    margin: 0 auto;
+
+}
+
+
+.join-panel {
+
+    display: none;
+
+}
+
+
+.join-panel.active {
+
+    display: block;
+
+}
+
+
+.join-panel > .section-label {
+
+    color:
+        var(--main-color);
+
+}
+
+
+.join-panel h1 {
+
+    margin-top: 10px;
+
+    margin-bottom: 60px;
+
+    font-size: 42px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.08em;
+
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.form-section {
+
+    padding:
+        40px 0;
+
+    border-top:
+        1px solid var(--line);
+
+}
+
+
+.form-section h2 {
+
+    margin-bottom: 30px;
+
+    font-size: 20px;
+
+    font-weight: 500;
+
+}
+
+
+.form-group {
+
+    margin-bottom: 28px;
+
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+}
+
+
+.form-group label span {
+
+    color:
+        var(--main-color);
+
+}
+
+
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="text"],
+.form-group textarea,
+.form-section textarea {
+
+    width: 100%;
+
+    padding:
+        14px 16px;
+
+    border:
+        1px solid var(--line);
+
+    background:
+        white;
+
+    color:
+        var(--text);
+
+    font-family:
+        inherit;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s;
+
+}
+
+
+.form-group input:focus,
+.form-section textarea:focus {
+
+    border-color:
+        var(--main-color);
+
+}
+
+
+.form-section textarea {
+
+    min-height: 140px;
+
+    resize: vertical;
+
+}
+
+
+.form-note {
+
+    margin-top: 8px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+.form-error {
+
+    margin-top: 8px;
+
+    color:
+        #b00020;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+   IMAGE UPLOAD
+   ========================================= */
+
+.image-upload {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+}
+
+
+.image-upload input[type="file"] {
+
+    font-size: 12px;
+
+}
+
+
+.image-upload img {
+
+    display: none;
+
+    width: 100px;
+
+    height: 100px;
+
+    object-fit: cover;
+
+    border:
+        1px solid var(--line);
+
+}
+
+
+.image-upload img.visible {
+
+    display: block;
+
+}
+
+
+/* =========================================
+   CREDIT
+   ========================================= */
+
+.radio-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+}
+
+
+.radio-list label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 14px;
+
+}
+
+
+.radio-list input {
+
+    accent-color:
+        var(--main-color);
+
+}
+
+
+/* =========================================
+   TAG
+   ========================================= */
+
+.tag-list {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+}
+
+
+.tag-list label {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        8px 13px;
+
+    border:
+        1px solid var(--line);
+
+    color:
+        var(--text-muted);
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition:
+        0.2s;
+
+}
+
+
+.tag-list label:hover {
+
+    border-color:
+        var(--main-color);
+
+    color:
+        var(--main-color);
+
+}
+
+
+.tag-list input {
+
+    accent-color:
+        var(--main-color);
+
+}
+
+
+/* =========================================
+   AGREEMENT
+   ========================================= */
+
+.agreement {
+
+    margin-top: 35px;
+
+    padding:
+        20px;
+
+    background:
+        #f5f7f7;
+
+}
+
+
+.agreement label {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    font-size: 13px;
+
+}
+
+
+.agreement input {
+
+    margin-top: 5px;
+
+    accent-color:
+        var(--main-color);
+
+}
+
+
+/* =========================================
+   SUBMIT
+   ========================================= */
+
+.join-submit {
+
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding:
+        17px 25px;
+
+    border:
+        1px solid var(--main-color);
+
+    background:
+        var(--main-color);
+
+    color:
+        white;
+
+    font-family:
+        inherit;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition:
+        0.25s;
+
+}
+
+
+.join-submit:hover {
+
+    background:
+        var(--main-color-dark);
+
+    border-color:
+        var(--main-color-dark);
+
+}
+
+
+/* =========================================
+   LOGIN / REGISTER SWITCH
+   ========================================= */
+
+.join-switch {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-top: 40px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+
+.join-switch button {
+
+    border: none;
+
+    background: none;
+
+    color:
+        var(--main-color);
+
+    font-family:
+        inherit;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    text-decoration:
+        underline;
+
+}
+
+/* =========================================
+   MOBILE HEADER
+   ========================================= */
+
+@media (max-width: 1000px) {
+
+    .site-header {
+
+        height: 70px;
+
+    }
+
+
+    .header-inner {
+
+        padding:
+            0 20px;
+
+    }
+
+
+    .site-logo {
+
+        width: 38px;
+        height: 38px;
+
+    }
+
+
+    .site-title {
+
+        font-size: 11px;
+
+    }
+
+
+    .menu-button {
+
+        display: block;
+
+        margin-left: auto;
+
+    }
+
+
+    .main-nav {
+
+        position: absolute;
+
+        top: 70px;
+
+        left: 0;
+
+        width: 100%;
+
+        display: none;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        margin: 0;
+
+        padding:
+            15px 20px 25px;
+
+        background:
+            white;
+
+        border-bottom:
+            1px solid var(--line);
+
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.08);
+
+    }
+
+
+    .main-nav.mobile-open {
+
+        display: flex;
+
+    }
+
+
+    .main-nav a {
+
+        width: 100%;
+
+        height: auto;
+
+        padding:
+            16px 10px;
+
+        font-size: 13px;
+
+    }
+
+
+    .main-nav a::after {
+
+        display: none;
+
+    }
+
+
+    .main-nav .header-join {
+
+        justify-content: center;
+
+        margin:
+            10px 0 0;
+
+        height: 45px;
+
+    }
+
+}
+
+/* =========================================
+   MFDCO FOOTER
+   ========================================= */
+
+.site-footer {
+
+    background: #0f1814;
+
+    color: #FFFFFF;
+
+    border-top: 1px solid #d9d9d9;
+
+}
+
+
+
+/* =========================================
+   FOOTER MAIN
+   ========================================= */
+
+.footer-inner {
+
+    width: min(
+        1400px,
+        calc(100% - 80px)
+    );
+
+    margin: 0 auto;
+
+    display: grid;
+
+    /*
+     * 左：1
+     * SITE：1
+     * JOIN：1
+     * CONTACT：1
+     *
+     * 左側を実質約1/3、
+     * 右側を約2/3にする
+     */
+    grid-template-columns:
+        1.0fr
+        0.5fr
+        0.5fr
+        0.5fr;
+
+    grid-template-areas:
+        "brand site join contact";
+
+    gap: 50px;
+
+    padding: 80px 0 90px;
+
+}
+
+
+/* =========================================
+   BRAND
+   ========================================= */
+
+.footer-brand {
+
+    min-width: 0;
+
+    padding-right: 20px;
+
+    border-right: 1px solid #d9d9d9;
+
+}
+
+
+
+/* LOGO */
+
+.footer-logo-link {
+
+    display: inline-block;
+
+    text-decoration: none;
+
+    margin-bottom: 1px;
+
+}
+
+
+
+.footer-logo {
+
+    display: block;
+
+    width: 300px;
+
+    height: 300px;
+
+    object-fit: contain;
+
+}
+
+
+
+/* ORGANIZATION NAME */
+
+.footer-organization-name {
+
+    margin: 0;
+
+    color: #FFFFFF;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    line-height: 1.5;
+
+    letter-spacing: 0.04em;
+
+}
+
+
+
+/* ENGLISH NAME */
+
+.footer-organization-name-en {
+
+    margin: 10px 0 0;
+
+    color: #666666;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    line-height: 1.8;
+
+    letter-spacing: 0.08em;
+
+}
+
+
+
+/* =========================================
+   RIGHT INFORMATION AREA
+   ========================================= */
+
+.footer-inner {
+
+    /*
+     * 右側を3カラムにする
+     */
+    grid-template-areas:
+        "brand site join contact";
+}
+
+
+
+/*
+ * ただしbrandを左側に置くため、
+ * 実際のレイアウトを明示
+ */
+
+.footer-brand {
+
+    grid-area: brand;
+
+}
+
+
+
+/* =========================================
+   FOOTER COLUMNS
+   ========================================= */
+
+.footer-column {
+
+    min-width: 0;
+
+}
+
+
+
+/* SITE */
+
+.footer-column:nth-child(2) {
+
+    grid-area: site;
+
+}
+
+
+/* JOIN */
+
+.footer-column:nth-child(3) {
+
+    grid-area: join;
+
+}
+
+
+/* CONTACT */
+
+.footer-column:nth-child(4) {
+
+    grid-area: contact;
+
+}
+
+
+
+/* =========================================
+   HEADING
+   ========================================= */
+
+.footer-heading {
+
+    margin: 0 0 24px;
+
+    color: #5ba09b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+
+}
+
+
+
+/* =========================================
+   FOOTER LINKS
+   ========================================= */
+
+.footer-links {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 13px;
+
+}
+
+
+
+.footer-links a {
+
+    color: #FFFFFF;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+
+.footer-links a:hover {
+
+    color: #173f3c;
+
+    transform: translateX(4px);
+
+}
+
+
+
+/* =========================================
+   CONTACT
+   ========================================= */
+
+.footer-contact {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+
+}
+
+
+
+.footer-contact-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    text-decoration: none;
+
+}
+
+
+
+.footer-contact-label {
+
+    color: #5ba09b;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+
+}
+
+
+
+.footer-contact-value {
+
+    color: #FFFFFF;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    transition: color 0.2s ease;
+
+}
+
+
+
+.footer-contact-item:hover
+.footer-contact-value {
+
+    color: #173f3c;
+
+}
+
+
+
+/* =========================================
+   FOOTER BOTTOM
+   ========================================= */
+
+.footer-bottom {
+
+    border-top: 1px solid #d9d9d9;
+
+}
+
+
+
+.footer-bottom-inner {
+
+    width: min(
+        1400px,
+        calc(100% - 80px)
+    );
+
+    min-height: 70px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+}
+
+
+
+/* =========================================
+   LEGAL LINKS
+   ========================================= */
+
+.footer-legal {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+}
+
+
+
+.footer-legal a {
+
+    color: #666666;
+
+    font-size: 11px;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+
+}
+
+
+
+.footer-legal a:hover {
+
+    color: #173f3c;
+
+}
+
+
+
+.footer-legal span {
+
+    color: #cccccc;
+
+    font-size: 11px;
+
+}
+
+
+
+
+
+/* -----------------------------------------
+   VIDEO
+----------------------------------------- */
+
+.about-video {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    background: #050505;
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.08
+    );
+}
+
+
+.about-video video {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* -----------------------------------------
+   VIDEO CAPTION
+----------------------------------------- */
+
+.about-video-caption {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 40px;
+
+    margin-top: 20px;
+
+    padding-bottom: 10px;
+}
+
+
+.about-video-caption p {
+    margin: 0;
+
+    color: rgba(
+        255,
+        255,
+        255,
+        0.65
+    );
+
+    line-height: 1.8;
+}
+
+
+.about-video-caption .about-video-label {
+    flex-shrink: 0;
+
+    color: #fff;
+
+    font-size: 0.75rem;
+
+    letter-spacing: 0.18em;
+}
+
+
+
+
+/* =========================================
+   COPYRIGHT
+   ========================================= */
+
+.copyright {
+
+    margin: 0;
+
+    color: #888888;
+
+    font-size: 11px;
+
+    letter-spacing: 0.05em;
+
+    white-space: nowrap;
+
+}
+
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 900px) {
+
+
+    .footer-inner {
+
+        width: min(
+            100% - 48px,
+            700px
+        );
+
+        grid-template-columns: 1fr 1fr;
+
+        grid-template-areas:
+
+            "brand brand"
+
+            "site join"
+
+            "contact contact";
+
+        gap: 50px 40px;
+
+        padding: 60px 0;
+
+    }
+
+
+
+    .footer-brand {
+
+        padding-right: 0;
+
+        padding-bottom: 45px;
+
+        border-right: none;
+
+        border-bottom: 1px solid #d9d9d9;
+
+    }
+
+
+
+    .footer-logo {
+
+        width: 120px;
+
+        height: 120px;
+
+    }
+
+
+
+    .footer-bottom-inner {
+
+        width: min(
+            100% - 48px,
+            700px
+        );
+
+        padding: 20px 0;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+
+    }
+
+}
+
+
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+
+    .footer-inner {
+
+        width: calc(100% - 40px);
+
+        grid-template-columns: 1fr;
+
+        grid-template-areas:
+
+            "brand"
+
+            "site"
+
+            "join"
+
+            "contact";
+
+        gap: 42px;
+
+        padding: 50px 0;
+
+    }
+
+
+
+    .footer-brand {
+
+        padding-bottom: 35px;
+
+    }
+
+
+
+    .footer-logo {
+
+        width: 100px;
+
+        height: 100px;
+
+        margin-bottom: 20px;
+
+    }
+
+
+
+    .footer-organization-name {
+
+        font-size: 17px;
+
+    }
+
+
+
+    .footer-organization-name-en {
+
+        font-size: 9px;
+
+    }
+
+
+
+    .footer-heading {
+
+        margin-bottom: 18px;
+
+    }
+
+
+
+    .footer-links {
+
+        gap: 11px;
+
+    }
+
+
+
+    .footer-contact {
+
+        gap: 20px;
+
+    }
+
+
+
+    .footer-bottom-inner {
+
+        width: calc(100% - 40px);
+
+    }
+
+
+
+    .footer-legal {
+
+        gap: 8px;
+
+    }
+
+}
+
+/* =========================================
+   JOIN COMPLETE
+   ========================================= */
+
+.join-complete-page {
+    min-height: 70vh;
+}
+
+.join-complete-section {
+    padding: 140px 6%;
+}
+
+.join-complete-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.join-complete-container h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    margin: 20px 0 30px;
+}
+
+.join-complete-line {
+    width: 60px;
+    height: 3px;
+    background: var(--main-color, #174d4d);
+    margin: 0 auto 40px;
+}
+
+.join-complete-message {
+    line-height: 2;
+    color: #555;
+}
+
+
+/* =========================================
+   DISCORD BOX
+   ========================================= */
+
+.discord-box {
+    margin: 70px auto;
+    padding: 50px;
+    background: #f4f6f6;
+    border-left: 4px solid var(--main-color, #174d4d);
+}
+
+.discord-box h2 {
+    margin: 10px 0 20px;
+}
+
+.discord-box p {
+    color: #555;
+    line-height: 1.8;
+}
+
+.discord-box .join-large-button {
+    margin-top: 25px;
+}
+
+
+/* =========================================
+   MY PAGE
+   ========================================= */
+
+.mypage {
+    padding-top: 100px;
+}
+
+.mypage-header {
+    background: #f4f6f6;
+    padding: 100px 6%;
+}
+
+.mypage-header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.mypage-icon-wrapper {
+    flex-shrink: 0;
+}
+
+.mypage-icon {
+    width: 180px;
+    height: 180px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    background: #ddd;
+}
+
+.mypage-basic h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    margin: 10px 0;
+}
+
+.mypage-country {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   MEMBER STATUS
+   ========================================= */
+
+.member-status {
+    display: inline-block;
+
+    padding: 8px 18px;
+
+    background: var(--main-color, #174d4d);
+    color: white;
+
+    font-size: 13px;
+    letter-spacing: .08em;
+}
+
+.member-status[data-status="pending"] {
+    background: #777;
+}
+
+.member-status[data-status="active"] {
+    background: var(--main-color, #174d4d);
+}
+
+.member-status[data-status="suspended"] {
+    background: #8a6d3b;
+}
+
+.member-status[data-status="withdrawn"] {
+    background: #8b3a3a;
+}
+
+
+/* =========================================
+   PROFILE DETAIL
+   ========================================= */
+
+.profile-detail {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.profile-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+
+    padding: 25px 0;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-label {
+    font-weight: 600;
+    color: #555;
+}
+
+.profile-value {
+    color: #222;
+}
+
+.profile-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.profile-tag {
+    display: inline-block;
+
+    padding: 7px 13px;
+
+    background: #eef2f2;
+
+    color: var(--main-color, #174d4d);
+
+    font-size: 13px;
+}
+
+.profile-bio {
+    padding-top: 45px;
+}
+
+.profile-bio h3 {
+    margin-bottom: 20px;
+}
+
+.profile-bio p {
+    line-height: 2;
+    white-space: pre-wrap;
+    color: #555;
+}
+
+
+/* =========================================
+   MY PAGE ACTIONS
+   ========================================= */
+
+.mypage-actions {
+    max-width: 1000px;
+
+    margin: 0 auto;
+
+    padding: 30px 6% 120px;
+
+    display: flex;
+
+    gap: 20px;
+
+    align-items: center;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .join-complete-section {
+        padding: 100px 6%;
+    }
+
+    .discord-box {
+        padding: 30px 20px;
+    }
+
+    .mypage-header {
+        padding: 70px 6%;
+    }
+
+    .mypage-header-inner {
+        flex-direction: column;
+
+        text-align: center;
+
+        gap: 30px;
+    }
+
+    .mypage-icon {
+        width: 140px;
+        height: 140px;
+    }
+
+    .profile-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .mypage-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+}
+
+
+/* =========================================
+   MFDCO MY PAGE
+   ========================================= */
+
+.mypage {
+    min-height: 100vh;
+    background: #f4f5f7;
+}
+
+
+.mypage-section {
+    padding: 160px 0 100px;
+}
+
+
+.mypage-container {
+    width: min(1100px, calc(100% - 40px));
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   PAGE HEADER
+   ========================================= */
+
+.mypage-header {
+    margin-bottom: 60px;
+}
+
+
+.mypage-header h1 {
+    margin: 10px 0 20px;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: .04em;
+}
+
+
+.mypage-lead {
+    color: #666;
+}
+
+
+/* =========================================
+   MESSAGE
+   ========================================= */
+
+.mypage-message {
+    padding: 60px 30px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+
+.mypage-message p {
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   PROFILE CARD
+   ========================================= */
+
+.profile-card {
+    background: #111;
+    color: #fff;
+    padding: 45px;
+    margin-bottom: 50px;
+}
+
+
+.profile-main {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+
+.profile-icon-wrap {
+    width: 150px;
+    height: 150px;
+    flex: 0 0 150px;
+    background: #252525;
+    overflow: hidden;
+}
+
+
+.profile-icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.profile-basic {
+    min-width: 0;
+}
+
+
+.profile-label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    letter-spacing: .18em;
+    color: #999;
+}
+
+
+.profile-basic h2 {
+    margin: 0;
+    font-size: clamp(30px, 5vw, 48px);
+    line-height: 1.2;
+}
+
+
+.profile-country {
+    margin: 12px 0 0;
+    color: #aaa;
+}
+
+
+.profile-status {
+    display: flex;
+    gap: 50px;
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px solid #333;
+}
+
+
+.status-item {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+
+.status-item span {
+    font-size: 10px;
+    letter-spacing: .15em;
+    color: #888;
+}
+
+
+.status-item strong {
+    font-size: 14px;
+    letter-spacing: .08em;
+}
+
+
+/* =========================================
+   PROFILE SECTION
+   ========================================= */
+
+.profile-section {
+    padding: 45px;
+    margin-bottom: 25px;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+
+.profile-section-header {
+    margin-bottom: 30px;
+}
+
+
+.profile-section-header h2 {
+    margin: 8px 0 0;
+    font-size: 28px;
+}
+
+
+/* =========================================
+   COUNTRY
+   ========================================= */
+
+.country-card {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+
+.country-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+
+.country-name {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   TAGS
+   ========================================= */
+
+.profile-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+.profile-tag {
+    display: inline-flex;
+    padding: 8px 14px;
+    background: #f0f1f3;
+    border: 1px solid #ddd;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   CREDIT
+   ========================================= */
+
+.profile-credit {
+    line-height: 1.8;
+}
+
+
+.profile-credit p {
+    margin: 0 0 10px;
+    color: #777;
+}
+
+
+.credit-custom-text {
+    padding: 20px;
+    background: #f5f5f5;
+    border-left: 3px solid #111;
+    white-space: pre-wrap;
+}
+
+
+/* =========================================
+   BIO
+   ========================================= */
+
+.profile-bio {
+    line-height: 2;
+    white-space: pre-wrap;
+}
+
+
+/* =========================================
+   ACCOUNT
+   ========================================= */
+
+.account-info {
+    border-top: 1px solid #ddd;
+}
+
+
+.account-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 18px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.account-row span {
+    color: #777;
+}
+
+
+.account-row strong {
+    font-weight: 500;
+    word-break: break-all;
+    text-align: right;
+}
+
+
+/* =========================================
+   ACTIONS
+   ========================================= */
+
+.mypage-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    margin-top: 35px;
+}
+
+
+.logout-button {
+    padding: 14px 24px;
+    border: 1px solid #bbb;
+    background: transparent;
+    color: #555;
+    cursor: pointer;
+    transition: .2s;
+}
+
+
+.logout-button:hover {
+    background: #111;
+    border-color: #111;
+    color: #fff;
+}
+
+
+.mypage-actions .outline-button {
+    text-decoration: none;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (
+    max-width: 700px
+) {
+
+    .mypage-section {
+        padding: 120px 0 70px;
+    }
+
+
+    .mypage-container {
+        width: min(
+            100% - 24px,
+            1100px
+        );
+    }
+
+
+    .profile-card {
+        padding: 25px;
+    }
+
+
+    .profile-main {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+
+    .profile-icon-wrap {
+        width: 110px;
+        height: 110px;
+        flex-basis: 110px;
+    }
+
+
+    .profile-status {
+        gap: 30px;
+    }
+
+
+    .profile-section {
+        padding: 25px;
+    }
+
+
+    .account-row {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+
+    .account-row strong {
+        text-align: left;
+    }
+
+
+    .mypage-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+
+    .mypage-actions .outline-button,
+    .logout-button {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+/* =========================================
+   HEADER MEMBER
+   ========================================= */
+
+.header-member-profile {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    text-decoration: none;
+
+}
+
+
+.header-member-icon {
+
+    width: 36px;
+
+    height: 36px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    display: block;
+
+    flex-shrink: 0;
+
+}
+
+
+.header-member-name {
+
+    max-width: 160px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+.header-loading {
+
+    opacity: 0.7;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .header-member-profile {
+
+        width: 100%;
+
+        justify-content: flex-start;
+
+    }
+
+
+    .header-member-name {
+
+        max-width: 220px;
+
+    }
+
+}
+
+/* =========================================
+   HEADER MEMBER PROFILE
+========================================= */
+
+.main-nav .header-member-profile {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    height: 42px;
+    margin-left: 10px;
+    padding: 0 14px;
+
+    background: var(--main-color);
+    color: #fff;
+}
+
+.main-nav .header-member-profile:hover {
+    background: var(--main-color-dark);
+    color: #fff;
+}
+
+.header-member-icon {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+    object-fit: cover;
+
+    flex-shrink: 0;
+}
+
+.header-member-name {
+    max-width: 160px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 12px;
+}
+
+@media (max-width: 900px) {
+
+    .main-nav .header-member-profile {
+        width: 100%;
+        height: 50px;
+
+        margin: 10px 0 0;
+        padding: 8px 12px;
+
+        justify-content: flex-start;
+    }
+
+    .main-nav .header-member-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .main-nav .header-member-name {
+        max-width: none;
+    }
+}
+
+/* =========================================
+   HEADER MEMBER PROFILE
+   ========================================= */
+
+.main-nav .header-member-profile {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    height: 42px;
+
+    margin-left: 10px;
+
+    padding: 0 14px;
+
+    background: transparent;
+
+    color: var(--text);
+
+}
+
+
+.main-nav .header-member-profile:hover {
+
+    background: #f3f5f5;
+
+    color: var(--main-color);
+
+}
+
+
+.main-nav .header-member-profile::after {
+
+    display: none;
+
+}
+
+
+.header-member-icon {
+
+    width: 34px;
+
+    height: 34px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    flex-shrink: 0;
+
+    background: #ddd;
+
+}
+
+
+.header-member-name {
+
+    max-width: 150px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+}
+
+/* =========================================
+   MFDCO PROFILE EDIT
+   ========================================= */
+
+.profile-edit {
+    min-height: 100vh;
+    background: #f4f5f7;
+}
+
+
+/* =========================================
+   PROFILE EDIT SECTION
+   ========================================= */
+
+.profile-edit-section {
+    padding: 150px 0 100px;
+}
+
+.profile-edit-container {
+    width: min(900px, calc(100% - 40px));
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   PAGE HEADER
+   ========================================= */
+
+.profile-edit-header {
+    margin-bottom: 55px;
+}
+
+.profile-edit-header h1 {
+    margin: 10px 0 15px;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    letter-spacing: .04em;
+    line-height: 1.3;
+}
+
+.profile-edit-lead {
+    color: #666;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   MESSAGE
+   ========================================= */
+
+.profile-edit .mypage-message {
+    margin-bottom: 30px;
+}
+
+.profile-edit .mypage-message p {
+    margin: 0;
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.profile-edit-form {
+    width: 100%;
+}
+
+
+/* =========================================
+   EDIT CARD
+   ========================================= */
+
+.profile-edit-card {
+    margin-bottom: 25px;
+    padding: 45px;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+
+/* =========================================
+   SECTION HEADER
+   ========================================= */
+
+.profile-edit-card .profile-section-header {
+    margin-bottom: 35px;
+}
+
+.profile-edit-card .profile-section-header h2 {
+    margin: 8px 0 0;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: .03em;
+}
+
+
+/* =========================================
+   FORM GROUP
+   ========================================= */
+
+.profile-edit .form-group {
+    margin-bottom: 30px;
+}
+
+.profile-edit .form-group:last-child {
+    margin-bottom: 0;
+}
+
+.profile-edit .form-group label {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #222;
+}
+
+
+/* =========================================
+   INPUT / SELECT / TEXTAREA
+   ========================================= */
+
+.profile-edit .form-group input[type="text"],
+.profile-edit .form-group input[type="email"],
+.profile-edit .form-group input[type="password"],
+.profile-edit .form-group input[type="file"],
+.profile-edit .form-group textarea,
+.profile-edit .form-group select {
+    width: 100%;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+
+/* TEXT INPUT */
+
+.profile-edit .form-group input[type="text"],
+.profile-edit .form-group input[type="email"],
+.profile-edit .form-group input[type="password"],
+.profile-edit .form-group select {
+    height: 50px;
+    padding: 0 15px;
+    border: 1px solid #d8d8d8;
+    border-radius: 0;
+    background: #fff;
+    color: #111;
+    outline: none;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+
+/* TEXTAREA */
+
+.profile-edit .form-group textarea {
+    display: block;
+    min-height: 180px;
+    padding: 14px 15px;
+    border: 1px solid #d8d8d8;
+    border-radius: 0;
+    background: #fff;
+    color: #111;
+    line-height: 1.8;
+    resize: vertical;
+    outline: none;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+
+/* FOCUS */
+
+.profile-edit .form-group input[type="text"]:focus,
+.profile-edit .form-group input[type="email"]:focus,
+.profile-edit .form-group input[type="password"]:focus,
+.profile-edit .form-group select:focus,
+.profile-edit .form-group textarea:focus {
+    border-color: var(--main-color);
+    box-shadow:
+        0 0 0 2px rgba(22, 75, 75, .08);
+}
+
+
+/* =========================================
+   FILE INPUT
+   ========================================= */
+
+.profile-edit .form-group input[type="file"] {
+    display: block;
+    padding: 12px 14px;
+    border: 1px solid #d8d8d8;
+    background: #fafafa;
+    color: #555;
+    cursor: pointer;
+}
+
+.profile-edit .form-group input[type="file"]:hover {
+    border-color: var(--main-color);
+}
+
+
+/* =========================================
+   FORM HELP
+   ========================================= */
+
+.form-help {
+    margin-top: 8px;
+    color: #777;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   ICON PREVIEW
+   ========================================= */
+
+.profile-edit-icon-preview {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+}
+
+.form-preview-label {
+    margin-bottom: 15px;
+    color: var(--main-color);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .18em;
+}
+
+.profile-edit-icon {
+    display: block;
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+    background: #eee;
+    border: 1px solid #ddd;
+}
+
+
+/* =========================================
+   FLAG PREVIEW
+   ========================================= */
+
+.profile-edit-flag-preview {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+}
+
+.profile-edit-flag {
+    display: block;
+    width: 220px;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    background: #eee;
+}
+
+
+/* =========================================
+   SELECT
+   ========================================= */
+
+.profile-edit .form-group select {
+    appearance: none;
+    cursor: pointer;
+
+    background-image:
+        linear-gradient(
+            45deg,
+            transparent 50%,
+            #777 50%
+        ),
+        linear-gradient(
+            135deg,
+            #777 50%,
+            transparent 50%
+        );
+
+    background-position:
+        calc(100% - 19px) 50%,
+        calc(100% - 13px) 50%;
+
+    background-size:
+        6px 6px,
+        6px 6px;
+
+    background-repeat: no-repeat;
+}
+
+
+/* =========================================
+   ACCOUNT
+   ========================================= */
+
+.profile-edit .account-info {
+    border-top: 1px solid #ddd;
+}
+
+.profile-edit .account-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    min-height: 60px;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-edit .account-row span {
+    color: #777;
+    font-size: 12px;
+}
+
+.profile-edit .account-row strong {
+    color: #222;
+    font-size: 13px;
+    font-weight: 500;
+    word-break: break-all;
+    text-align: right;
+}
+
+
+/* =========================================
+   ACTIONS
+   ========================================= */
+
+.profile-edit-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 35px;
+}
+
+
+/* CANCEL */
+
+.profile-edit-actions .outline-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 130px;
+    min-height: 50px;
+    padding: 13px 24px;
+    border: 1px solid #bbb;
+    background: #fff;
+    color: #555;
+    font-size: 12px;
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        color .2s ease;
+}
+
+.profile-edit-actions .outline-button:hover {
+    background: #111;
+    border-color: #111;
+    color: #fff;
+}
+
+
+/* SAVE */
+
+.profile-edit-actions .join-large-button {
+    min-height: 50px;
+    margin-top: 0;
+    padding: 13px 28px;
+    border: 1px solid var(--main-color);
+    background: var(--main-color);
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition:
+        background .25s ease,
+        border-color .25s ease;
+}
+
+.profile-edit-actions .join-large-button:hover {
+    background: var(--main-color-dark);
+    border-color: var(--main-color-dark);
+}
+
+
+/* =========================================
+   DISABLED
+   ========================================= */
+
+.profile-edit-actions button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   SUCCESS / ERROR
+   ========================================= */
+
+#profile-edit-success {
+    border-left: 3px solid var(--main-color);
+    background: #eef5f4;
+    color: var(--main-color);
+}
+
+#profile-edit-error {
+    border-left: 3px solid #b00020;
+    background: #faf0f0;
+    color: #b00020;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .profile-edit-section {
+        padding: 120px 0 70px;
+    }
+
+    .profile-edit-container {
+        width: calc(100% - 24px);
+    }
+
+    .profile-edit-header {
+        margin-bottom: 40px;
+    }
+
+    .profile-edit-header h1 {
+        font-size: 34px;
+    }
+
+    .profile-edit-lead {
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .profile-edit-card {
+        margin-bottom: 18px;
+        padding: 28px 22px;
+    }
+
+    .profile-edit-card .profile-section-header {
+        margin-bottom: 28px;
+    }
+
+    .profile-edit-card .profile-section-header h2 {
+        font-size: 21px;
+    }
+
+    .profile-edit .form-group {
+        margin-bottom: 25px;
+    }
+
+    .profile-edit .form-group input[type="text"],
+    .profile-edit .form-group input[type="email"],
+    .profile-edit .form-group input[type="password"],
+    .profile-edit .form-group select {
+        height: 48px;
+    }
+
+    .profile-edit-icon {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-edit-flag {
+        width: 180px;
+    }
+
+    .profile-edit .account-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 16px 0;
+    }
+
+    .profile-edit .account-row strong {
+        text-align: left;
+    }
+
+    .profile-edit-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .profile-edit-actions .outline-button,
+    .profile-edit-actions .join-large-button {
+        width: 100%;
+        min-height: 50px;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 400px) {
+
+    .profile-edit-card {
+        padding: 25px 18px;
+    }
+
+    .profile-edit-header h1 {
+        font-size: 30px;
+    }
+
+    .profile-edit-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-edit-flag {
+        width: 160px;
+    }
+}
+
+/* =========================
+   ヘッダー
+========================= */
+
+.site-header {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+
+    width: 100%;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 40px;
+    box-sizing: border-box;
+
+    background: #ffffff;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    display: block;
+
+    width: 42px;
+    height: 42px;
+
+    object-fit: contain;
+}
+
+.site-title {
+    color: #111111;
+    text-decoration: none;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 18px;
+
+    color: #111111;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    border-radius: 6px;
+}
+
+.header-nav a:hover {
+    background: #f2f2f2;
+}
+
+.header-nav a.active {
+    background: #173f3b;
+    color: #ffffff;
+}

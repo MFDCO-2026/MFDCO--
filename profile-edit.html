@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>MFDCO | プロフィール編集</title>
+
+    <meta
+        name="description"
+        content="MFDCOメンバーのプロフィール編集ページ"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         COMMON HEADER
+    ========================================== -->
+
+    <div id="header-container"></div>
+
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="profile-edit">
+
+        <section class="profile-edit-section">
+
+            <div class="profile-edit-container">
+
+
+                <!-- =================================
+                     PAGE HEADER
+                ================================== -->
+
+                <div class="profile-edit-header">
+
+                    <p class="section-label">
+                        MFDCO MEMBER
+                    </p>
+
+                    <h1>
+                        プロフィール編集
+                    </h1>
+
+                    <p class="profile-edit-lead">
+                        MFDCOで表示されるプロフィール情報を編集できます。
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================
+                     LOADING
+                ================================== -->
+
+                <div
+                    id="profile-edit-loading"
+                    class="mypage-message"
+                >
+
+                    <p>
+                        プロフィールを読み込んでいます...
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================
+                     ERROR
+                ================================== -->
+
+                <div
+                    id="profile-edit-error"
+                    class="mypage-message"
+                    hidden
+                >
+
+                    <p id="profile-edit-error-text">
+                        プロフィールを読み込めませんでした。
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================
+                     SUCCESS
+                ================================== -->
+
+                <div
+                    id="profile-edit-success"
+                    class="mypage-message"
+                    hidden
+                >
+
+                    <p>
+                        プロフィールを保存しました。
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================
+                     FORM
+                ================================== -->
+
+                <form
+                    id="profile-edit-form"
+                    class="profile-edit-form"
+                    hidden
+                >
+
+
+                    <!-- =================================
+                         BASIC INFORMATION
+                    ================================== -->
+
+                    <section class="profile-edit-card">
+
+                        <div class="profile-section-header">
+
+                            <p class="section-label">
+                                BASIC INFORMATION
+                            </p>
+
+                            <h2>
+                                基本情報
+                            </h2>
+
+                        </div>
+
+
+
+                        <!-- ACTIVITY NAME -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="activity-name"
+                            >
+                                活動名
+                            </label>
+
+                            <input
+                                id="activity-name"
+                                name="activity_name"
+                                type="text"
+                                maxlength="100"
+                                placeholder="活動名を入力してください"
+                                required
+                            >
+
+                            <p class="form-help">
+                                MFDCO内で表示される活動名です。
+                            </p>
+
+                        </div>
+
+
+
+                       <!-- ICON UPLOAD -->
+
+<div class="form-group">
+
+    <label for="icon-file">
+        アイコン画像
+    </label>
+
+    <input
+        id="icon-file"
+        name="icon_file"
+        type="file"
+        accept="image/png,image/jpeg,image/webp"
+    >
+
+    <p class="form-help">
+        PNG・JPEG・WebPに対応しています。
+        最大5MBまでアップロードできます。
+    </p>
+
+</div>
+
+
+<!-- ICON PREVIEW -->
+
+<div class="profile-edit-icon-preview">
+
+    <p class="form-preview-label">
+        ICON PREVIEW
+    </p>
+
+    <img
+        id="icon-preview"
+        src="assets/default-icon.png"
+        alt=""
+        class="profile-edit-icon"
+    >
+
+</div>
+                    </section>
+
+
+
+                    <!-- =================================
+                         COUNTRY
+                    ================================== -->
+
+                    <section class="profile-edit-card">
+
+                        <div class="profile-section-header">
+
+                            <p class="section-label">
+                                FICTIONAL COUNTRY
+                            </p>
+
+                            <h2>
+                                架空国家
+                            </h2>
+
+                        </div>
+
+
+
+                        <!-- COUNTRY -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="fictional-country"
+                            >
+                                架空国家名
+                            </label>
+
+                            <input
+                                id="fictional-country"
+                                name="fictional_country"
+                                type="text"
+                                maxlength="100"
+                                placeholder="例：MFDCO共和国"
+                            >
+
+                        </div>
+
+
+
+                        <!-- FLAG UPLOAD -->
+
+<div class="form-group">
+
+    <label for="flag-file">
+        国旗画像
+    </label>
+
+    <input
+        id="flag-file"
+        name="flag_file"
+        type="file"
+        accept="image/png,image/jpeg,image/webp"
+    >
+
+    <p class="form-help">
+        PNG・JPEG・WebPに対応しています。
+        最大5MBまでアップロードできます。
+    </p>
+
+</div>
+
+
+<!-- FLAG PREVIEW -->
+
+<div
+    id="flag-preview-wrap"
+    class="profile-edit-flag-preview"
+    hidden
+>
+
+    <p class="form-preview-label">
+        FLAG PREVIEW
+    </p>
+
+    <img
+        id="flag-preview"
+        src=""
+        alt=""
+        class="profile-edit-flag"
+    >
+
+</div>
+                    </section>
+
+
+
+                    <!-- =================================
+                         CREDIT
+                    ================================== -->
+
+                    <section class="profile-edit-card">
+
+                        <div class="profile-section-header">
+
+                            <p class="section-label">
+                                CREDIT
+                            </p>
+
+                            <h2>
+                                クレジット表記
+                            </h2>
+
+                        </div>
+
+
+
+                        <!-- CREDIT TYPE -->
+
+                        <div class="form-group">
+
+                            <label
+                                for="credit-type"
+                            >
+                                クレジット設定
+                            </label>
+
+                            <select
+                                id="credit-type"
+                                name="credit_type"
+                            >
+
+                                <option value="none">
+                                    不要
+                                </option>
+
+                                <option value="optional">
+                                    任意
+                                </option>
+
+                                <option value="custom">
+                                    指定あり
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- CREDIT TEXT -->
+
+                        <div
+                            id="credit-text-group"
+                            class="form-group"
+                        >
+
+                            <label
+                                for="credit-text"
+                            >
+                                クレジット表記
+                            </label>
+
+                            <input
+                                id="credit-text"
+                                name="credit_text"
+                                type="text"
+                                maxlength="300"
+                                placeholder="例：MFDCO / ○○"
+                            >
+
+                            <p class="form-help">
+                                「指定あり」の場合に使用されます。
+                            </p>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================
+                         TAGS
+                    ================================== -->
+
+                    <section class="profile-edit-card">
+
+                        <div class="profile-section-header">
+
+                            <p class="section-label">
+                                TAGS
+                            </p>
+
+                            <h2>
+                                活動タグ
+                            </h2>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label
+                                for="tags"
+                            >
+                                タグ
+                            </label>
+
+                            <input
+                                id="tags"
+                                name="tags"
+                                type="text"
+                                maxlength="500"
+                                placeholder="例：軍事部,映像制作,建築"
+                            >
+
+                            <p class="form-help">
+                                カンマ「,」で区切って入力してください。
+                            </p>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================
+                         BIO
+                    ================================== -->
+
+                    <section class="profile-edit-card">
+
+                        <div class="profile-section-header">
+
+                            <p class="section-label">
+                                PROFILE
+                            </p>
+
+                            <h2>
+                                自由記述
+                            </h2>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label
+                                for="bio"
+                            >
+                                プロフィール
+                            </label>
+
+                            <textarea
+                                id="bio"
+                                name="bio"
+                                rows="8"
+                                maxlength="2000"
+                                placeholder="活動内容や自己紹介などを入力してください。"
+                            ></textarea>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================
+                         ACCOUNT
+                    ================================== -->
+
+                    <section class="profile-edit-card">
+
+                        <div class="profile-section-header">
+
+                            <p class="section-label">
+                                ACCOUNT
+                            </p>
+
+                            <h2>
+                                アカウント
+                            </h2>
+
+                        </div>
+
+
+
+                        <div class="account-info">
+
+                            <div class="account-row">
+
+                                <span>
+                                    メールアドレス
+                                </span>
+
+                                <strong
+                                    id="account-email"
+                                >
+                                    -
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================
+                         ACTIONS
+                    ================================== -->
+
+                    <div class="profile-edit-actions">
+
+                        <a
+                            href="mypage.html"
+                            class="outline-button"
+                        >
+                            キャンセル
+                        </a>
+
+
+                        <button
+                            id="save-profile-button"
+                            type="submit"
+                            class="join-large-button"
+                        >
+                            プロフィールを保存
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <div id="footer-container"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+
+<script src="js/header.js"></script>
+<script src="js/main.js"></script>
+<script src="js/profile-edit.js"></script>
+
+    
+</body>
+
+</html>

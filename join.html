@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        参加・ログイン | MFDCO
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+<body>
+
+
+    <!-- =========================================
+         COMMON HEADER
+    ========================================== -->
+
+    <div id="header-container"></div>
+
+
+
+    <!-- =========================================
+         JOIN PAGE
+    ========================================== -->
+
+    <main>
+
+        <section class="join-page">
+
+            <div class="join-container">
+
+
+                <!-- =================================
+                     LOGIN
+                ================================== -->
+
+                <div
+                    id="login-panel"
+                    class="join-panel active"
+                >
+
+                    <p class="section-label">
+                        MFDCO MEMBER
+                    </p>
+
+                    <h1>
+                        ログイン
+                    </h1>
+
+
+                    <form id="login-form">
+
+                        <div class="form-group">
+
+                            <label for="login-email">
+                                メールアドレス
+                            </label>
+
+                            <input
+                                type="email"
+                                id="login-email"
+                                name="email"
+                                required
+                                autocomplete="email"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="login-password">
+                                パスワード
+                            </label>
+
+                            <input
+                                type="password"
+                                id="login-password"
+                                name="password"
+                                required
+                                autocomplete="current-password"
+                            >
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="join-submit"
+                        >
+                            ログイン
+                        </button>
+
+                    </form>
+
+
+                    <div class="join-switch">
+
+                        <span>
+                            MFDCOに新しく参加する
+                        </span>
+
+                        <button
+                            type="button"
+                            id="show-register"
+                        >
+                            新規参加
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================
+                     REGISTER
+                ================================== -->
+
+                <div
+                    id="register-panel"
+                    class="join-panel"
+                >
+
+                    <p class="section-label">
+                        JOIN MFDCO
+                    </p>
+
+                    <h1>
+                        MFDCOに参加する
+                    </h1>
+
+
+                    <form id="register-form">
+
+
+                        <!-- ACCOUNT -->
+
+                        <div class="form-section">
+
+                            <h2>
+                                アカウント
+                            </h2>
+
+
+                            <div class="form-group">
+
+                                <label for="email">
+                                    メールアドレス
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    required
+                                    autocomplete="email"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="password">
+                                    パスワード
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    required
+                                    minlength="8"
+                                    autocomplete="new-password"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="password-confirm">
+                                    パスワード確認
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="password-confirm"
+                                    name="password_confirm"
+                                    required
+                                    autocomplete="new-password"
+                                >
+
+                                <p
+                                    id="password-error"
+                                    class="form-error"
+                                ></p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- PROFILE -->
+
+                        <div class="form-section">
+
+                            <h2>
+                                プロフィール
+                            </h2>
+
+
+                            <div class="form-group">
+
+                                <label for="activity-name">
+                                    活動名
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="activity-name"
+                                    name="activity_name"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    アイコン
+                                    <span>*</span>
+                                </label>
+
+                                <div class="image-upload">
+
+                                    <input
+                                        type="file"
+                                        id="icon"
+                                        name="icon"
+                                        accept="image/*"
+                                        required
+                                    >
+
+                                    <img
+                                        id="icon-preview"
+                                        alt=""
+                                    >
+
+                                </div>
+
+                                <p class="form-note">
+                                    1:1の画像を推奨します。
+                                </p>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="fictional-country">
+                                    架空国名
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="fictional-country"
+                                    name="fictional_country"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    国旗
+                                </label>
+
+                                <div class="image-upload">
+
+                                    <input
+                                        type="file"
+                                        id="flag"
+                                        name="flag"
+                                        accept="image/*"
+                                    >
+
+                                    <img
+                                        id="flag-preview"
+                                        alt=""
+                                    >
+
+                                </div>
+
+                                <p class="form-note">
+                                    任意。1:1を推奨します。
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- CREDIT -->
+
+                        <div class="form-section">
+
+                            <h2>
+                                クレジット表記
+                            </h2>
+
+
+                            <div class="radio-list">
+
+                                <label>
+
+                                    <input
+                                        type="radio"
+                                        name="credit-type"
+                                        value="none"
+                                        required
+                                    >
+
+                                    不要
+
+                                </label>
+
+
+                                <label>
+
+                                    <input
+                                        type="radio"
+                                        name="credit-type"
+                                        value="optional"
+                                    >
+
+                                    任意
+
+                                </label>
+
+
+                                <label>
+
+                                    <input
+                                        type="radio"
+                                        name="credit-type"
+                                        value="custom"
+                                    >
+
+                                    指定する
+
+                                </label>
+
+                            </div>
+
+
+                            <textarea
+                                id="credit-text"
+                                name="credit_text"
+                                disabled
+                                placeholder="希望するクレジット表記"
+                            ></textarea>
+
+                        </div>
+
+
+
+                        <!-- TAGS -->
+
+                        <div class="form-section">
+
+                            <h2>
+                                タグ
+                            </h2>
+
+                            <p class="form-note">
+                                あなたの活動に当てはまるものを
+                                選択してください。
+                            </p>
+
+
+                            <div class="tag-list">
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="Youtuber"
+                                    >
+                                    Youtuber
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="BE"
+                                    >
+                                    BE
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="JE 1.7.10"
+                                    >
+                                    JE 1.7.10
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="JE 最新"
+                                    >
+                                    JE 最新
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="回路勢"
+                                    >
+                                    回路勢
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="造形勢"
+                                    >
+                                    造形勢
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="mod"
+                                    >
+                                    mod
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="陸軍"
+                                    >
+                                    陸軍
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="海軍"
+                                    >
+                                    海軍
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="空軍"
+                                    >
+                                    空軍
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="歩兵"
+                                    >
+                                    歩兵
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="現代・近未来"
+                                    >
+                                    現代・近未来
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="WW2"
+                                    >
+                                    WW2
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="WW1"
+                                    >
+                                    WW1
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="産業革命前"
+                                    >
+                                    産業革命前
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="超未来"
+                                    >
+                                    超未来
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="再現"
+                                    >
+                                    再現
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="架空兵器"
+                                    >
+                                    架空兵器
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="コラボ歓迎"
+                                    >
+                                    コラボ歓迎
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="交流歓迎"
+                                    >
+                                    交流歓迎
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="国家運営"
+                                    >
+                                    国家運営
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="同盟歓迎"
+                                    >
+                                    同盟歓迎
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="画像制作"
+                                    >
+                                    画像制作
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="動画制作"
+                                    >
+                                    動画制作
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="音楽制作"
+                                    >
+                                    音楽制作
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="Blender"
+                                    >
+                                    Blender
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="イラスト制作"
+                                    >
+                                    イラスト制作
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="tags"
+                                        value="プログラミング"
+                                    >
+                                    プログラミング
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- BIO -->
+
+                        <div class="form-section">
+
+                            <h2>
+                                自由記述
+                            </h2>
+
+                            <textarea
+                                name="bio"
+                                rows="6"
+                                placeholder="自己紹介やMFDCOでやりたいことなど"
+                            ></textarea>
+
+                        </div>
+
+
+
+                        <!-- AGREEMENT -->
+
+                        <div class="agreement">
+
+                            <label>
+
+                                <input
+                                    type="checkbox"
+                                    id="agreement"
+                                    name="agreement"
+                                    required
+                                >
+
+                                MFDCO利用規約に同意します。
+
+                            </label>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="join-submit"
+                        >
+                            MFDCOに参加する
+                        </button>
+
+
+                    </form>
+
+
+                    <div class="join-switch">
+
+                        <span>
+                            すでにアカウントをお持ちですか？
+                        </span>
+
+                        <button
+                            type="button"
+                            id="show-login"
+                        >
+                            ログイン
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase-config.js"></script>
+<script src="js/join.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+
+</html>
+

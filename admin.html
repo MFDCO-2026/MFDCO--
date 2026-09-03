@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>管理ダッシュボード | MFDCO</title>
+
+    <meta
+        name="description"
+        content="MFDCO管理者用ダッシュボード"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
+</head>
+
+
+<body>
+
+    <div id="header-container"></div>
+
+
+    <main class="admin-page">
+
+
+        <!-- =====================================
+             LOADING
+        ====================================== -->
+
+        <section
+            id="admin-loading"
+            class="admin-state-card"
+        >
+            管理者権限を確認しています...
+        </section>
+
+
+        <!-- =====================================
+             DENIED
+        ====================================== -->
+
+        <section
+            id="admin-denied"
+            class="admin-state-card admin-state-error"
+            hidden
+        >
+
+            <p class="admin-state-label">
+                ACCESS DENIED
+            </p>
+
+            <h1>
+                管理画面を表示できません
+            </h1>
+
+            <p>
+                管理者認証が必要です。
+            </p>
+
+            <a
+                href="admin-login.html"
+                class="admin-primary-link"
+            >
+                管理者認証へ
+            </a>
+
+        </section>
+
+
+        <!-- =====================================
+             CONTENT
+        ====================================== -->
+
+        <div
+            id="admin-content"
+            hidden
+        >
+
+
+            <!-- HERO -->
+
+            <section class="admin-hero">
+
+                <div>
+
+                    <p class="admin-eyebrow">
+                        MFDCO ADMINISTRATION
+                    </p>
+
+                    <h1>
+                        管理ダッシュボード
+                    </h1>
+
+                    <p class="admin-description">
+                        加盟申請、作品審査、通報対応、
+                        運営設定を管理します。
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="admin-lock-button"
+                    class="admin-lock-button"
+                >
+                    管理画面をロック
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================
+                 SUMMARY
+            ================================== -->
+
+            <section class="admin-summary-grid">
+
+
+                <article class="admin-summary-card">
+
+                    <span class="admin-summary-label">
+                        MEMBER APPLICATIONS
+                    </span>
+
+                    <strong
+                        id="member-pending-count"
+                        class="admin-summary-number"
+                    >
+                        -
+                    </strong>
+
+                    <span class="admin-summary-caption">
+                        加盟申請待ち
+                    </span>
+
+                </article>
+
+
+                <article class="admin-summary-card">
+
+                    <span class="admin-summary-label">
+                        WORK REVIEWS
+                    </span>
+
+                    <strong
+                        id="work-pending-count"
+                        class="admin-summary-number"
+                    >
+                        -
+                    </strong>
+
+                    <span class="admin-summary-caption">
+                        作品審査待ち
+                    </span>
+
+                </article>
+
+
+                <article class="admin-summary-card">
+
+                    <span class="admin-summary-label">
+                        REPORTS
+                    </span>
+
+                    <strong
+                        id="report-open-count"
+                        class="admin-summary-number"
+                    >
+                        -
+                    </strong>
+
+                    <span class="admin-summary-caption">
+                        未対応通報
+                    </span>
+
+                </article>
+
+
+                <article class="admin-summary-card">
+
+                    <span class="admin-summary-label">
+                        PUBLISHED WORKS
+                    </span>
+
+                    <strong
+                        id="approved-work-count"
+                        class="admin-summary-number"
+                    >
+                        -
+                    </strong>
+
+                    <span class="admin-summary-caption">
+                        公開作品
+                    </span>
+
+                </article>
+
+
+            </section>
+
+
+
+            <!-- =================================
+                 ADMIN MENU
+            ================================== -->
+
+            <section class="admin-menu-section">
+
+                <div class="admin-section-heading">
+
+                    <p>
+                        01
+                        <span>
+                            MODERATION
+                        </span>
+                    </p>
+
+                    <h2>
+                        審査・対応
+                    </h2>
+
+                </div>
+
+
+                <div class="admin-menu-grid">
+
+
+                    <a
+                        href="admin-members.html"
+                        class="admin-menu-card"
+                    >
+
+                        <span class="admin-menu-number">
+                            01
+                        </span>
+
+                        <div>
+
+                            <p class="admin-menu-label">
+                                MEMBER APPLICATIONS
+                            </p>
+
+                            <h3>
+                                加盟申請
+                            </h3>
+
+                            <p>
+                                新規加盟申請の確認、
+                                承認、却下を行います。
+                            </p>
+
+                        </div>
+
+                        <span class="admin-menu-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="admin-works.html"
+                        class="admin-menu-card"
+                    >
+
+                        <span class="admin-menu-number">
+                            02
+                        </span>
+
+                        <div>
+
+                            <p class="admin-menu-label">
+                                WORK REVIEWS
+                            </p>
+
+                            <h3>
+                                作品審査
+                            </h3>
+
+                            <p>
+                                投稿された作品の確認、
+                                公開、差し戻しを行います。
+                            </p>
+
+                        </div>
+
+                        <span class="admin-menu-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="admin-reports.html"
+                        class="admin-menu-card"
+                    >
+
+                        <span class="admin-menu-number">
+                            03
+                        </span>
+
+                        <div>
+
+                            <p class="admin-menu-label">
+                                REPORTS
+                            </p>
+
+                            <h3>
+                                通報対応
+                            </h3>
+
+                            <p>
+                                公開作品や加盟者への
+                                通報を確認します。
+                            </p>
+
+                        </div>
+
+                        <span class="admin-menu-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 MANAGEMENT
+            ================================== -->
+
+            <section class="admin-menu-section">
+
+                <div class="admin-section-heading">
+
+                    <p>
+                        02
+                        <span>
+                            MANAGEMENT
+                        </span>
+                    </p>
+
+                    <h2>
+                        管理
+                    </h2>
+
+                </div>
+
+
+                <div class="admin-menu-grid">
+
+
+                    <a
+                        href="admin-users.html"
+                        class="admin-menu-card"
+                    >
+
+                        <span class="admin-menu-number">
+                            04
+                        </span>
+
+                        <div>
+
+                            <p class="admin-menu-label">
+                                MEMBERS
+                            </p>
+
+                            <h3>
+                                加盟者管理
+                            </h3>
+
+                            <p>
+                                加盟者情報、
+                                公開状態などを管理します。
+                            </p>
+
+                        </div>
+
+                        <span class="admin-menu-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="admin-settings.html"
+                        class="admin-menu-card"
+                    >
+
+                        <span class="admin-menu-number">
+                            05
+                        </span>
+
+                        <div>
+
+                            <p class="admin-menu-label">
+                                SETTINGS
+                            </p>
+
+                            <h3>
+                                運営設定
+                            </h3>
+
+                            <p>
+                                事前審査方式と
+                                通報中心方式を切り替えます。
+                            </p>
+
+                        </div>
+
+                        <span class="admin-menu-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 OPERATION MODE
+            ================================== -->
+
+            <section class="admin-mode-panel">
+
+                <div>
+
+                    <p class="admin-mode-label">
+                        CURRENT OPERATION MODE
+                    </p>
+
+                    <h2 id="operation-mode-title">
+                        読み込み中...
+                    </h2>
+
+                    <p id="operation-mode-description">
+                        現在の運営方式を確認しています。
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="admin-settings.html"
+                    class="admin-mode-link"
+                >
+                    運営設定を開く
+                    <span>
+                        →
+                    </span>
+                </a>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/header.js"></script>
+
+    <script src="js/admin.js"></script>
+
+</body>
+
+</html>

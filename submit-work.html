@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>作品を提供する | MFDCO</title>
+
+    <meta
+        name="description"
+        content="MFDCOへ作品を提供するための投稿ページです。"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/submit-work.css"
+    >
+</head>
+
+
+<body class="submit-page">
+
+
+    <!-- =====================================
+         COMMON HEADER
+    ====================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =====================================
+         MAIN
+    ====================================== -->
+
+    <main class="submit-main">
+
+        <div class="submit-container">
+
+
+            <!-- =================================
+                 PAGE HEADER
+            ================================== -->
+
+            <header class="submit-page-header">
+
+                <p class="section-label">
+                    WORK SUBMISSION
+                </p>
+
+                <h1>
+                    作品を提供する
+                </h1>
+
+                <p class="submit-page-lead">
+                    MFDCOを通して他の加盟者・利用者へ提供する作品を登録します。
+                    投稿された作品は審査後に公開されます。
+                </p>
+
+            </header>
+
+
+            <!-- =================================
+                 LOGIN MESSAGE
+            ================================== -->
+
+            <div
+                id="login-required"
+                class="submit-message"
+                hidden
+            >
+
+                <h2>
+                    ログインが必要です
+                </h2>
+
+                <p>
+                    作品を提供するにはMFDCOアカウントへログインしてください。
+                </p>
+
+                <a
+                    href="join.html"
+                    class="submit-main-button"
+                >
+                    ログイン / 参加
+                </a>
+
+            </div>
+
+
+            <!-- =================================
+                 FORM
+            ================================== -->
+
+            <form
+                id="submit-work-form"
+                class="work-submit-form"
+                hidden
+            >
+
+
+                <!-- =================================
+                     01 BASIC INFORMATION
+                ================================== -->
+
+                <section class="submit-card">
+
+                    <div class="submit-section-header">
+
+                        <p class="submit-section-number">
+                            01
+                        </p>
+
+                        <div>
+
+                            <p class="section-label">
+                                BASIC INFORMATION
+                            </p>
+
+                            <h2>
+                                作品情報
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TITLE -->
+
+                    <div class="submit-field">
+
+                        <label for="work-title">
+                            作品名
+
+                            <span class="required">
+                                必須
+                            </span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="work-title"
+                            name="title"
+                            maxlength="120"
+                            required
+                            placeholder="例：MFDCO 10式主力戦車"
+                        >
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="submit-field">
+
+                        <label for="work-description">
+                            作品説明
+                        </label>
+
+                        <textarea
+                            id="work-description"
+                            name="description"
+                            maxlength="5000"
+                            placeholder="作品の内容、特徴、使用方法などを記入してください。"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- PREVIEW IMAGE -->
+
+                    <div class="submit-field">
+
+                        <label for="work-image">
+                            プレビュー画像
+                        </label>
+
+                        <p class="field-help">
+                            任意です。PNG / JPEG / WebP、10MB以下です。
+                            未指定の場合は作品一覧側でNO IMAGE表示になります。
+                        </p>
+
+                        <div class="work-image-upload">
+
+                            <div class="work-image-preview">
+
+                                <img
+                                    id="work-image-preview"
+                                    alt="作品プレビュー"
+                                    hidden
+                                >
+
+                            </div>
+
+                            <div class="file-input-area">
+
+                                <input
+                                    type="file"
+                                    id="work-image"
+                                    name="image"
+                                    accept="image/png,image/jpeg,image/webp"
+                                >
+
+                                <button
+                                    type="button"
+                                    id="remove-work-image"
+                                    class="small-text-button"
+                                    hidden
+                                >
+                                    選択を解除
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TAGS -->
+
+                    <div class="submit-field">
+
+                        <label>
+                            タグ
+                        </label>
+
+                        <p class="field-help">
+                            作品に該当するタグを選択してください。
+                        </p>
+
+                        <div
+                            id="work-tags"
+                            class="work-tag-groups"
+                        ></div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     02 WORK DATA
+                ================================== -->
+
+                <section class="submit-card">
+
+                    <div class="submit-section-header">
+
+                        <p class="submit-section-number">
+                            02
+                        </p>
+
+                        <div>
+
+                            <p class="section-label">
+                                WORK DATA
+                            </p>
+
+                            <h2>
+                                作品データ
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUBMISSION TYPE -->
+
+                    <fieldset class="submit-fieldset">
+
+                        <legend>
+                            提出方法
+
+                            <span class="required">
+                                必須
+                            </span>
+                        </legend>
+
+                        <div class="submission-method-grid">
+
+                            <label class="submission-method-card">
+
+                                <input
+                                    type="radio"
+                                    name="submission_type"
+                                    value="file"
+                                    checked
+                                >
+
+                                <span class="submission-method-content">
+
+                                    <strong>
+                                        ファイルを直接添付
+                                    </strong>
+
+                                    <small>
+                                        推奨
+                                    </small>
+
+                                    <span>
+                                        MFDCOのStorageへ作品データを保存します。
+                                    </span>
+
+                                </span>
+
+                            </label>
+
+
+                            <label class="submission-method-card">
+
+                                <input
+                                    type="radio"
+                                    name="submission_type"
+                                    value="url"
+                                >
+
+                                <span class="submission-method-content">
+
+                                    <strong>
+                                        外部URL
+                                    </strong>
+
+                                    <span>
+                                        大容量作品やGitHubなど外部管理作品向けです。
+                                    </span>
+
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </fieldset>
+
+
+                    <!-- DIRECT FILE -->
+
+                    <div
+                        id="direct-file-area"
+                        class="submission-area"
+                    >
+
+                        <div class="submit-field">
+
+                            <label for="work-file">
+                                作品ファイル
+
+                                <span class="required">
+                                    必須
+                                </span>
+                            </label>
+
+                            <p class="field-help">
+                                ZIP、MCWORLD、MCPACK、MCADDON、JAR、
+                                SCHEMATIC、SCHEM、LITEMATIC、BLENDなどを
+                                添付できます。
+                            </p>
+
+                            <input
+                                type="file"
+                                id="work-file"
+                                name="work_file"
+                            >
+
+                            <div
+                                id="work-file-info"
+                                class="selected-file-info"
+                            >
+                                ファイルを選択してください。
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EXTERNAL URL -->
+
+                    <div
+                        id="external-url-area"
+                        class="submission-area"
+                        hidden
+                    >
+
+                        <div class="submit-field">
+
+                            <label for="external-url">
+                                作品URL
+
+                                <span class="required">
+                                    必須
+                                </span>
+                            </label>
+
+                            <input
+                                type="url"
+                                id="external-url"
+                                name="external_url"
+                                placeholder="https://..."
+                            >
+
+                            <p class="field-help">
+                                Google Drive、GitHub、外部配布サイトなど、
+                                利用者が作品へアクセスできるURLを指定してください。
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     03 USAGE CONDITIONS
+                ================================== -->
+
+                <section class="submit-card">
+
+                    <div class="submit-section-header">
+
+                        <p class="submit-section-number">
+                            03
+                        </p>
+
+                        <div>
+
+                            <p class="section-label">
+                                USAGE CONDITIONS
+                            </p>
+
+                            <h2>
+                                利用条件
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                    <p class="submit-section-description">
+                        利用者がこの作品をどのように扱えるか指定してください。
+                        「要相談」の場合は、利用前に作者への確認が必要になります。
+                    </p>
+
+
+                    <!-- COMMERCIAL -->
+
+                    <fieldset class="condition-row">
+
+                        <legend>
+                            商用利用
+                        </legend>
+
+                        <p class="condition-description">
+                            YouTube等の収益化動画での利用も含みます。
+                        </p>
+
+                        <div class="condition-options">
+
+                            <label>
+
+                                <input
+                                    type="radio"
+                                    name="commercial_use"
+                                    value="allow"
+                                >
+
+                                <span class="condition-allow">
+                                    可
+                                </span>
+
+                            </label>
+
+
+                            <label>
+
+                                <input
+                                    type="radio"
+                                    name="commercial_use"
+                                    value="consult"
+                                    checked
+                                >
+
+                                <span class="condition-consult">
+                                    要相談
+                                </span>
+
+                            </label>
+
+
+                            <label>
+
+                                <input
+                                    type="radio"
+                                    name="commercial_use"
+                                    value="deny"
+                                >
+
+                                <span class="condition-deny">
+                                    不可
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </fieldset>
+
+
+                    <!-- MODIFICATION -->
+
+                    <fieldset class="condition-row">
+
+                        <legend>
+                            形状などの改変・アレンジ
+                        </legend>
+
+                        <p class="condition-description">
+                            モデル、建築、兵器形状などへの変更・派生制作を含みます。
+                        </p>
+
+                        <div class="condition-options">
+
+                            <label>
+
+                                <input
+                                    type="radio"
+                                    name="modification"
+                                    value="allow"
+                                >
+
+                                <span class="condition-allow">
+                                    可
+                                </span>
+
+                            </label>
+
+
+                            <label>
+
+                                <input
+                                    type="radio"
+                                    name="modification"
+                                    value="consult"
+                                    checked
+                                >
+
+                                <span class="condition-consult">
+                                    要相談
+                                </span>
+
+                            </label>
+
+
+                            <label>
+
+                                <input
+                                    type="radio"
+                                    name="modification"
+                                    value="deny"
+                                >
+
+                                <span class="condition-deny">
+                                    不可
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </fieldset>
+
+
+                    <!-- SETTING MODIFICATION -->
+
+                    <fieldset class="condition-row">
+
+                        <legend>
+                            名称や設定の改変
+                        </legend>
+
+                        <p class="condition-description">
+                            作品名、兵器名、所属、世界観、設定などの変更を含みます。
+                        </p>
+
+                        <div class="condition-options">
+
+                            <label>
+
+                                <input
+                                    type="radio"
+                                    name="setting_modification"
+                                    value="allow"
+                                >
+
+                                <span class="condition-allow">
+                                    可
+                                </span>
+
+                            </label>
+
+
+                            <label>
+
+                                <input
+                                    type="radio"
+                                    name="setting_modification"
+                                    value="consult"
+                                    checked
+                                >
+
+                                <span class="condition-consult">
+                                    要相談
+                                </span>
+
+                            </label>
+
+
+                            <label>
+
+                                <input
+                                    type="radio"
+                                    name="setting_modification"
+                                    value="deny"
+                                >
+
+                                <span class="condition-deny">
+                                    不可
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </fieldset>
+
+
+                    <!-- DESTRUCTION -->
+
+                    <fieldset class="condition-row">
+
+                        <legend>
+                            使用作品内での破壊描写
+                        </legend>
+
+                        <p class="condition-description">
+                            動画・茶番・企画等の中で、この作品が撃破・爆破・破壊される描写を含みます。
+                        </p>
+
+                        <div class="condition-options">
+
+                            <label>
+
+                                <input
+                                    type="radio"
+                                    name="destruction_depiction"
+                                    value="allow"
+                                >
+
+                                <span class="condition-allow">
+                                    可
+                                </span>
+
+                            </label>
+
+
+                            <label>
+
+                                <input
+                                    type="radio"
+                                    name="destruction_depiction"
+                                    value="consult"
+                                    checked
+                                >
+
+                                <span class="condition-consult">
+                                    要相談
+                                </span>
+
+                            </label>
+
+
+                            <label>
+
+                                <input
+                                    type="radio"
+                                    name="destruction_depiction"
+                                    value="deny"
+                                >
+
+                                <span class="condition-deny">
+                                    不可
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </fieldset>
+
+
+                    <!-- OTHER TERMS -->
+
+                    <div class="submit-field terms-other">
+
+                        <label for="other-terms">
+                            その他の条件
+                        </label>
+
+                        <textarea
+                            id="other-terms"
+                            name="other_terms"
+                            maxlength="3000"
+                            placeholder="例：国家間企画で使用する場合のみ事前に連絡してください。"
+                        ></textarea>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     04 CREDIT
+                ================================== -->
+
+                <section class="submit-card">
+
+                    <div class="submit-section-header">
+
+                        <p class="submit-section-number">
+                            04
+                        </p>
+
+                        <div>
+
+                            <p class="section-label">
+                                CREDIT
+                            </p>
+
+                            <h2>
+                                クレジット表記
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                    <p class="submit-section-description">
+                        この作品を利用する際の作者表記方法を指定します。
+                    </p>
+
+
+                    <div class="credit-options">
+
+
+                        <!-- NONE -->
+
+                        <label class="credit-option">
+
+                            <input
+                                type="radio"
+                                name="credit_type"
+                                value="none"
+                            >
+
+                            <span class="credit-option-content">
+
+                                <strong>
+                                    不要
+                                </strong>
+
+                                <span>
+                                    作品利用時のクレジット表記を求めません。
+                                </span>
+
+                            </span>
+
+                        </label>
+
+
+                        <!-- FREE -->
+
+                        <label class="credit-option">
+
+                            <input
+                                type="radio"
+                                name="credit_type"
+                                value="free"
+                            >
+
+                            <span class="credit-option-content">
+
+                                <strong>
+                                    任意の書式
+                                </strong>
+
+                                <span>
+                                    作者名等を、利用者が適切な書式で表記します。
+                                </span>
+
+                            </span>
+
+                        </label>
+
+
+                        <!-- PROFILE -->
+
+                        <label class="credit-option">
+
+                            <input
+                                type="radio"
+                                name="credit_type"
+                                value="profile"
+                                checked
+                            >
+
+                            <span class="credit-option-content">
+
+                                <strong>
+                                    プロフィールから読み込み
+                                </strong>
+
+                                <span>
+                                    プロフィールに登録されているクレジット書式を使用します。
+                                </span>
+
+                            </span>
+
+                        </label>
+
+
+                        <!-- PROFILE CREDIT -->
+
+                        <div
+                            id="profile-credit-area"
+                            class="profile-credit-preview"
+                        >
+
+                            <p class="profile-credit-label">
+                                PROFILE CREDIT
+                            </p>
+
+                            <p
+                                id="profile-credit-text"
+                                class="profile-credit-value"
+                            >
+                                読み込み中...
+                            </p>
+
+                        </div>
+
+
+                        <!-- CUSTOM -->
+
+                        <label class="credit-option">
+
+                            <input
+                                type="radio"
+                                name="credit_type"
+                                value="custom"
+                            >
+
+                            <span class="credit-option-content">
+
+                                <strong>
+                                    その他
+                                </strong>
+
+                                <span>
+                                    この作品専用のクレジット表記を指定します。
+                                </span>
+
+                            </span>
+
+                        </label>
+
+
+                        <div
+                            id="custom-credit-area"
+                            class="custom-credit-area"
+                            hidden
+                        >
+
+                            <label for="custom-credit-text">
+                                クレジット書式
+                            </label>
+
+                            <textarea
+                                id="custom-credit-text"
+                                name="custom_credit_text"
+                                maxlength="1000"
+                                placeholder="例：作品制作：○○ / MFDCO"
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     05 AGREEMENT
+                ================================== -->
+
+                <section class="submit-card">
+
+                    <div class="submit-section-header">
+
+                        <p class="submit-section-number">
+                            05
+                        </p>
+
+                        <div>
+
+                            <p class="section-label">
+                                CONFIRMATION
+                            </p>
+
+                            <h2>
+                                確認
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="submit-agreement">
+
+                        <input
+                            type="checkbox"
+                            id="submit-agreement"
+                            required
+                        >
+
+                        <span>
+                            私は、この作品を提供する権利を有しており、
+                            上記で設定した利用条件に基づいてMFDCO上で作品を提供することに同意します。
+                        </span>
+
+                    </label>
+
+
+                    <!-- ERROR -->
+
+                    <div
+                        id="submit-error"
+                        class="submit-result submit-result-error"
+                        hidden
+                    ></div>
+
+
+                    <!-- SUCCESS -->
+
+                    <div
+                        id="submit-success"
+                        class="submit-result submit-result-success"
+                        hidden
+                    ></div>
+
+
+                    <!-- SUBMIT -->
+
+                    <div class="submit-actions">
+
+                        <button
+                            type="submit"
+                            id="submit-work-button"
+                            class="submit-main-button"
+                        >
+                            作品を提出する
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================
+         SUPABASE / SCRIPTS
+    ====================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/header.js"></script>
+
+    <script src="js/tags.js"></script>
+
+    <script src="js/submit-work.js"></script>
+
+</body>
+
+</html>

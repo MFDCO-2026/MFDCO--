@@ -1,0 +1,13 @@
+{
+    "organization_name": "軍事茶番開発協力機構",
+    "organization_name_en": "MILITARY FARCE DEVELOPMENT COOPERATION ORGANIZATION",
+
+    "about_title": "MFDCOとは何か",
+
+    "about_lead": "MFDCOは、Minecraft軍事部を中心とした作品制作・技術開発・クリエイター間の協力を目的とする組織です。",
+
+    "about_text": [
+        "作品や素材、技術、知識を共有し、個人では難しい大規模な映像作品や共同プロジェクトの制作を支援します。",
+        "制作者それぞれの活動を尊重しながら、作品をより高い品質へ引き上げるための協力基盤を構築します。"
+    ]
+}

@@ -1,0 +1,2059 @@
+/* =========================================
+   MFDCO WORK SUBMISSION
+========================================= */
+
+
+/* =========================================
+   PAGE
+========================================= */
+
+.submit-page {
+    background: #f4f5f5;
+}
+
+
+.submit-main {
+    min-height: 100vh;
+}
+
+
+.submit-container {
+    width: min(
+        1000px,
+        calc(100% - 50px)
+    );
+
+    margin: 0 auto;
+
+    padding: 150px 0 130px;
+}
+
+
+/* =========================================
+   HIDDEN
+========================================= */
+
+.submit-page [hidden] {
+    display: none !important;
+}
+
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.submit-page-header {
+    margin-bottom: 70px;
+}
+
+
+.submit-page-header h1 {
+    margin:
+        10px 0 20px;
+
+    font-size:
+        clamp(
+            38px,
+            6vw,
+            64px
+        );
+
+    font-weight: 500;
+
+    line-height: 1.25;
+
+    letter-spacing: 0.05em;
+}
+
+
+.submit-page-lead {
+    max-width: 720px;
+
+    color: #666666;
+
+    font-size: 14px;
+
+    line-height: 2;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.submit-card {
+    margin-bottom: 28px;
+
+    padding: 50px;
+
+    background: #ffffff;
+
+    border: 1px solid #dddddd;
+}
+
+
+/* =========================================
+   SECTION HEADER
+========================================= */
+
+.submit-section-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 22px;
+
+    margin-bottom: 40px;
+}
+
+
+.submit-section-number {
+    padding-top: 4px;
+
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.16em;
+}
+
+
+.submit-section-header h2 {
+    margin-top: 6px;
+
+    font-size: 28px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.04em;
+}
+
+
+.submit-section-description {
+    margin:
+        -15px 0 40px 45px;
+
+    color: #777777;
+
+    font-size: 13px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================
+   FIELD
+========================================= */
+
+.submit-field {
+    margin-bottom: 38px;
+}
+
+
+.submit-field:last-child {
+    margin-bottom: 0;
+}
+
+
+.submit-field > label,
+.custom-credit-area > label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #222222;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.required {
+    display: inline-block;
+
+    margin-left: 8px;
+
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   INPUT
+========================================= */
+
+.submit-page
+.submit-field
+input[type="text"],
+
+.submit-page
+.submit-field
+input[type="url"],
+
+.submit-page
+.submit-field
+textarea,
+
+.submit-page
+.custom-credit-area
+textarea {
+    display: block;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid #d5d5d5;
+
+    border-radius: 0;
+
+    background: #ffffff;
+
+    color: #111111;
+
+    font: inherit;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.submit-page
+.submit-field
+input[type="text"],
+
+.submit-page
+.submit-field
+input[type="url"] {
+    height: 52px;
+
+    padding: 0 16px;
+}
+
+
+.submit-page
+.submit-field
+textarea,
+
+.submit-page
+.custom-credit-area
+textarea {
+    min-height: 160px;
+
+    padding: 14px 16px;
+
+    line-height: 1.8;
+
+    resize: vertical;
+}
+
+
+.submit-page
+.submit-field
+input:focus,
+
+.submit-page
+.submit-field
+textarea:focus,
+
+.submit-page
+.custom-credit-area
+textarea:focus {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    box-shadow:
+        0 0 0 2px
+        rgba(22, 75, 75, 0.07);
+}
+
+
+/* =========================================
+   HELP
+========================================= */
+
+.field-help {
+    margin:
+        -2px 0 12px;
+
+    color: #777777;
+
+    font-size: 11px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   FILE INPUT
+========================================= */
+
+.submit-page
+input[type="file"] {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px;
+
+    border:
+        1px solid #d5d5d5;
+
+    background:
+        #fafafa;
+
+    color:
+        #555555;
+
+    font: inherit;
+
+    font-size: 12px;
+}
+
+
+.submit-page
+input[type="file"]::file-selector-button {
+    margin-right: 14px;
+
+    padding: 9px 16px;
+
+    border: none;
+
+    background:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color: #ffffff;
+
+    font: inherit;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.submit-page
+input[type="file"]::-webkit-file-upload-button {
+    margin-right: 14px;
+
+    padding: 9px 16px;
+
+    border: none;
+
+    background:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color: #ffffff;
+
+    font: inherit;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   PREVIEW IMAGE
+========================================= */
+
+.work-image-upload {
+    display: grid;
+
+    grid-template-columns:
+        180px 1fr;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+
+.work-image-preview {
+    width: 180px;
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background: #eeeeee;
+
+    border:
+        1px solid #dddddd;
+}
+
+
+.work-image-preview img {
+    display: block;
+
+    width: 100% !important;
+
+    height: 100% !important;
+
+    max-width: none !important;
+
+    object-fit: cover;
+}
+
+
+.work-image-preview img[hidden] {
+    display: none !important;
+}
+
+
+.file-input-area {
+    min-width: 0;
+}
+
+
+.small-text-button {
+    margin-top: 12px;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    font: inherit;
+
+    font-size: 11px;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   WORK TAG GROUPS
+========================================= */
+
+.work-tag-groups {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 16px;
+
+    width: 100%;
+
+    margin-top: 18px;
+}
+
+
+/* 1グループ */
+
+.work-tag-group {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 22px;
+
+    border:
+        1px solid #e2e2e2;
+
+    background:
+        #fafafa;
+}
+
+
+/* グループ見出し */
+
+.work-tag-group-header {
+    margin-bottom: 14px;
+}
+
+
+.work-tag-group-title {
+    margin: 0;
+
+    color: #222222;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.03em;
+}
+
+
+.work-tag-group-description {
+    margin: 5px 0 0;
+
+    color: #888888;
+
+    font-size: 10px;
+
+    line-height: 1.7;
+}
+
+
+/* タグ一覧 */
+
+.work-tag-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+}
+
+
+/* 各タグ */
+
+.work-tag-list label {
+    position: relative;
+
+    display: inline-block;
+
+    margin: 0;
+
+    cursor: pointer;
+}
+
+
+/* checkbox本体を隠す */
+
+.work-tag-list input[type="checkbox"] {
+    position: absolute;
+
+    width: 1px;
+
+    height: 1px;
+
+    margin: 0;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* タグボタン */
+
+.work-tag-list label > span {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 36px;
+
+    box-sizing: border-box;
+
+    padding:
+        7px 13px;
+
+    border:
+        1px solid #d9d9d9;
+
+    background:
+        #ffffff;
+
+    color:
+        #666666;
+
+    font-size: 11px;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease;
+}
+
+
+/* hover */
+
+.work-tag-list label:hover > span {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* 選択中 */
+
+.work-tag-list
+input[type="checkbox"]:checked
++ span {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    background:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color:
+        #ffffff;
+}
+
+
+/* キーボード操作 */
+
+.work-tag-list
+input[type="checkbox"]:focus-visible
++ span {
+    outline:
+        3px solid
+        rgba(22, 75, 75, 0.18);
+
+    outline-offset:
+        2px;
+}
+
+
+/* =========================================
+   OLD TAG COMPATIBILITY
+========================================= */
+
+.submit-tag-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+}
+
+
+.submit-tag-list label {
+    position: relative;
+
+    cursor: pointer;
+}
+
+
+.submit-tag-list input {
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+.submit-tag-list span {
+    display: inline-flex;
+
+    align-items: center;
+
+    min-height: 37px;
+
+    padding:
+        7px 13px;
+
+    border:
+        1px solid #dddddd;
+
+    background: #ffffff;
+
+    color: #666666;
+
+    font-size: 12px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.submit-tag-list label:hover span {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+}
+
+
+.submit-tag-list
+input:checked + span {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    background:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color:
+        #ffffff;
+}
+
+
+/* =========================================
+   FIELDSET
+========================================= */
+
+.submit-fieldset,
+.condition-row {
+    margin: 0;
+
+    padding: 0;
+
+    border: none;
+}
+
+
+.submit-fieldset {
+    margin-bottom: 38px;
+}
+
+
+.submit-fieldset > legend,
+.condition-row > legend {
+    margin-bottom: 12px;
+
+    color: #222222;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   SUBMISSION METHOD
+========================================= */
+
+.submission-method-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 14px;
+
+    margin-top: 12px;
+
+    margin-bottom: 24px;
+}
+
+
+.submission-method-card {
+    position: relative;
+
+    display: block;
+
+    margin: 0;
+
+    cursor: pointer;
+}
+
+
+.submission-method-card >
+input[type="radio"] {
+    position: absolute;
+
+    width: 1px;
+
+    height: 1px;
+
+    margin: 0;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+.submission-method-content {
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    justify-content: center;
+
+    min-height: 135px;
+
+    box-sizing: border-box;
+
+    padding: 24px;
+
+    border:
+        2px solid #d8d8d8;
+
+    background:
+        #ffffff;
+
+    color:
+        #222222;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* タイトル */
+
+.submission-method-content strong {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: inherit;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+
+/* 推奨 */
+
+.submission-method-content small {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 10px;
+
+    padding:
+        3px 8px;
+
+    background:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color:
+        #ffffff;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.04em;
+}
+
+
+/* 説明 */
+
+.submission-method-content >
+span:last-child {
+    display: block;
+
+    color:
+        #777777;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.7;
+}
+
+
+/* hover */
+
+.submission-method-card:hover
+.submission-method-content {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* 選択中 */
+
+.submission-method-card
+>
+input[type="radio"]:checked
++
+.submission-method-content {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    background:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color:
+        #ffffff;
+}
+
+
+/* 選択中の説明 */
+
+.submission-method-card
+>
+input[type="radio"]:checked
++
+.submission-method-content
+>
+span:last-child {
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.82
+        );
+}
+
+
+/* 選択中の推奨 */
+
+.submission-method-card
+>
+input[type="radio"]:checked
++
+.submission-method-content
+small {
+    background:
+        #ffffff;
+
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+}
+
+
+/* focus */
+
+.submission-method-card
+>
+input[type="radio"]:focus-visible
++
+.submission-method-content {
+    outline:
+        3px solid
+        rgba(22, 75, 75, 0.2);
+
+    outline-offset:
+        3px;
+}
+
+
+/* =========================================
+   SUBMISSION AREA
+========================================= */
+
+.submission-area {
+    margin-top: 6px;
+
+    padding: 24px;
+
+    border:
+        1px solid #e2e2e2;
+
+    background:
+        #fafafa;
+}
+
+
+.submission-area
+.submit-field {
+    margin-bottom: 0;
+}
+
+
+/* =========================================
+   FILE INFO
+========================================= */
+
+.selected-file-info {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap:
+        8px 18px;
+
+    margin-top: 15px;
+
+    padding: 15px;
+
+    background:
+        #f0f5f5;
+
+    border-left:
+        3px solid
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color:
+        #444444;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.6;
+
+    word-break:
+        break-word;
+}
+
+
+.selected-file-info strong {
+    flex-basis:
+        100%;
+
+    color:
+        #222222;
+
+    font-size:
+        13px;
+
+    word-break:
+        break-all;
+}
+
+
+.selected-file-info span {
+    color:
+        #666666;
+
+    font-size:
+        11px;
+
+    text-transform:
+        uppercase;
+}
+
+
+/* =========================================
+   EXTERNAL URL
+========================================= */
+
+#external-url {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin-top: 10px;
+
+    padding:
+        14px 15px;
+
+    border:
+        1px solid #d8d8d8;
+
+    background:
+        #ffffff;
+
+    font: inherit;
+}
+
+
+#external-url:focus {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    outline:
+        2px solid
+        rgba(22, 75, 75, 0.12);
+}
+
+
+/* =========================================
+   CONDITIONS
+========================================= */
+
+.condition-row {
+    display: grid;
+
+    grid-template-columns:
+        minmax(220px, 1fr)
+        minmax(200px, 0.8fr);
+
+    grid-template-areas:
+        "title options"
+        "description options";
+
+    column-gap: 40px;
+
+    padding:
+        28px 0;
+
+    border-top:
+        1px solid #eeeeee;
+}
+
+
+.condition-row:last-of-type {
+    border-bottom:
+        1px solid #eeeeee;
+}
+
+
+.condition-row legend {
+    grid-area: title;
+
+    float: left;
+
+    width: auto;
+}
+
+
+.condition-description {
+    grid-area:
+        description;
+
+    color:
+        #777777;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.8;
+}
+
+
+.condition-options {
+    grid-area:
+        options;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            1fr
+        );
+
+    gap:
+        7px;
+
+    align-self:
+        center;
+}
+
+
+.condition-options label {
+    position:
+        relative;
+
+    cursor:
+        pointer;
+}
+
+
+.condition-options
+input[type="radio"] {
+    position:
+        absolute;
+
+    width:
+        1px;
+
+    height:
+        1px;
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+}
+
+
+.condition-options span {
+    display:
+        flex;
+
+    min-height:
+        42px;
+
+    box-sizing:
+        border-box;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid #dddddd;
+
+    background:
+        #ffffff;
+
+    color:
+        #555555;
+
+    font-size:
+        12px;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.condition-options
+label:hover span {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+}
+
+
+.condition-options
+input[type="radio"]:checked
++ span {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    background:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color:
+        #ffffff;
+}
+
+
+.condition-options
+input[type="radio"]:focus-visible
++ span {
+    outline:
+        3px solid
+        rgba(22, 75, 75, 0.18);
+
+    outline-offset:
+        2px;
+}
+
+
+.terms-other {
+    margin-top:
+        35px;
+}
+
+
+/* =========================================
+   CREDIT
+========================================= */
+
+.credit-options {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        10px;
+}
+
+
+.credit-option {
+    position:
+        relative;
+
+    display:
+        block;
+
+    cursor:
+        pointer;
+}
+
+
+.credit-option >
+input[type="radio"] {
+    position:
+        absolute;
+
+    width:
+        1px;
+
+    height:
+        1px;
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+}
+
+
+.credit-option-content {
+    display:
+        flex;
+
+    min-height:
+        80px;
+
+    box-sizing:
+        border-box;
+
+    padding:
+        18px 20px;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+    border:
+        1px solid #dddddd;
+
+    background:
+        #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.credit-option:hover
+.credit-option-content {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+}
+
+
+.credit-option
+input[type="radio"]:checked
++
+.credit-option-content {
+    border-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    background:
+        #f0f5f4;
+}
+
+
+.credit-option
+input[type="radio"]:focus-visible
++
+.credit-option-content {
+    outline:
+        3px solid
+        rgba(22, 75, 75, 0.18);
+
+    outline-offset:
+        2px;
+}
+
+
+.credit-option-content strong {
+    color:
+        #222222;
+
+    font-size:
+        13px;
+}
+
+
+.credit-option-content >
+span {
+    color:
+        #777777;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.7;
+}
+
+
+/* =========================================
+   PROFILE CREDIT
+========================================= */
+
+.profile-credit-preview {
+    margin:
+        3px 0 15px 35px;
+
+    padding:
+        18px 20px;
+
+    border-left:
+        3px solid
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    background:
+        #f5f7f7;
+}
+
+
+.profile-credit-label {
+    margin-bottom:
+        8px;
+
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.17em;
+}
+
+
+.profile-credit-value {
+    color:
+        #222222;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.8;
+
+    white-space:
+        pre-wrap;
+
+    word-break:
+        break-word;
+}
+
+
+/* =========================================
+   CUSTOM CREDIT
+========================================= */
+
+.custom-credit-area {
+    margin:
+        5px 0 10px 35px;
+
+    padding:
+        22px;
+
+    background:
+        #f7f7f7;
+}
+
+
+/* =========================================
+   AGREEMENT
+========================================= */
+
+.submit-agreement {
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    gap:
+        13px;
+
+    padding:
+        22px;
+
+    background:
+        #f5f7f7;
+
+    cursor:
+        pointer;
+}
+
+
+.submit-agreement input {
+    flex:
+        0 0 auto;
+
+    margin-top:
+        5px;
+
+    accent-color:
+        var(
+            --main-color,
+            #164b4b
+        );
+}
+
+
+.submit-agreement span {
+    color:
+        #555555;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.9;
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.submit-actions {
+    display:
+        flex;
+
+    justify-content:
+        flex-end;
+
+    margin-top:
+        35px;
+}
+
+
+.submit-main-button {
+    display:
+        inline-flex;
+
+    min-width:
+        220px;
+
+    min-height:
+        52px;
+
+    box-sizing:
+        border-box;
+
+    padding:
+        14px 28px;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    background:
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    color:
+        #ffffff;
+
+    font:
+        inherit;
+
+    font-size:
+        13px;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        0.04em;
+
+    text-decoration:
+        none;
+
+    cursor:
+        pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.submit-main-button:hover {
+    background:
+        var(
+            --main-color-dark,
+            #103c3c
+        );
+
+    border-color:
+        var(
+            --main-color-dark,
+            #103c3c
+        );
+}
+
+
+.submit-main-button:disabled {
+    opacity:
+        0.55;
+
+    cursor:
+        not-allowed;
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.submit-message {
+    padding:
+        60px 40px;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid #dddddd;
+
+    text-align:
+        center;
+}
+
+
+.submit-message h2 {
+    margin-bottom:
+        15px;
+
+    font-size:
+        28px;
+}
+
+
+.submit-message p {
+    margin-bottom:
+        25px;
+
+    color:
+        #666666;
+
+    font-size:
+        13px;
+}
+
+
+/* =========================================
+   RESULT
+========================================= */
+
+.submit-result {
+    margin-top:
+        25px;
+
+    padding:
+        18px 20px;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.8;
+}
+
+
+.submit-result-error {
+    border-left:
+        3px solid #a73b3b;
+
+    background:
+        #faf0f0;
+
+    color:
+        #8c2929;
+}
+
+
+.submit-result-success {
+    border-left:
+        3px solid
+        var(
+            --main-color,
+            #164b4b
+        );
+
+    background:
+        #edf5f4;
+
+    color:
+        var(
+            --main-color,
+            #164b4b
+        );
+}
+
+
+/* =========================================
+   SUBMITTING
+========================================= */
+
+.work-submit-form.is-submitting,
+.submit-work-form.is-submitting {
+    pointer-events:
+        none;
+
+    opacity:
+        0.8;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (
+    max-width: 800px
+) {
+
+    .submit-container {
+        width:
+            calc(100% - 30px);
+
+        padding:
+            120px 0 90px;
+    }
+
+
+    .submit-page-header {
+        margin-bottom:
+            45px;
+    }
+
+
+    .submit-card {
+        padding:
+            35px 28px;
+    }
+
+
+    .submit-section-description {
+        margin-left:
+            0;
+    }
+
+
+    .work-image-upload {
+        grid-template-columns:
+            140px 1fr;
+
+        gap:
+            20px;
+    }
+
+
+    .work-image-preview {
+        width:
+            140px;
+    }
+
+
+    .work-tag-group {
+        padding:
+            18px;
+    }
+
+
+    .condition-row {
+        grid-template-columns:
+            1fr;
+
+        grid-template-areas:
+            "title"
+            "description"
+            "options";
+
+        row-gap:
+            12px;
+    }
+
+
+    .condition-options {
+        margin-top:
+            8px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (
+    max-width: 600px
+) {
+
+    .submit-container {
+        width:
+            calc(100% - 20px);
+
+        padding:
+            105px 0 70px;
+    }
+
+
+    .submit-page-header h1 {
+        font-size:
+            34px;
+    }
+
+
+    .submit-card {
+        margin-bottom:
+            15px;
+
+        padding:
+            28px 20px;
+    }
+
+
+    .submit-section-header {
+        gap:
+            14px;
+
+        margin-bottom:
+            32px;
+    }
+
+
+    .submit-section-header h2 {
+        font-size:
+            23px;
+    }
+
+
+    .work-image-upload {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .work-image-preview {
+        width:
+            150px;
+    }
+
+
+    /* TAG */
+
+    .work-tag-groups {
+        gap:
+            12px;
+    }
+
+
+    .work-tag-group {
+        padding:
+            15px;
+    }
+
+
+    .work-tag-list {
+        gap:
+            6px;
+    }
+
+
+    .work-tag-list
+    label > span {
+        min-height:
+            34px;
+
+        padding:
+            6px 10px;
+
+        font-size:
+            10px;
+
+        white-space:
+            normal;
+    }
+
+
+    /* WORK DATA */
+
+    .submission-method-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .submission-method-content {
+        min-height:
+            110px;
+
+        padding:
+            18px;
+    }
+
+
+    .submission-area {
+        padding:
+            18px;
+    }
+
+
+    /* CONDITIONS */
+
+    .condition-options {
+        gap:
+            5px;
+    }
+
+
+    .condition-options span {
+        min-height:
+            44px;
+
+        font-size:
+            11px;
+    }
+
+
+    /* CREDIT */
+
+    .profile-credit-preview,
+    .custom-credit-area {
+        margin-left:
+            0;
+    }
+
+
+    /* ACTION */
+
+    .submit-actions {
+        display:
+            block;
+    }
+
+
+    .submit-main-button {
+        width:
+            100%;
+    }
+
+}

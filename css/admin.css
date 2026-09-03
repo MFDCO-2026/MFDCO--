@@ -1,0 +1,561 @@
+/* =========================================
+   MFDCO ADMIN DASHBOARD
+========================================= */
+
+.admin-page {
+    min-height: 100vh;
+
+    padding: 135px 20px 100px;
+
+    background: #f4f5f5;
+}
+
+
+.admin-page > section,
+.admin-page > div {
+    width: min(1200px, 100%);
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.admin-page [hidden] {
+    display: none !important;
+}
+
+
+/* =========================================
+   STATE
+========================================= */
+
+.admin-state-card {
+    padding: 70px 30px;
+
+    border: 1px solid #dddddd;
+
+    background: #ffffff;
+
+    color: #666666;
+
+    text-align: center;
+}
+
+
+.admin-state-card h1 {
+    margin: 10px 0 15px;
+
+    color: #111111;
+
+    font-size: 30px;
+}
+
+
+.admin-state-label {
+    margin: 0;
+
+    color: #8e3434;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+}
+
+
+.admin-state-error {
+    border-top: 4px solid #8e3434;
+}
+
+
+.admin-primary-link {
+    display: inline-flex;
+
+    min-height: 44px;
+
+    margin-top: 20px;
+    padding: 0 20px;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #164b4b;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.admin-hero {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 45px;
+}
+
+
+.admin-eyebrow {
+    margin: 0 0 10px;
+
+    color: #164b4b;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+}
+
+
+.admin-hero h1 {
+    margin: 0 0 15px;
+
+    color: #111111;
+
+    font-size:
+        clamp(
+            38px,
+            6vw,
+            62px
+        );
+
+    line-height: 1.1;
+}
+
+
+.admin-description {
+    margin: 0;
+
+    color: #666666;
+
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+
+.admin-lock-button {
+    min-height: 43px;
+
+    padding: 0 18px;
+
+    border: 1px solid #164b4b;
+
+    background: transparent;
+
+    color: #164b4b;
+
+    font-family: inherit;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   SUMMARY
+========================================= */
+
+.admin-summary-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 12px;
+
+    margin-bottom: 65px;
+}
+
+
+.admin-summary-card {
+    display: flex;
+
+    min-height: 165px;
+
+    padding: 22px;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    box-sizing: border-box;
+
+    border: 1px solid #dddddd;
+
+    background: #ffffff;
+}
+
+
+.admin-summary-label {
+    color: #888888;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+}
+
+
+.admin-summary-number {
+    color: #164b4b;
+
+    font-size: 46px;
+
+    font-weight: 500;
+
+    line-height: 1;
+}
+
+
+.admin-summary-caption {
+    color: #444444;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   SECTIONS
+========================================= */
+
+.admin-menu-section {
+    margin-bottom: 65px;
+}
+
+
+.admin-section-heading {
+    display: grid;
+
+    grid-template-columns: 180px 1fr;
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+}
+
+
+.admin-section-heading p {
+    margin: 5px 0 0;
+
+    color: #164b4b;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.admin-section-heading p span {
+    margin-left: 8px;
+
+    font-size: 8px;
+
+    letter-spacing: 0.12em;
+}
+
+
+.admin-section-heading h2 {
+    margin: 0;
+
+    color: #111111;
+
+    font-size: 31px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================
+   MENU CARDS
+========================================= */
+
+.admin-menu-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 14px;
+
+    margin-left: 205px;
+}
+
+
+.admin-menu-card {
+    position: relative;
+
+    display: grid;
+
+    min-height: 220px;
+
+    padding: 23px;
+
+    grid-template-rows:
+        auto
+        1fr
+        auto;
+
+    box-sizing: border-box;
+
+    border: 1px solid #dcdcdc;
+
+    background: #ffffff;
+
+    color: inherit;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.admin-menu-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #164b4b;
+
+    box-shadow:
+        0 10px 24px
+        rgba(0, 0, 0, 0.06);
+}
+
+
+.admin-menu-number {
+    color: #aaaaaa;
+
+    font-size: 10px;
+}
+
+
+.admin-menu-label {
+    margin: 0 0 8px;
+
+    color: #164b4b;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+}
+
+
+.admin-menu-card h3 {
+    margin: 0 0 12px;
+
+    color: #111111;
+
+    font-size: 21px;
+}
+
+
+.admin-menu-card p:last-child {
+    margin: 0;
+
+    color: #666666;
+
+    font-size: 11px;
+
+    line-height: 1.8;
+}
+
+
+.admin-menu-arrow {
+    justify-self: end;
+
+    color: #164b4b;
+
+    font-size: 22px;
+}
+
+
+/* =========================================
+   MODE
+========================================= */
+
+.admin-mode-panel {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    padding: 35px;
+
+    box-sizing: border-box;
+
+    background: #164b4b;
+
+    color: #ffffff;
+}
+
+
+.admin-mode-label {
+    margin: 0 0 8px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.65
+        );
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+}
+
+
+.admin-mode-panel h2 {
+    margin: 0 0 9px;
+
+    font-size: 25px;
+
+    font-weight: 500;
+}
+
+
+.admin-mode-panel p:last-child {
+    margin: 0;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.75
+        );
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+
+.admin-mode-link {
+    display: inline-flex;
+
+    min-width: 180px;
+    min-height: 52px;
+
+    padding: 0 18px;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    flex-shrink: 0;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    color: #164b4b;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .admin-summary-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .admin-menu-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        margin-left: 0;
+    }
+
+
+    .admin-section-heading {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .admin-page {
+        padding:
+            100px
+            12px
+            70px;
+    }
+
+
+    .admin-hero {
+        display: block;
+    }
+
+
+    .admin-lock-button {
+        margin-top: 20px;
+    }
+
+
+    .admin-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .admin-summary-card {
+        min-height: 135px;
+    }
+
+
+    .admin-menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .admin-mode-panel {
+        display: block;
+
+        padding: 25px 20px;
+    }
+
+
+    .admin-mode-link {
+        width: 100%;
+
+        margin-top: 25px;
+    }
+
+}

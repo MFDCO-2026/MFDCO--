@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        作品を提供する | MFDCO
+    </title>
+
+    <meta
+        name="description"
+        content="MFDCOへの作品提供フォームです。"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/submit-work.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         COMMON HEADER
+    ========================================== -->
+
+    <div id="header-container"></div>
+
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="submit-work-page">
+
+
+        <!-- =====================================
+             PAGE TITLE
+        ====================================== -->
+
+        <section class="submit-work-hero">
+
+            <p class="page-number">
+                PROVIDE YOUR WORK
+            </p>
+
+
+            <h1>
+                作品を提供する
+            </h1>
+
+
+            <p class="submit-work-introduction">
+                MFDCOメンバーが制作した作品を提供できます。<br>
+                提出された作品は確認後、提供作品一覧へ掲載されます。
+            </p>
+
+        </section>
+
+
+
+        <!-- =====================================
+             LOGIN CHECK
+        ====================================== -->
+
+        <section
+            id="login-required"
+            class="submit-message hidden"
+        >
+
+            <h2>
+                ログインが必要です
+            </h2>
+
+
+            <p>
+                作品を提供するにはMFDCOメンバーとして
+                ログインしてください。
+            </p>
+
+
+            <a
+                href="join.html"
+                class="submit-message-button"
+            >
+                ログイン・参加する
+            </a>
+
+        </section>
+
+
+
+        <!-- =====================================
+             FORM AREA
+        ====================================== -->
+
+        <section
+            id="submit-form-section"
+            class="submit-form-section hidden"
+        >
+
+
+            <!-- =============================
+                 USER
+            ============================== -->
+
+            <div class="submit-user-info">
+
+                <p class="submit-user-label">
+                    PROVIDER
+                </p>
+
+
+                <p id="provider-name">
+                    読み込み中...
+                </p>
+
+            </div>
+
+
+
+            <!-- =============================
+                 FORM
+            ============================== -->
+
+            <form id="work-form">
+
+
+                <!-- =========================
+                     TITLE
+                ========================== -->
+
+                <div class="form-group">
+
+                    <label for="work-title">
+
+                        作品名
+
+                        <span class="required">
+                            必須
+                        </span>
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="work-title"
+                        maxlength="100"
+                        placeholder="作品名を入力してください"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- =========================
+                     PREVIEW IMAGE
+                ========================== -->
+
+                <div class="form-group">
+
+                    <label for="preview-image">
+
+                        プレビュー画像
+
+                        <span class="recommended">
+                            任意・推奨
+                        </span>
+
+                    </label>
+
+
+                    <p class="form-help">
+                        PNG・JPEG・WebP / 最大10MB。
+                        正方形（1:1）の画像を推奨します。
+                        画像を選択しなかった場合は、
+                        NO IMAGE画像が表示されます。
+                    </p>
+
+
+
+                    <div class="image-upload-area">
+
+
+                        <div class="image-preview">
+
+                            <img
+                                id="image-preview"
+                                src="assets/noimage.png"
+                                alt="プレビュー画像"
+                            >
+
+                        </div>
+
+
+
+                        <div class="image-upload-controls">
+
+                            <input
+                                type="file"
+                                id="preview-image"
+                                accept="image/png,image/jpeg,image/webp"
+                            >
+
+
+                            <button
+                                type="button"
+                                id="remove-image"
+                                class="remove-image-button"
+                            >
+                                選択を解除
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     WORK URL
+                ========================== -->
+
+                <div class="form-group">
+
+                    <label for="work-url">
+
+                        作品URL
+
+                        <span class="optional">
+                            任意
+                        </span>
+
+                    </label>
+
+
+                    <input
+                        type="url"
+                        id="work-url"
+                        placeholder="https://..."
+                    >
+
+
+                    <p class="form-help">
+                        YouTube、配布ページ、作品紹介ページなどのURLを入力できます。
+                    </p>
+
+                </div>
+
+
+
+                <!-- =========================
+                     DESCRIPTION
+                ========================== -->
+
+                <div class="form-group">
+
+                    <label for="work-description">
+
+                        作品説明
+
+                        <span class="optional">
+                            任意
+                        </span>
+
+                    </label>
+
+
+                    <textarea
+                        id="work-description"
+                        rows="7"
+                        maxlength="3000"
+                        placeholder="作品について説明してください"
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- =========================
+                     USAGE TERMS
+                ========================== -->
+
+                <div class="form-group">
+
+                    <label for="usage-terms">
+
+                        利用条件
+
+                        <span class="optional">
+                            任意
+                        </span>
+
+                    </label>
+
+
+                    <textarea
+                        id="usage-terms"
+                        rows="6"
+                        maxlength="3000"
+                        placeholder="利用時の条件やクレジット表記などがあれば入力してください"
+                    ></textarea>
+
+
+                    <p class="form-help">
+                        二次利用、改変、動画利用、クレジット表記など、
+                        作品を利用する人に伝えたい条件を記載してください。
+                    </p>
+
+                </div>
+
+
+
+                <!-- =========================
+                     TAGS
+                ========================== -->
+
+                <div class="form-group">
+
+                    <label>
+                        タグ
+                        <span class="optional">
+                            任意
+                        </span>
+                    </label>
+
+
+                    <p class="form-help">
+                        作品に該当するタグを選択してください。(任意・複数選択可)
+                    </p>
+
+
+                    <div
+                        id="work-tags"
+                        class="work-tags"
+                    ></div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     AGREEMENT
+                ========================== -->
+
+                <div class="form-group agreement-group">
+
+                    <label class="agreement-label">
+
+                        <input
+                            type="checkbox"
+                            id="work-agreement"
+                            required
+                        >
+
+
+                        <span>
+                            この作品をMFDCOの提供作品として掲載することに同意します。
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+
+                <!-- =========================
+                     ERROR
+                ========================== -->
+
+                <div
+                    id="submit-error"
+                    class="form-message error hidden"
+                ></div>
+
+
+
+                <!-- =========================
+                     SUCCESS
+                ========================== -->
+
+                <div
+                    id="submit-success"
+                    class="form-message success hidden"
+                >
+
+                    <h3>
+                        作品を受け付けました
+                    </h3>
+
+
+                    <p>
+                        管理者による確認後、
+                        提供作品一覧へ掲載されます。
+                    </p>
+
+                </div>
+
+
+
+                <!-- =========================
+                     SUBMIT
+                ========================== -->
+
+                <div class="submit-actions">
+
+                    <button
+                        type="submit"
+                        id="submit-button"
+                        class="work-submit-button"
+                    >
+
+                        <span id="submit-button-text">
+                            作品を提出する
+                        </span>
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         COMMON FOOTER
+    ========================================== -->
+
+    <div id="footer-container"></div>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/header.js"></script>
+
+    <script src="js/tags.js"></script>
+
+    <script src="js/submit-work.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>加盟申請管理 | MFDCO</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/admin-members.css"
+    >
+</head>
+
+
+<body>
+
+    <div id="header-container"></div>
+
+
+    <main class="admin-members-page">
+
+        <div class="admin-members-container">
+
+
+            <div class="admin-members-back">
+
+                <a href="admin.html">
+                    ← 管理ダッシュボードへ戻る
+                </a>
+
+            </div>
+
+
+            <section class="admin-members-hero">
+
+                <div>
+
+                    <p class="admin-members-eyebrow">
+                        MEMBER APPLICATIONS
+                    </p>
+
+                    <h1>
+                        加盟申請管理
+                    </h1>
+
+                    <p>
+                        MFDCOへの加盟申請を確認し、
+                        承認または却下します。
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <section
+                id="admin-members-loading"
+                class="admin-members-message"
+            >
+                加盟申請を読み込んでいます...
+            </section>
+
+
+            <section
+                id="admin-members-denied"
+                class="admin-members-message admin-members-error"
+                hidden
+            >
+
+                <h2>
+                    管理者権限がありません
+                </h2>
+
+                <a href="admin-login.html">
+                    管理者認証へ
+                </a>
+
+            </section>
+
+
+            <div
+                id="admin-members-content"
+                hidden
+            >
+
+
+                <section class="admin-members-summary">
+
+                    <article>
+
+                        <span>
+                            PENDING
+                        </span>
+
+                        <strong id="members-count-pending">
+                            0
+                        </strong>
+
+                        <small>
+                            審査待ち
+                        </small>
+
+                    </article>
+
+
+                    <article>
+
+                        <span>
+                            APPROVED
+                        </span>
+
+                        <strong id="members-count-approved">
+                            0
+                        </strong>
+
+                        <small>
+                            承認済み
+                        </small>
+
+                    </article>
+
+
+                    <article>
+
+                        <span>
+                            REJECTED
+                        </span>
+
+                        <strong id="members-count-rejected">
+                            0
+                        </strong>
+
+                        <small>
+                            却下済み
+                        </small>
+
+                    </article>
+
+                </section>
+
+
+                <section class="admin-members-toolbar">
+
+                    <div>
+
+                        <label for="member-status-filter">
+                            表示
+                        </label>
+
+                        <select id="member-status-filter">
+
+                            <option value="pending">
+                                審査待ち
+                            </option>
+
+                            <option value="approved">
+                                承認済み
+                            </option>
+
+                            <option value="rejected">
+                                却下済み
+                            </option>
+
+                            <option value="all">
+                                すべて
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="members-reload-button"
+                    >
+                        再読み込み
+                    </button>
+
+                </section>
+
+
+                <div
+                    id="admin-members-error"
+                    class="admin-members-message admin-members-error"
+                    hidden
+                ></div>
+
+
+                <div
+                    id="admin-members-empty"
+                    class="admin-members-message"
+                    hidden
+                >
+                    該当する加盟申請はありません。
+                </div>
+
+
+                <section
+                    id="admin-members-list"
+                    class="admin-members-list"
+                ></section>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/header.js"></script>
+
+    <script src="js/admin-members.js"></script>
+
+</body>
+
+</html>

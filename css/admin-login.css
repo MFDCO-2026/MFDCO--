@@ -1,0 +1,213 @@
+/* =========================================
+   MFDCO ADMIN LOGIN
+========================================= */
+
+.admin-login-page {
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 130px 20px 80px;
+
+    box-sizing: border-box;
+
+    background: #f4f5f5;
+}
+
+
+.admin-login-panel {
+    width: min(520px, 100%);
+
+    padding: 40px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #dddddd;
+
+    background: #ffffff;
+}
+
+
+.admin-login-label {
+    margin: 0 0 10px;
+
+    color: #164b4b;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+}
+
+
+.admin-login-panel h1 {
+    margin: 0 0 18px;
+
+    color: #111111;
+
+    font-size: clamp(32px, 6vw, 46px);
+
+    line-height: 1.2;
+}
+
+
+.admin-login-description {
+    margin: 0 0 30px;
+
+    color: #666666;
+
+    font-size: 13px;
+
+    line-height: 1.9;
+}
+
+
+.admin-user-status {
+    margin-bottom: 25px;
+
+    padding: 14px 16px;
+
+    border-left: 4px solid #164b4b;
+
+    background: #eef3f2;
+
+    color: #164b4b;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+#admin-login-form {
+    display: grid;
+
+    gap: 12px;
+}
+
+
+#admin-login-form label {
+    color: #222222;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+#admin-password {
+    width: 100%;
+
+    min-height: 48px;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #cccccc;
+
+    background: #ffffff;
+
+    color: #111111;
+
+    font: inherit;
+
+    outline: none;
+}
+
+
+#admin-password:focus {
+    border-color: #164b4b;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(22, 75, 75, 0.10);
+}
+
+
+#admin-login-button {
+    min-height: 50px;
+
+    margin-top: 5px;
+
+    border: none;
+
+    background: #164b4b;
+
+    color: #ffffff;
+
+    font: inherit;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+#admin-login-button:hover {
+    opacity: 0.9;
+}
+
+
+#admin-login-button:disabled {
+    opacity: 0.55;
+
+    cursor: wait;
+}
+
+
+.admin-login-error {
+    margin: 0;
+
+    padding: 12px 14px;
+
+    border-left: 4px solid #963b3b;
+
+    background: #fff1f1;
+
+    color: #8b3434;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+
+.admin-denied {
+    margin-top: 20px;
+
+    padding: 18px;
+
+    border-left: 4px solid #963b3b;
+
+    background: #fff1f1;
+
+    color: #8b3434;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+.admin-login-page [hidden] {
+    display: none !important;
+}
+
+
+@media (max-width: 600px) {
+
+    .admin-login-page {
+        padding: 100px 12px 60px;
+    }
+
+
+    .admin-login-panel {
+        padding: 28px 22px;
+    }
+
+}

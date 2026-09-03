@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>MFDCO | マイページ</title>
+
+    <meta
+        name="description"
+        content="MFDCO MEMBER マイページ"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+
+<body>
+
+    <!-- =========================================
+         COMMON HEADER
+    ========================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="mypage">
+
+        <section class="mypage-section">
+
+            <div class="mypage-container">
+
+
+                <!-- =================================
+                     PAGE HEADER
+                ================================== -->
+
+                <div class="mypage-header">
+
+                    <p class="section-label">
+                        MFDCO MEMBER
+                    </p>
+
+                    <h1>
+                        マイページ
+                    </h1>
+
+                    <p class="mypage-lead">
+                        MFDCOメンバー情報を確認できます。
+                    </p>
+
+                </div>
+
+
+                <!-- =================================
+                     LOADING
+                ================================== -->
+
+                <div
+                    id="mypage-loading"
+                    class="mypage-message"
+                >
+
+                    <p>
+                        読み込んでいます...
+                    </p>
+
+                </div>
+
+
+                <!-- =================================
+                     ERROR
+                ================================== -->
+
+                <div
+                    id="mypage-error"
+                    class="mypage-message"
+                    hidden
+                >
+
+                    <p id="mypage-error-text">
+                        情報を取得できませんでした。
+                    </p>
+
+                    <a
+                        href="join.html"
+                        class="outline-button"
+                    >
+                        ログインページへ
+                    </a>
+
+                </div>
+
+
+                <!-- =================================
+                     PROFILE
+                ================================== -->
+
+                <div
+                    id="mypage-content"
+                    class="mypage-content"
+                    hidden
+                >
+
+
+                    <!-- =================================
+                         PROFILE CARD
+                    ================================== -->
+
+                    <section class="profile-card">
+
+
+                        <div class="profile-main">
+
+
+                            <!-- ICON -->
+
+                            <div class="profile-icon-wrap">
+
+                                <img
+                                    id="profile-icon"
+                                    class="profile-icon"
+                                    src=""
+                                    alt=""
+                                >
+
+                            </div>
+
+
+                            <!-- BASIC INFO -->
+
+                            <div class="profile-basic">
+
+                                <p class="profile-label">
+                                    ACTIVITY NAME
+                                </p>
+
+                                <h2
+                                    id="profile-activity-name"
+                                >
+                                    -
+                                </h2>
+
+
+                                <p
+                                    id="profile-country"
+                                    class="profile-country"
+                                >
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        <div class="profile-status">
+
+                            <div class="status-item">
+
+                                <span>
+                                    STATUS
+                                </span>
+
+                                <strong
+                                    id="profile-status"
+                                >
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="status-item">
+
+                                <span>
+                                    ROLE
+                                </span>
+
+                                <strong
+                                    id="profile-role"
+                                >
+                                    -
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================
+                         FLAG
+                    ================================== -->
+
+                    <section
+                        id="country-section"
+                        class="profile-section"
+                        hidden
+                    >
+
+                        <div class="profile-section-header">
+
+                            <p class="section-label">
+                                FICTIONAL COUNTRY
+                            </p>
+
+                            <h2>
+                                架空国家
+                            </h2>
+
+                        </div>
+
+
+                        <div class="country-card">
+
+                            <img
+                                id="profile-flag"
+                                src=""
+                                alt=""
+                            >
+
+                            <div>
+
+                                <p
+                                    id="profile-country-name"
+                                    class="country-name"
+                                >
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================
+                         TAGS
+                    ================================== -->
+
+                    <section
+                        id="tags-section"
+                        class="profile-section"
+                        hidden
+                    >
+
+                        <div class="profile-section-header">
+
+                            <p class="section-label">
+                                TAGS
+                            </p>
+
+                            <h2>
+                                活動タグ
+                            </h2>
+
+                        </div>
+
+
+                        <div
+                            id="profile-tags"
+                            class="profile-tags"
+                        >
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================
+                         CREDIT
+                    ================================== -->
+
+                    <section class="profile-section">
+
+                        <div class="profile-section-header">
+
+                            <p class="section-label">
+                                CREDIT
+                            </p>
+
+                            <h2>
+                                クレジット表記
+                            </h2>
+
+                        </div>
+
+
+                        <div
+                            id="profile-credit"
+                            class="profile-credit"
+                        >
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================
+                         BIO
+                    ================================== -->
+
+                    <section
+                        id="bio-section"
+                        class="profile-section"
+                        hidden
+                    >
+
+                        <div class="profile-section-header">
+
+                            <p class="section-label">
+                                PROFILE
+                            </p>
+
+                            <h2>
+                                自由記述
+                            </h2>
+
+                        </div>
+
+
+                        <div
+                            id="profile-bio"
+                            class="profile-bio"
+                        >
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================
+                         ACCOUNT
+                    ================================== -->
+
+                    <section class="profile-section">
+
+                        <div class="profile-section-header">
+
+                            <p class="section-label">
+                                ACCOUNT
+                            </p>
+
+                            <h2>
+                                アカウント
+                            </h2>
+
+                        </div>
+
+
+                        <div class="account-info">
+
+                            <div class="account-row">
+
+                                <span>
+                                    メールアドレス
+                                </span>
+
+                                <strong
+                                    id="profile-email"
+                                >
+                                    -
+                                </strong>
+
+                            </div>
+
+
+                            <div class="account-row">
+
+                                <span>
+                                    登録日
+                                </span>
+
+                                <strong
+                                    id="profile-created-at"
+                                >
+                                    -
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- =================================
+                         ACTIONS
+                    ================================== -->
+
+                    <section class="mypage-actions">
+
+                        <a
+                            href="profile-edit.html"
+                            class="outline-button"
+                        >
+                            プロフィールを編集
+                            <span>→</span>
+                        </a>
+
+
+                        <button
+                            id="logout-button"
+                            type="button"
+                            class="logout-button"
+                        >
+                            ログアウト
+                        </button>
+
+                    </section>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <div id="footer-container"></div>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/mypage.js"></script>
+
+</body>
+
+</html>

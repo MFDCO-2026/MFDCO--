@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        管理者認証 | MFDCO
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/admin-login.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div id="header-container"></div>
+
+
+    <main class="admin-login-page">
+
+        <section class="admin-login-panel">
+
+            <p class="admin-login-label">
+                MFDCO ADMINISTRATION
+            </p>
+
+            <h1>
+                管理者認証
+            </h1>
+
+            <p class="admin-login-description">
+                管理画面を利用するには、
+                MFDCO管理者アカウントと
+                管理者パスワードによる認証が必要です。
+            </p>
+
+
+            <div
+                id="admin-user-status"
+                class="admin-user-status"
+            >
+                アカウントを確認しています...
+            </div>
+
+
+            <form
+                id="admin-login-form"
+                hidden
+            >
+
+                <label for="admin-password">
+                    管理者パスワード
+                </label>
+
+                <input
+                    type="password"
+                    id="admin-password"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <p
+                    id="admin-login-error"
+                    class="admin-login-error"
+                    hidden
+                ></p>
+
+                <button
+                    type="submit"
+                    id="admin-login-button"
+                >
+                    管理画面へ進む
+                </button>
+
+            </form>
+
+
+            <div
+                id="admin-denied"
+                class="admin-denied"
+                hidden
+            >
+
+                このアカウントには
+                管理者権限がありません。
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/header.js"></script>
+
+    <script src="js/admin-login.js"></script>
+
+</body>
+
+</html>

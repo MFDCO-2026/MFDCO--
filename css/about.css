@@ -1,0 +1,1129 @@
+/* =========================================
+   MFDCO ABOUT PAGE
+   ========================================= */
+
+
+/* =========================================
+   HERO
+   ========================================= */
+
+.about-hero {
+
+    position: relative;
+
+    min-height: 520px;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #101820 0%,
+            #18242d 50%,
+            #0b1015 100%
+        );
+
+}
+
+
+.about-hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.03) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.03) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        50px 50px;
+
+}
+
+
+.about-hero-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,13,18,0.95),
+            rgba(8,13,18,0.5),
+            rgba(8,13,18,0.85)
+        );
+
+}
+
+
+.about-hero-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: min(
+        1200px,
+        calc(100% - 80px)
+    );
+
+    margin: 0 auto;
+
+}
+
+
+.about-hero-label {
+
+    margin: 0 0 24px;
+
+    color: #9caab4;
+
+    font-size: 12px;
+
+    letter-spacing: 0.3em;
+
+    font-weight: 600;
+
+}
+
+
+.about-hero h1 {
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(
+        48px,
+        7vw,
+        88px
+    );
+
+    font-weight: 700;
+
+    letter-spacing: 0.04em;
+
+}
+
+
+.about-hero-subtitle {
+
+    margin: 24px 0 0;
+
+    color: #aab6be;
+
+    font-size: 16px;
+
+    letter-spacing: 0.12em;
+
+}
+
+
+/* =========================================
+   COMMON SECTION
+   ========================================= */
+
+.about-section {
+
+    padding: 120px 0;
+
+    background: #ffffff;
+
+}
+
+
+.about-section-inner {
+
+    width: min(
+        1200px,
+        calc(100% - 80px)
+    );
+
+    margin: 0 auto;
+
+}
+
+
+.about-section-heading {
+
+    display: grid;
+
+    grid-template-columns:
+        90px 1fr;
+
+    gap: 30px;
+
+    margin-bottom: 80px;
+
+}
+
+
+.about-number {
+
+    color: #c3cbd0;
+
+    font-size: 13px;
+
+    letter-spacing: 0.15em;
+
+    font-weight: 700;
+
+}
+
+
+.about-label {
+
+    margin: 0 0 12px;
+
+    color: #78858d;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.25em;
+
+}
+
+
+.about-section h2 {
+
+    margin: 0;
+
+    color: #11181d;
+
+    font-size: clamp(
+        30px,
+        4vw,
+        48px
+    );
+
+    letter-spacing: 0.04em;
+
+}
+
+
+/* =========================================
+   INTRODUCTION
+   ========================================= */
+
+.about-introduction-content {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 100px;
+
+}
+
+
+.about-lead {
+
+    border-left: 3px solid #222d34;
+
+    padding-left: 35px;
+
+}
+
+
+.about-lead p {
+
+    margin: 0;
+
+    color: #1b242a;
+
+    font-size: 25px;
+
+    line-height: 1.9;
+
+    font-weight: 600;
+
+}
+
+
+.about-body {
+
+    color: #5e6a71;
+
+    font-size: 15px;
+
+    line-height: 2.2;
+
+}
+
+
+.about-body p {
+
+    margin: 0 0 30px;
+
+}
+
+
+.about-body p:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+/* =========================================
+   PURPOSE
+   ========================================= */
+
+.about-purpose {
+
+    background: #f3f5f6;
+
+}
+
+
+.purpose-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 1px;
+
+    background: #d7dde0;
+
+    border: 1px solid #d7dde0;
+
+}
+
+
+.purpose-card {
+
+    position: relative;
+
+    padding: 50px;
+
+    background: #ffffff;
+
+}
+
+
+.purpose-number {
+
+    display: block;
+
+    margin-bottom: 45px;
+
+    color: #9ba6ac;
+
+    font-size: 12px;
+
+    letter-spacing: 0.15em;
+
+}
+
+
+.purpose-card h3 {
+
+    margin: 0 0 20px;
+
+    color: #172027;
+
+    font-size: 22px;
+
+}
+
+
+.purpose-card p {
+
+    margin: 0;
+
+    color: #657178;
+
+    font-size: 14px;
+
+    line-height: 2;
+
+}
+
+
+/* =========================================
+   ACTIVITIES
+   ========================================= */
+
+.about-activities {
+
+    background: #ffffff;
+
+}
+
+
+.activities-list {
+
+    border-top: 1px solid #d7dde0;
+
+}
+
+
+.activity-item {
+
+    display: grid;
+
+    grid-template-columns:
+        100px 1fr;
+
+    gap: 40px;
+
+    padding: 45px 0;
+
+    border-bottom: 1px solid #d7dde0;
+
+}
+
+
+.activity-number {
+
+    color: #a2adb3;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+
+}
+
+
+.activity-content h3 {
+
+    margin: 0 0 15px;
+
+    color: #182127;
+
+    font-size: 22px;
+
+}
+
+
+.activity-content p {
+
+    max-width: 760px;
+
+    margin: 0;
+
+    color: #657178;
+
+    font-size: 14px;
+
+    line-height: 2;
+
+}
+
+
+/* =========================================
+   PHILOSOPHY
+   ========================================= */
+
+.about-philosophy {
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #121b21;
+
+}
+
+
+.about-philosophy-background {
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0.4;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.04) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.04) 1px,
+            transparent 1px
+        );
+
+    background-size: 60px 60px;
+
+}
+
+
+.about-philosophy .about-section-inner {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+.about-philosophy .about-number {
+
+    color: #68757c;
+
+}
+
+
+.about-philosophy .about-label {
+
+    color: #839097;
+
+}
+
+
+.about-philosophy h2 {
+
+    color: #ffffff;
+
+}
+
+
+.philosophy-content {
+
+    max-width: 850px;
+
+    margin-left: 120px;
+
+}
+
+
+.philosophy-lead {
+
+    margin: 0 0 60px;
+
+    color: #ffffff;
+
+    font-size: clamp(
+        28px,
+        4vw,
+        52px
+    );
+
+    line-height: 1.6;
+
+    font-weight: 600;
+
+}
+
+
+.philosophy-content p:not(
+    .philosophy-lead
+) {
+
+    margin: 0 0 30px;
+
+    color: #aab5bb;
+
+    font-size: 15px;
+
+    line-height: 2.2;
+
+}
+
+
+/* =========================================
+   ORGANIZATION
+   ========================================= */
+
+.organization-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 0;
+
+    border-top: 1px solid #d7dde0;
+
+}
+
+
+.organization-item {
+
+    padding: 35px 0;
+
+    border-bottom: 1px solid #d7dde0;
+
+}
+
+
+.organization-item:nth-child(
+    odd
+) {
+
+    margin-right: 60px;
+
+}
+
+
+.organization-item span {
+
+    display: block;
+
+    margin-bottom: 12px;
+
+    color: #8a969d;
+
+    font-size: 10px;
+
+    letter-spacing: 0.2em;
+
+    font-weight: 700;
+
+}
+
+
+.organization-item strong {
+
+    color: #1b252b;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================
+   JOIN
+   ========================================= */
+
+.about-join {
+
+    padding: 130px 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1c2931,
+            #0c1217
+        );
+
+}
+
+
+.about-join-content {
+
+    width: min(
+        800px,
+        calc(100% - 80px)
+    );
+
+    margin: 0 auto;
+
+    text-align: center;
+
+}
+
+
+.about-join .about-label {
+
+    color: #8c9aa2;
+
+}
+
+
+.about-join h2 {
+
+    margin: 0 0 30px;
+
+    color: #ffffff;
+
+    font-size: clamp(
+        36px,
+        5vw,
+        64px
+    );
+
+    line-height: 1.5;
+
+}
+
+
+.about-join p:not(
+    .about-label
+) {
+
+    margin: 0 auto 45px;
+
+    max-width: 600px;
+
+    color: #aab5bb;
+
+    font-size: 15px;
+
+    line-height: 2;
+
+}
+
+
+.about-join .join-large-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    padding: 20px 35px;
+
+    border: 1px solid
+        rgba(255,255,255,0.3);
+
+    color: #377567;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    letter-spacing: 0.08em;
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease;
+
+}
+
+
+.about-join
+.join-large-button:hover {
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.08
+    );
+
+    border-color: #ffffff;
+
+}
+
+
+.about-join
+.join-large-button span {
+
+    font-size: 20px;
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (
+    max-width: 800px
+) {
+
+    .about-hero {
+
+        min-height: 420px;
+
+    }
+
+
+    .about-hero-content {
+
+        width: calc(
+            100% - 40px
+        );
+
+    }
+
+
+    .about-section {
+
+        padding: 80px 0;
+
+    }
+
+
+    .about-section-inner {
+
+        width: calc(
+            100% - 40px
+        );
+
+    }
+
+
+    .about-section-heading {
+
+        grid-template-columns:
+            50px 1fr;
+
+        gap: 15px;
+
+        margin-bottom: 50px;
+
+    }
+
+
+    .about-introduction-content {
+
+        grid-template-columns: 1fr;
+
+        gap: 50px;
+
+    }
+
+
+    .about-lead {
+
+        padding-left: 20px;
+
+    }
+
+
+    .about-lead p {
+
+        font-size: 20px;
+
+    }
+
+
+    .purpose-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .purpose-card {
+
+        padding: 35px 25px;
+
+    }
+
+
+    .activity-item {
+
+        grid-template-columns:
+            50px 1fr;
+
+        gap: 15px;
+
+        padding: 35px 0;
+
+    }
+
+
+    .philosophy-content {
+
+        margin-left: 0;
+
+    }
+
+
+    .organization-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .organization-item:nth-child(
+        odd
+    ) {
+
+        margin-right: 0;
+
+    }
+
+
+    .about-join {
+
+        padding: 90px 0;
+
+    }
+
+
+    .about-join-content {
+
+        width: calc(
+            100% - 40px
+        );
+
+    }
+
+}
+
+/* =========================================
+   ABOUT HERO BACKGROUND
+   ========================================= */
+
+.about-hero {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: #050505;
+}
+
+
+/* -----------------------------------------
+   BACKGROUND IMAGE
+----------------------------------------- */
+
+.about-hero-background {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        url("../assets/about-hero.png");
+
+    background-size: cover;
+    background-position: center;
+    aspect-ratio: 16 / 9; 
+    z-index: 0;
+
+    transform: scale(1.02);
+}
+
+
+/* -----------------------------------------
+   DARK OVERLAY
+----------------------------------------- */
+
+.about-hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.82) 0%,
+            rgba(0, 0, 0, 0.62) 45%,
+            rgba(0, 0, 0, 0.38) 100%
+        );
+
+    z-index: 1;
+}
+
+
+/* -----------------------------------------
+   HERO CONTENT
+----------------------------------------- */
+
+.about-hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(
+        1200px,
+        calc(100% - 80px)
+    );
+
+    margin: 0 auto;
+
+    color: #fff;
+}
+
+
+.about-hero-label {
+    margin-bottom: 20px;
+
+    font-size: 0.8rem;
+
+    letter-spacing: 0.25em;
+
+    color: rgba(255,255,255,0.65);
+}
+
+
+.about-hero-content h1 {
+    margin: 0;
+
+    font-size: clamp(
+        2.5rem,
+        6vw,
+        5.5rem
+    );
+
+    line-height: 1.15;
+
+    letter-spacing: 0.04em;
+
+    font-weight: 700;
+}
+
+
+.about-hero-subtitle {
+    margin-top: 30px;
+
+    font-size: 1rem;
+
+    letter-spacing: 0.18em;
+
+    color: rgba(255,255,255,0.75);
+}
+
+
+
+/* =========================================
+   INTRODUCTION VIDEO
+   ========================================= */
+
+.about-video-section {
+    background: #111;
+    color: #fff;
+}
+
+
+.about-video-wrapper {
+    margin-top: 60px;
+}
+
+
+/* -----------------------------------------
+   VIDEO
+----------------------------------------- */
+
+.about-video {
+    position: relative;
+
+    width: 50%;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    background: #050505;
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.08
+    );
+}
+
+
+.about-video video {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* -----------------------------------------
+   VIDEO CAPTION
+----------------------------------------- */
+
+.about-video-caption {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 40px;
+
+    margin-top: 20px;
+
+    padding-bottom: 10px;
+}
+
+
+.about-video-caption p {
+    margin: 0;
+
+    color: rgba(
+        255,
+        255,
+        255,
+        0.65
+    );
+
+    line-height: 1.8;
+}
+
+
+.about-video-caption .about-video-label {
+    flex-shrink: 0;
+
+    color: #fff;
+
+    font-size: 0.75rem;
+
+    letter-spacing: 0.18em;
+}
+
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+
+    .about-hero {
+        min-height: 65vh;
+    }
+
+
+    .about-hero-content {
+        width: calc(100% - 40px);
+    }
+
+
+    .about-hero-content h1 {
+        font-size: 2.4rem;
+    }
+
+
+    .about-hero-background {
+        background-position: center;
+    }
+
+
+    .about-video-wrapper {
+        margin-top: 40px;
+    }
+
+
+    .about-video-caption {
+        display: block;
+    }
+
+
+    .about-video-caption .about-video-label {
+        margin-bottom: 10px;
+    }
+
+}
