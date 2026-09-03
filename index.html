@@ -153,64 +153,66 @@
                     </p>
 
                 </div>
-<!-- =====================================
-             INTRODUCTION MOVIE
-        ====================================== -->
-
-        <section class="about-section about-video-section">
-
-            <div class="about-section-inner">
 
 
-                <div class="about-section-heading">
+                <!-- =====================================
+                     INTRODUCTION MOVIE
+                ====================================== -->
 
-                    <div>
+                <section class="about-section about-video-section">
 
-                        <p class="about-label">
-                            INTRODUCTION MOVIE
-                        </p>
+                    <div class="about-section-inner">
+
+
+                        <div class="about-section-heading">
+
+                            <div>
+
+                                <p class="about-label">
+                                    INTRODUCTION MOVIE
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="about-video-wrapper">
+
+                            <div class="about-video">
+
+                                <video
+                                    controls
+                                    preload="metadata"
+                                    poster="assets/about-video-poster.jpg"
+                                >
+
+                                    <source
+                                        src="assets/about-introduction.mp4"
+                                        type="video/mp4"
+                                    >
+
+                                    お使いのブラウザでは
+                                    動画を再生できません。
+
+                                </video>
+
+                            </div>
+
+
+                            <div class="about-video-caption">
+
+                                <p>
+                                    MFDCOの活動内容や目的について紹介する映像です。
+                                </p>
+
+                            </div>
+
+                        </div>
 
                     </div>
 
-                </div>
-
-
-                <div class="about-video-wrapper">
-
-                    <div class="about-video">
-
-                        <video
-                            controls
-                            preload="metadata"
-                            poster="assets/about-video-poster.jpg"
-                        >
-
-                            <source
-                                src="assets/about-introduction.mp4"
-                                type="video/mp4"
-                            >
-
-                            お使いのブラウザでは
-                            動画を再生できません。
-
-                        </video>
-
-                    </div>
-
-
-                    <div class="about-video-caption">
-                        <p>
-                            MFDCOの活動内容や目的について紹介する映像です。
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
+                </section>
 
 
 
@@ -282,145 +284,28 @@
             </div>
 
 
+            <!--
+                Supabaseから
+                公開中の作品を新しい順に3件表示
+            -->
 
-            <div class="works-grid">
+            <div
+                id="top-works-grid"
+                class="works-grid"
+            >
 
-
-                <!-- WORK 001 -->
-
-                <article class="work-card">
-
-                    <div class="work-image">
-
-                        <img
-                            src="assets/works/work001.png"
-                            alt="提供作品"
-                        >
-
-
-                        <div class="work-overlay">
-
-                            <span>
-                                VIEW
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="work-info">
-
-                        <p class="work-id">
-                            MFDCO WORK 001
-                        </p>
-
-
-                        <h3>
-                            作品名をここに
-                        </h3>
-
-
-                        <p>
-                            提供者名
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-
-                <!-- WORK 002 -->
-
-                <article class="work-card">
-
-                    <div class="work-image">
-
-                        <img
-                            src="assets/works/work002.png"
-                            alt="提供作品"
-                        >
-
-
-                        <div class="work-overlay">
-
-                            <span>
-                                VIEW
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="work-info">
-
-                        <p class="work-id">
-                            MFDCO WORK 002
-                        </p>
-
-
-                        <h3>
-                            作品名をここに
-                        </h3>
-
-
-                        <p>
-                            提供者名
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-
-                <!-- WORK 003 -->
-
-                <article class="work-card">
-
-                    <div class="work-image">
-
-                        <img
-                            src="assets/works/work003.png"
-                            alt="提供作品"
-                        >
-
-
-                        <div class="work-overlay">
-
-                            <span>
-                                VIEW
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="work-info">
-
-                        <p class="work-id">
-                            MFDCO WORK 003
-                        </p>
-
-
-                        <h3>
-                            作品名をここに
-                        </h3>
-
-
-                        <p>
-                            提供者名
-                        </p>
-
-                    </div>
-
-                </article>
+                <div class="top-works-loading">
+                    作品を読み込んでいます...
+                </div>
 
             </div>
 
+
+            <div
+                id="top-works-error"
+                class="top-works-message"
+                hidden
+            ></div>
 
 
             <div class="section-more">
@@ -635,20 +520,27 @@
 
     </main>
 
+
     <!-- =========================================
-    COMMON FOOTER
+         COMMON FOOTER
     ========================================== -->
+
     <div id="footer-container"></div>
+
 
 
     <!-- =========================================
          JAVASCRIPT
     ========================================== -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script src="js/header.js"></script>
-<script src="js/main.js"></script>
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/header.js"></script>
+
+    <script src="js/main.js"></script>
 
 </body>
+
+</html>
