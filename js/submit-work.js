@@ -1199,6 +1199,65 @@ function handleWorkFileSelection(
 
 
 /* =========================================================
+   SAFE STORAGE FILENAME
+========================================================= */
+
+function getSafeStorageFilename(
+    file
+) {
+
+    const originalName =
+        file?.name ||
+        "file";
+
+
+    const dotIndex =
+        originalName.lastIndexOf(
+            "."
+        );
+
+
+    let extension =
+        "";
+
+
+    if (
+        dotIndex !== -1 &&
+        dotIndex <
+            originalName.length - 1
+    ) {
+
+        extension =
+            originalName
+                .slice(
+                    dotIndex + 1
+                )
+                .toLowerCase()
+                .replace(
+                    /[^a-z0-9]/g,
+                    ""
+                )
+                .slice(
+                    0,
+                    20
+                );
+
+    }
+
+
+    const id =
+        createUuid();
+
+
+    return extension
+        ? `${id}.${extension}`
+        : id;
+
+}
+
+
+
+/* =========================================================
    VALIDATE FORM
 ========================================================= */
 
@@ -1654,6 +1713,13 @@ async function handleSubmit(
                 fileResult.path;
 
 
+            /*
+                利用者が選択した元ファイル名は
+                そのままDBへ保存する。
+
+                Storage内部名とは分離する。
+            */
+
             originalFilename =
                 file.name;
 
@@ -1768,9 +1834,6 @@ async function handleSubmit(
             tags:
                 getSelectedTags(),
 
-            status:
-                "pending",
-
 
             /* DATA */
 
@@ -1825,6 +1888,13 @@ async function handleSubmit(
         };
 
 
+        /*
+            status はフロントエンドから送信しない。
+
+            Supabase側のトリガーで
+            新規作品を approved にする。
+        */
+
         console.log(
             "MFDCO SUBMIT PAYLOAD:",
             payload
@@ -1859,7 +1929,7 @@ async function handleSubmit(
         ----------------------------------------- */
 
         showSuccess(
-            "作品を提出しました。審査完了までお待ちください。"
+            "作品を提出しました。作品は公開されました。"
         );
 
 
@@ -2036,14 +2106,42 @@ async function uploadWorkFile(
     }
 
 
+    /*
+        Storage内部では元ファイル名を
+        直接使用しない。
+
+        日本語、空白、記号などを含む
+        ファイル名でも安全に保存できるように、
+        UUIDベースのASCIIファイル名を使用する。
+
+        元ファイル名は
+        works.original_filename
+        に保存される。
+    */
+
     const safeFilename =
-        sanitizeFilename(
-            file.name
+        getSafeStorageFilename(
+            file
         );
 
 
     const path =
         `${currentUser.id}/${workId}/${safeFilename}`;
+
+
+    console.log(
+        "MFDCO WORK FILE UPLOAD:",
+        {
+            originalFilename:
+                file.name,
+
+            storageFilename:
+                safeFilename,
+
+            path:
+                path
+        }
+    );
 
 
     const {
