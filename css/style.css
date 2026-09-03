@@ -4131,3 +4131,212 @@ img {
     background: #173f3b;
     color: #ffffff;
 }
+
+
+
+/* =========================================
+   TOP PAGE
+   PROVIDED WORKS
+   ========================================= */
+
+
+/* =========================================
+   WORK CARD LINK
+   ========================================= */
+
+.works-section .work-card {
+
+    display: block;
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+
+/* =========================================
+   WORK GRID MESSAGE
+   ========================================= */
+
+.top-works-loading,
+.top-works-message {
+
+    grid-column:
+        1 / -1;
+
+    width: 100%;
+
+    min-height: 180px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 40px;
+
+    background: #ffffff;
+
+    border:
+        1px solid #e2e2e2;
+
+    color:
+        var(--text-muted);
+
+    font-size: 13px;
+
+    text-align: center;
+
+}
+
+
+/* =========================================
+   WORK IMAGE PLACEHOLDER
+   ========================================= */
+
+.top-work-image-placeholder {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        #e9eeee;
+
+    color:
+        #859494;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+/* =========================================
+   WORK IMAGE
+   ========================================= */
+
+.works-section .work-image {
+
+    position: relative;
+
+    aspect-ratio:
+        1 / 1;
+
+    overflow: hidden;
+
+    background:
+        #e9eeee;
+
+}
+
+
+.works-section .work-image img {
+
+    position: relative;
+
+    z-index: 1;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+/* =========================================
+   WORK INFO
+   ========================================= */
+
+.works-section .work-info {
+
+    min-height: 125px;
+
+}
+
+
+.works-section .work-info h3 {
+
+    overflow-wrap:
+        anywhere;
+
+}
+
+
+.works-section .work-author {
+
+    margin-top: 5px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+   WORK ID
+   ========================================= */
+
+.works-section .work-id {
+
+    font-size: 9px;
+
+    color:
+        var(--main-color);
+
+    letter-spacing:
+        0.15em;
+
+}
+
+
+/* =========================================
+   SECTION MORE
+   ========================================= */
+
+.works-section .section-more {
+
+    margin-top: 45px;
+
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 800px) {
+
+    .top-works-loading,
+    .top-works-message {
+
+        min-height: 140px;
+
+        padding: 30px 20px;
+
+    }
+
+
+    .works-section .work-info {
+
+        min-height: auto;
+
+    }
+
+}
