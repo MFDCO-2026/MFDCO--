@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        メールをご確認ください | MFDCO
+    </title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/logo.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+</head>
+
+<body>
+
+
+    <div id="header-container"></div>
+
+
+    <main>
+
+        <section class="join-page">
+
+            <div class="join-container">
+
+                <div class="join-panel active">
+
+                    <p class="section-label">
+                        EMAIL VERIFICATION
+                    </p>
+
+                    <h1>
+                        メールをご確認ください
+                    </h1>
+
+
+                    <p>
+                        MFDCOへのアカウント登録を
+                        受け付けました。
+                    </p>
+
+
+                    <p>
+                        ご登録いただいたメールアドレス宛に、
+                        確認メールを送信しています。
+                    </p>
+
+
+                    <div class="form-section">
+
+                        <h2>
+                            次の手順
+                        </h2>
+
+                        <p class="form-note">
+                            メール内の
+                            「メールアドレスを確認する」
+                            リンクを開いてください。
+                        </p>
+
+                        <p class="form-note">
+                            確認が完了すると、
+                            MFDCOのプロフィール登録画面へ移動します。
+                        </p>
+
+                    </div>
+
+
+                    <div class="form-section">
+
+                        <h2>
+                            メールが届かない場合
+                        </h2>
+
+                        <p class="form-note">
+                            ・迷惑メールフォルダをご確認ください。<br>
+                            ・数分待ってから再度ご確認ください。<br>
+                            ・入力したメールアドレスに誤りがないかご確認ください。
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="resend-email-button"
+                        class="join-submit"
+                    >
+                        確認メールを再送する
+                    </button>
+
+
+                    <p
+                        id="resend-message"
+                        class="form-note"
+                    ></p>
+
+
+                    <div class="join-switch">
+
+                        <span>
+                            登録画面へ戻る
+                        </span>
+
+                        <a href="join.html">
+                            戻る
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <div id="footer-container"></div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+    <script src="js/check-email.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
