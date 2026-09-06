@@ -1,142 +1,107 @@
 /* =========================================
-   MFDCO COMMON HEADER
+   MFDCO HEADER
+   Navigation / Authentication / Discord
 ========================================= */
 
 "use strict";
 
 
-let mfdcoHeaderInitialized =
+/* =========================================
+   DISCORD SETTINGS
+========================================= */
+
+const MFDCO_DISCORD_INVITE_URL =
+    "https://discord.gg/rhnJyuWnV";
+
+
+
+/* =========================================
+   GLOBAL STATE
+========================================= */
+
+let mfdcoHeaderAuthListenerRegistered =
     false;
 
 
+let mfdcoHeaderCurrentUser =
+    null;
+
+
+
 /* =========================================
-   LOAD HEADER
+   LOAD HEADER HTML
 ========================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    async function () {
+async function loadHeaderHtmlIfNeeded() {
 
-        const container =
-            document.getElementById(
-                "header-container"
-            );
+    const container =
+        document.getElementById(
+            "header-container"
+        );
 
 
-        if (!container) {
-
-            console.log(
-                "HEADER: header-container がありません。"
-            );
-
-            return;
-
-        }
-
-
-        try {
-
-            const response =
-                await fetch(
-                    "header.html"
-                );
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    `header.html の取得に失敗しました: ${response.status}`
-                );
-
-            }
-
-
-            const html =
-                await response.text();
-
-
-            container.innerHTML =
-                html;
-
-
-            console.log(
-                "HEADER: header.html 読み込み完了"
-            );
-
-
-            initializeHeader();
-
-
-        } catch (error) {
-
-            console.error(
-                "HEADER LOAD ERROR:",
-                error
-            );
-
-        }
-
+    if (!container) {
+        return false;
     }
-);
 
-
-/* =========================================
-   HTML ESCAPE
-========================================= */
-
-function escapeHtml(text) {
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-
-    div.textContent =
-        String(
-            text ?? ""
-        );
-
-
-    return div.innerHTML;
-
-}
-
-
-/* =========================================
-   DEFAULT ICON
-========================================= */
-
-function getDefaultIcon() {
-
-    return "assets/default-icon.png";
-
-}
-
-
-/* =========================================
-   SUPABASE CHECK
-========================================= */
-
-function isHeaderSupabaseReady() {
 
     if (
-        typeof window.supabaseClient ===
-        "undefined"
+        container.querySelector(
+            ".site-header"
+        )
     ) {
+        return true;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "header.html"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "header.html HTTP " +
+                response.status
+            );
+
+        }
+
+
+        const html =
+            await response.text();
+
+
+        container.innerHTML =
+            html;
+
+
+        console.log(
+            "HEADER: header.html 読み込み完了"
+        );
+
+
+        return true;
+
+    }
+    catch (error) {
 
         console.error(
-            "HEADER ERROR: supabaseClient がありません。"
+            "HEADER: header.html 読み込み失敗",
+            error
         );
+
 
         return false;
 
     }
 
-
-    return true;
-
 }
+
 
 
 /* =========================================
@@ -152,9 +117,9 @@ function getHeaderElements() {
                 ".site-header"
             ),
 
-        memberLink:
-            document.querySelector(
-                "#header-member-link"
+        navigation:
+            document.getElementById(
+                "main-navigation"
             ),
 
         menuButton:
@@ -162,14 +127,197 @@ function getHeaderElements() {
                 ".menu-button"
             ),
 
-        navigation:
-            document.querySelector(
-                ".main-nav"
+        memberLink:
+            document.getElementById(
+                "header-member-link"
+            ),
+
+        loginText:
+            document.getElementById(
+                "header-login-text"
+            ),
+
+        userIconWrap:
+            document.getElementById(
+                "header-user-icon-wrap"
+            ),
+
+        userIcon:
+            document.getElementById(
+                "header-user-icon"
+            ),
+
+        discordLink:
+            document.getElementById(
+                "header-discord-link"
             )
 
     };
 
 }
+
+
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+function setupMobileMenu() {
+
+    const {
+        navigation,
+        menuButton
+    } =
+        getHeaderElements();
+
+
+    if (
+        !navigation ||
+        !menuButton
+    ) {
+        return;
+    }
+
+
+    if (
+        menuButton.dataset
+            .mfdcoMenuInitialized ===
+        "true"
+    ) {
+        return;
+    }
+
+
+    menuButton.dataset
+        .mfdcoMenuInitialized =
+        "true";
+
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            const opened =
+                navigation.classList.toggle(
+                    "mobile-open"
+                );
+
+
+            menuButton.classList.toggle(
+                "active",
+                opened
+            );
+
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                opened
+                    ? "true"
+                    : "false"
+            );
+
+
+            menuButton.setAttribute(
+                "aria-label",
+                opened
+                    ? "メニューを閉じる"
+                    : "メニューを開く"
+            );
+
+        }
+    );
+
+
+    navigation
+        .querySelectorAll("a")
+        .forEach(
+            function (link) {
+
+                if (
+                    link.dataset
+                        .mfdcoMenuCloseInitialized ===
+                    "true"
+                ) {
+                    return;
+                }
+
+
+                link.dataset
+                    .mfdcoMenuCloseInitialized =
+                    "true";
+
+
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        navigation.classList.remove(
+                            "mobile-open"
+                        );
+
+
+                        menuButton.classList.remove(
+                            "active"
+                        );
+
+
+                        menuButton.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+
+                        menuButton.setAttribute(
+                            "aria-label",
+                            "メニューを開く"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+
+/* =========================================
+   SAFE IMAGE URL
+========================================= */
+
+function isSafeHeaderImageUrl(
+    value
+) {
+
+    if (!value) {
+        return false;
+    }
+
+
+    try {
+
+        const url =
+            new URL(
+                value,
+                window.location.href
+            );
+
+
+        return (
+            url.protocol === "https:" ||
+            url.protocol === "http:"
+        );
+
+    }
+    catch {
+
+        return false;
+
+    }
+
+}
+
 
 
 /* =========================================
@@ -178,81 +326,80 @@ function getHeaderElements() {
 
 function showLoggedOutHeader() {
 
-    const elements =
+    const {
+        memberLink,
+        loginText,
+        userIconWrap,
+        userIcon,
+        discordLink
+    } =
         getHeaderElements();
 
 
-    if (
-        !elements.memberLink
-    ) {
-        return;
+    mfdcoHeaderCurrentUser =
+        null;
+
+
+    if (memberLink) {
+
+        memberLink.href =
+            "join.html";
+
     }
 
 
-    elements.memberLink.href =
-        "join.html";
+    if (loginText) {
 
+        loginText.textContent =
+            "参加 / ログイン";
 
-    elements.memberLink.classList.remove(
-        "header-member-profile",
-        "header-loading",
-        "logged-in"
-    );
-
-
-    elements.memberLink.classList.add(
-        "header-join"
-    );
-
-
-    elements.memberLink.innerHTML = `
-        <span class="header-login-text">
-            参加 / ログイン
-        </span>
-    `;
-
-}
-
-
-/* =========================================
-   LOADING
-========================================= */
-
-function showHeaderLoading() {
-
-    const elements =
-        getHeaderElements();
-
-
-    if (
-        !elements.memberLink
-    ) {
-        return;
     }
 
 
-    elements.memberLink.href =
-        "join.html";
+    if (userIconWrap) {
+
+        userIconWrap.hidden =
+            true;
+
+    }
 
 
-    elements.memberLink.classList.remove(
-        "header-member-profile"
+    if (userIcon) {
+
+        userIcon.removeAttribute(
+            "src"
+        );
+
+
+        userIcon.alt =
+            "";
+
+    }
+
+
+    if (discordLink) {
+
+        discordLink.hidden =
+            true;
+
+
+        discordLink.removeAttribute(
+            "href"
+        );
+
+    }
+
+
+    console.log(
+        "HEADER DISPLAY:",
+        {
+            loggedIn: false,
+            discord: false
+        }
     );
-
-
-    elements.memberLink.classList.add(
-        "header-join",
-        "header-loading"
-    );
-
-
-    elements.memberLink.innerHTML = `
-        <span class="header-login-text">
-            読み込み中...
-        </span>
-    `;
 
 }
+
 
 
 /* =========================================
@@ -260,99 +407,255 @@ function showHeaderLoading() {
 ========================================= */
 
 function showLoggedInHeader(
-    profile,
-    user
+    user,
+    profile
 ) {
 
-    const elements =
+    const {
+        memberLink,
+        loginText,
+        userIconWrap,
+        userIcon,
+        discordLink
+    } =
         getHeaderElements();
 
 
-    if (
-        !elements.memberLink
-    ) {
-        return;
+    mfdcoHeaderCurrentUser =
+        user;
+
+
+    const activityName =
+        String(
+            profile?.activity_name ||
+            user?.email?.split("@")[0] ||
+            "マイページ"
+        ).trim();
+
+
+
+    /* =====================================
+       USER
+    ====================================== */
+
+    if (memberLink) {
+
+        memberLink.href =
+            "mypage.html";
+
+
+        /*
+         * ログイン時のユーザー表示
+         */
+
+        memberLink.classList.remove(
+            "header-join"
+        );
+
+
+        memberLink.classList.add(
+            "header-member-profile"
+        );
+
     }
 
 
-    const name =
-        profile?.activity_name ||
-        "MFDCO Member";
+    if (loginText) {
+
+        loginText.textContent =
+            activityName;
 
 
-    const icon =
-        profile?.icon_url ||
-        getDefaultIcon();
+        loginText.classList.add(
+            "header-member-name"
+        );
+
+    }
 
 
-    elements.memberLink.href =
-        "mypage.html";
+
+    /* =====================================
+       USER ICON
+    ====================================== */
+
+    const iconUrl =
+        String(
+            profile?.icon_url ||
+            ""
+        ).trim();
 
 
-    elements.memberLink.classList.remove(
-        "header-join",
-        "header-loading"
-    );
+    if (
+        userIcon &&
+        userIconWrap &&
+        isSafeHeaderImageUrl(
+            iconUrl
+        )
+    ) {
+
+        userIcon.src =
+            iconUrl;
 
 
-    elements.memberLink.classList.add(
-        "header-member-profile",
-        "logged-in"
-    );
+        userIcon.alt =
+            activityName;
 
 
-    elements.memberLink.innerHTML = `
-        <img
-            src="${escapeHtml(icon)}"
-            alt=""
-            class="header-member-icon"
-        >
+        userIcon.classList.add(
+            "header-member-icon"
+        );
 
-        <span class="header-member-name">
-            ${escapeHtml(name)}
-        </span>
-    `;
+
+        userIconWrap.hidden =
+            false;
+
+
+        userIcon.onerror =
+            function () {
+
+                userIcon.removeAttribute(
+                    "src"
+                );
+
+
+                userIconWrap.hidden =
+                    true;
+
+            };
+
+    }
+    else {
+
+        if (userIcon) {
+
+            userIcon.removeAttribute(
+                "src"
+            );
+
+        }
+
+
+        if (userIconWrap) {
+
+            userIconWrap.hidden =
+                true;
+
+        }
+
+    }
+
+
+
+    /* =====================================
+       DISCORD
+    ====================================== */
+
+    if (discordLink) {
+
+        discordLink.href =
+            MFDCO_DISCORD_INVITE_URL;
+
+
+        discordLink.hidden =
+            false;
+
+    }
 
 
     console.log(
         "HEADER DISPLAY:",
         {
-            userId:
-                user?.id || null,
-
-            activityName:
-                name,
-
-            iconUrl:
-                icon
+            loggedIn: true,
+            userId: user?.id,
+            activityName: activityName,
+            discord: true
         }
     );
 
 }
 
 
+
 /* =========================================
-   UPDATE MEMBER
+   LOAD PROFILE
 ========================================= */
 
-async function updateHeaderMember() {
-
-    const elements =
-        getHeaderElements();
-
+async function loadHeaderProfile(
+    user
+) {
 
     if (
-        !elements.memberLink
+        !user ||
+        !window.supabaseClient
     ) {
-
-        return;
-
+        return null;
     }
 
 
-    if (
-        !isHeaderSupabaseReady()
-    ) {
+    try {
+
+        const {
+            data: profile,
+            error
+        } =
+            await window.supabaseClient
+                .from("profiles")
+                .select(`
+                    id,
+                    activity_name,
+                    icon_url,
+                    status,
+                    permanent_member,
+                    admin
+                `)
+                .eq(
+                    "id",
+                    user.id
+                )
+                .maybeSingle();
+
+
+        if (error) {
+
+            console.warn(
+                "HEADER PROFILE ERROR:",
+                error
+            );
+
+
+            return null;
+
+        }
+
+
+        return profile || null;
+
+    }
+    catch (error) {
+
+        console.error(
+            "HEADER PROFILE LOAD ERROR:",
+            error
+        );
+
+
+        return null;
+
+    }
+
+}
+
+
+
+/* =========================================
+   UPDATE HEADER AUTH DISPLAY
+========================================= */
+
+async function updateHeaderAuthDisplay(
+    user
+) {
+
+    if (!user) {
 
         showLoggedOutHeader();
 
@@ -361,7 +664,39 @@ async function updateHeaderMember() {
     }
 
 
-    showHeaderLoading();
+    const profile =
+        await loadHeaderProfile(
+            user
+        );
+
+
+    showLoggedInHeader(
+        user,
+        profile
+    );
+
+}
+
+
+
+/* =========================================
+   INITIAL SESSION
+========================================= */
+
+async function loadInitialHeaderSession() {
+
+    if (!window.supabaseClient) {
+
+        console.warn(
+            "HEADER: Supabase client がありません。"
+        );
+
+
+        showLoggedOutHeader();
+
+        return;
+
+    }
 
 
     try {
@@ -372,86 +707,28 @@ async function updateHeaderMember() {
         } =
             await window.supabaseClient
                 .auth
-                .getUser();
+                .getSession();
 
 
         if (error) {
-
-            console.error(
-                "HEADER AUTH ERROR:",
-                error
-            );
-
-
-            showLoggedOutHeader();
-
-            return;
-
+            throw error;
         }
 
 
         const user =
-            data?.user || null;
+            data?.session?.user ||
+            null;
 
 
-        if (!user) {
-
-            showLoggedOutHeader();
-
-            return;
-
-        }
-
-
-        const {
-            data: profile,
-            error: profileError
-        } =
-            await window.supabaseClient
-                .from(
-                    "profiles"
-                )
-                .select(
-                    "activity_name, icon_url, status"
-                )
-                .eq(
-                    "id",
-                    user.id
-                )
-                .maybeSingle();
-
-
-        if (
-            profileError
-        ) {
-
-            console.error(
-                "HEADER PROFILE ERROR:",
-                profileError
-            );
-
-
-            showLoggedInHeader(
-                null,
-                user
-            );
-
-
-            return;
-
-        }
-
-
-        showLoggedInHeader(
-            profile,
+        await updateHeaderAuthDisplay(
             user
         );
 
-
-    } catch (error) {
+    }
+    catch (error) {
 
         console.error(
-            "HEADER EXCEPTION:",
+            "HEADER SESSION ERROR:",
             error
         );
 
@@ -463,6 +740,7 @@ async function updateHeaderMember() {
 }
 
 
+
 /* =========================================
    AUTH LISTENER
 ========================================= */
@@ -470,360 +748,181 @@ async function updateHeaderMember() {
 function setupHeaderAuthListener() {
 
     if (
-        !isHeaderSupabaseReady()
+        mfdcoHeaderAuthListenerRegistered
     ) {
         return;
     }
 
 
-    if (
-        window.mfdcoHeaderAuthListener
-    ) {
+    if (!window.supabaseClient) {
         return;
     }
 
 
-    const {
-        data
-    } =
-        window.supabaseClient
-            .auth
-            .onAuthStateChange(
-                function (
-                    event,
-                    session
-                ) {
-
-                    console.log(
-                        "HEADER AUTH EVENT:",
-                        event
-                    );
+    mfdcoHeaderAuthListenerRegistered =
+        true;
 
 
-                    if (
-                        event ===
-                        "SIGNED_OUT"
-                    ) {
+    window.supabaseClient
+        .auth
+        .onAuthStateChange(
+            function (
+                event,
+                session
+            ) {
 
-                        showLoggedOutHeader();
+                console.log(
+                    "HEADER AUTH EVENT:",
+                    event
+                );
 
-                        return;
 
-                    }
+                setTimeout(
+                    function () {
 
-
-                    if (
-                        event ===
-                            "SIGNED_IN" ||
-                        event ===
-                            "INITIAL_SESSION" ||
-                        event ===
-                            "TOKEN_REFRESHED" ||
-                        event ===
-                            "USER_UPDATED"
-                    ) {
-
-                        setTimeout(
-                            function () {
-
-                                updateHeaderMember();
-
-                            },
-                            0
+                        updateHeaderAuthDisplay(
+                            session?.user ||
+                            null
                         );
 
-                    }
-
-                }
-            );
-
-
-    window.mfdcoHeaderAuthListener =
-        data.subscription;
-
-}
-
-
-/* =========================================
-   MOBILE MENU
-========================================= */
-
-function setupMobileMenu() {
-
-    const elements =
-        getHeaderElements();
-
-
-    if (
-        !elements.menuButton ||
-        !elements.navigation
-    ) {
-        return;
-    }
-
-
-    if (
-        elements.menuButton
-            .dataset
-            .mfdcoMenuInitialized ===
-        "true"
-    ) {
-
-        return;
-
-    }
-
-
-    elements.menuButton
-        .dataset
-        .mfdcoMenuInitialized =
-        "true";
-
-
-    elements.menuButton
-        .addEventListener(
-            "click",
-            function () {
-
-                const isOpen =
-                    elements.navigation
-                        .classList
-                        .toggle(
-                            "mobile-open"
-                        );
-
-
-                elements.menuButton
-                    .classList
-                    .toggle(
-                        "active",
-                        isOpen
-                    );
-
-
-                elements.menuButton
-                    .setAttribute(
-                        "aria-expanded",
-                        String(isOpen)
-                    );
+                    },
+                    0
+                );
 
             }
         );
 
-
-    const links =
-        elements.navigation
-            .querySelectorAll(
-                "a"
-            );
-
-
-    links.forEach(
-        function (link) {
-
-            link.addEventListener(
-                "click",
-                function () {
-
-                    elements.navigation
-                        .classList
-                        .remove(
-                            "mobile-open"
-                        );
-
-
-                    elements.menuButton
-                        .classList
-                        .remove(
-                            "active"
-                        );
-
-
-                    elements.menuButton
-                        .setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-                }
-            );
-
-        }
-    );
-
 }
 
 
-/* =========================================
-   HEADER SCROLL
-========================================= */
-
-function setupHeaderScroll() {
-
-    const elements =
-        getHeaderElements();
-
-
-    if (
-        !elements.header
-    ) {
-        return;
-    }
-
-
-    if (
-        elements.header
-            .dataset
-            .mfdcoScrollInitialized ===
-        "true"
-    ) {
-
-        return;
-
-    }
-
-
-    elements.header
-        .dataset
-        .mfdcoScrollInitialized =
-        "true";
-
-
-    function updateScroll() {
-
-        elements.header
-            .classList
-            .toggle(
-                "scrolled",
-                window.scrollY > 30
-            );
-
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        updateScroll,
-        {
-            passive: true
-        }
-    );
-
-
-    updateScroll();
-
-}
-
 
 /* =========================================
-   RESIZE
+   ACTIVE NAVIGATION
 ========================================= */
 
-function setupHeaderResize() {
+function setupActiveNavigation() {
 
-    const elements =
-        getHeaderElements();
+    const navigation =
+        document.getElementById(
+            "main-navigation"
+        );
 
 
-    if (
-        !elements.menuButton ||
-        !elements.navigation
-    ) {
+    if (!navigation) {
         return;
     }
 
 
-    if (
-        elements.navigation
-            .dataset
-            .mfdcoResizeInitialized ===
-        "true"
-    ) {
+    let currentFile =
+        window.location.pathname
+            .split("/")
+            .pop();
 
-        return;
+
+    if (!currentFile) {
+
+        currentFile =
+            "index.html";
 
     }
 
 
-    elements.navigation
-        .dataset
-        .mfdcoResizeInitialized =
-        "true";
+    navigation
+        .querySelectorAll(
+            "a[href]"
+        )
+        .forEach(
+            function (link) {
 
-
-    window.addEventListener(
-        "resize",
-        function () {
-
-            if (
-                window.innerWidth >
-                900
-            ) {
-
-                elements.navigation
-                    .classList
-                    .remove(
-                        "mobile-open"
+                const href =
+                    link.getAttribute(
+                        "href"
                     );
 
 
-                elements.menuButton
-                    .classList
-                    .remove(
+                if (
+                    !href ||
+                    href.startsWith("http") ||
+                    href === "#"
+                ) {
+                    return;
+                }
+
+
+                const targetFile =
+                    href
+                        .split("?")[0]
+                        .split("#")[0]
+                        .split("/")
+                        .pop();
+
+
+                if (
+                    targetFile ===
+                    currentFile
+                ) {
+
+                    link.classList.add(
                         "active"
                     );
 
-
-                elements.menuButton
-                    .setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
+                }
 
             }
-
-        }
-    );
+        );
 
 }
 
 
+
 /* =========================================
-   INITIALIZE
+   INITIALIZE HEADER
 ========================================= */
 
-function initializeHeader() {
+async function initializeHeader() {
 
-    if (
-        !document.querySelector(
+    const header =
+        document.querySelector(
             ".site-header"
-        )
-    ) {
+        );
+
+
+    if (!header) {
         return;
     }
-
-
-    /*
-     * header.html が再読み込み・再描画された場合でも、
-     * 現在表示されているヘッダーにイベントを設定する。
-     *
-     * 各 setup 関数側で dataset を使って
-     * 二重初期化を防止しているため、
-     * ここでは mfdcoHeaderInitialized を理由に return しない。
-     */
-    mfdcoHeaderInitialized =
-        true;
 
 
     setupMobileMenu();
 
-    setupHeaderScroll();
 
-    setupHeaderResize();
+    setupActiveNavigation();
+
+
+    const discordLink =
+        document.getElementById(
+            "header-discord-link"
+        );
+
+
+    /*
+     * 認証完了までは表示しない
+     */
+
+    if (
+        discordLink &&
+        !mfdcoHeaderCurrentUser
+    ) {
+
+        discordLink.hidden =
+            true;
+
+    }
+
+
+    await loadInitialHeaderSession();
+
 
     setupHeaderAuthListener();
-
-    updateHeaderMember();
 
 
     console.log(
@@ -833,17 +932,66 @@ function initializeHeader() {
 }
 
 
+
 /* =========================================
-   PUBLIC
+   EXPOSE
 ========================================= */
 
 window.initializeHeader =
     initializeHeader;
 
 
-window.updateHeaderMember =
-    updateHeaderMember;
 
+/* =========================================
+   START
+========================================= */
+
+async function startHeader() {
+
+    const loaded =
+        await loadHeaderHtmlIfNeeded();
+
+
+    if (!loaded) {
+        return;
+    }
+
+
+    await initializeHeader();
+
+}
+
+
+
+/* =========================================
+   DOM READY
+========================================= */
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        startHeader,
+        {
+            once: true
+        }
+    );
+
+}
+else {
+
+    startHeader();
+
+}
+
+
+
+/* =========================================
+   LOG
+========================================= */
 
 console.log(
     "MFDCO header.js loaded successfully."

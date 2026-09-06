@@ -16,7 +16,7 @@ const MFDCO_CONFIG = {
      */
 
     discordInviteUrl:
-        "https://discord.gg/XXXXXXXX"
+        "https://discord.gg/rhnJyuWnV"
 
 
 };
