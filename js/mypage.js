@@ -1,13 +1,13 @@
 /* =========================================
    MFDCO MY PAGE
-   ========================================= */
+========================================= */
 
 "use strict";
 
 
 /* =========================================
    ELEMENTS
-   ========================================= */
+========================================= */
 
 const loading =
     document.querySelector("#mypage-loading");
@@ -24,7 +24,7 @@ const errorMessage =
 
 /* =========================================
    PROFILE ELEMENTS
-   ========================================= */
+========================================= */
 
 const profileIcon =
     document.querySelector("#profile-icon");
@@ -74,7 +74,7 @@ const profileCreatedAt =
 
 /* =========================================
    WORKS
-   ========================================= */
+========================================= */
 
 const memberWorks =
     document.querySelector("#member-works");
@@ -85,7 +85,7 @@ const worksEmpty =
 
 /* =========================================
    LOGOUT
-   ========================================= */
+========================================= */
 
 const logoutButton =
     document.querySelector("#logout-button");
@@ -93,7 +93,7 @@ const logoutButton =
 
 /* =========================================
    SUPABASE CHECK
-   ========================================= */
+========================================= */
 
 function isSupabaseReady() {
 
@@ -116,8 +116,27 @@ function isSupabaseReady() {
 
 
 /* =========================================
+   URL USER ID
+========================================= */
+
+function getRequestedUserId() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    return params.get(
+        "id"
+    );
+
+}
+
+
+/* =========================================
    STATUS
-   ========================================= */
+========================================= */
 
 function getStatusLabel(status) {
 
@@ -148,46 +167,66 @@ function getStatusLabel(status) {
 
 /* =========================================
    ROLE
-   ========================================= */
+========================================= */
 
-function getRoleLabel(status) {
+function getRoleLabel(
+    status,
+    permanentMember
+) {
 
-    if (status === "approved") {
+    if (
+        permanentMember === true
+    ) {
 
-        return "MFDCO MEMBER";
+        return "常任理事国";
 
     }
 
 
-    if (status === "pending") {
+    if (
+        status === "approved"
+    ) {
+
+        return "加盟国";
+
+    }
+
+
+    if (
+        status === "pending"
+    ) {
 
         return "審査中";
 
     }
 
 
-    if (status === "rejected") {
+    if (
+        status === "rejected"
+    ) {
 
         return "利用不可";
 
     }
 
 
-    if (status === "suspended") {
+    if (
+        status === "suspended"
+    ) {
 
         return "停止中";
 
     }
 
 
-    return "MFDCO MEMBER";
+    return "加盟国";
 
 }
 
 
 /* =========================================
    CREDIT
-   ========================================= */
+========================================= */
 
 function getCreditText(profileData) {
 
@@ -231,7 +270,7 @@ function getCreditText(profileData) {
 
 /* =========================================
    TAGS
-   ========================================= */
+========================================= */
 
 function renderTags(tags) {
 
@@ -242,7 +281,8 @@ function renderTags(tags) {
     }
 
 
-    profileTags.innerHTML = "";
+    profileTags.innerHTML =
+        "";
 
 
     if (
@@ -255,15 +295,19 @@ function renderTags(tags) {
                 "span"
             );
 
+
         empty.className =
             "profile-tag-empty";
+
 
         empty.textContent =
             "タグなし";
 
+
         profileTags.appendChild(
             empty
         );
+
 
         return;
 
@@ -278,11 +322,14 @@ function renderTags(tags) {
                     "span"
                 );
 
+
             element.className =
                 "profile-tag";
 
+
             element.textContent =
                 tag;
+
 
             profileTags.appendChild(
                 element
@@ -296,11 +343,13 @@ function renderTags(tags) {
 
 /* =========================================
    DATE
-   ========================================= */
+========================================= */
 
 function formatDate(dateString) {
 
-    if (!dateString) {
+    if (
+        !dateString
+    ) {
 
         return "-";
 
@@ -308,7 +357,9 @@ function formatDate(dateString) {
 
 
     const date =
-        new Date(dateString);
+        new Date(
+            dateString
+        );
 
 
     if (
@@ -325,22 +376,207 @@ function formatDate(dateString) {
     return new Intl.DateTimeFormat(
         "ja-JP",
         {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
+            year:
+                "numeric",
+
+            month:
+                "long",
+
+            day:
+                "numeric"
         }
-    ).format(date);
+    ).format(
+        date
+    );
+
+}
+
+
+/* =========================================
+   OWN PROFILE CONTROLS
+========================================= */
+
+function updateOwnProfileControls(
+    isOwnProfile
+) {
+
+    /*
+     * 「プロフィールを編集」に使われる可能性のある
+     * 要素をまとめて取得します。
+     */
+    const editSelectors = [
+
+        "#edit-profile-button",
+
+        "#profile-edit-button",
+
+        "#edit-button",
+
+        ".profile-edit-button",
+
+        ".edit-profile-button",
+
+        ".mypage-edit-button",
+
+        ".profile-edit",
+
+        ".edit-profile",
+
+        'a[href="profile-edit.html"]',
+
+        'a[href="./profile-edit.html"]',
+
+        'a[href="edit-profile.html"]',
+
+        'a[href="./edit-profile.html"]',
+
+        'a[href*="profile-edit.html"]',
+
+        'a[href*="edit-profile.html"]'
+
+    ];
+
+
+    const editElements =
+        document.querySelectorAll(
+            editSelectors.join(",")
+        );
+
+
+    editElements.forEach(
+        function (element) {
+
+            if (
+                isOwnProfile
+            ) {
+
+                element.hidden =
+                    false;
+
+
+                element.style.display =
+                    "";
+
+            } else {
+
+                element.hidden =
+                    true;
+
+
+                element.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+
+    /*
+     * ボタンのテキストが
+     * 「プロフィールを編集」の場合も検出。
+     */
+    const possibleButtons =
+        document.querySelectorAll(
+            "a, button"
+        );
+
+
+    possibleButtons.forEach(
+        function (element) {
+
+            const text =
+                element.textContent
+                    ?.trim()
+                    .replace(
+                        /\s+/g,
+                        ""
+                    );
+
+
+            if (
+                text ===
+                    "プロフィールを編集" ||
+                text ===
+                    "プロフィール編集"
+            ) {
+
+                if (
+                    isOwnProfile
+                ) {
+
+                    element.hidden =
+                        false;
+
+
+                    element.style.display =
+                        "";
+
+                } else {
+
+                    element.hidden =
+                        true;
+
+
+                    element.style.display =
+                        "none";
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /*
+     * ログアウトボタンも
+     * 本人のページでのみ表示。
+     */
+    if (
+        logoutButton
+    ) {
+
+        if (
+            isOwnProfile
+        ) {
+
+            logoutButton.hidden =
+                false;
+
+
+            logoutButton.style.display =
+                "";
+
+        } else {
+
+            logoutButton.hidden =
+                true;
+
+
+            logoutButton.style.display =
+                "none";
+
+        }
+
+    }
 
 }
 
 
 /* =========================================
    PROFILE RENDER
-   ========================================= */
+========================================= */
 
-function renderProfile(profileData, user) {
+function renderProfile(
+    profileData,
+    currentUser,
+    isOwnProfile
+) {
 
-    if (!profileData) {
+    if (
+        !profileData
+    ) {
 
         throw new Error(
             "プロフィール情報が存在しません。"
@@ -350,14 +586,14 @@ function renderProfile(profileData, user) {
 
 
     console.log(
-        "プロフィール:",
+        "表示プロフィール:",
         profileData
     );
 
 
     /* =====================================
        BASIC
-    ===================================== */
+    ====================================== */
 
     const activityName =
         profileData.activity_name ||
@@ -376,25 +612,29 @@ function renderProfile(profileData, user) {
 
     /* =====================================
        ICON
-    ===================================== */
+    ====================================== */
 
-    if (profileIcon) {
+    if (
+        profileIcon
+    ) {
 
-        if (profileData.icon_url) {
+        if (
+            profileData.icon_url
+        ) {
 
             profileIcon.src =
                 profileData.icon_url;
 
-            profileIcon.hidden =
-                false;
-
         } else {
 
-            profileIcon.removeAttribute(
-                "src"
-            );
+            profileIcon.src =
+                "assets/default-icon.png";
 
         }
+
+
+        profileIcon.hidden =
+            false;
 
 
         profileIcon.alt =
@@ -405,9 +645,11 @@ function renderProfile(profileData, user) {
 
     /* =====================================
        ACTIVITY NAME
-    ===================================== */
+    ====================================== */
 
-    if (profileActivityName) {
+    if (
+        profileActivityName
+    ) {
 
         profileActivityName.textContent =
             activityName;
@@ -417,9 +659,11 @@ function renderProfile(profileData, user) {
 
     /* =====================================
        COUNTRY
-    ===================================== */
+    ====================================== */
 
-    if (profileCountry) {
+    if (
+        profileCountry
+    ) {
 
         profileCountry.textContent =
             country;
@@ -429,14 +673,17 @@ function renderProfile(profileData, user) {
 
     /* =====================================
        STATUS
-    ===================================== */
+    ====================================== */
 
-    if (profileStatus) {
+    if (
+        profileStatus
+    ) {
 
         profileStatus.textContent =
             getStatusLabel(
                 status
             );
+
 
         profileStatus.dataset.status =
             status;
@@ -446,13 +693,16 @@ function renderProfile(profileData, user) {
 
     /* =====================================
        ROLE
-    ===================================== */
+    ====================================== */
 
-    if (profileRole) {
+    if (
+        profileRole
+    ) {
 
         profileRole.textContent =
             getRoleLabel(
-                status
+                status,
+                profileData.permanent_member
             );
 
     }
@@ -460,14 +710,16 @@ function renderProfile(profileData, user) {
 
     /* =====================================
        FLAG
-    ===================================== */
+    ====================================== */
 
     if (
         profileData.fictional_country &&
         profileData.flag_url
     ) {
 
-        if (countrySection) {
+        if (
+            countrySection
+        ) {
 
             countrySection.hidden =
                 false;
@@ -475,10 +727,13 @@ function renderProfile(profileData, user) {
         }
 
 
-        if (profileFlag) {
+        if (
+            profileFlag
+        ) {
 
             profileFlag.src =
                 profileData.flag_url;
+
 
             profileFlag.alt =
                 profileData.fictional_country;
@@ -486,7 +741,9 @@ function renderProfile(profileData, user) {
         }
 
 
-        if (profileCountryName) {
+        if (
+            profileCountryName
+        ) {
 
             profileCountryName.textContent =
                 profileData.fictional_country;
@@ -495,7 +752,9 @@ function renderProfile(profileData, user) {
 
     } else {
 
-        if (countrySection) {
+        if (
+            countrySection
+        ) {
 
             countrySection.hidden =
                 true;
@@ -507,14 +766,18 @@ function renderProfile(profileData, user) {
 
     /* =====================================
        TAGS
-    ===================================== */
+    ====================================== */
 
     if (
-        Array.isArray(profileData.tags) &&
+        Array.isArray(
+            profileData.tags
+        ) &&
         profileData.tags.length > 0
     ) {
 
-        if (tagsSection) {
+        if (
+            tagsSection
+        ) {
 
             tagsSection.hidden =
                 false;
@@ -523,7 +786,9 @@ function renderProfile(profileData, user) {
 
     } else {
 
-        if (tagsSection) {
+        if (
+            tagsSection
+        ) {
 
             tagsSection.hidden =
                 true;
@@ -540,9 +805,11 @@ function renderProfile(profileData, user) {
 
     /* =====================================
        CREDIT
-    ===================================== */
+    ====================================== */
 
-    if (profileCredit) {
+    if (
+        profileCredit
+    ) {
 
         profileCredit.textContent =
             getCreditText(
@@ -554,11 +821,15 @@ function renderProfile(profileData, user) {
 
     /* =====================================
        BIO
-    ===================================== */
+    ====================================== */
 
-    if (profileData.bio) {
+    if (
+        profileData.bio
+    ) {
 
-        if (bioSection) {
+        if (
+            bioSection
+        ) {
 
             bioSection.hidden =
                 false;
@@ -566,7 +837,9 @@ function renderProfile(profileData, user) {
         }
 
 
-        if (profileBio) {
+        if (
+            profileBio
+        ) {
 
             profileBio.textContent =
                 profileData.bio;
@@ -575,7 +848,9 @@ function renderProfile(profileData, user) {
 
     } else {
 
-        if (bioSection) {
+        if (
+            bioSection
+        ) {
 
             bioSection.hidden =
                 true;
@@ -587,22 +862,39 @@ function renderProfile(profileData, user) {
 
     /* =====================================
        EMAIL
-    ===================================== */
+       本人のみ表示
+    ====================================== */
 
-    if (profileEmail) {
+    if (
+        profileEmail
+    ) {
 
-        profileEmail.textContent =
-            user.email ||
-            "-";
+        if (
+            isOwnProfile &&
+            currentUser
+        ) {
+
+            profileEmail.textContent =
+                currentUser.email ||
+                "-";
+
+        } else {
+
+            profileEmail.textContent =
+                "非公開";
+
+        }
 
     }
 
 
     /* =====================================
        CREATED AT
-    ===================================== */
+    ====================================== */
 
-    if (profileCreatedAt) {
+    if (
+        profileCreatedAt
+    ) {
 
         profileCreatedAt.textContent =
             formatDate(
@@ -611,6 +903,15 @@ function renderProfile(profileData, user) {
 
     }
 
+
+    /* =====================================
+       EDIT / LOGOUT
+    ====================================== */
+
+    updateOwnProfileControls(
+        isOwnProfile
+    );
+
 }
 
 
@@ -618,9 +919,13 @@ function renderProfile(profileData, user) {
    WORKS
 ========================================= */
 
-async function loadWorks(userId) {
+async function loadWorks(
+    userId
+) {
 
-    if (!memberWorks) {
+    if (
+        !memberWorks
+    ) {
 
         return;
 
@@ -628,7 +933,8 @@ async function loadWorks(userId) {
 
 
     console.log(
-        "提供中の作品を取得中..."
+        "提供中の作品を取得中:",
+        userId
     );
 
 
@@ -637,35 +943,38 @@ async function loadWorks(userId) {
         error
     } =
         await window.supabaseClient
-            .from("works")
-            .select(
-                `
+            .from(
+                "works"
+            )
+            .select(`
                 id,
                 title,
                 description,
-                thumbnail_url,
-                category,
+                image_url,
+                tags,
                 status,
                 created_at
-                `
-            )
+            `)
             .eq(
                 "user_id",
                 userId
             )
             .eq(
                 "status",
-                "published"
+                "approved"
             )
             .order(
                 "created_at",
                 {
-                    ascending: false
+                    ascending:
+                        false
                 }
             );
 
 
-    if (error) {
+    if (
+        error
+    ) {
 
         console.warn(
             "作品情報を取得できませんでした:",
@@ -673,13 +982,17 @@ async function loadWorks(userId) {
         );
 
 
-        memberWorks.innerHTML = "";
+        memberWorks.innerHTML =
+            "";
 
 
-        if (worksEmpty) {
+        if (
+            worksEmpty
+        ) {
 
             worksEmpty.hidden =
                 false;
+
 
             worksEmpty.textContent =
                 "現在、提供中の作品はありません。";
@@ -692,30 +1005,37 @@ async function loadWorks(userId) {
     }
 
 
-    memberWorks.innerHTML = "";
+    memberWorks.innerHTML =
+        "";
 
 
     if (
-        !data ||
+        !Array.isArray(data) ||
         data.length === 0
     ) {
 
-        if (worksEmpty) {
+        if (
+            worksEmpty
+        ) {
 
             worksEmpty.hidden =
                 false;
+
 
             worksEmpty.textContent =
                 "現在、提供中の作品はありません。";
 
         }
 
+
         return;
 
     }
 
 
-    if (worksEmpty) {
+    if (
+        worksEmpty
+    ) {
 
         worksEmpty.hidden =
             true;
@@ -728,19 +1048,36 @@ async function loadWorks(userId) {
 
             const card =
                 document.createElement(
-                    "article"
+                    "a"
                 );
+
 
             card.className =
                 "work-card";
 
 
+            card.href =
+                `work.html?id=${encodeURIComponent(
+                    work.id
+                )}`;
+
+
             /* =========================
-               THUMBNAIL
+               IMAGE
             ========================== */
 
+            const imageArea =
+                document.createElement(
+                    "div"
+                );
+
+
+            imageArea.className =
+                "work-image";
+
+
             if (
-                work.thumbnail_url
+                work.image_url
             ) {
 
                 const image =
@@ -748,33 +1085,63 @@ async function loadWorks(userId) {
                         "img"
                     );
 
+
                 image.src =
-                    work.thumbnail_url;
+                    work.image_url;
+
 
                 image.alt =
                     work.title ||
                     "作品";
 
-                image.className =
-                    "work-thumbnail";
 
-                card.appendChild(
+                image.loading =
+                    "lazy";
+
+
+                imageArea.appendChild(
                     image
                 );
 
+            } else {
+
+                const placeholder =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                placeholder.className =
+                    "work-image-placeholder";
+
+
+                placeholder.textContent =
+                    "NO IMAGE";
+
+
+                imageArea.appendChild(
+                    placeholder
+                );
+
             }
+
+
+            card.appendChild(
+                imageArea
+            );
 
 
             /* =========================
                CONTENT
             ========================== */
 
-            const content =
+            const workContent =
                 document.createElement(
                     "div"
                 );
 
-            content.className =
+
+            workContent.className =
                 "work-content";
 
 
@@ -783,36 +1150,15 @@ async function loadWorks(userId) {
                     "h3"
                 );
 
+
             title.textContent =
                 work.title ||
                 "無題の作品";
 
 
-            content.appendChild(
+            workContent.appendChild(
                 title
             );
-
-
-            if (
-                work.category
-            ) {
-
-                const category =
-                    document.createElement(
-                        "span"
-                    );
-
-                category.className =
-                    "work-category";
-
-                category.textContent =
-                    work.category;
-
-                content.appendChild(
-                    category
-                );
-
-            }
 
 
             if (
@@ -824,10 +1170,12 @@ async function loadWorks(userId) {
                         "p"
                     );
 
+
                 description.textContent =
                     work.description;
 
-                content.appendChild(
+
+                workContent.appendChild(
                     description
                 );
 
@@ -835,7 +1183,7 @@ async function loadWorks(userId) {
 
 
             card.appendChild(
-                content
+                workContent
             );
 
 
@@ -853,7 +1201,9 @@ async function loadWorks(userId) {
    LOGOUT
 ========================================= */
 
-if (logoutButton) {
+if (
+    logoutButton
+) {
 
     logoutButton.addEventListener(
         "click",
@@ -865,7 +1215,9 @@ if (logoutButton) {
                 );
 
 
-            if (!confirmed) {
+            if (
+                !confirmed
+            ) {
 
                 return;
 
@@ -886,7 +1238,9 @@ if (logoutButton) {
                         .signOut();
 
 
-                if (error) {
+                if (
+                    error
+                ) {
 
                     throw error;
 
@@ -897,7 +1251,9 @@ if (logoutButton) {
                     "join.html";
 
 
-            } catch (error) {
+            } catch (
+                error
+            ) {
 
                 console.error(
                     "Logout error:",
@@ -937,7 +1293,9 @@ async function loadMyPage() {
            SUPABASE
         ====================================== */
 
-        if (!isSupabaseReady()) {
+        if (
+            !isSupabaseReady()
+        ) {
 
             throw new Error(
                 "Supabaseが初期化されていません。"
@@ -947,57 +1305,89 @@ async function loadMyPage() {
 
 
         /* =====================================
-           USER
+           CURRENT USER
         ====================================== */
 
         const {
             data: {
                 user
-            },
-            error:
-                userError
+            }
         } =
             await window.supabaseClient
                 .auth
                 .getUser();
 
 
-        if (userError) {
-
-            throw userError;
-
-        }
+        const currentUser =
+            user ||
+            null;
 
 
-        if (!user) {
+        /* =====================================
+           TARGET USER
+        ====================================== */
 
-            console.log(
-                "ログインユーザーがいません。"
-            );
+        const requestedUserId =
+            getRequestedUserId();
 
+
+        const targetUserId =
+            requestedUserId ||
+            currentUser?.id ||
+            null;
+
+
+        /*
+         * ID指定なし ＋ 未ログインなら
+         * ログインページへ移動。
+         */
+        if (
+            !targetUserId
+        ) {
 
             window.location.href =
                 "join.html";
+
 
             return;
 
         }
 
 
+        /* =====================================
+           OWN PROFILE CHECK
+        ====================================== */
+
+        const isOwnProfile =
+            Boolean(
+                currentUser &&
+                currentUser.id ===
+                    targetUserId
+            );
+
+
         console.log(
-            "ログインユーザー:",
-            user.id
+            "MYPAGE TARGET:",
+            {
+                currentUserId:
+                    currentUser?.id ||
+                    null,
+
+                requestedUserId:
+                    requestedUserId,
+
+                targetUserId:
+                    targetUserId,
+
+                isOwnProfile:
+                    isOwnProfile
+            }
         );
 
 
         /* =====================================
            PROFILE
         ====================================== */
-
-        console.log(
-            "プロフィールを取得中..."
-        );
-
 
         const {
             data:
@@ -1006,9 +1396,10 @@ async function loadMyPage() {
                 profileError
         } =
             await window.supabaseClient
-                .from("profiles")
-                .select(
-                    `
+                .from(
+                    "profiles"
+                )
+                .select(`
                     id,
                     activity_name,
                     icon_url,
@@ -1019,24 +1410,28 @@ async function loadMyPage() {
                     tags,
                     bio,
                     status,
+                    permanent_member,
                     created_at
-                    `
-                )
+                `)
                 .eq(
                     "id",
-                    user.id
+                    targetUserId
                 )
                 .maybeSingle();
 
 
-        if (profileError) {
+        if (
+            profileError
+        ) {
 
             throw profileError;
 
         }
 
 
-        if (!profileData) {
+        if (
+            !profileData
+        ) {
 
             throw new Error(
                 "プロフィール情報が見つかりません。"
@@ -1045,19 +1440,14 @@ async function loadMyPage() {
         }
 
 
-        console.log(
-            "プロフィール取得成功:",
-            profileData
-        );
-
-
         /* =====================================
-           RENDER
+           RENDER PROFILE
         ====================================== */
 
         renderProfile(
             profileData,
-            user
+            currentUser,
+            isOwnProfile
         );
 
 
@@ -1066,7 +1456,7 @@ async function loadMyPage() {
         ====================================== */
 
         await loadWorks(
-            user.id
+            targetUserId
         );
 
 
@@ -1074,7 +1464,9 @@ async function loadMyPage() {
            SHOW CONTENT
         ====================================== */
 
-        if (loading) {
+        if (
+            loading
+        ) {
 
             loading.hidden =
                 true;
@@ -1082,7 +1474,9 @@ async function loadMyPage() {
         }
 
 
-        if (errorPanel) {
+        if (
+            errorPanel
+        ) {
 
             errorPanel.hidden =
                 true;
@@ -1090,7 +1484,9 @@ async function loadMyPage() {
         }
 
 
-        if (content) {
+        if (
+            content
+        ) {
 
             content.hidden =
                 false;
@@ -1098,12 +1494,28 @@ async function loadMyPage() {
         }
 
 
-        console.log(
-            "MFDCOマイページ表示完了"
+        /*
+         * contentを表示したあとにも
+         * もう一度本人専用UIを制御。
+         *
+         * HTML側のhidden/display指定に
+         * 上書きされるケースを防止。
+         */
+        updateOwnProfileControls(
+            isOwnProfile
         );
 
 
-    } catch (error) {
+        console.log(
+            isOwnProfile
+                ? "MFDCOマイページ表示完了"
+                : "MFDCO他ユーザープロフィール表示完了"
+        );
+
+
+    } catch (
+        error
+    ) {
 
         console.error(
             "MyPage error:",
@@ -1111,7 +1523,9 @@ async function loadMyPage() {
         );
 
 
-        if (loading) {
+        if (
+            loading
+        ) {
 
             loading.hidden =
                 true;
@@ -1119,7 +1533,9 @@ async function loadMyPage() {
         }
 
 
-        if (content) {
+        if (
+            content
+        ) {
 
             content.hidden =
                 true;
@@ -1127,7 +1543,9 @@ async function loadMyPage() {
         }
 
 
-        if (errorPanel) {
+        if (
+            errorPanel
+        ) {
 
             errorPanel.hidden =
                 false;
@@ -1135,7 +1553,9 @@ async function loadMyPage() {
         }
 
 
-        if (errorMessage) {
+        if (
+            errorMessage
+        ) {
 
             errorMessage.textContent =
                 error.message ||

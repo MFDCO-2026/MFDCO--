@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="マイクラ軍事茶番開発協力機構 MFDCO の加盟国一覧です。"
+    >
+
+    <title>
+        加盟国 | MFDCO
+    </title>
+
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/logo.png"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/members.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =====================================
+         MAIN
+    ====================================== -->
+
+    <main class="members-page">
+
+
+        <!-- =================================
+             HERO
+        ================================== -->
+
+        <section class="members-hero">
+
+            <div class="members-hero-inner">
+
+                <p class="members-eyebrow">
+                    MFDCO MEMBERS
+                </p>
+
+                <h1>
+                    加盟国
+                </h1>
+
+                <p class="members-description">
+                    MFDCOに参加している加盟国・常任理事国を紹介します。
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             MEMBERS
+        ================================== -->
+
+        <section class="members-section">
+
+            <div class="members-inner">
+
+
+                <div class="members-heading">
+
+                    <div>
+
+                        <p class="members-section-label">
+                            MEMBER LIST
+                        </p>
+
+                        <h2>
+                            参加者一覧
+                        </h2>
+
+                    </div>
+
+
+                    <p
+                        id="members-count"
+                        class="members-count"
+                    >
+                        0 MEMBERS
+                    </p>
+
+                </div>
+
+
+                <!-- =========================
+                     FILTER
+                ========================== -->
+
+                <div class="members-filter">
+
+                    <button
+                        type="button"
+                        class="members-filter-button active"
+                        data-filter="all"
+                    >
+                        すべて
+                    </button>
+
+                    <button
+                        type="button"
+                        class="members-filter-button"
+                        data-filter="permanent"
+                    >
+                        常任理事国
+                    </button>
+
+                    <button
+                        type="button"
+                        class="members-filter-button"
+                        data-filter="member"
+                    >
+                        加盟国
+                    </button>
+
+                </div>
+
+
+                <!-- =========================
+                     ERROR
+                ========================== -->
+
+                <div
+                    id="members-error"
+                    class="members-error"
+                    hidden
+                ></div>
+
+
+                <!-- =========================
+                     GRID
+                ========================== -->
+
+                <div
+                    id="members-grid"
+                    class="members-grid"
+                >
+
+                    <div class="members-loading">
+                        加盟国情報を読み込んでいます...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <div id="footer-container"></div>
+
+
+    <!-- =====================================
+         SCRIPT
+    ====================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/header.js"></script>
+
+    <script src="js/main.js"></script>
+
+    <script src="js/members.js"></script>
+
+
+</body>
+
+</html>
