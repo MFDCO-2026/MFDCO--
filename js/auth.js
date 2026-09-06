@@ -1,6 +1,9 @@
 /* =========================================
-   MFDCO AUTH SYSTEM
+   MFDCO JOIN / LOGIN
+   EMAIL CONFIRMATION VERSION
    ========================================= */
+
+"use strict";
 
 
 /* =========================================
@@ -25,20 +28,61 @@ const showRegister =
 const showLogin =
     document.getElementById("show-login");
 
+const password =
+    document.getElementById("password");
+
+const passwordConfirm =
+    document.getElementById("password-confirm");
+
+const passwordError =
+    document.getElementById("password-error");
+
+
+/* =========================================
+   SUPABASE CHECK
+   ========================================= */
+
+function isSupabaseReady() {
+
+    if (
+        typeof window.supabaseClient ===
+        "undefined"
+    ) {
+
+        console.error(
+            "supabaseClient が読み込まれていません。"
+        );
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
 
 /* =========================================
    PANEL SWITCH
    ========================================= */
 
-if (showRegister) {
+if (
+    showRegister &&
+    loginPanel &&
+    registerPanel
+) {
 
     showRegister.addEventListener(
         "click",
         () => {
 
-            loginPanel.classList.remove("active");
+            loginPanel.classList.remove(
+                "active"
+            );
 
-            registerPanel.classList.add("active");
+            registerPanel.classList.add(
+                "active"
+            );
 
             window.scrollTo({
                 top: 0,
@@ -51,15 +95,23 @@ if (showRegister) {
 }
 
 
-if (showLogin) {
+if (
+    showLogin &&
+    loginPanel &&
+    registerPanel
+) {
 
     showLogin.addEventListener(
         "click",
         () => {
 
-            registerPanel.classList.remove("active");
+            registerPanel.classList.remove(
+                "active"
+            );
 
-            loginPanel.classList.add("active");
+            loginPanel.classList.add(
+                "active"
+            );
 
             window.scrollTo({
                 top: 0,
@@ -76,30 +128,30 @@ if (showLogin) {
    PASSWORD CONFIRMATION
    ========================================= */
 
-const password =
-    document.getElementById("password");
-
-const passwordConfirm =
-    document.getElementById("password-confirm");
-
-const passwordError =
-    document.getElementById("password-error");
-
-
 function checkPassword() {
 
-    if (!password || !passwordConfirm) {
+    if (
+        !password ||
+        !passwordConfirm
+    ) {
+
         return true;
+
     }
 
 
     if (
         passwordConfirm.value &&
-        password.value !== passwordConfirm.value
+        password.value !==
+        passwordConfirm.value
     ) {
 
-        passwordError.textContent =
-            "パスワードが一致していません。";
+        if (passwordError) {
+
+            passwordError.textContent =
+                "パスワードが一致していません。";
+
+        }
 
         passwordConfirm.setCustomValidity(
             "パスワードが一致していません。"
@@ -110,9 +162,16 @@ function checkPassword() {
     }
 
 
-    passwordError.textContent = "";
+    if (passwordError) {
 
-    passwordConfirm.setCustomValidity("");
+        passwordError.textContent =
+            "";
+
+    }
+
+    passwordConfirm.setCustomValidity(
+        ""
+    );
 
     return true;
 
@@ -140,193 +199,6 @@ if (passwordConfirm) {
 
 
 /* =========================================
-   CREDIT TEXT
-   ========================================= */
-
-const creditText =
-    document.getElementById("credit-text");
-
-const creditRadios =
-    document.querySelectorAll(
-        'input[name="credit-type"]'
-    );
-
-
-creditRadios.forEach(
-    radio => {
-
-        radio.addEventListener(
-            "change",
-            () => {
-
-                if (!creditText) {
-                    return;
-                }
-
-                if (radio.value === "custom") {
-
-                    if (radio.checked) {
-
-                        creditText.disabled = false;
-
-                        creditText.required = true;
-
-                    }
-
-                } else {
-
-                    if (radio.checked) {
-
-                        creditText.disabled = true;
-
-                        creditText.required = false;
-
-                        creditText.value = "";
-
-                    }
-
-                }
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================================
-   IMAGE PREVIEW
-   ========================================= */
-
-function setupImagePreview(
-    inputId,
-    previewId
-) {
-
-    const input =
-        document.getElementById(inputId);
-
-    const preview =
-        document.getElementById(previewId);
-
-
-    if (!input || !preview) {
-        return;
-    }
-
-
-    input.addEventListener(
-        "change",
-        () => {
-
-            const file =
-                input.files[0];
-
-
-            if (!file) {
-
-                preview.src = "";
-
-                return;
-
-            }
-
-
-            if (!file.type.startsWith("image/")) {
-
-                input.value = "";
-
-                alert(
-                    "画像ファイルを選択してください。"
-                );
-
-                return;
-
-            }
-
-
-            const url =
-                URL.createObjectURL(file);
-
-
-            preview.src = url;
-
-        }
-    );
-
-}
-
-
-setupImagePreview(
-    "icon",
-    "icon-preview"
-);
-
-
-setupImagePreview(
-    "flag",
-    "flag-preview"
-);
-
-
-/* =========================================
-   IMAGE UPLOAD
-   ========================================= */
-
-async function uploadImage(
-    file,
-    bucket,
-    userId,
-    filename
-) {
-
-    if (!file) {
-        return null;
-    }
-
-
-    const path =
-        `${userId}/${filename}`;
-
-
-    const {
-        error
-    } =
-        await supabaseClient
-            .storage
-            .from(bucket)
-            .upload(
-                path,
-                file,
-                {
-                    upsert: false,
-                    contentType: file.type
-                }
-            );
-
-
-    if (error) {
-
-        throw error;
-
-    }
-
-
-    const {
-        data
-    } =
-        supabaseClient
-            .storage
-            .from(bucket)
-            .getPublicUrl(path);
-
-
-    return data.publicUrl;
-
-}
-
-
-/* =========================================
    REGISTER
    ========================================= */
 
@@ -339,8 +211,96 @@ if (registerForm) {
             event.preventDefault();
 
 
-            if (!checkPassword()) {
+            if (!isSupabaseReady()) {
+
+                alert(
+                    "Supabaseとの接続設定を確認してください。"
+                );
+
                 return;
+
+            }
+
+
+            if (!checkPassword()) {
+
+                if (passwordConfirm) {
+
+                    passwordConfirm.focus();
+
+                }
+
+                return;
+
+            }
+
+
+            const agreement =
+                document.getElementById(
+                    "agreement"
+                );
+
+
+            if (
+                !agreement ||
+                !agreement.checked
+            ) {
+
+                alert(
+                    "MFDCO利用規約への同意が必要です。"
+                );
+
+                return;
+
+            }
+
+
+            const formData =
+                new FormData(
+                    registerForm
+                );
+
+
+            const email =
+                String(
+                    formData.get(
+                        "email"
+                    ) || ""
+                ).trim();
+
+
+            const passwordValue =
+                String(
+                    formData.get(
+                        "password"
+                    ) || ""
+                );
+
+
+            if (
+                !email ||
+                !passwordValue
+            ) {
+
+                alert(
+                    "メールアドレスとパスワードを入力してください。"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                passwordValue.length < 8
+            ) {
+
+                alert(
+                    "パスワードは8文字以上で設定してください。"
+                );
+
+                return;
+
             }
 
 
@@ -350,44 +310,40 @@ if (registerForm) {
                 );
 
 
+            const originalText =
+                submitButton
+                    ? submitButton.textContent
+                    : "";
+
+
             if (submitButton) {
 
-                submitButton.disabled = true;
+                submitButton.disabled =
+                    true;
 
                 submitButton.textContent =
-                    "登録しています...";
+                    "確認メールを送信しています...";
 
             }
 
 
             try {
 
-                const formData =
-                    new FormData(registerForm);
+                /*
+                 * メール確認後の戻り先
+                 */
+
+                const redirectUrl =
+                    new URL(
+                        "profile-setup.html",
+                        window.location.href
+                    ).href;
 
 
-                const email =
-                    formData.get("email");
-
-                const passwordValue =
-                    formData.get("password");
-
-                const activityName =
-                    formData.get(
-                        "activity_name"
-                    );
-
-
-                const iconFile =
-                    document.getElementById(
-                        "icon"
-                    )?.files[0];
-
-
-                const flagFile =
-                    document.getElementById(
-                        "flag"
-                    )?.files[0];
+                console.log(
+                    "Email confirmation redirect:",
+                    redirectUrl
+                );
 
 
                 /*
@@ -398,13 +354,35 @@ if (registerForm) {
                     data: authData,
                     error: authError
                 } =
-                    await supabaseClient.auth.signUp({
+                    await window.supabaseClient
+                        .auth
+                        .signUp({
 
-                        email: email,
+                            email:
+                                email,
 
-                        password: passwordValue
+                            password:
+                                passwordValue,
 
-                    });
+                            options: {
+
+                                emailRedirectTo:
+                                    redirectUrl,
+
+                                data: {
+
+                                    mfdco_agreement:
+                                        true,
+
+                                    mfdco_agreement_at:
+                                        new Date()
+                                            .toISOString()
+
+                                }
+
+                            }
+
+                        });
 
 
                 if (authError) {
@@ -414,160 +392,65 @@ if (registerForm) {
                 }
 
 
-                const user =
-                    authData.user;
-
-
-                if (!user) {
+                if (
+                    !authData ||
+                    !authData.user
+                ) {
 
                     throw new Error(
-                        "ユーザー作成に失敗しました。"
+                        "ユーザー作成後の情報を取得できませんでした。"
                     );
 
                 }
 
 
-                /*
-                 * アイコン
-                 */
-
-                let iconUrl = null;
-
-
-                if (iconFile) {
-
-                    iconUrl =
-                        await uploadImage(
-                            iconFile,
-                            "mfdco-avatars",
-                            user.id,
-                            "icon"
-                        );
-
-                }
-
-
-                /*
-                 * 国旗
-                 */
-
-                let flagUrl = null;
-
-
-                if (flagFile) {
-
-                    flagUrl =
-                        await uploadImage(
-                            flagFile,
-                            "mfdco-flags",
-                            user.id,
-                            "flag"
-                        );
-
-                }
-
-
-                /*
-                 * タグ
-                 */
-
-                const tags =
-                    formData.getAll("tags");
-
-
-                /*
-                 * クレジット
-                 */
-
-                const creditType =
-                    formData.get(
-                        "credit-type"
-                    );
-
-
-                const creditValue =
-                    creditType === "custom"
-                        ? formData.get("credit_text")
-                        : null;
-
-
-                /*
-                 * プロフィール更新
-                 */
-
-                const {
-                    error: profileError
-                } =
-                    await supabaseClient
-                        .from("profiles")
-                        .update({
-
-                            activity_name:
-                                activityName,
-
-                            icon_url:
-                                iconUrl,
-
-                            fictional_country:
-                                formData.get(
-                                    "fictional_country"
-                                ) || null,
-
-                            flag_url:
-                                flagUrl,
-
-                            credit_type:
-                                creditType,
-
-                            credit_text:
-                                creditValue,
-
-                            tags:
-                                tags,
-
-                            bio:
-                                formData.get(
-                                    "bio"
-                                ) || null,
-
-                            agreement:
-                                true,
-
-                            agreement_at:
-                                new Date().toISOString()
-
-                        })
-                        .eq(
-                            "id",
-                            user.id
-                        );
-
-
-                if (profileError) {
-
-                    throw profileError;
-
-                }
-
-
-                /*
-                 * 登録完了
-                 */
-
-                alert(
-                    "MFDCOへの登録が完了しました。"
+                console.log(
+                    "Auth user created:",
+                    authData.user.id
                 );
 
 
                 /*
-                 * Discord案内
+                 * Confirm email ON時は
+                 * authData.session がnullでも正常。
                  *
-                 * 現時点では仮URL。
-                 * 後で管理側の設定に変更する。
+                 * この段階では
+                 * profilesやStorageには触らない。
+                 */
+
+
+                /*
+                 * 再送用にメール情報を保存
+                 */
+
+                try {
+
+                    sessionStorage.setItem(
+                        "mfdco_pending_email",
+                        email
+                    );
+
+                    sessionStorage.setItem(
+                        "mfdco_email_redirect",
+                        redirectUrl
+                    );
+
+                } catch (storageError) {
+
+                    console.warn(
+                        "sessionStorage error:",
+                        storageError
+                    );
+
+                }
+
+
+                /*
+                 * メール確認待機画面へ
                  */
 
                 window.location.href =
-                    "join-complete.html";
+                    "check-email.html";
 
 
             } catch (error) {
@@ -578,11 +461,20 @@ if (registerForm) {
                 );
 
 
-                alert(
-                    "登録中にエラーが発生しました。\n\n" +
+                let message =
+                    error &&
                     error.message
+                        ? error.message
+                        : "不明なエラーです。";
+
+
+                alert(
+                    "アカウント登録に失敗しました。\n\n" +
+                    message
                 );
 
+
+            } finally {
 
                 if (submitButton) {
 
@@ -590,7 +482,7 @@ if (registerForm) {
                         false;
 
                     submitButton.textContent =
-                        "MFDCOに参加する";
+                        originalText;
 
                 }
 
@@ -615,16 +507,52 @@ if (loginForm) {
             event.preventDefault();
 
 
-            const email =
+            if (!isSupabaseReady()) {
+
+                alert(
+                    "Supabaseとの接続設定を確認してください。"
+                );
+
+                return;
+
+            }
+
+
+            const emailInput =
                 document.getElementById(
                     "login-email"
-                ).value;
+                );
 
-
-            const password =
+            const passwordInput =
                 document.getElementById(
                     "login-password"
-                ).value;
+                );
+
+
+            const email =
+                emailInput
+                    ? emailInput.value.trim()
+                    : "";
+
+
+            const passwordValue =
+                passwordInput
+                    ? passwordInput.value
+                    : "";
+
+
+            if (
+                !email ||
+                !passwordValue
+            ) {
+
+                alert(
+                    "メールアドレスとパスワードを入力してください。"
+                );
+
+                return;
+
+            }
 
 
             const submitButton =
@@ -633,9 +561,16 @@ if (loginForm) {
                 );
 
 
+            const originalText =
+                submitButton
+                    ? submitButton.textContent
+                    : "";
+
+
             if (submitButton) {
 
-                submitButton.disabled = true;
+                submitButton.disabled =
+                    true;
 
                 submitButton.textContent =
                     "ログインしています...";
@@ -646,16 +581,18 @@ if (loginForm) {
             try {
 
                 const {
+                    data,
                     error
                 } =
-                    await supabaseClient.auth
+                    await window.supabaseClient
+                        .auth
                         .signInWithPassword({
 
                             email:
                                 email,
 
                             password:
-                                password
+                                passwordValue
 
                         });
 
@@ -663,6 +600,92 @@ if (loginForm) {
                 if (error) {
 
                     throw error;
+
+                }
+
+
+                if (
+                    !data ||
+                    !data.user
+                ) {
+
+                    throw new Error(
+                        "ログイン情報を取得できませんでした。"
+                    );
+
+                }
+
+
+                console.log(
+                    "Login success:",
+                    data.user.id
+                );
+
+
+                /*
+                 * プロフィール確認
+                 */
+
+                const {
+                    data: profile,
+                    error: profileError
+                } =
+                    await window.supabaseClient
+                        .from(
+                            "profiles"
+                        )
+                        .select(
+                            "id, status"
+                        )
+                        .eq(
+                            "id",
+                            data.user.id
+                        )
+                        .maybeSingle();
+
+
+                if (profileError) {
+
+                    throw new Error(
+                        "プロフィール情報を取得できませんでした。"
+                    );
+
+                }
+
+
+                /*
+                 * メール確認済みだが
+                 * プロフィール未作成
+                 */
+
+                if (!profile) {
+
+                    window.location.href =
+                        "profile-setup.html";
+
+                    return;
+
+                }
+
+
+                /*
+                 * 利用不可
+                 */
+
+                if (
+                    profile.status ===
+                    "rejected"
+                ) {
+
+                    alert(
+                        "このアカウントは現在利用できません。"
+                    );
+
+                    await window.supabaseClient
+                        .auth
+                        .signOut();
+
+                    return;
 
                 }
 
@@ -683,11 +706,35 @@ if (loginForm) {
                 );
 
 
+                let message =
+                    error &&
+                    error.message
+                        ? error.message
+                        : "不明なエラーです。";
+
+
+                if (
+                    message
+                        .toLowerCase()
+                        .includes(
+                            "email not confirmed"
+                        )
+                ) {
+
+                    message =
+                        "メールアドレスの確認が完了していません。\n" +
+                        "MFDCOから送信された確認メールをご確認ください。";
+
+                }
+
+
                 alert(
                     "ログインできませんでした。\n\n" +
-                    error.message
+                    message
                 );
 
+
+            } finally {
 
                 if (submitButton) {
 
@@ -695,7 +742,7 @@ if (loginForm) {
                         false;
 
                     submitButton.textContent =
-                        "ログイン";
+                        originalText;
 
                 }
 
@@ -705,3 +752,12 @@ if (loginForm) {
     );
 
 }
+
+
+/* =========================================
+   LOADED
+   ========================================= */
+
+console.log(
+    "MFDCO join.js email-confirmation version loaded."
+);
