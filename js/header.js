@@ -795,13 +795,6 @@ function setupHeaderResize() {
 function initializeHeader() {
 
     if (
-        mfdcoHeaderInitialized
-    ) {
-        return;
-    }
-
-
-    if (
         !document.querySelector(
             ".site-header"
         )
@@ -810,6 +803,14 @@ function initializeHeader() {
     }
 
 
+    /*
+     * header.html が再読み込み・再描画された場合でも、
+     * 現在表示されているヘッダーにイベントを設定する。
+     *
+     * 各 setup 関数側で dataset を使って
+     * 二重初期化を防止しているため、
+     * ここでは mfdcoHeaderInitialized を理由に return しない。
+     */
     mfdcoHeaderInitialized =
         true;
 

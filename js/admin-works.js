@@ -2,12 +2,17 @@
 
 
 /* =========================================
+   MFDCO ADMIN WORKS
+========================================= */
+
+
+/* =========================================
    STATE
 ========================================= */
 
 let adminWorks = [];
 
-let currentStatusFilter = "pending";
+let currentStatusFilter = "all";
 
 
 /* =========================================
@@ -86,9 +91,9 @@ function cacheElements() {
             "reload-button"
         );
 
-    elements.countPending =
+    elements.countAll =
         document.getElementById(
-            "count-pending"
+            "count-all"
         );
 
     elements.countApproved =
@@ -96,9 +101,14 @@ function cacheElements() {
             "count-approved"
         );
 
-    elements.countRejected =
+    elements.countHidden =
         document.getElementById(
-            "count-rejected"
+            "count-hidden"
+        );
+
+    elements.countLegacy =
+        document.getElementById(
+            "count-legacy"
         );
 
 }
@@ -152,11 +162,17 @@ async function initializeAdminPage() {
         }
 
 
+        /* =================================
+           AUTH
+        ================================= */
+
         const {
             data,
             error
         } =
-            await window.supabaseClient.auth.getUser();
+            await window.supabaseClient
+                .auth
+                .getUser();
 
 
         if (error) {
@@ -172,55 +188,34 @@ async function initializeAdminPage() {
 
         if (!user) {
 
-            showDenied();
+            window.location.replace(
+                "admin-login.html"
+            );
 
             return;
 
         }
 
 
-        /*
-         * まず全作品SELECTを試します。
-         *
-         * 管理者には
-         * "Admins can view all works"
-         * RLSがある前提です。
-         */
+        /* =================================
+           ADMIN CHECK
+        ================================= */
 
         const {
-            data: works,
-            error: worksError
+            data: isAdmin,
+            error: adminError
         } =
             await window.supabaseClient
-                .from("works")
-                .select(`
-                    id,
-                    user_id,
-                    title,
-                    description,
-                    image_url,
-                    tags,
-                    status,
-                    admin_note,
-                    created_at,
-                    updated_at,
-                    submission_type,
-                    original_filename,
-                    file_type
-                `)
-                .order(
-                    "created_at",
-                    {
-                        ascending: false
-                    }
+                .rpc(
+                    "current_user_is_admin"
                 );
 
 
-        if (worksError) {
+        if (adminError) {
 
             console.error(
-                "ADMIN ACCESS ERROR:",
-                worksError
+                "ADMIN CHECK ERROR:",
+                adminError
             );
 
             showDenied();
@@ -230,48 +225,58 @@ async function initializeAdminPage() {
         }
 
 
-        adminWorks =
-            Array.isArray(works)
-                ? works
-                : [];
+        if (isAdmin !== true) {
+
+            showDenied();
+
+            return;
+
+        }
 
 
-        /*
-         * RLSでは、権限がないSELECTが
-         * エラーではなく0件になる構成もあります。
-         *
-         * そのため後述のRPCが使える場合は
-         * RPC方式の方がより確実です。
-         */
+        /* =================================
+           PASSWORD SESSION CHECK
+        ================================= */
+
+        if (
+            sessionStorage.getItem(
+                "mfdco_admin_verified"
+            ) !== "true"
+        ) {
+
+            window.location.replace(
+                "admin-login.html"
+            );
+
+            return;
+
+        }
 
 
         showAdmin();
 
 
-        await attachAuthorProfiles();
-
-
-        renderSummary();
-
-        renderWorks();
+        await loadWorks();
 
 
         console.log(
-            "MFDCO ADMIN: initialized"
+            "MFDCO ADMIN WORKS: initialized"
         );
 
     }
     catch (error) {
 
         console.error(
-            "ADMIN INIT ERROR:",
+            "ADMIN WORKS INIT ERROR:",
             error
         );
 
+
         showError(
             error.message ||
-            "管理画面の初期化に失敗しました。"
+            "作品管理画面の初期化に失敗しました。"
         );
+
 
         showDenied();
 
@@ -286,7 +291,9 @@ async function initializeAdminPage() {
 
 async function loadWorks() {
 
-    setWorksLoading(true);
+    setWorksLoading(
+        true
+    );
 
     hideError();
 
@@ -342,13 +349,20 @@ async function loadWorks() {
 
         renderWorks();
 
+
+        console.log(
+            "ADMIN WORKS LOADED:",
+            adminWorks.length
+        );
+
     }
     catch (error) {
 
         console.error(
-            "ADMIN LOAD ERROR:",
+            "ADMIN WORKS LOAD ERROR:",
             error
         );
+
 
         showError(
             error.message ||
@@ -358,7 +372,9 @@ async function loadWorks() {
     }
     finally {
 
-        setWorksLoading(false);
+        setWorksLoading(
+            false
+        );
 
     }
 
@@ -384,7 +400,9 @@ async function attachAuthorProfiles() {
                 adminWorks
                     .map(
                         function (work) {
+
                             return work.user_id;
+
                         }
                     )
                     .filter(Boolean)
@@ -419,7 +437,7 @@ async function attachAuthorProfiles() {
         if (error) {
 
             console.warn(
-                "ADMIN PROFILE LOAD:",
+                "ADMIN PROFILE LOAD ERROR:",
                 error
             );
 
@@ -480,34 +498,57 @@ async function attachAuthorProfiles() {
 
 function renderSummary() {
 
-    const pending =
-        adminWorks.filter(
-            work =>
-                work.status ===
-                "pending"
-        ).length;
+    const all =
+        adminWorks.length;
 
 
     const approved =
         adminWorks.filter(
-            work =>
-                work.status ===
-                "approved"
+            function (work) {
+
+                return (
+                    work.status ===
+                    "approved"
+                );
+
+            }
         ).length;
 
 
-    const rejected =
+    const hidden =
         adminWorks.filter(
-            work =>
-                work.status ===
-                "rejected"
+            function (work) {
+
+                return (
+                    work.status ===
+                    "hidden"
+                );
+
+            }
         ).length;
 
 
-    if (elements.countPending) {
+    /*
+     * 旧審査方式で残っている
+     * pending / rejected の合計
+     */
+    const legacy =
+        adminWorks.filter(
+            function (work) {
 
-        elements.countPending.textContent =
-            String(pending);
+                return (
+                    work.status === "pending" ||
+                    work.status === "rejected"
+                );
+
+            }
+        ).length;
+
+
+    if (elements.countAll) {
+
+        elements.countAll.textContent =
+            String(all);
 
     }
 
@@ -520,10 +561,18 @@ function renderSummary() {
     }
 
 
-    if (elements.countRejected) {
+    if (elements.countHidden) {
 
-        elements.countRejected.textContent =
-            String(rejected);
+        elements.countHidden.textContent =
+            String(hidden);
+
+    }
+
+
+    if (elements.countLegacy) {
+
+        elements.countLegacy.textContent =
+            String(legacy);
 
     }
 
@@ -543,7 +592,8 @@ function renderWorks() {
     }
 
 
-    elements.list.innerHTML = "";
+    elements.list.innerHTML =
+        "";
 
 
     let works =
@@ -551,6 +601,24 @@ function renderWorks() {
 
 
     if (
+        currentStatusFilter ===
+        "legacy"
+    ) {
+
+        works =
+            works.filter(
+                function (work) {
+
+                    return (
+                        work.status === "pending" ||
+                        work.status === "rejected"
+                    );
+
+                }
+            );
+
+    }
+    else if (
         currentStatusFilter !==
         "all"
     ) {
@@ -579,6 +647,7 @@ function renderWorks() {
 
         }
 
+
         return;
 
     }
@@ -598,7 +667,9 @@ function renderWorks() {
     ) {
 
         elements.list.appendChild(
-            createWorkCard(work)
+            createWorkCard(
+                work
+            )
         );
 
     }
@@ -622,7 +693,9 @@ function createWorkCard(work) {
         "admin-work-card";
 
 
-    /* IMAGE */
+    /* =================================
+       IMAGE
+    ================================= */
 
     const imageArea =
         document.createElement(
@@ -647,7 +720,8 @@ function createWorkCard(work) {
 
 
         image.alt =
-            work.title || "作品画像";
+            work.title ||
+            "作品画像";
 
 
         image.addEventListener(
@@ -681,7 +755,9 @@ function createWorkCard(work) {
     }
 
 
-    /* MAIN */
+    /* =================================
+       MAIN
+    ================================= */
 
     const main =
         document.createElement(
@@ -794,7 +870,9 @@ function createWorkCard(work) {
     );
 
 
-    /* ACTION */
+    /* =================================
+       ACTION
+    ================================= */
 
     const actions =
         document.createElement(
@@ -824,7 +902,7 @@ function createWorkCard(work) {
 
 
     detail.textContent =
-        "審査する";
+        "管理する";
 
 
     actions.appendChild(
@@ -852,7 +930,8 @@ function showImagePlaceholder(
     container
 ) {
 
-    container.innerHTML = "";
+    container.innerHTML =
+        "";
 
 
     const placeholder =
@@ -885,16 +964,31 @@ function getStatusLabel(status) {
     switch (status) {
 
         case "approved":
+
             return "公開中";
 
-        case "rejected":
-            return "差し戻し";
+
+        case "hidden":
+
+            return "非公開";
+
 
         case "pending":
-            return "審査待ち";
+
+            return "旧・審査待ち";
+
+
+        case "rejected":
+
+            return "旧・却下";
+
 
         default:
-            return status || "不明";
+
+            return (
+                status ||
+                "不明"
+            );
 
     }
 
@@ -906,13 +1000,28 @@ function getStatusClass(status) {
     switch (status) {
 
         case "approved":
+
             return "status-approved";
 
+
+        case "hidden":
+
+            return "status-hidden";
+
+
         case "rejected":
+
             return "status-rejected";
 
-        default:
+
+        case "pending":
+
             return "status-pending";
+
+
+        default:
+
+            return "status-unknown";
 
     }
 

@@ -9,27 +9,15 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>作品審査 | MFDCO ADMIN</title>
+    <title>作品管理 | MFDCO 管理者</title>
 
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="css/header.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="css/admin-work.css"
-    >
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/admin-work.css">
 </head>
 
 
 <body class="admin-work-page">
-
 
     <div id="header-container"></div>
 
@@ -39,47 +27,59 @@
         <div class="review-container">
 
 
+            <!-- BACK -->
+
             <div class="review-back">
 
                 <a href="admin-works.html">
-                    ← 作品審査一覧
+                    ← 作品管理へ戻る
                 </a>
 
             </div>
 
 
-            <header class="review-page-header">
-
-                <p class="section-label">
-                    WORK REVIEW
-                </p>
-
-                <h1>
-                    作品審査
-                </h1>
-
-            </header>
-
+            <!-- LOADING -->
 
             <div
                 id="review-loading"
                 class="review-message"
             >
-                作品を読み込んでいます...
+                作品情報を読み込んでいます...
             </div>
 
+
+            <!-- ERROR -->
 
             <div
                 id="review-error"
                 class="review-message review-message-error"
                 hidden
-            ></div>
+            >
+                作品情報を表示できません。
+            </div>
 
+
+            <!-- CONTENT -->
 
             <div
                 id="review-content"
                 hidden
             >
+
+
+                <!-- HEADER -->
+
+                <header class="review-page-header">
+
+                    <p class="review-section-label">
+                        ADMIN / WORK MANAGEMENT
+                    </p>
+
+                    <h1>
+                        作品管理
+                    </h1>
+
+                </header>
 
 
                 <!-- BASIC -->
@@ -90,7 +90,7 @@
 
                         <img
                             id="work-image"
-                            alt="作品画像"
+                            alt=""
                             hidden
                         >
 
@@ -109,11 +109,14 @@
                         <span
                             id="work-status"
                             class="review-status"
-                        ></span>
+                        >
+                            -
+                        </span>
 
                         <h2 id="work-title">
                             -
                         </h2>
+
 
                         <dl class="review-meta">
 
@@ -123,12 +126,12 @@
                             </div>
 
                             <div>
-                                <dt>投稿日時</dt>
+                                <dt>投稿日</dt>
                                 <dd id="work-date">-</dd>
                             </div>
 
                             <div>
-                                <dt>提出方法</dt>
+                                <dt>提出形式</dt>
                                 <dd id="work-submission-type">-</dd>
                             </div>
 
@@ -202,12 +205,12 @@
                     <dl class="review-data-list">
 
                         <div>
-                            <dt>提出方法</dt>
+                            <dt>提供形式</dt>
                             <dd id="data-submission-type">-</dd>
                         </div>
 
                         <div>
-                            <dt>元ファイル名</dt>
+                            <dt>ファイル名</dt>
                             <dd id="data-filename">-</dd>
                         </div>
 
@@ -217,7 +220,7 @@
                         </div>
 
                         <div>
-                            <dt>Storage Path</dt>
+                            <dt>保存パス</dt>
                             <dd id="data-file-path">-</dd>
                         </div>
 
@@ -236,7 +239,7 @@
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            外部作品URLを開く
+                            外部配布ページを開く
                         </a>
 
                     </div>
@@ -270,7 +273,7 @@
                         </div>
 
                         <div>
-                            <span>名称や設定の改変</span>
+                            <span>名称・設定の改変</span>
                             <strong id="condition-setting">-</strong>
                         </div>
 
@@ -289,7 +292,7 @@
                         </h3>
 
                         <p id="other-terms">
-                            -
+                            特になし
                         </p>
 
                     </div>
@@ -313,7 +316,7 @@
                     <dl class="review-data-list">
 
                         <div>
-                            <dt>種類</dt>
+                            <dt>クレジット方式</dt>
                             <dd id="credit-type">-</dd>
                         </div>
 
@@ -327,30 +330,42 @@
                 </section>
 
 
-                <!-- REVIEW -->
+                <!-- ADMIN -->
 
                 <section class="review-card review-admin-card">
 
                     <p class="review-section-label">
-                        ADMIN REVIEW
+                        ADMIN CONTROL
                     </p>
 
                     <h2>
-                        審査
+                        公開状態の管理
                     </h2>
+
+
+                    <p class="review-text">
+                        作品に問題がある場合は非公開にできます。
+                        非公開作品は作品一覧および一般向け作品詳細から
+                        表示されなくなります。
+                    </p>
+
+
+                    <div
+                        id="status-information"
+                        class="review-status-information"
+                    ></div>
 
 
                     <label
                         for="admin-note"
                         class="admin-note-label"
                     >
-                        管理者メモ / 差し戻し理由
+                        管理者メモ
                     </label>
 
                     <textarea
                         id="admin-note"
-                        maxlength="3000"
-                        placeholder="差し戻しの場合は、修正してほしい内容を記入してください。"
+                        placeholder="非公開理由や管理上のメモを入力できます。"
                     ></textarea>
 
 
@@ -370,21 +385,34 @@
 
                     <div class="review-actions">
 
+                        <a
+                            id="public-page-button"
+                            class="review-button review-button-secondary"
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            公開ページを見る
+                        </a>
+
+
                         <button
                             type="button"
-                            id="reject-button"
-                            class="review-button review-button-reject"
+                            id="hide-button"
+                            class="review-button review-button-hide"
+                            hidden
                         >
-                            差し戻す
+                            作品を非公開にする
                         </button>
 
 
                         <button
                             type="button"
-                            id="approve-button"
+                            id="restore-button"
                             class="review-button review-button-approve"
+                            hidden
                         >
-                            承認して公開
+                            作品を再公開する
                         </button>
 
                     </div>
@@ -400,11 +428,8 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script src="js/supabase-config.js"></script>
-
     <script src="js/header.js"></script>
-
     <script src="js/admin-work.js"></script>
 
 </body>
