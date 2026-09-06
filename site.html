@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="マイクラ軍事茶番開発協力機構 MFDCO 公式ウェブサイトについての案内です。"
+    >
+
+    <title>
+        サイトについて | MFDCO
+    </title>
+
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/logo.png"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+
+    <style>
+
+        /* =========================================
+           SITE PAGE
+        ========================================= */
+
+        .site-info-page {
+
+            width:
+                100%;
+
+            min-height:
+                100vh;
+
+            background:
+                #ffffff;
+
+            color:
+                #171717;
+
+        }
+
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .site-info-hero {
+
+            padding:
+                90px 30px 65px;
+
+            background:
+                #f4f6f6;
+
+            border-bottom:
+                1px solid #e1e5e5;
+
+        }
+
+
+        .site-info-hero-inner {
+
+            width:
+                min(1000px, 100%);
+
+            margin:
+                0 auto;
+
+        }
+
+
+        .site-info-eyebrow {
+
+            margin:
+                0 0 14px;
+
+            color:
+                #164b4b;
+
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                0.18em;
+
+        }
+
+
+        .site-info-hero h1 {
+
+            margin:
+                0;
+
+            color:
+                #111111;
+
+            font-size:
+                clamp(
+                    34px,
+                    6vw,
+                    58px
+                );
+
+            font-weight:
+                700;
+
+            line-height:
+                1.15;
+
+            letter-spacing:
+                -0.03em;
+
+        }
+
+
+        .site-info-lead {
+
+            max-width:
+                720px;
+
+            margin:
+                24px 0 0;
+
+            color:
+                #666666;
+
+            font-size:
+                14px;
+
+            line-height:
+                2;
+
+        }
+
+
+        /* =========================================
+           CONTENT
+        ========================================= */
+
+        .site-info-content {
+
+            padding:
+                75px 30px 110px;
+
+        }
+
+
+        .site-info-inner {
+
+            width:
+                min(1000px, 100%);
+
+            margin:
+                0 auto;
+
+        }
+
+
+        /* =========================================
+           SECTION
+        ========================================= */
+
+        .site-info-section {
+
+            padding-bottom:
+                42px;
+
+            margin-bottom:
+                42px;
+
+            border-bottom:
+                1px solid #e8ebeb;
+
+        }
+
+
+        .site-info-section:last-child {
+
+            margin-bottom:
+                0;
+
+            border-bottom:
+                0;
+
+        }
+
+
+        .site-info-number {
+
+            margin:
+                0 0 9px;
+
+            color:
+                #164b4b;
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                0.15em;
+
+        }
+
+
+        .site-info-section h2 {
+
+            margin:
+                0 0 18px;
+
+            color:
+                #171717;
+
+            font-size:
+                23px;
+
+            font-weight:
+                700;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        .site-info-section p {
+
+            margin:
+                0 0 14px;
+
+            color:
+                #555555;
+
+            font-size:
+                14px;
+
+            line-height:
+                2;
+
+        }
+
+
+        .site-info-section p:last-child {
+
+            margin-bottom:
+                0;
+
+        }
+
+
+        /* =========================================
+           LIST
+        ========================================= */
+
+        .site-info-list {
+
+            margin:
+                16px 0 0;
+
+            padding-left:
+                1.4em;
+
+            color:
+                #555555;
+
+            font-size:
+                14px;
+
+            line-height:
+                2;
+
+        }
+
+
+        /* =========================================
+           LINK CARDS
+        ========================================= */
+
+        .site-info-links {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+
+            gap:
+                14px;
+
+            margin-top:
+                22px;
+
+        }
+
+
+        .site-info-link {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                20px;
+
+            min-height:
+                70px;
+
+            padding:
+                0 20px;
+
+            border:
+                1px solid #dfe5e5;
+
+            color:
+                #171717;
+
+            text-decoration:
+                none;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease;
+
+        }
+
+
+        .site-info-link:hover {
+
+            border-color:
+                #164b4b;
+
+            background:
+                #f5f8f8;
+
+        }
+
+
+        .site-info-link-title {
+
+            font-size:
+                13px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .site-info-link-arrow {
+
+            color:
+                #164b4b;
+
+            font-size:
+                20px;
+
+        }
+
+
+        /* =========================================
+           NOTE
+        ========================================= */
+
+        .site-info-note {
+
+            margin-top:
+                25px;
+
+            padding:
+                20px 22px;
+
+            background:
+                #f4f7f7;
+
+            border-left:
+                3px solid #164b4b;
+
+            color:
+                #555555;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.9;
+
+        }
+
+
+        /* =========================================
+           LAST UPDATED
+        ========================================= */
+
+        .site-info-date {
+
+            margin-top:
+                55px;
+
+            padding-top:
+                25px;
+
+            border-top:
+                1px solid #e8ebeb;
+
+            color:
+                #777777;
+
+            font-size:
+                12px;
+
+            line-height:
+                1.8;
+
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (
+            max-width: 650px
+        ) {
+
+            .site-info-hero {
+
+                padding:
+                    65px 20px 50px;
+
+            }
+
+
+            .site-info-content {
+
+                padding:
+                    55px 20px 80px;
+
+            }
+
+
+            .site-info-section {
+
+                padding-bottom:
+                    34px;
+
+                margin-bottom:
+                    34px;
+
+            }
+
+
+            .site-info-section h2 {
+
+                font-size:
+                    20px;
+
+            }
+
+
+            .site-info-links {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =====================================
+         MAIN
+    ====================================== -->
+
+    <main class="site-info-page">
+
+
+        <!-- =================================
+             HERO
+        ================================== -->
+
+        <section class="site-info-hero">
+
+            <div class="site-info-hero-inner">
+
+                <p class="site-info-eyebrow">
+                    ABOUT THIS WEBSITE
+                </p>
+
+                <h1>
+                    サイトについて
+                </h1>
+
+                <p class="site-info-lead">
+                    このウェブサイトは、
+                    マイクラ軍事茶番開発協力機構（MFDCO）の
+                    公式ウェブサイトです。
+                    MFDCOに関する情報、加盟国、提供作品、
+                    映像作品、各種案内を掲載しています。
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             CONTENT
+        ================================== -->
+
+        <section class="site-info-content">
+
+            <div class="site-info-inner">
+
+
+                <!-- =============================
+                     01
+                ============================== -->
+
+                <section class="site-info-section">
+
+                    <p class="site-info-number">
+                        01
+                    </p>
+
+                    <h2>
+                        このサイトの目的
+                    </h2>
+
+                    <p>
+                        本ウェブサイトは、
+                        MFDCOの活動内容や各種情報を公開し、
+                        加盟者、作品提供者、閲覧者が
+                        必要な情報へアクセスできる環境を提供することを目的としています。
+                    </p>
+
+                    <p>
+                        また、Minecraft軍事部を中心とした
+                        作品制作、技術開発、情報共有、
+                        クリエイター間の協力を支援するための
+                        プラットフォームとして運営しています。
+                    </p>
+
+                </section>
+
+
+                <!-- =============================
+                     02
+                ============================== -->
+
+                <section class="site-info-section">
+
+                    <p class="site-info-number">
+                        02
+                    </p>
+
+                    <h2>
+                        主な掲載内容
+                    </h2>
+
+                    <p>
+                        本ウェブサイトでは、
+                        主に以下の情報を掲載しています。
+                    </p>
+
+                    <ul class="site-info-list">
+
+                        <li>
+                            MFDCOの概要および活動方針
+                        </li>
+
+                        <li>
+                            加盟国・常任理事国のプロフィール
+                        </li>
+
+                        <li>
+                            MFDCOを通じて提供されている作品
+                        </li>
+
+                        <li>
+                            MFDCOが公開する映像作品
+                        </li>
+
+                        <li>
+                            お知らせ、更新情報
+                        </li>
+
+                        <li>
+                            加盟、作品提供に関する案内
+                        </li>
+
+                    </ul>
+
+                </section>
+
+
+                <!-- =============================
+                     03
+                ============================== -->
+
+                <section class="site-info-section">
+
+                    <p class="site-info-number">
+                        03
+                    </p>
+
+                    <h2>
+                        提供作品について
+                    </h2>
+
+                    <p>
+                        本ウェブサイトに掲載されている提供作品には、
+                        それぞれ利用条件やクレジット条件が設定されている場合があります。
+                    </p>
+
+                    <p>
+                        作品を利用する際は、
+                        各作品ページに記載されている利用条件を確認し、
+                        その内容に従って利用してください。
+                    </p>
+
+                    <div class="site-info-links">
+
+                        <a
+                            href="works.html"
+                            class="site-info-link"
+                        >
+
+                            <span class="site-info-link-title">
+                                作品一覧
+                            </span>
+
+                            <span class="site-info-link-arrow">
+                                →
+                            </span>
+
+                        </a>
+
+
+                        <a
+                            href="submit-work.html"
+                            class="site-info-link"
+                        >
+
+                            <span class="site-info-link-title">
+                                作品を提供する
+                            </span>
+
+                            <span class="site-info-link-arrow">
+                                →
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =============================
+                     04
+                ============================== -->
+
+                <section class="site-info-section">
+
+                    <p class="site-info-number">
+                        04
+                    </p>
+
+                    <h2>
+                        アカウントについて
+                    </h2>
+
+                    <p>
+                        一部の機能を利用するためには、
+                        MFDCOウェブサイトのアカウントが必要です。
+                    </p>
+
+                    <p>
+                        アカウントでは、
+                        プロフィール情報の設定、
+                        加盟に関する機能、
+                        作品提供等を利用できます。
+                    </p>
+
+                    <div class="site-info-links">
+
+                        <a
+                            href="join.html"
+                            class="site-info-link"
+                        >
+
+                            <span class="site-info-link-title">
+                                参加する
+                            </span>
+
+                            <span class="site-info-link-arrow">
+                                →
+                            </span>
+
+                        </a>
+
+
+                        <a
+                            href="members.html"
+                            class="site-info-link"
+                        >
+
+                            <span class="site-info-link-title">
+                                加盟国一覧
+                            </span>
+
+                            <span class="site-info-link-arrow">
+                                →
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =============================
+                     05
+                ============================== -->
+
+                <section class="site-info-section">
+
+                    <p class="site-info-number">
+                        05
+                    </p>
+
+                    <h2>
+                        著作権について
+                    </h2>
+
+                    <p>
+                        本ウェブサイトに掲載されている
+                        MFDCO独自の文章、画像、ロゴ、
+                        デザインその他のコンテンツについては、
+                        権利者の許可なく無断で転載、
+                        複製または再配布することを禁止します。
+                    </p>
+
+                    <p>
+                        加盟者や作品提供者によって提供されたコンテンツについては、
+                        各権利者に権利が帰属します。
+                    </p>
+
+                    <p>
+                        提供作品については、
+                        各作品に設定された利用条件が優先されます。
+                    </p>
+
+                </section>
+
+
+                <!-- =============================
+                     06
+                ============================== -->
+
+                <section class="site-info-section">
+
+                    <p class="site-info-number">
+                        06
+                    </p>
+
+                    <h2>
+                        外部リンクについて
+                    </h2>
+
+                    <p>
+                        本ウェブサイトには、
+                        YouTube、Googleフォーム、
+                        その他外部ウェブサイトへのリンクが含まれる場合があります。
+                    </p>
+
+                    <p>
+                        外部サイトの内容やサービスについては、
+                        MFDCOが管理するものではありません。
+                    </p>
+
+                    <p>
+                        外部サービスを利用する際は、
+                        各サービスの利用規約やプライバシーポリシーを確認してください。
+                    </p>
+
+                </section>
+
+
+                <!-- =============================
+                     07
+                ============================== -->
+
+                <section class="site-info-section">
+
+                    <p class="site-info-number">
+                        07
+                    </p>
+
+                    <h2>
+                        サイトの変更・停止
+                    </h2>
+
+                    <p>
+                        MFDCOは、
+                        ウェブサイトの改善、保守、
+                        セキュリティ対応等のため、
+                        予告なくページ構成や機能、
+                        掲載内容を変更する場合があります。
+                    </p>
+
+                    <p>
+                        また、メンテナンスや障害等により、
+                        一時的に本ウェブサイトの全部または一部を
+                        利用できない場合があります。
+                    </p>
+
+                </section>
+
+
+                <!-- =============================
+                     08
+                ============================== -->
+
+                <section class="site-info-section">
+
+                    <p class="site-info-number">
+                        08
+                    </p>
+
+                    <h2>
+                        免責事項
+                    </h2>
+
+                    <p>
+                        MFDCOは、
+                        本ウェブサイトに掲載する情報について
+                        正確性や安全性の確保に努めますが、
+                        その完全性を保証するものではありません。
+                    </p>
+
+                    <p>
+                        本ウェブサイトの利用、
+                        掲載情報の利用、
+                        または外部サービスの利用によって生じた損害について、
+                        MFDCOは法令上責任を負う場合を除き、
+                        責任を負いかねる場合があります。
+                    </p>
+
+                </section>
+
+
+                <!-- =============================
+                     09
+                ============================== -->
+
+                <section class="site-info-section">
+
+                    <p class="site-info-number">
+                        09
+                    </p>
+
+                    <h2>
+                        規約・プライバシー
+                    </h2>
+
+                    <p>
+                        本ウェブサイトを利用する際は、
+                        利用規約およびプライバシーポリシーも確認してください。
+                    </p>
+
+                    <div class="site-info-links">
+
+                        <a
+                            href="terms.html"
+                            class="site-info-link"
+                        >
+
+                            <span class="site-info-link-title">
+                                利用規約
+                            </span>
+
+                            <span class="site-info-link-arrow">
+                                →
+                            </span>
+
+                        </a>
+
+
+                        <a
+                            href="privacy.html"
+                            class="site-info-link"
+                        >
+
+                            <span class="site-info-link-title">
+                                プライバシーポリシー
+                            </span>
+
+                            <span class="site-info-link-arrow">
+                                →
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =============================
+                     10
+                ============================== -->
+
+                <section class="site-info-section">
+
+                    <p class="site-info-number">
+                        10
+                    </p>
+
+                    <h2>
+                        お問い合わせ
+                    </h2>
+
+                    <p>
+                        本ウェブサイトに関する不具合、
+                        ご意見、ご質問等については、
+                        MFDCOのフィードバック・質問フォームからご連絡ください。
+                    </p>
+
+                    <div class="site-info-note">
+                        技術的な不具合を報告する際は、
+                        使用している端末・ブラウザ・発生したページ・
+                        発生した操作等を記載すると確認しやすくなります。
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     DATE
+                ================================== -->
+
+                <div class="site-info-date">
+
+                    最終更新：2026年9月6日
+
+                    <br>
+
+                    マイクラ軍事茶番開発協力機構（MFDCO）
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <div id="footer-container"></div>
+
+
+    <!-- =====================================
+         SCRIPT
+    ====================================== -->
+
+    <script src="js/header.js"></script>
+
+    <script src="js/main.js"></script>
+
+
+</body>
+
+</html>

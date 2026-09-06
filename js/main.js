@@ -803,7 +803,369 @@ function showTopWorksError(
 
 }
 
+/* =========================================
+   TOP NEWS
+========================================= */
 
+async function loadTopNews() {
+
+    const list =
+        document.getElementById(
+            "top-news-list"
+        );
+
+
+    const errorBox =
+        document.getElementById(
+            "top-news-error"
+        );
+
+
+    if (!list) {
+        return;
+    }
+
+
+    if (!window.supabaseClient) {
+
+        console.error(
+            "MFDCO TOP NEWS: Supabase client がありません。"
+        );
+
+        showTopNewsError(
+            list,
+            errorBox,
+            "お知らせを読み込めませんでした。"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        /*
+         * 最新のお知らせを3件取得
+         */
+
+        const {
+            data: newsItems,
+            error: newsError
+        } =
+            await window.supabaseClient
+                .from("news")
+                .select(`
+                    id,
+                    title,
+                    published_at,
+                    created_at
+                `)
+                .order(
+                    "published_at",
+                    {
+                        ascending: false
+                    }
+                )
+                .limit(3);
+
+
+        if (newsError) {
+            throw newsError;
+        }
+
+
+        const newsList =
+            Array.isArray(newsItems)
+                ? newsItems
+                : [];
+
+
+        if (newsList.length === 0) {
+
+            list.innerHTML = "";
+
+            const empty =
+                document.createElement("div");
+
+            empty.className =
+                "top-news-message";
+
+            empty.textContent =
+                "現在お知らせはありません。";
+
+            list.appendChild(empty);
+
+            return;
+
+        }
+
+
+        renderTopNews(
+            list,
+            newsList
+        );
+
+
+        console.log(
+            "MFDCO TOP NEWS:",
+            newsList.length +
+            "件読み込み完了"
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "MFDCO TOP NEWS ERROR:",
+            error
+        );
+
+
+        showTopNewsError(
+            list,
+            errorBox,
+            "お知らせの読み込みに失敗しました。"
+        );
+
+    }
+
+}
+
+
+
+/* =========================================
+   RENDER TOP NEWS
+========================================= */
+
+function renderTopNews(
+    list,
+    newsItems
+) {
+
+    list.innerHTML = "";
+
+
+    newsItems.forEach(
+        function (newsItem) {
+
+
+            /* =================================
+               ITEM
+            ================================= */
+
+            const item =
+                document.createElement("a");
+
+
+            item.className =
+                "news-item";
+
+
+            /*
+             * 詳細ページ完成後に
+             * news-detail.htmlへ移動
+             */
+
+            item.href =
+                "news-detail.html?id=" +
+                encodeURIComponent(
+                    newsItem.id
+                );
+
+
+            /* =================================
+               DATE
+            ================================= */
+
+            const time =
+                document.createElement("time");
+
+
+            const dateValue =
+                newsItem.published_at ||
+                newsItem.created_at;
+
+
+            const date =
+                new Date(dateValue);
+
+
+            if (
+                !Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                time.dateTime =
+                    date.toISOString();
+
+
+                time.textContent =
+                    formatTopNewsDate(
+                        date
+                    );
+
+            }
+            else {
+
+                time.textContent =
+                    "----.--.--";
+
+            }
+
+
+            /* =================================
+               CATEGORY
+            ================================= */
+
+            const category =
+                document.createElement("span");
+
+
+            category.className =
+                "news-category";
+
+
+            category.textContent =
+                "INFO";
+
+
+            /* =================================
+               TITLE
+            ================================= */
+
+            const title =
+                document.createElement("p");
+
+
+            title.textContent =
+                String(
+                    newsItem.title ||
+                    "お知らせ"
+                ).trim();
+
+
+            /* =================================
+               ARROW
+            ================================= */
+
+            const arrow =
+                document.createElement("span");
+
+
+            arrow.className =
+                "news-arrow";
+
+
+            arrow.textContent =
+                "→";
+
+
+            /* =================================
+               APPEND
+            ================================= */
+
+            item.appendChild(
+                time
+            );
+
+            item.appendChild(
+                category
+            );
+
+            item.appendChild(
+                title
+            );
+
+            item.appendChild(
+                arrow
+            );
+
+
+            list.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   FORMAT NEWS DATE
+========================================= */
+
+function formatTopNewsDate(
+    date
+) {
+
+    const year =
+        date.getFullYear();
+
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    return (
+        year +
+        "." +
+        month +
+        "." +
+        day
+    );
+
+}
+
+
+
+/* =========================================
+   TOP NEWS ERROR
+========================================= */
+
+function showTopNewsError(
+    list,
+    errorBox,
+    message
+) {
+
+    if (list) {
+
+        list.innerHTML =
+            "";
+
+    }
+
+
+    if (errorBox) {
+
+        errorBox.textContent =
+            message;
+
+
+        errorBox.hidden =
+            false;
+
+    }
+
+}
 
 /* =========================================
    DOM READY
@@ -841,7 +1203,7 @@ async function initializeMain() {
      */
 
     await loadTopWorks();
-
+    await loadTopNews();
 
     console.log(
         "MFDCO MAIN: 初期化完了"

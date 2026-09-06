@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="マイクラ軍事茶番開発協力機構 MFDCO のお知らせ・更新情報です。"
+    >
+
+    <title>
+        お知らせ | MFDCO
+    </title>
+
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/logo.png"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/news.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =====================================
+         MAIN
+    ====================================== -->
+
+    <main class="news-page">
+
+
+        <!-- =================================
+             HERO
+        ================================== -->
+
+        <section class="news-hero">
+
+            <div class="news-hero-inner">
+
+                <div>
+
+                    <p class="news-eyebrow">
+                        NEWS
+                    </p>
+
+                    <h1>
+                        お知らせ
+                    </h1>
+
+                    <p class="news-lead">
+                        MFDCOからのお知らせ、
+                        サイト更新情報、
+                        各種案内を掲載しています。
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="news-admin-area"
+                    class="news-admin-area"
+                    hidden
+                >
+
+                    <a
+                        href="news-submit.html"
+                        class="news-submit-button"
+                    >
+                        お知らせを投稿
+                        <span aria-hidden="true">
+                            →
+                        </span>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             NEWS CONTENT
+        ================================== -->
+
+        <section class="news-content">
+
+            <div class="news-content-inner">
+
+
+                <!-- LOADING -->
+
+                <div
+                    id="news-loading"
+                    class="news-state"
+                >
+                    お知らせを読み込んでいます...
+                </div>
+
+
+                <!-- ERROR -->
+
+                <div
+                    id="news-error"
+                    class="news-state news-error"
+                    hidden
+                >
+                    お知らせを読み込めませんでした。
+                </div>
+
+
+                <!-- EMPTY -->
+
+                <div
+                    id="news-empty"
+                    class="news-empty"
+                    hidden
+                >
+
+                    <p class="news-empty-title">
+                        お知らせはありません
+                    </p>
+
+                    <p class="news-empty-text">
+                        新しいお知らせが投稿されると、
+                        ここに表示されます。
+                    </p>
+
+                </div>
+
+
+                <!-- NEWS LIST -->
+
+                <div
+                    id="news-list"
+                    class="news-list"
+                    hidden
+                ></div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <div id="footer-container"></div>
+
+
+    <!-- =====================================
+         SCRIPT
+    ====================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/header.js"></script>
+
+    <script src="js/main.js"></script>
+
+    <script src="js/news.js"></script>
+
+
+</body>
+
+</html>

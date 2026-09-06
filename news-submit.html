@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="MFDCO お知らせ投稿ページ"
+    >
+
+    <title>
+        お知らせを投稿 | MFDCO
+    </title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/logo.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/news-submit.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <div id="header-container"></div>
+
+
+    <main class="news-submit-page">
+
+
+        <section class="news-submit-hero">
+
+            <div class="news-submit-hero-inner">
+
+                <p class="news-submit-eyebrow">
+                    NEWS POST
+                </p>
+
+                <h1>
+                    お知らせを投稿
+                </h1>
+
+                <p class="news-submit-lead">
+                    MFDCO公式サイトに掲載する
+                    お知らせを作成します。
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="news-submit-content">
+
+            <div class="news-submit-inner">
+
+
+                <!-- LOADING -->
+
+                <div
+                    id="news-submit-loading"
+                    class="news-submit-state"
+                >
+                    アカウント情報を確認しています...
+                </div>
+
+
+                <!-- ERROR -->
+
+                <div
+                    id="news-submit-error"
+                    class="news-submit-error"
+                    hidden
+                >
+
+                    <h2>
+                        投稿できません
+                    </h2>
+
+                    <p id="news-submit-error-text">
+                        お知らせを投稿できるのは常任理事国のみです。
+                    </p>
+
+                    <a
+                        href="news.html"
+                        class="news-submit-back"
+                    >
+                        お知らせ一覧へ戻る
+                    </a>
+
+                </div>
+
+
+                <!-- FORM -->
+
+                <form
+                    id="news-submit-form"
+                    class="news-submit-form"
+                    hidden
+                >
+
+
+                    <!-- TITLE -->
+
+                    <div class="news-form-group">
+
+                        <label
+                            for="news-title"
+                            class="news-form-label"
+                        >
+                            タイトル
+                            <span class="required">
+                                必須
+                            </span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="news-title"
+                            class="news-form-input"
+                            maxlength="120"
+                            required
+                            placeholder="お知らせのタイトル"
+                        >
+
+                        <p class="news-form-help">
+                            120文字以内
+                        </p>
+
+                    </div>
+
+
+                    <!-- CONTENT -->
+
+                    <div class="news-form-group">
+
+                        <label
+                            for="news-content"
+                            class="news-form-label"
+                        >
+                            本文
+                            <span class="required">
+                                必須
+                            </span>
+                        </label>
+
+                        <textarea
+                            id="news-content"
+                            class="news-form-textarea"
+                            rows="14"
+                            required
+                            placeholder="お知らせの本文を入力してください。"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- IMAGE -->
+
+                    <div class="news-form-group">
+
+                        <label
+                            for="news-image-url"
+                            class="news-form-label"
+                        >
+                            画像URL
+                            <span class="optional">
+                                任意
+                            </span>
+                        </label>
+
+                        <input
+                            type="url"
+                            id="news-image-url"
+                            class="news-form-input"
+                            placeholder="https://example.com/image.jpg"
+                        >
+
+                        <p class="news-form-help">
+                            現在はURL指定方式です。
+                            画像が不要な場合は空欄で構いません。
+                        </p>
+
+                    </div>
+
+
+                    <!-- PREVIEW -->
+
+                    <div class="news-preview-section">
+
+                        <p class="news-preview-label">
+                            PREVIEW
+                        </p>
+
+                        <article class="news-preview-card">
+
+                            <p
+                                id="news-preview-date"
+                                class="news-preview-date"
+                            ></p>
+
+                            <h2
+                                id="news-preview-title"
+                                class="news-preview-title"
+                            >
+                                お知らせタイトル
+                            </h2>
+
+                            <p
+                                id="news-preview-content"
+                                class="news-preview-content"
+                            >
+                                本文を入力するとここに表示されます。
+                            </p>
+
+                            <div
+                                id="news-preview-image-wrap"
+                                class="news-preview-image-wrap"
+                                hidden
+                            >
+
+                                <img
+                                    id="news-preview-image"
+                                    class="news-preview-image"
+                                    alt=""
+                                >
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="news-submit-actions">
+
+                        <a
+                            href="news.html"
+                            class="news-cancel-button"
+                        >
+                            キャンセル
+                        </a>
+
+                        <button
+                            type="submit"
+                            id="news-submit-button"
+                            class="news-publish-button"
+                        >
+                            投稿する
+                        </button>
+
+                    </div>
+
+
+                    <p
+                        id="news-submit-message"
+                        class="news-submit-message"
+                        hidden
+                    ></p>
+
+
+                </form>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <div id="footer-container"></div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/header.js"></script>
+
+    <script src="js/main.js"></script>
+
+    <script src="js/news-submit.js"></script>
+
+
+</body>
+
+</html>
