@@ -1,0 +1,989 @@
+/* =========================================
+   MFDCO WEBSITE
+   AUTH FLOW
+========================================= */
+
+
+/* =========================================
+   01. PAGE
+========================================= */
+
+.auth-page {
+
+    min-height: 100vh;
+
+    padding: 120px 20px 100px;
+
+    background: #ffffff;
+
+}
+
+
+/* =========================================
+   02. CONTAINER
+========================================= */
+
+.auth-container {
+
+    width: min(760px, 100%);
+
+    margin: 0 auto;
+
+}
+
+
+/* =========================================
+   03. HEADER
+========================================= */
+
+.auth-header {
+
+    margin-bottom: 40px;
+
+}
+
+
+.auth-label {
+
+    color: var(--main-color);
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.18em;
+
+}
+
+
+.auth-header h1 {
+
+    margin-top: 10px;
+
+    font-size: clamp(34px, 5vw, 52px);
+
+    font-weight: 500;
+
+    line-height: 1.35;
+
+    letter-spacing: 0.04em;
+
+}
+
+
+.auth-description {
+
+    margin-top: 18px;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+
+    line-height: 1.9;
+
+}
+
+
+/* =========================================
+   04. CARD
+========================================= */
+
+.auth-card {
+
+    width: 100%;
+
+    padding: 42px;
+
+    border: 1px solid var(--line);
+
+    background: #ffffff;
+
+}
+
+
+/* =========================================
+   05. CENTER CARD
+========================================= */
+
+.auth-card.center {
+
+    text-align: center;
+
+}
+
+
+/* =========================================
+   06. ICON
+========================================= */
+
+.auth-icon {
+
+    width: 78px;
+
+    height: 78px;
+
+    margin: 0 auto 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid var(--main-color);
+
+    border-radius: 50%;
+
+    color: var(--main-color);
+
+    font-size: 30px;
+
+}
+
+
+/* =========================================
+   07. TITLE
+========================================= */
+
+.auth-card-title {
+
+    margin: 0;
+
+    font-size: 25px;
+
+    font-weight: 500;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================
+   08. TEXT
+========================================= */
+
+.auth-text {
+
+    margin-top: 18px;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+
+    line-height: 1.9;
+
+}
+
+
+.auth-text strong {
+
+    color: var(--text);
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================
+   09. EMAIL DISPLAY
+========================================= */
+
+.auth-email {
+
+    margin-top: 25px;
+
+    padding: 16px 18px;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface-light);
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    overflow-wrap: anywhere;
+
+}
+
+
+/* =========================================
+   10. NOTICE
+========================================= */
+
+.auth-notice {
+
+    margin-top: 25px;
+
+    padding: 18px 20px;
+
+    border-left: 3px solid var(--main-color);
+
+    background: var(--surface-light);
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    line-height: 1.9;
+
+    text-align: left;
+
+}
+
+
+/* =========================================
+   11. FORM SECTION
+========================================= */
+
+.auth-form-section {
+
+    padding: 32px 0;
+
+    border-bottom: 1px solid var(--line);
+
+}
+
+
+.auth-form-section:first-child {
+
+    padding-top: 0;
+
+}
+
+
+.auth-form-section:last-child {
+
+    padding-bottom: 0;
+
+    border-bottom: 0;
+
+}
+
+
+/* =========================================
+   FORM SECTION TITLE
+========================================= */
+
+.auth-form-title {
+
+    margin-bottom: 24px;
+
+    color: var(--main-color);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+}
+
+
+/* =========================================
+   12. FORM
+========================================= */
+
+.auth-page .form-group {
+
+    margin-bottom: 28px;
+
+}
+
+
+.auth-page .form-group:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+/* =========================================
+   13. IMAGE SETUP
+========================================= */
+
+.auth-image-setup {
+
+    display: grid;
+
+    grid-template-columns: 130px 1fr;
+
+    align-items: center;
+
+    gap: 28px;
+
+}
+
+
+/* =========================================
+   IMAGE PREVIEW
+========================================= */
+
+.auth-image-preview {
+
+    width: 130px;
+
+    height: 130px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface);
+
+}
+
+
+.auth-image-preview.icon {
+
+    border-radius: 50%;
+
+}
+
+
+.auth-image-preview img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+/* =========================================
+   IMAGE CONTROLS
+========================================= */
+
+.auth-image-controls {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+}
+
+
+.auth-image-controls input[type="file"] {
+
+    max-width: 100%;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+   14. FLAG SETUP
+========================================= */
+
+.auth-flag-setup {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(210px, 320px)
+        1fr;
+
+    align-items: center;
+
+    gap: 28px;
+
+}
+
+
+.auth-flag-preview {
+
+    width: 100%;
+
+    aspect-ratio: 16 / 7;
+
+    overflow: hidden;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface);
+
+}
+
+
+.auth-flag-preview img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+/* =========================================
+   15. TAGS
+========================================= */
+
+.auth-tags {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+}
+
+
+.auth-tag {
+
+    position: relative;
+
+}
+
+
+.auth-tag input {
+
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+.auth-tag label {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 34px;
+
+    padding: 6px 13px;
+
+    border: 1px solid var(--line);
+
+    background: #ffffff;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+
+}
+
+
+.auth-tag input:checked + label {
+
+    border-color: var(--main-color);
+
+    background: var(--main-color);
+
+    color: #ffffff;
+
+}
+
+
+/* =========================================
+   TAG COUNT
+========================================= */
+
+.auth-tag-count {
+
+    margin-top: 10px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================
+   16. RADIO
+========================================= */
+
+.auth-radio-list {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 14px 25px;
+
+}
+
+
+.auth-radio {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+}
+
+
+.auth-radio input {
+
+    accent-color: var(--main-color);
+
+}
+
+
+/* =========================================
+   17. ACTIONS
+========================================= */
+
+.auth-actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-top: 30px;
+
+}
+
+
+/* =========================================
+   PRIMARY ACTION
+========================================= */
+
+.auth-action-primary {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 48px;
+
+    padding: 11px 25px;
+
+    border: 1px solid var(--main-color);
+
+    background: var(--main-color);
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        opacity 0.2s ease;
+
+}
+
+
+.auth-action-primary:hover {
+
+    background: var(--main-color-dark);
+
+}
+
+
+.auth-action-primary:disabled {
+
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
+}
+
+
+/* =========================================
+   SECONDARY ACTION
+========================================= */
+
+.auth-action-secondary {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 48px;
+
+    padding: 11px 25px;
+
+    border: 1px solid var(--main-color);
+
+    background: #ffffff;
+
+    color: var(--main-color);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease;
+
+}
+
+
+.auth-action-secondary:hover {
+
+    background: var(--surface);
+
+}
+
+
+/* =========================================
+   LINK ACTION
+========================================= */
+
+.auth-link {
+
+    color: var(--main-color);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-decoration: underline;
+
+    text-underline-offset: 4px;
+
+}
+
+
+/* =========================================
+   18. MESSAGE
+========================================= */
+
+.auth-flow-message {
+
+    margin-bottom: 25px;
+
+    padding: 16px 18px;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface-light);
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.auth-flow-message.error {
+
+    border-color: #e1bbbb;
+
+    background: #fff7f7;
+
+    color: #a92323;
+
+}
+
+
+/* =========================================
+   SUCCESS
+========================================= */
+
+.auth-flow-message.success {
+
+    border-color: #b8d2cf;
+
+    background: #f2f8f7;
+
+    color: var(--main-color);
+
+}
+
+
+/* =========================================
+   19. RESEND
+========================================= */
+
+.auth-resend {
+
+    margin-top: 28px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid var(--line);
+
+    text-align: center;
+
+}
+
+
+.auth-resend p {
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+    line-height: 1.8;
+
+}
+
+
+.auth-resend button {
+
+    margin-top: 12px;
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--main-color);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    text-decoration: underline;
+
+    text-underline-offset: 4px;
+
+}
+
+
+.auth-resend button:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+}
+
+
+/* =========================================
+   20. LOADING
+========================================= */
+
+.auth-loading {
+
+    min-height: 320px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================
+   21. STEP
+========================================= */
+
+.auth-step {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.auth-step-number {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 28px;
+
+    height: 28px;
+
+    flex-shrink: 0;
+
+    border: 1px solid var(--main-color);
+
+    border-radius: 50%;
+
+    color: var(--main-color);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+.auth-step-text {
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================
+   90. TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+    .auth-page {
+
+        padding: 105px 20px 80px;
+
+    }
+
+
+    .auth-card {
+
+        padding: 34px 26px;
+
+    }
+
+
+    .auth-flag-setup {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .auth-flag-preview {
+
+        max-width: 400px;
+
+    }
+
+}
+
+
+/* =========================================
+   91. MOBILE
+========================================= */
+
+@media (max-width: 550px) {
+
+    .auth-page {
+
+        padding-left: 15px;
+
+        padding-right: 15px;
+
+    }
+
+
+    .auth-header h1 {
+
+        font-size: 32px;
+
+    }
+
+
+    .auth-card {
+
+        padding: 28px 18px;
+
+    }
+
+
+    .auth-image-setup {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .auth-image-preview {
+
+        width: 115px;
+
+        height: 115px;
+
+    }
+
+
+    .auth-radio-list {
+
+        flex-direction: column;
+
+        gap: 12px;
+
+    }
+
+
+    .auth-actions {
+
+        flex-direction: column;
+
+    }
+
+
+    .auth-action-primary,
+    .auth-action-secondary {
+
+        width: 100%;
+
+    }
+
+}
+
+.auth-tag:hover label {
+    border-color: var(--main-color);
+    color: var(--main-color);
+}
+
+.auth-tag input:focus-visible + label {
+    outline: 3px solid rgba(22, 75, 75, 0.18);
+    outline-offset: 2px;
+}

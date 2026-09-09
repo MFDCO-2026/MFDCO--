@@ -1,0 +1,678 @@
+/* =========================================
+   MFDCO WEBSITE
+   FOOTER
+========================================= */
+
+
+/* =========================================
+   01. FOOTER
+========================================= */
+
+.site-footer {
+
+    padding:
+        0;
+
+    background:
+        #0f1814;
+
+    color:
+        #ffffff;
+
+    border-top:
+        1px solid
+        #d9d9d9;
+
+}
+
+
+/* =========================================
+   02. FOOTER MAIN
+========================================= */
+
+.footer-inner {
+
+    width:
+        min(
+            1400px,
+            calc(
+                100% - 80px
+            )
+        );
+
+    margin:
+        0 auto;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr
+        0.5fr
+        0.5fr
+        0.5fr;
+
+    grid-template-areas:
+        "brand site join contact";
+
+    gap:
+        50px;
+
+    padding:
+        80px 0 90px;
+
+}
+
+
+/* =========================================
+   03. FOOTER BRAND
+========================================= */
+
+.footer-brand {
+
+    grid-area:
+        brand;
+
+    min-width:
+        0;
+
+    padding-right:
+        20px;
+
+    border-right:
+        1px solid
+        #d9d9d9;
+
+}
+
+
+.footer-logo-link {
+
+    display:
+        inline-block;
+
+    margin-bottom:
+        1px;
+
+    text-decoration:
+        none;
+
+}
+
+
+.footer-logo {
+
+    display:
+        block;
+
+    width:
+        300px;
+
+    height:
+        300px;
+
+    object-fit:
+        contain;
+
+}
+
+
+.footer-organization-name {
+
+    margin:
+        0;
+
+    color:
+        #ffffff;
+
+    font-size:
+        20px;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.5;
+
+    letter-spacing:
+        0.04em;
+
+}
+
+
+.footer-organization-name-en {
+
+    margin:
+        10px 0 0;
+
+    color:
+        #666666;
+
+    font-size:
+        10px;
+
+    font-weight:
+        500;
+
+    line-height:
+        1.8;
+
+    letter-spacing:
+        0.08em;
+
+}
+
+
+/* =========================================
+   04. FOOTER COLUMNS
+========================================= */
+
+.footer-column {
+
+    min-width:
+        0;
+
+}
+
+
+.footer-column:nth-child(2) {
+
+    grid-area:
+        site;
+
+}
+
+
+.footer-column:nth-child(3) {
+
+    grid-area:
+        join;
+
+}
+
+
+.footer-column:nth-child(4) {
+
+    grid-area:
+        contact;
+
+}
+
+
+/* =========================================
+   05. FOOTER HEADING
+========================================= */
+
+.footer-heading {
+
+    margin:
+        0 0 24px;
+
+    color:
+        #5ba09b;
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+/* =========================================
+   06. FOOTER LINKS
+========================================= */
+
+.footer-links {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        13px;
+
+}
+
+
+.footer-links a {
+
+    color:
+        #ffffff;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.5;
+
+    text-decoration:
+        none;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.footer-links a:hover {
+
+    color:
+        #5ba09b;
+
+    transform:
+        translateX(4px);
+
+}
+
+
+/* =========================================
+   07. FOOTER CONTACT
+========================================= */
+
+.footer-contact {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        24px;
+
+}
+
+
+.footer-contact-item {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        5px;
+
+    text-decoration:
+        none;
+
+}
+
+
+.footer-contact-label {
+
+    color:
+        #5ba09b;
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+.footer-contact-value {
+
+    color:
+        #ffffff;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.6;
+
+    transition:
+        color 0.2s ease;
+
+}
+
+
+.footer-contact-item:hover
+.footer-contact-value {
+
+    color:
+        #5ba09b;
+
+}
+
+
+/* =========================================
+   08. FOOTER BOTTOM
+========================================= */
+
+.footer-bottom {
+
+    border-top:
+        1px solid
+        #d9d9d9;
+
+}
+
+
+.footer-bottom-inner {
+
+    width:
+        min(
+            1400px,
+            calc(
+                100% - 80px
+            )
+        );
+
+    min-height:
+        70px;
+
+    margin:
+        0 auto;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        30px;
+
+}
+
+
+/* =========================================
+   09. FOOTER LEGAL
+========================================= */
+
+.footer-legal {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        12px;
+
+}
+
+
+.footer-legal a {
+
+    color:
+        #666666;
+
+    font-size:
+        11px;
+
+    text-decoration:
+        none;
+
+    transition:
+        color 0.2s ease;
+
+}
+
+
+.footer-legal a:hover {
+
+    color:
+        #5ba09b;
+
+}
+
+
+.footer-legal span {
+
+    color:
+        #cccccc;
+
+    font-size:
+        11px;
+
+}
+
+
+/* =========================================
+   10. COPYRIGHT
+========================================= */
+
+.copyright {
+
+    margin:
+        0;
+
+    color:
+        #888888;
+
+    font-size:
+        11px;
+
+    letter-spacing:
+        0.05em;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/* =========================================
+   90. TABLET
+========================================= */
+
+@media (
+    max-width: 900px
+) {
+
+    .footer-inner {
+
+        width:
+            min(
+                100% - 48px,
+                700px
+            );
+
+        grid-template-columns:
+            1fr 1fr;
+
+        grid-template-areas:
+            "brand brand"
+            "site join"
+            "contact contact";
+
+        gap:
+            50px 40px;
+
+        padding:
+            60px 0;
+
+    }
+
+
+    .footer-brand {
+
+        padding-right:
+            0;
+
+        padding-bottom:
+            45px;
+
+        border-right:
+            none;
+
+        border-bottom:
+            1px solid
+            #d9d9d9;
+
+    }
+
+
+    .footer-logo {
+
+        width:
+            120px;
+
+        height:
+            120px;
+
+    }
+
+
+    .footer-bottom-inner {
+
+        width:
+            min(
+                100% - 48px,
+                700px
+            );
+
+        padding:
+            20px 0;
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+        gap:
+            12px;
+
+    }
+
+}
+
+
+/* =========================================
+   91. SMALL MOBILE
+========================================= */
+
+@media (
+    max-width: 600px
+) {
+
+    .footer-inner {
+
+        width:
+            calc(
+                100% - 40px
+            );
+
+        grid-template-columns:
+            1fr;
+
+        grid-template-areas:
+            "brand"
+            "site"
+            "join"
+            "contact";
+
+        gap:
+            42px;
+
+        padding:
+            50px 0;
+
+    }
+
+
+    .footer-brand {
+
+        padding-bottom:
+            35px;
+
+    }
+
+
+    .footer-logo {
+
+        width:
+            100px;
+
+        height:
+            100px;
+
+        margin-bottom:
+            20px;
+
+    }
+
+
+    .footer-organization-name {
+
+        font-size:
+            17px;
+
+    }
+
+
+    .footer-organization-name-en {
+
+        font-size:
+            9px;
+
+    }
+
+
+    .footer-heading {
+
+        margin-bottom:
+            18px;
+
+    }
+
+
+    .footer-links {
+
+        gap:
+            11px;
+
+    }
+
+
+    .footer-contact {
+
+        gap:
+            20px;
+
+    }
+
+
+    .footer-bottom-inner {
+
+        width:
+            calc(
+                100% - 40px
+            );
+
+    }
+
+
+    .footer-legal {
+
+        gap:
+            8px;
+
+    }
+
+}

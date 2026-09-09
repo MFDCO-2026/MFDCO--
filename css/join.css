@@ -1,0 +1,777 @@
+/* =========================================
+   MFDCO WEBSITE
+   JOIN / AUTH PAGE
+========================================= */
+
+
+/* =========================================
+   01. PAGE
+========================================= */
+
+.join-page {
+    min-height: 100vh;
+
+    padding: 120px 20px 100px;
+
+    background: #ffffff;
+}
+
+
+/* =========================================
+   02. CONTAINER
+========================================= */
+
+.join-container {
+    width: min(1100px, 100%);
+
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   03. HEADER
+========================================= */
+
+.join-header {
+    margin-bottom: 50px;
+}
+
+.join-header-label {
+    color: var(--main-color);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: 0.18em;
+}
+
+.join-header h1 {
+    margin-top: 10px;
+
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 500;
+    line-height: 1.3;
+
+    letter-spacing: 0.05em;
+}
+
+.join-header-description {
+    max-width: 720px;
+
+    margin-top: 20px;
+
+    color: var(--text-muted);
+
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+
+/* =========================================
+   04. PANEL
+========================================= */
+
+.join-panel {
+    width: 100%;
+
+    padding: 45px;
+
+    border: 1px solid var(--line);
+
+    background: #ffffff;
+}
+
+
+/* =========================================
+   05. FORM SECTION
+========================================= */
+
+.join-page .form-section {
+    padding: 35px 0;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.join-page .form-section:first-child {
+    padding-top: 0;
+}
+
+.join-page .form-section:last-child {
+    padding-bottom: 0;
+
+    border-bottom: none;
+}
+
+.join-page .form-section-title {
+    margin-bottom: 25px;
+
+    color: var(--main-color);
+
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+}
+
+
+/* =========================================
+   06. REQUIRED / OPTIONAL
+========================================= */
+
+.join-page .required {
+    margin-left: 6px;
+
+    color: #a92323;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.join-page .optional {
+    margin-left: 6px;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   07. FORM ROW
+========================================= */
+
+.join-page .form-row {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* =========================================
+   08. AUTH FORM
+========================================= */
+
+.join-page .auth-form {
+    width: 100%;
+}
+
+.join-page .auth-form .form-group:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================
+   09. PASSWORD
+========================================= */
+
+.password-wrap {
+    position: relative;
+}
+
+.password-wrap input {
+    padding-right: 85px !important;
+}
+
+.password-toggle {
+    position: absolute;
+
+    top: 50%;
+    right: 14px;
+
+    transform: translateY(-50%);
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--main-color);
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   10. IMAGE UPLOAD
+========================================= */
+
+.image-upload {
+    display: grid;
+
+    grid-template-columns: 120px 1fr;
+
+    align-items: center;
+
+    gap: 25px;
+}
+
+
+/* =========================================
+   IMAGE PREVIEW
+========================================= */
+
+.image-preview {
+    width: 120px;
+    height: 120px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface);
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================
+   IMAGE UPLOAD BUTTON
+========================================= */
+
+.image-upload-control {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 10px;
+}
+
+.image-upload-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+
+    padding: 10px 18px;
+
+    border: 1px solid var(--main-color);
+
+    background: #ffffff;
+
+    color: var(--main-color);
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.image-upload-button:hover {
+    background: var(--main-color);
+
+    color: #ffffff;
+}
+
+.image-upload input[type="file"] {
+    max-width: 100%;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   11. RADIO
+========================================= */
+
+.radio-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 14px 25px;
+}
+
+.radio-item {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.radio-item input {
+    accent-color: var(--main-color);
+}
+
+
+/* =========================================
+   12. CHECKBOX
+========================================= */
+
+.checkbox-item {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    font-size: 13px;
+    line-height: 1.8;
+
+    cursor: pointer;
+}
+
+.checkbox-item input {
+    flex-shrink: 0;
+
+    margin-top: 6px;
+
+    accent-color: var(--main-color);
+}
+
+
+/* =========================================
+   13. TAG LIST
+========================================= */
+
+.tag-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.tag-option {
+    display: inline-flex;
+
+    align-items: center;
+}
+
+.tag-option input {
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.tag-option label {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 34px;
+
+    padding: 7px 14px;
+
+    border: 1px solid var(--line);
+
+    background: #ffffff;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.tag-option:hover label {
+    border-color: var(--main-color);
+
+    color: var(--main-color);
+}
+
+.tag-option input:checked + label {
+    border-color: var(--main-color);
+
+    background: var(--main-color);
+
+    color: #ffffff;
+}
+
+.tag-option input:focus-visible + label {
+    outline: 3px solid rgba(22, 75, 75, 0.18);
+
+    outline-offset: 2px;
+}
+
+
+/* =========================================
+   14. AGREEMENT
+========================================= */
+
+.agreement {
+    padding: 24px;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface-light);
+}
+
+.agreement-text {
+    margin-bottom: 16px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.agreement-text a {
+    color: var(--main-color);
+
+    text-decoration: underline;
+
+    text-underline-offset: 3px;
+}
+
+
+/* =========================================
+   15. SUBMIT
+========================================= */
+
+.join-submit {
+    margin-top: 35px;
+}
+
+.join-submit button {
+    width: 100%;
+
+    min-height: 56px;
+
+    border: 1px solid var(--main-color);
+
+    background: var(--main-color);
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.join-submit button:hover {
+    background: var(--main-color-dark);
+}
+
+.join-submit button:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   16. SWITCH
+========================================= */
+
+.join-switch {
+    margin-top: 25px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid var(--line);
+
+    text-align: center;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+}
+
+.join-switch button,
+.join-switch a {
+    border: 0;
+
+    background: transparent;
+
+    color: var(--main-color);
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.join-switch button:hover,
+.join-switch a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   17. AUTH MESSAGE
+========================================= */
+
+.auth-message {
+    margin-bottom: 25px;
+
+    padding: 15px 18px;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface-light);
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.auth-message.error {
+    border-color: #e3bcbc;
+
+    background: #fff7f7;
+
+    color: #a92323;
+}
+
+.auth-message.success {
+    border-color: #b6d1ce;
+
+    background: #f4f9f8;
+
+    color: var(--main-color);
+}
+
+
+/* =========================================
+   18. COMPLETE
+========================================= */
+
+.join-complete {
+    max-width: 720px;
+
+    margin: 0 auto;
+
+    padding: 60px 40px;
+
+    border: 1px solid var(--line);
+
+    background: #ffffff;
+
+    text-align: center;
+}
+
+.join-complete-icon {
+    display: flex;
+
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 25px;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--main-color);
+    border-radius: 50%;
+
+    color: var(--main-color);
+
+    font-size: 30px;
+}
+
+.join-complete h2 {
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.join-complete p {
+    margin-top: 18px;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+
+/* =========================================
+   19. DISCORD
+========================================= */
+
+.discord-box {
+    margin-top: 35px;
+
+    padding: 25px;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface-light);
+}
+
+.discord-box h3 {
+    margin-bottom: 10px;
+
+    color: var(--main-color);
+
+    font-size: 15px;
+}
+
+.discord-box p {
+    color: var(--text-muted);
+
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.discord-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 18px;
+
+    min-height: 44px;
+
+    padding: 10px 22px;
+
+    border: 1px solid var(--main-color);
+
+    background: var(--main-color);
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.discord-button:hover {
+    background: var(--main-color-dark);
+
+    border-color: var(--main-color-dark);
+}
+
+
+/* =========================================
+   20. LOADING
+========================================= */
+
+.join-loading {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 300px;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   90. TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+    .join-page {
+        padding: 105px 20px 80px;
+    }
+
+    .join-panel {
+        padding: 32px 25px;
+    }
+
+    .join-page .form-row {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+    .image-upload {
+        grid-template-columns: 100px 1fr;
+
+        gap: 18px;
+    }
+
+    .image-preview {
+        width: 100px;
+        height: 100px;
+    }
+
+}
+
+
+/* =========================================
+   91. MOBILE
+========================================= */
+
+@media (max-width: 520px) {
+
+    .join-page {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .join-header {
+        margin-bottom: 35px;
+    }
+
+    .join-header h1 {
+        font-size: 34px;
+    }
+
+    .join-panel {
+        padding: 28px 18px;
+    }
+
+    .join-page .form-section {
+        padding: 28px 0;
+    }
+
+    .image-upload {
+        grid-template-columns: 1fr;
+    }
+
+    .image-preview {
+        width: 110px;
+        height: 110px;
+    }
+
+    .radio-list {
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    .agreement {
+        padding: 20px 16px;
+    }
+
+    .join-complete {
+        padding: 45px 20px;
+    }
+
+}

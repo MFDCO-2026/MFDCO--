@@ -1,0 +1,1456 @@
+/* =========================================
+   MFDCO WEBSITE
+   MY PAGE
+========================================= */
+
+
+/* =========================================
+   01. PAGE
+========================================= */
+
+.mypage {
+
+    min-height:
+        100vh;
+
+    padding:
+        120px 20px 100px;
+
+    background:
+        #ffffff;
+
+}
+
+
+/* =========================================
+   02. SECTION
+========================================= */
+
+.mypage-section {
+
+    width:
+        100%;
+
+}
+
+
+/* =========================================
+   03. CONTAINER
+========================================= */
+
+.mypage-container {
+
+    width:
+        min(
+            1100px,
+            100%
+        );
+
+    margin:
+        0 auto;
+
+}
+
+
+/* =========================================
+   04. PAGE HEADER
+========================================= */
+
+.mypage-header {
+
+    margin-bottom:
+        45px;
+
+}
+
+
+.mypage-header-label {
+
+    color:
+        var(--main-color);
+
+    font-size:
+        11px;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+.mypage-header h1 {
+
+    margin-top:
+        10px;
+
+    font-size:
+        clamp(
+            36px,
+            5vw,
+            58px
+        );
+
+    font-weight:
+        500;
+
+    line-height:
+        1.3;
+
+    letter-spacing:
+        0.05em;
+
+}
+
+
+.mypage-header-description {
+
+    max-width:
+        720px;
+
+    margin-top:
+        18px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        13px;
+
+    line-height:
+        1.9;
+
+}
+
+
+/* =========================================
+   05. PROFILE CARD
+========================================= */
+
+.profile-card {
+
+    width:
+        100%;
+
+    padding:
+        40px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        #ffffff;
+
+}
+
+
+/* =========================================
+   06. PROFILE MAIN
+========================================= */
+
+.profile-main {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        140px 1fr;
+
+    align-items:
+        center;
+
+    gap:
+        35px;
+
+}
+
+
+/* =========================================
+   PROFILE ICON
+========================================= */
+
+.profile-icon {
+
+    width:
+        140px;
+
+    height:
+        140px;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:
+        50%;
+
+    background:
+        var(--surface);
+
+}
+
+
+.profile-icon img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+}
+
+
+/* =========================================
+   PROFILE IDENTITY
+========================================= */
+
+.profile-identity {
+
+    min-width:
+        0;
+
+}
+
+
+.profile-name {
+
+    margin:
+        0;
+
+    font-size:
+        clamp(
+            26px,
+            4vw,
+            38px
+        );
+
+    font-weight:
+        600;
+
+    line-height:
+        1.4;
+
+    overflow-wrap:
+        anywhere;
+
+}
+
+
+.profile-subname {
+
+    margin-top:
+        7px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        12px;
+
+}
+
+
+/* =========================================
+   07. PROFILE STATUS
+========================================= */
+
+.profile-status {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        8px;
+
+    margin-top:
+        18px;
+
+}
+
+
+.profile-status-badge {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    min-height:
+        30px;
+
+    padding:
+        5px 12px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        #ffffff;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.08em;
+
+}
+
+
+/* =========================================
+   APPROVED MEMBER
+========================================= */
+
+.profile-status-badge.approved,
+.profile-status-badge.member {
+
+    border-color:
+        var(--main-color);
+
+    background:
+        var(--main-color);
+
+    color:
+        #ffffff;
+
+}
+
+
+/* =========================================
+   PERMANENT MEMBER
+========================================= */
+
+.profile-status-badge.permanent {
+
+    border-color:
+        #8b6b24;
+
+    background:
+        #8b6b24;
+
+    color:
+        #ffffff;
+
+}
+
+
+/* =========================================
+   ADMIN
+========================================= */
+
+.profile-status-badge.admin {
+
+    border-color:
+        #222222;
+
+    background:
+        #222222;
+
+    color:
+        #ffffff;
+
+}
+
+
+/* =========================================
+   PENDING
+========================================= */
+
+.profile-status-badge.pending {
+
+    border-color:
+        #c6ad6c;
+
+    background:
+        #fffaf0;
+
+    color:
+        #826820;
+
+}
+
+
+/* =========================================
+   REJECTED / SUSPENDED
+========================================= */
+
+.profile-status-badge.rejected,
+.profile-status-badge.suspended {
+
+    border-color:
+        #d5adad;
+
+    background:
+        #fff6f6;
+
+    color:
+        #9e2929;
+
+}
+
+
+/* =========================================
+   08. PROFILE BIO
+========================================= */
+
+.profile-bio {
+
+    margin-top:
+        30px;
+
+    padding-top:
+        30px;
+
+    border-top:
+        1px solid
+        var(--line);
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        13px;
+
+    line-height:
+        2;
+
+    white-space:
+        pre-wrap;
+
+    overflow-wrap:
+        anywhere;
+
+}
+
+
+/* =========================================
+   09. PROFILE SECTION
+========================================= */
+
+.profile-section {
+
+    margin-top:
+        35px;
+
+    padding:
+        35px 40px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        #ffffff;
+
+}
+
+
+.profile-section-header {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+    margin-bottom:
+        25px;
+
+}
+
+
+.profile-section-title {
+
+    margin:
+        0;
+
+    color:
+        var(--main-color);
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.08em;
+
+}
+
+
+/* =========================================
+   10. COUNTRY CARD
+========================================= */
+
+.country-card {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(
+            180px,
+            320px
+        )
+        1fr;
+
+    align-items:
+        center;
+
+    gap:
+        30px;
+
+}
+
+
+/* =========================================
+   FLAG
+========================================= */
+
+.country-flag {
+
+    width:
+        100%;
+
+    aspect-ratio:
+        16 / 7;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        var(--surface);
+
+}
+
+
+.country-flag img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+}
+
+
+/* =========================================
+   COUNTRY INFO
+========================================= */
+
+.country-info {
+
+    min-width:
+        0;
+
+}
+
+
+.country-label {
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        0.12em;
+
+}
+
+
+.country-name {
+
+    margin-top:
+        8px;
+
+    font-size:
+        23px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.5;
+
+    overflow-wrap:
+        anywhere;
+
+}
+
+
+/* =========================================
+   11. PROFILE TAGS
+========================================= */
+
+.profile-tags {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        9px;
+
+}
+
+
+.profile-tag {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    min-height:
+        32px;
+
+    padding:
+        6px 12px;
+
+    border:
+        1px solid
+        #c9d6d5;
+
+    background:
+        #f5f9f8;
+
+    color:
+        var(--main-color);
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+}
+
+
+/* =========================================
+   12. CREDIT
+========================================= */
+
+.profile-credit {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        160px 1fr;
+
+    gap:
+        20px;
+
+}
+
+
+.profile-credit-label {
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        11px;
+
+}
+
+
+.profile-credit-value {
+
+    color:
+        var(--text);
+
+    font-size:
+        13px;
+
+    overflow-wrap:
+        anywhere;
+
+}
+
+
+/* =========================================
+   13. ACCOUNT INFO
+========================================= */
+
+.account-info {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:
+        1px;
+
+    background:
+        var(--line);
+
+    border:
+        1px solid
+        var(--line);
+
+}
+
+
+.account-info-item {
+
+    min-width:
+        0;
+
+    padding:
+        20px;
+
+    background:
+        #ffffff;
+
+}
+
+
+.account-info-label {
+
+    display:
+        block;
+
+    margin-bottom:
+        6px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        0.08em;
+
+}
+
+
+.account-info-value {
+
+    display:
+        block;
+
+    color:
+        var(--text);
+
+    font-size:
+        13px;
+
+    overflow-wrap:
+        anywhere;
+
+}
+
+
+/* =========================================
+   14. MY WORKS
+========================================= */
+
+.mypage-works {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:
+        20px;
+
+}
+
+
+/* =========================================
+   MY WORK CARD
+========================================= */
+
+.mypage-work-card {
+
+    display:
+        block;
+
+    min-width:
+        0;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        #ffffff;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+.mypage-work-card:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(
+            0,
+            0,
+            0,
+            0.07
+        );
+
+}
+
+
+/* =========================================
+   WORK IMAGE
+========================================= */
+
+.mypage-work-image {
+
+    width:
+        100%;
+
+    aspect-ratio:
+        1 / 1;
+
+    overflow:
+        hidden;
+
+    background:
+        var(--surface);
+
+}
+
+
+.mypage-work-image img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+}
+
+
+/* =========================================
+   WORK INFO
+========================================= */
+
+.mypage-work-info {
+
+    padding:
+        18px;
+
+}
+
+
+.mypage-work-title {
+
+    margin:
+        0;
+
+    font-size:
+        15px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.6;
+
+    overflow-wrap:
+        anywhere;
+
+}
+
+
+.mypage-work-meta {
+
+    margin-top:
+        7px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        10px;
+
+}
+
+
+/* =========================================
+   WORK STATUS
+========================================= */
+
+.mypage-work-status {
+
+    display:
+        inline-flex;
+
+    margin-top:
+        10px;
+
+    padding:
+        4px 9px;
+
+    border:
+        1px solid
+        var(--line);
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.06em;
+
+}
+
+
+.mypage-work-status.approved {
+
+    border-color:
+        var(--main-color);
+
+    background:
+        var(--main-color);
+
+    color:
+        #ffffff;
+
+}
+
+
+.mypage-work-status.pending {
+
+    border-color:
+        #c6ad6c;
+
+    background:
+        #fffaf0;
+
+    color:
+        #826820;
+
+}
+
+
+.mypage-work-status.rejected {
+
+    border-color:
+        #d5adad;
+
+    background:
+        #fff6f6;
+
+    color:
+        #9e2929;
+
+}
+
+
+/* =========================================
+   15. EMPTY
+========================================= */
+
+.mypage-empty {
+
+    grid-column:
+        1 / -1;
+
+    min-height:
+        160px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        30px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        var(--surface-light);
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        12px;
+
+    text-align:
+        center;
+
+}
+
+
+/* =========================================
+   16. ACTIONS
+========================================= */
+
+.mypage-actions {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        12px;
+
+    margin-top:
+        35px;
+
+}
+
+
+.mypage-action-button {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    min-height:
+        46px;
+
+    padding:
+        11px 22px;
+
+    border:
+        1px solid
+        var(--main-color);
+
+    background:
+        var(--main-color);
+
+    color:
+        #ffffff;
+
+    font-size:
+        12px;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+
+}
+
+
+.mypage-action-button:hover {
+
+    background:
+        var(--main-color-dark);
+
+}
+
+
+/* =========================================
+   SECONDARY ACTION
+========================================= */
+
+.mypage-action-button.secondary {
+
+    background:
+        #ffffff;
+
+    color:
+        var(--main-color);
+
+}
+
+
+.mypage-action-button.secondary:hover {
+
+    background:
+        var(--surface);
+
+}
+
+
+/* =========================================
+   LOGOUT / DANGER
+========================================= */
+
+.mypage-action-button.danger {
+
+    border-color:
+        #a92323;
+
+    background:
+        #ffffff;
+
+    color:
+        #a92323;
+
+}
+
+
+.mypage-action-button.danger:hover {
+
+    background:
+        #a92323;
+
+    color:
+        #ffffff;
+
+}
+
+
+/* =========================================
+   17. LOADING
+========================================= */
+
+.mypage-loading {
+
+    min-height:
+        350px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        13px;
+
+}
+
+
+/* =========================================
+   18. ERROR
+========================================= */
+
+.mypage-error {
+
+    padding:
+        30px;
+
+    border:
+        1px solid
+        #e1bbbb;
+
+    background:
+        #fff7f7;
+
+    color:
+        #a92323;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.8;
+
+}
+
+
+/* =========================================
+   90. TABLET
+========================================= */
+
+@media (
+    max-width: 900px
+) {
+
+    .mypage-works {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(
+                    0,
+                    1fr
+                )
+            );
+
+    }
+
+
+    .country-card {
+
+        grid-template-columns:
+            minmax(
+                160px,
+                250px
+            )
+            1fr;
+
+    }
+
+}
+
+
+/* =========================================
+   91. MOBILE
+========================================= */
+
+@media (
+    max-width: 700px
+) {
+
+    .mypage {
+
+        padding:
+            105px 15px 80px;
+
+    }
+
+
+    .profile-card {
+
+        padding:
+            28px 20px;
+
+    }
+
+
+    .profile-main {
+
+        grid-template-columns:
+            1fr;
+
+        justify-items:
+            center;
+
+        text-align:
+            center;
+
+        gap:
+            22px;
+
+    }
+
+
+    .profile-icon {
+
+        width:
+            120px;
+
+        height:
+            120px;
+
+    }
+
+
+    .profile-status {
+
+        justify-content:
+            center;
+
+    }
+
+
+    .profile-bio {
+
+        text-align:
+            left;
+
+    }
+
+
+    .profile-section {
+
+        padding:
+            28px 20px;
+
+    }
+
+
+    .country-card {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .country-flag {
+
+        max-width:
+            420px;
+
+    }
+
+
+    .profile-credit {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            5px;
+
+    }
+
+
+    .account-info {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .mypage-works {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .mypage-actions {
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .mypage-action-button {
+
+        width:
+            100%;
+
+    }
+
+}
+
+
+/* =========================================
+   92. SMALL MOBILE
+========================================= */
+
+@media (
+    max-width: 430px
+) {
+
+    .mypage-header h1 {
+
+        font-size:
+            32px;
+
+    }
+
+
+    .profile-name {
+
+        font-size:
+            26px;
+
+    }
+
+
+    .profile-section-header {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+    }
+
+}

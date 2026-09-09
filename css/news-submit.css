@@ -1,9 +1,15 @@
 /* =========================================
-   NEWS SUBMIT PAGE
+   MFDCO NEWS SUBMIT PAGE
+========================================= */
+
+
+/* =========================================
+   PAGE
 ========================================= */
 
 .news-submit-page {
     min-height: 100vh;
+
     background: #ffffff;
     color: #171717;
 }
@@ -15,35 +21,53 @@
 
 .news-submit-hero {
     padding: 90px 30px 65px;
+
     background: #f4f6f6;
+
     border-bottom: 1px solid #e1e5e5;
 }
 
+
 .news-submit-hero-inner {
     width: min(900px, 100%);
+
     margin: 0 auto;
 }
 
+
 .news-submit-eyebrow {
     margin: 0 0 14px;
+
     color: #164b4b;
+
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.18em;
 }
 
+
 .news-submit-hero h1 {
     margin: 0;
+
     color: #111111;
-    font-size: clamp(34px, 6vw, 58px);
+
+    font-size: clamp(
+        34px,
+        6vw,
+        58px
+    );
+
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.03em;
 }
 
+
 .news-submit-lead {
     margin: 24px 0 0;
+
     color: #666666;
+
     font-size: 14px;
     line-height: 2;
 }
@@ -57,8 +81,10 @@
     padding: 70px 30px 110px;
 }
 
+
 .news-submit-inner {
     width: min(900px, 100%);
+
     margin: 0 auto;
 }
 
@@ -69,9 +95,12 @@
 
 .news-submit-state {
     padding: 80px 20px;
-    text-align: center;
+
     color: #777777;
+
     font-size: 13px;
+
+    text-align: center;
 }
 
 
@@ -81,21 +110,31 @@
 
 .news-submit-error {
     padding: 50px;
+
     border: 1px solid #e0e4e4;
+
     text-align: center;
 }
 
+
 .news-submit-error h2 {
     margin: 0 0 15px;
+
+    color: #222222;
+
     font-size: 22px;
 }
 
+
 .news-submit-error p {
     margin: 0 0 25px;
+
     color: #666666;
+
     font-size: 14px;
     line-height: 1.8;
 }
+
 
 .news-submit-back {
     display: inline-flex;
@@ -106,6 +145,8 @@
 
     padding: 0 22px;
 
+    border: 1px solid #164b4b;
+
     background: #164b4b;
 
     color: #ffffff;
@@ -114,6 +155,17 @@
 
     font-size: 13px;
     font-weight: 700;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.news-submit-back:hover {
+    background: #ffffff;
+
+    color: #164b4b;
 }
 
 
@@ -124,32 +176,44 @@
 .news-submit-form {
     display: flex;
     flex-direction: column;
+
     gap: 38px;
 }
+
 
 .news-form-group {
     display: flex;
     flex-direction: column;
+
     gap: 10px;
 }
 
+
 .news-form-label {
     color: #222222;
+
     font-size: 14px;
     font-weight: 700;
 }
 
-.required {
+
+.news-submit-page .required {
     margin-left: 8px;
+
     color: #8a2a2a;
+
     font-size: 10px;
 }
 
-.optional {
+
+.news-submit-page .optional {
     margin-left: 8px;
+
     color: #777777;
+
     font-size: 10px;
 }
+
 
 .news-form-input,
 .news-form-textarea {
@@ -167,29 +231,45 @@
 
     outline: none;
 
-    transition: border-color 0.2s ease;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
+
 
 .news-form-input {
     min-height: 52px;
+
     padding: 0 16px;
 }
 
+
 .news-form-textarea {
     min-height: 300px;
+
     padding: 16px;
+
     resize: vertical;
+
     line-height: 1.8;
 }
+
 
 .news-form-input:focus,
 .news-form-textarea:focus {
     border-color: #164b4b;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(22, 75, 75, 0.08);
 }
+
 
 .news-form-help {
     margin: 0;
+
     color: #888888;
+
     font-size: 11px;
     line-height: 1.7;
 }
@@ -203,6 +283,7 @@
     padding-top: 15px;
 }
 
+
 .news-preview-label {
     margin: 0 0 14px;
 
@@ -210,9 +291,9 @@
 
     font-size: 10px;
     font-weight: 700;
-
     letter-spacing: 0.15em;
 }
+
 
 .news-preview-card {
     padding: 30px;
@@ -221,6 +302,7 @@
 
     background: #f8f9f9;
 }
+
 
 .news-preview-date {
     margin: 0 0 12px;
@@ -231,14 +313,17 @@
     font-weight: 700;
 }
 
+
 .news-preview-title {
     margin: 0 0 18px;
 
     color: #171717;
 
     font-size: 24px;
+    font-weight: 700;
     line-height: 1.5;
 }
+
 
 .news-preview-content {
     margin: 0;
@@ -252,10 +337,11 @@
     overflow-wrap: anywhere;
 }
 
-.news-preview-image-wrap {
-    margin-top: 25px;
 
+.news-preview-image-wrap {
     width: 100%;
+
+    margin-top: 25px;
 
     aspect-ratio: 16 / 9;
 
@@ -263,6 +349,7 @@
 
     background: #e9eded;
 }
+
 
 .news-preview-image {
     display: block;
@@ -281,12 +368,14 @@
 .news-submit-actions {
     display: flex;
     justify-content: flex-end;
+
     gap: 12px;
 
     padding-top: 20px;
 
     border-top: 1px solid #e3e7e7;
 }
+
 
 .news-cancel-button,
 .news-publish-button {
@@ -300,11 +389,19 @@
 
     box-sizing: border-box;
 
+    font-family: inherit;
     font-size: 13px;
     font-weight: 700;
 
     cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        opacity 0.2s ease;
 }
+
 
 .news-cancel-button {
     border: 1px solid #cfd6d6;
@@ -316,6 +413,14 @@
     text-decoration: none;
 }
 
+
+.news-cancel-button:hover {
+    border-color: #164b4b;
+
+    color: #164b4b;
+}
+
+
 .news-publish-button {
     border: 1px solid #164b4b;
 
@@ -324,13 +429,17 @@
     color: #ffffff;
 }
 
+
 .news-publish-button:hover {
     background: #ffffff;
+
     color: #164b4b;
 }
 
+
 .news-publish-button:disabled {
     opacity: 0.5;
+
     cursor: not-allowed;
 }
 
@@ -355,6 +464,24 @@
 }
 
 
+.news-submit-message.is-error {
+    border-left-color: #9b3838;
+
+    background: #fff3f3;
+
+    color: #8b2d2d;
+}
+
+
+.news-submit-message.is-success {
+    border-left-color: #164b4b;
+
+    background: #f3f7f7;
+
+    color: #315151;
+}
+
+
 /* =========================================
    MOBILE
 ========================================= */
@@ -365,29 +492,79 @@
         padding: 65px 20px 50px;
     }
 
+
     .news-submit-content {
         padding: 50px 20px 80px;
     }
+
 
     .news-submit-error {
         padding: 35px 20px;
     }
 
+
     .news-preview-card {
         padding: 22px;
     }
+
 
     .news-preview-title {
         font-size: 20px;
     }
 
+
     .news-submit-actions {
         flex-direction: column-reverse;
     }
 
+
     .news-cancel-button,
     .news-publish-button {
         width: 100%;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 430px) {
+
+    .news-submit-hero {
+        padding:
+            55px
+            20px
+            45px;
+    }
+
+
+    .news-submit-hero h1 {
+        font-size: 32px;
+    }
+
+
+    .news-submit-lead {
+        font-size: 13px;
+    }
+
+
+    .news-submit-content {
+        padding:
+            45px
+            20px
+            70px;
+    }
+
+
+    .news-form-textarea {
+        min-height: 240px;
+    }
+
+
+    .news-preview-card {
+        padding: 20px;
     }
 
 }

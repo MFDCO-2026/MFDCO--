@@ -1,30 +1,183 @@
-/* =========================================
-   MFDCO HEADER
-   Navigation / Authentication / Discord
-========================================= */
-
 "use strict";
 
 
 /* =========================================
-   DISCORD SETTINGS
+   MFDCO HEADER
+========================================= */
+
+
+/* =========================================
+   SETTINGS
 ========================================= */
 
 const MFDCO_DISCORD_INVITE_URL =
     "https://discord.gg/rhnJyuWnV";
 
 
+/* =========================================
+   MENU DEFINITION
+========================================= */
+
+const MFDCO_HEADER_MENU = [
+
+    {
+        type: "link",
+        label: "ホーム",
+        href: "index.html"
+    },
+
+
+    {
+        type: "group",
+        title: "知る",
+
+        items: [
+
+            {
+                label: "MFDCOとは",
+                href: "about.html"
+            },
+
+            {
+                label: "映像作品",
+                href: "movies.html"
+            },
+
+            {
+                label: "お知らせ",
+                href: "news.html"
+            },
+
+            {
+                label: "規約",
+                href: "site.html"
+            },
+
+            {
+                label: "プライバシーポリシー",
+                href: "privacy.html"
+            }
+
+        ]
+    },
+
+
+    {
+        type: "group",
+        title: "利用する",
+
+        items: [
+
+            {
+                label: "提供作品",
+                href: "works.html"
+            },
+
+            {
+                label: "ツールを利用",
+                disabled: true,
+                note: "追加予定"
+            }
+
+        ]
+    },
+
+
+    {
+        type: "group",
+        title: "参加する",
+
+        items: [
+
+            {
+                label: "作品を提供",
+                href: "submit-work.html",
+                authOnly: true
+            },
+
+            {
+                label: "加盟国一覧",
+                href: "members.html"
+            },
+
+            {
+                label: "独自テクスチャ",
+                disabled: true,
+                note: "追加予定"
+            },
+
+            {
+                label: "制作依頼",
+                disabled: true,
+                note: "追加予定"
+            },
+
+            {
+                label: "国家運営",
+                disabled: true,
+                note: "追加予定"
+            },
+
+            {
+                label: "Discord",
+                href: MFDCO_DISCORD_INVITE_URL,
+                external: true,
+                authOnly: true
+            }
+
+        ]
+    },
+
+
+    {
+        type: "account",
+        title: "アカウント"
+    },
+
+
+    {
+        type: "group",
+        title: "サポート",
+
+        items: [
+
+            {
+                label: "フィードバック",
+                disabled: true,
+                note: "追加予定"
+            }
+
+        ]
+    }
+
+];
+
+
 
 /* =========================================
-   GLOBAL STATE
+   STATE
 ========================================= */
+
+let mfdcoHeaderInitialized =
+    false;
+
+let mfdcoHeaderGlobalEventsRegistered =
+    false;
 
 let mfdcoHeaderAuthListenerRegistered =
     false;
 
+let mfdcoHeaderScrollRegistered =
+    false;
 
 let mfdcoHeaderCurrentUser =
     null;
+
+let mfdcoHeaderCurrentProfile =
+    null;
+
+let mfdcoHeaderMenuOpen =
+    false;
 
 
 
@@ -41,7 +194,13 @@ async function loadHeaderHtmlIfNeeded() {
 
 
     if (!container) {
+
+        console.warn(
+            "HEADER: #header-container がありません"
+        );
+
         return false;
+
     }
 
 
@@ -50,7 +209,9 @@ async function loadHeaderHtmlIfNeeded() {
             ".site-header"
         )
     ) {
+
         return true;
+
     }
 
 
@@ -58,7 +219,10 @@ async function loadHeaderHtmlIfNeeded() {
 
         const response =
             await fetch(
-                "header.html"
+                "header.html",
+                {
+                    cache: "no-cache"
+                }
             );
 
 
@@ -72,12 +236,8 @@ async function loadHeaderHtmlIfNeeded() {
         }
 
 
-        const html =
-            await response.text();
-
-
         container.innerHTML =
-            html;
+            await response.text();
 
 
         console.log(
@@ -85,7 +245,11 @@ async function loadHeaderHtmlIfNeeded() {
         );
 
 
-        return true;
+        return Boolean(
+            container.querySelector(
+                ".site-header"
+            )
+        );
 
     }
     catch (error) {
@@ -117,39 +281,49 @@ function getHeaderElements() {
                 ".site-header"
             ),
 
-        navigation:
+        accountButton:
             document.getElementById(
-                "main-navigation"
+                "header-account-button"
+            ),
+
+        accountIconWrap:
+            document.getElementById(
+                "header-account-icon-wrap"
+            ),
+
+        accountIcon:
+            document.getElementById(
+                "header-account-icon"
+            ),
+
+        accountName:
+            document.getElementById(
+                "header-account-name"
             ),
 
         menuButton:
-            document.querySelector(
-                ".menu-button"
+            document.getElementById(
+                "header-menu-button"
             ),
 
-        memberLink:
+        menuClose:
             document.getElementById(
-                "header-member-link"
+                "header-menu-close"
             ),
 
-        loginText:
+        overlay:
             document.getElementById(
-                "header-login-text"
+                "header-menu-overlay"
             ),
 
-        userIconWrap:
+        sideMenu:
             document.getElementById(
-                "header-user-icon-wrap"
+                "header-side-menu"
             ),
 
-        userIcon:
+        menuContent:
             document.getElementById(
-                "header-user-icon"
-            ),
-
-        discordLink:
-            document.getElementById(
-                "header-discord-link"
+                "header-menu-content"
             )
 
     };
@@ -159,136 +333,89 @@ function getHeaderElements() {
 
 
 /* =========================================
-   MOBILE MENU
+   CURRENT PAGE
 ========================================= */
 
-function setupMobileMenu() {
+function getCurrentPageFile() {
 
-    const {
-        navigation,
-        menuButton
-    } =
-        getHeaderElements();
+    let file =
+        window.location.pathname
+            .split("/")
+            .pop();
 
 
-    if (
-        !navigation ||
-        !menuButton
-    ) {
-        return;
+    if (!file) {
+        file = "index.html";
     }
 
 
+    return file;
+
+}
+
+
+function isCurrentPage(href) {
+
     if (
-        menuButton.dataset
-            .mfdcoMenuInitialized ===
-        "true"
+        !href ||
+        href === "#" ||
+        href.startsWith("http")
     ) {
-        return;
+        return false;
     }
 
 
-    menuButton.dataset
-        .mfdcoMenuInitialized =
-        "true";
+    const target =
+        href
+            .split("?")[0]
+            .split("#")[0]
+            .split("/")
+            .pop();
 
 
-    menuButton.addEventListener(
-        "click",
-        function () {
-
-            const opened =
-                navigation.classList.toggle(
-                    "mobile-open"
-                );
-
-
-            menuButton.classList.toggle(
-                "active",
-                opened
-            );
-
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                opened
-                    ? "true"
-                    : "false"
-            );
-
-
-            menuButton.setAttribute(
-                "aria-label",
-                opened
-                    ? "メニューを閉じる"
-                    : "メニューを開く"
-            );
-
-        }
+    return (
+        target ===
+        getCurrentPageFile()
     );
-
-
-    navigation
-        .querySelectorAll("a")
-        .forEach(
-            function (link) {
-
-                if (
-                    link.dataset
-                        .mfdcoMenuCloseInitialized ===
-                    "true"
-                ) {
-                    return;
-                }
-
-
-                link.dataset
-                    .mfdcoMenuCloseInitialized =
-                    "true";
-
-
-                link.addEventListener(
-                    "click",
-                    function () {
-
-                        navigation.classList.remove(
-                            "mobile-open"
-                        );
-
-
-                        menuButton.classList.remove(
-                            "active"
-                        );
-
-
-                        menuButton.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-
-                        menuButton.setAttribute(
-                            "aria-label",
-                            "メニューを開く"
-                        );
-
-                    }
-                );
-
-            }
-        );
 
 }
 
 
 
 /* =========================================
-   SAFE IMAGE URL
+   DESKTOP ACTIVE NAV
 ========================================= */
 
-function isSafeHeaderImageUrl(
-    value
-) {
+function updatePrimaryNavigation() {
+
+    const links =
+        document.querySelectorAll(
+            ".header-primary-nav a"
+        );
+
+
+    links.forEach(
+        function (link) {
+
+            link.classList.toggle(
+                "active",
+                isCurrentPage(
+                    link.getAttribute("href")
+                )
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   IMAGE URL
+========================================= */
+
+function isSafeHeaderImageUrl(value) {
 
     if (!value) {
         return false;
@@ -321,268 +448,10 @@ function isSafeHeaderImageUrl(
 
 
 /* =========================================
-   LOGGED OUT
+   PROFILE
 ========================================= */
 
-function showLoggedOutHeader() {
-
-    const {
-        memberLink,
-        loginText,
-        userIconWrap,
-        userIcon,
-        discordLink
-    } =
-        getHeaderElements();
-
-
-    mfdcoHeaderCurrentUser =
-        null;
-
-
-    if (memberLink) {
-
-        memberLink.href =
-            "join.html";
-
-    }
-
-
-    if (loginText) {
-
-        loginText.textContent =
-            "参加 / ログイン";
-
-    }
-
-
-    if (userIconWrap) {
-
-        userIconWrap.hidden =
-            true;
-
-    }
-
-
-    if (userIcon) {
-
-        userIcon.removeAttribute(
-            "src"
-        );
-
-
-        userIcon.alt =
-            "";
-
-    }
-
-
-    if (discordLink) {
-
-        discordLink.hidden =
-            true;
-
-
-        discordLink.removeAttribute(
-            "href"
-        );
-
-    }
-
-
-    console.log(
-        "HEADER DISPLAY:",
-        {
-            loggedIn: false,
-            discord: false
-        }
-    );
-
-}
-
-
-
-/* =========================================
-   LOGGED IN
-========================================= */
-
-function showLoggedInHeader(
-    user,
-    profile
-) {
-
-    const {
-        memberLink,
-        loginText,
-        userIconWrap,
-        userIcon,
-        discordLink
-    } =
-        getHeaderElements();
-
-
-    mfdcoHeaderCurrentUser =
-        user;
-
-
-    const activityName =
-        String(
-            profile?.activity_name ||
-            user?.email?.split("@")[0] ||
-            "マイページ"
-        ).trim();
-
-
-
-    /* =====================================
-       USER
-    ====================================== */
-
-    if (memberLink) {
-
-        memberLink.href =
-            "mypage.html";
-
-
-        /*
-         * ログイン時のユーザー表示
-         */
-
-        memberLink.classList.remove(
-            "header-join"
-        );
-
-
-        memberLink.classList.add(
-            "header-member-profile"
-        );
-
-    }
-
-
-    if (loginText) {
-
-        loginText.textContent =
-            activityName;
-
-
-        loginText.classList.add(
-            "header-member-name"
-        );
-
-    }
-
-
-
-    /* =====================================
-       USER ICON
-    ====================================== */
-
-    const iconUrl =
-        String(
-            profile?.icon_url ||
-            ""
-        ).trim();
-
-
-    if (
-        userIcon &&
-        userIconWrap &&
-        isSafeHeaderImageUrl(
-            iconUrl
-        )
-    ) {
-
-        userIcon.src =
-            iconUrl;
-
-
-        userIcon.alt =
-            activityName;
-
-
-        userIcon.classList.add(
-            "header-member-icon"
-        );
-
-
-        userIconWrap.hidden =
-            false;
-
-
-        userIcon.onerror =
-            function () {
-
-                userIcon.removeAttribute(
-                    "src"
-                );
-
-
-                userIconWrap.hidden =
-                    true;
-
-            };
-
-    }
-    else {
-
-        if (userIcon) {
-
-            userIcon.removeAttribute(
-                "src"
-            );
-
-        }
-
-
-        if (userIconWrap) {
-
-            userIconWrap.hidden =
-                true;
-
-        }
-
-    }
-
-
-
-    /* =====================================
-       DISCORD
-    ====================================== */
-
-    if (discordLink) {
-
-        discordLink.href =
-            MFDCO_DISCORD_INVITE_URL;
-
-
-        discordLink.hidden =
-            false;
-
-    }
-
-
-    console.log(
-        "HEADER DISPLAY:",
-        {
-            loggedIn: true,
-            userId: user?.id,
-            activityName: activityName,
-            discord: true
-        }
-    );
-
-}
-
-
-
-/* =========================================
-   LOAD PROFILE
-========================================= */
-
-async function loadHeaderProfile(
-    user
-) {
+async function loadHeaderProfile(user) {
 
     if (
         !user ||
@@ -595,7 +464,7 @@ async function loadHeaderProfile(
     try {
 
         const {
-            data: profile,
+            data,
             error
         } =
             await window.supabaseClient
@@ -622,13 +491,12 @@ async function loadHeaderProfile(
                 error
             );
 
-
             return null;
 
         }
 
 
-        return profile || null;
+        return data || null;
 
     }
     catch (error) {
@@ -637,7 +505,6 @@ async function loadHeaderProfile(
             "HEADER PROFILE LOAD ERROR:",
             error
         );
-
 
         return null;
 
@@ -648,31 +515,1037 @@ async function loadHeaderProfile(
 
 
 /* =========================================
-   UPDATE HEADER AUTH DISPLAY
+   ACCOUNT NAME
 ========================================= */
 
-async function updateHeaderAuthDisplay(
-    user
-) {
+function getHeaderAccountName() {
 
-    if (!user) {
+    if (!mfdcoHeaderCurrentUser) {
+        return "ログイン";
+    }
 
-        showLoggedOutHeader();
+
+    return String(
+        mfdcoHeaderCurrentProfile?.activity_name ||
+        mfdcoHeaderCurrentUser?.email?.split("@")[0] ||
+        "マイページ"
+    ).trim();
+
+}
+
+
+
+/* =========================================
+   ACCOUNT BUTTON
+========================================= */
+
+function renderHeaderAccountButton() {
+
+    const {
+        accountButton,
+        accountIconWrap,
+        accountIcon,
+        accountName
+    } =
+        getHeaderElements();
+
+
+    if (!accountButton) {
+        return;
+    }
+
+
+    if (!mfdcoHeaderCurrentUser) {
+
+        accountButton.href =
+            "join.html";
+
+
+        if (accountName) {
+
+            accountName.textContent =
+                "ログイン";
+
+        }
+
+
+        if (accountIconWrap) {
+
+            accountIconWrap.hidden =
+                true;
+
+        }
+
+
+        if (accountIcon) {
+
+            accountIcon.removeAttribute(
+                "src"
+            );
+
+        }
+
 
         return;
 
     }
 
 
-    const profile =
-        await loadHeaderProfile(
-            user
+    const activityName =
+        getHeaderAccountName();
+
+
+    accountButton.href =
+        "mypage.html";
+
+
+    if (accountName) {
+
+        accountName.textContent =
+            activityName;
+
+    }
+
+
+    const iconUrl =
+        String(
+            mfdcoHeaderCurrentProfile?.icon_url ||
+            ""
+        ).trim();
+
+
+    if (
+        accountIcon &&
+        accountIconWrap &&
+        isSafeHeaderImageUrl(iconUrl)
+    ) {
+
+        accountIcon.src =
+            iconUrl;
+
+        accountIcon.alt =
+            activityName;
+
+        accountIconWrap.hidden =
+            false;
+
+
+        accountIcon.onerror =
+            function () {
+
+                accountIcon.removeAttribute(
+                    "src"
+                );
+
+                accountIconWrap.hidden =
+                    true;
+
+            };
+
+    }
+    else {
+
+        if (accountIcon) {
+
+            accountIcon.removeAttribute(
+                "src"
+            );
+
+        }
+
+
+        if (accountIconWrap) {
+
+            accountIconWrap.hidden =
+                true;
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================================
+   CREATE MENU LINK
+========================================= */
+
+function createMenuLink(item) {
+
+    if (!item) {
+        return null;
+    }
+
+
+    const loggedIn =
+        Boolean(
+            mfdcoHeaderCurrentUser
         );
 
 
-    showLoggedInHeader(
-        user,
-        profile
+    if (
+        item.authOnly &&
+        !loggedIn
+    ) {
+        return null;
+    }
+
+
+    if (
+        item.guestOnly &&
+        loggedIn
+    ) {
+        return null;
+    }
+
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        "header-menu-item";
+
+
+    /* =====================================
+       DISABLED
+    ====================================== */
+
+    if (item.disabled) {
+
+        wrapper.classList.add(
+            "is-disabled"
+        );
+
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+
+        row.className =
+            "header-menu-link header-menu-link-disabled";
+
+
+        const label =
+            document.createElement(
+                "span"
+            );
+
+
+        label.textContent =
+            item.label || "";
+
+
+        row.appendChild(label);
+
+
+        if (item.note) {
+
+            const note =
+                document.createElement(
+                    "span"
+                );
+
+
+            note.className =
+                "header-menu-note";
+
+
+            note.textContent =
+                item.note;
+
+
+            row.appendChild(note);
+
+        }
+
+
+        wrapper.appendChild(row);
+
+
+        return wrapper;
+
+    }
+
+
+    /* =====================================
+       NORMAL LINK
+    ====================================== */
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    link.className =
+        "header-menu-link";
+
+
+    link.href =
+        item.href || "#";
+
+
+    const label =
+        document.createElement(
+            "span"
+        );
+
+
+    label.textContent =
+        item.label || "";
+
+
+    link.appendChild(label);
+
+
+    if (
+        isCurrentPage(item.href)
+    ) {
+
+        link.classList.add(
+            "active"
+        );
+
+    }
+
+
+    if (item.external) {
+
+        link.target =
+            "_blank";
+
+        link.rel =
+            "noopener noreferrer";
+
+    }
+
+
+    wrapper.appendChild(link);
+
+
+    return wrapper;
+
+}
+
+
+
+/* =========================================
+   ACCOUNT MENU SECTION
+========================================= */
+
+function createAccountMenuSection(title) {
+
+    const section =
+        document.createElement(
+            "section"
+        );
+
+
+    section.className =
+        "header-menu-section";
+
+
+    const heading =
+        document.createElement(
+            "h2"
+        );
+
+
+    heading.className =
+        "header-menu-section-title";
+
+
+    heading.textContent =
+        title;
+
+
+    section.appendChild(heading);
+
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        "header-menu-item";
+
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    link.className =
+        "header-menu-link header-menu-account-link";
+
+
+    if (mfdcoHeaderCurrentUser) {
+
+        link.href =
+            "mypage.html";
+
+
+        const iconUrl =
+            String(
+                mfdcoHeaderCurrentProfile?.icon_url ||
+                ""
+            ).trim();
+
+
+        if (
+            isSafeHeaderImageUrl(
+                iconUrl
+            )
+        ) {
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+
+            image.src =
+                iconUrl;
+
+            image.alt =
+                "";
+
+            image.className =
+                "header-menu-account-icon";
+
+
+            link.appendChild(image);
+
+        }
+
+
+        const name =
+            document.createElement(
+                "span"
+            );
+
+
+        name.textContent =
+            getHeaderAccountName();
+
+
+        link.appendChild(name);
+
+    }
+    else {
+
+        link.href =
+            "join.html";
+
+
+        const name =
+            document.createElement(
+                "span"
+            );
+
+
+        name.textContent =
+            "ログイン";
+
+
+        link.appendChild(name);
+
+    }
+
+
+    wrapper.appendChild(link);
+
+    section.appendChild(wrapper);
+
+
+    return section;
+
+}
+
+
+
+/* =========================================
+   RENDER SIDE MENU
+========================================= */
+
+function renderHeaderMenu() {
+
+    const {
+        menuContent
+    } =
+        getHeaderElements();
+
+
+    if (!menuContent) {
+        return;
+    }
+
+
+    menuContent.innerHTML =
+        "";
+
+
+    MFDCO_HEADER_MENU.forEach(
+        function (entry) {
+
+            if (!entry) {
+                return;
+            }
+
+
+            /* =================================
+               SINGLE LINK
+            ================================= */
+
+            if (
+                entry.type === "link"
+            ) {
+
+                const section =
+                    document.createElement(
+                        "section"
+                    );
+
+
+                section.className =
+                    "header-menu-section header-menu-home-section";
+
+
+                const item =
+                    createMenuLink(entry);
+
+
+                if (item) {
+
+                    section.appendChild(
+                        item
+                    );
+
+                    menuContent.appendChild(
+                        section
+                    );
+
+                }
+
+
+                return;
+
+            }
+
+
+            /* =================================
+               ACCOUNT
+            ================================= */
+
+            if (
+                entry.type === "account"
+            ) {
+
+                menuContent.appendChild(
+                    createAccountMenuSection(
+                        entry.title ||
+                        "アカウント"
+                    )
+                );
+
+
+                return;
+
+            }
+
+
+            /* =================================
+               GROUP
+            ================================= */
+
+            if (
+                entry.type === "group"
+            ) {
+
+                const section =
+                    document.createElement(
+                        "section"
+                    );
+
+
+                section.className =
+                    "header-menu-section";
+
+
+                const heading =
+                    document.createElement(
+                        "h2"
+                    );
+
+
+                heading.className =
+                    "header-menu-section-title";
+
+
+                heading.textContent =
+                    entry.title || "";
+
+
+                section.appendChild(
+                    heading
+                );
+
+
+                let count = 0;
+
+
+                (
+                    entry.items || []
+                ).forEach(
+                    function (item) {
+
+                        const element =
+                            createMenuLink(
+                                item
+                            );
+
+
+                        if (!element) {
+                            return;
+                        }
+
+
+                        section.appendChild(
+                            element
+                        );
+
+
+                        count++;
+
+                    }
+                );
+
+
+                if (count > 0) {
+
+                    menuContent.appendChild(
+                        section
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   OPEN MENU
+========================================= */
+
+function openHeaderMenu() {
+
+    const {
+        menuButton,
+        overlay,
+        sideMenu
+    } =
+        getHeaderElements();
+
+
+    if (
+        !sideMenu ||
+        !overlay
+    ) {
+
+        console.warn(
+            "HEADER: メニュー要素が見つかりません"
+        );
+
+        return;
+
+    }
+
+
+    mfdcoHeaderMenuOpen =
+        true;
+
+
+    renderHeaderMenu();
+
+
+    overlay.hidden =
+        false;
+
+
+    requestAnimationFrame(
+        function () {
+
+            overlay.classList.add(
+                "is-visible"
+            );
+
+            sideMenu.classList.add(
+                "is-open"
+            );
+
+        }
+    );
+
+
+    sideMenu.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    if (menuButton) {
+
+        menuButton.classList.add(
+            "active"
+        );
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+        menuButton.setAttribute(
+            "aria-label",
+            "メニューを閉じる"
+        );
+
+    }
+
+
+    document.body.classList.add(
+        "header-menu-open"
+    );
+
+}
+
+
+
+/* =========================================
+   CLOSE MENU
+========================================= */
+
+function closeHeaderMenu() {
+
+    const {
+        menuButton,
+        overlay,
+        sideMenu
+    } =
+        getHeaderElements();
+
+
+    mfdcoHeaderMenuOpen =
+        false;
+
+
+    if (sideMenu) {
+
+        sideMenu.classList.remove(
+            "is-open"
+        );
+
+        sideMenu.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+    }
+
+
+    if (overlay) {
+
+        overlay.classList.remove(
+            "is-visible"
+        );
+
+
+        window.setTimeout(
+            function () {
+
+                if (
+                    !mfdcoHeaderMenuOpen
+                ) {
+
+                    overlay.hidden =
+                        true;
+
+                }
+
+            },
+            280
+        );
+
+    }
+
+
+    if (menuButton) {
+
+        menuButton.classList.remove(
+            "active"
+        );
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+        menuButton.setAttribute(
+            "aria-label",
+            "メニューを開く"
+        );
+
+    }
+
+
+    document.body.classList.remove(
+        "header-menu-open"
+    );
+
+}
+
+
+
+/* =========================================
+   TOGGLE MENU
+========================================= */
+
+function toggleHeaderMenu() {
+
+    if (mfdcoHeaderMenuOpen) {
+
+        closeHeaderMenu();
+
+    }
+    else {
+
+        openHeaderMenu();
+
+    }
+
+}
+
+
+
+/* =========================================
+   GLOBAL CLICK EVENT
+========================================= */
+
+function handleHeaderDocumentClick(event) {
+
+    const target =
+        event.target;
+
+
+    if (!(target instanceof Element)) {
+        return;
+    }
+
+
+    /* =====================================
+       MENU BUTTON
+    ====================================== */
+
+    const menuButton =
+        target.closest(
+            "#header-menu-button"
+        );
+
+
+    if (menuButton) {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+        toggleHeaderMenu();
+
+        return;
+
+    }
+
+
+    /* =====================================
+       CLOSE BUTTON
+    ====================================== */
+
+    const menuClose =
+        target.closest(
+            "#header-menu-close"
+        );
+
+
+    if (menuClose) {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+        closeHeaderMenu();
+
+        return;
+
+    }
+
+
+    /* =====================================
+       OVERLAY
+    ====================================== */
+
+    const overlay =
+        target.closest(
+            "#header-menu-overlay"
+        );
+
+
+    if (
+        overlay &&
+        target === overlay
+    ) {
+
+        event.preventDefault();
+
+        closeHeaderMenu();
+
+        return;
+
+    }
+
+
+    /* =====================================
+       MENU LINK
+    ====================================== */
+
+    const menuLink =
+        target.closest(
+            ".header-menu-link"
+        );
+
+
+    if (
+        menuLink &&
+        menuLink.tagName === "A"
+    ) {
+
+        closeHeaderMenu();
+
+    }
+
+}
+
+
+
+/* =========================================
+   KEYDOWN EVENT
+========================================= */
+
+function handleHeaderKeydown(event) {
+
+    if (
+        event.key === "Escape" &&
+        mfdcoHeaderMenuOpen
+    ) {
+
+        closeHeaderMenu();
+
+    }
+
+}
+
+
+
+/* =========================================
+   REGISTER GLOBAL EVENTS
+========================================= */
+
+function setupHeaderGlobalEvents() {
+
+    if (
+        mfdcoHeaderGlobalEventsRegistered
+    ) {
+        return;
+    }
+
+
+    mfdcoHeaderGlobalEventsRegistered =
+        true;
+
+
+    document.addEventListener(
+        "click",
+        handleHeaderDocumentClick
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        handleHeaderKeydown
+    );
+
+
+    console.log(
+        "HEADER: グローバルイベント登録完了"
+    );
+
+}
+
+
+
+/* =========================================
+   AUTH DISPLAY
+========================================= */
+
+async function updateHeaderAuthDisplay(user) {
+
+    mfdcoHeaderCurrentUser =
+        user || null;
+
+
+    mfdcoHeaderCurrentProfile =
+        null;
+
+
+    if (mfdcoHeaderCurrentUser) {
+
+        mfdcoHeaderCurrentProfile =
+            await loadHeaderProfile(
+                mfdcoHeaderCurrentUser
+            );
+
+    }
+
+
+    renderHeaderAccountButton();
+
+    renderHeaderMenu();
+
+
+    console.log(
+        "HEADER DISPLAY:",
+        {
+            loggedIn:
+                Boolean(
+                    mfdcoHeaderCurrentUser
+                ),
+
+            activityName:
+                mfdcoHeaderCurrentProfile
+                    ?.activity_name ||
+                null
+        }
     );
 
 }
@@ -687,12 +1560,9 @@ async function loadInitialHeaderSession() {
 
     if (!window.supabaseClient) {
 
-        console.warn(
-            "HEADER: Supabase client がありません。"
+        await updateHeaderAuthDisplay(
+            null
         );
-
-
-        showLoggedOutHeader();
 
         return;
 
@@ -715,13 +1585,9 @@ async function loadInitialHeaderSession() {
         }
 
 
-        const user =
-            data?.session?.user ||
-            null;
-
-
         await updateHeaderAuthDisplay(
-            user
+            data?.session?.user ||
+            null
         );
 
     }
@@ -733,7 +1599,9 @@ async function loadInitialHeaderSession() {
         );
 
 
-        showLoggedOutHeader();
+        await updateHeaderAuthDisplay(
+            null
+        );
 
     }
 
@@ -748,13 +1616,9 @@ async function loadInitialHeaderSession() {
 function setupHeaderAuthListener() {
 
     if (
-        mfdcoHeaderAuthListenerRegistered
+        mfdcoHeaderAuthListenerRegistered ||
+        !window.supabaseClient
     ) {
-        return;
-    }
-
-
-    if (!window.supabaseClient) {
         return;
     }
 
@@ -777,7 +1641,7 @@ function setupHeaderAuthListener() {
                 );
 
 
-                setTimeout(
+                window.setTimeout(
                     function () {
 
                         updateHeaderAuthDisplay(
@@ -797,94 +1661,15 @@ function setupHeaderAuthListener() {
 
 
 /* =========================================
-   ACTIVE NAVIGATION
+   SCROLL
 ========================================= */
 
-function setupActiveNavigation() {
+function updateHeaderScrollState() {
 
-    const navigation =
-        document.getElementById(
-            "main-navigation"
-        );
-
-
-    if (!navigation) {
-        return;
-    }
-
-
-    let currentFile =
-        window.location.pathname
-            .split("/")
-            .pop();
-
-
-    if (!currentFile) {
-
-        currentFile =
-            "index.html";
-
-    }
-
-
-    navigation
-        .querySelectorAll(
-            "a[href]"
-        )
-        .forEach(
-            function (link) {
-
-                const href =
-                    link.getAttribute(
-                        "href"
-                    );
-
-
-                if (
-                    !href ||
-                    href.startsWith("http") ||
-                    href === "#"
-                ) {
-                    return;
-                }
-
-
-                const targetFile =
-                    href
-                        .split("?")[0]
-                        .split("#")[0]
-                        .split("/")
-                        .pop();
-
-
-                if (
-                    targetFile ===
-                    currentFile
-                ) {
-
-                    link.classList.add(
-                        "active"
-                    );
-
-                }
-
-            }
-        );
-
-}
-
-
-
-/* =========================================
-   INITIALIZE HEADER
-========================================= */
-
-async function initializeHeader() {
-
-    const header =
-        document.querySelector(
-            ".site-header"
-        );
+    const {
+        header
+    } =
+        getHeaderElements();
 
 
     if (!header) {
@@ -892,41 +1677,36 @@ async function initializeHeader() {
     }
 
 
-    setupMobileMenu();
+    header.classList.toggle(
+        "scrolled",
+        window.scrollY > 10
+    );
+
+}
 
 
-    setupActiveNavigation();
+function setupHeaderScrollState() {
 
+    updateHeaderScrollState();
 
-    const discordLink =
-        document.getElementById(
-            "header-discord-link"
-        );
-
-
-    /*
-     * 認証完了までは表示しない
-     */
 
     if (
-        discordLink &&
-        !mfdcoHeaderCurrentUser
+        mfdcoHeaderScrollRegistered
     ) {
-
-        discordLink.hidden =
-            true;
-
+        return;
     }
 
 
-    await loadInitialHeaderSession();
+    mfdcoHeaderScrollRegistered =
+        true;
 
 
-    setupHeaderAuthListener();
-
-
-    console.log(
-        "MFDCO HEADER: 初期化完了"
+    window.addEventListener(
+        "scroll",
+        updateHeaderScrollState,
+        {
+            passive: true
+        }
     );
 
 }
@@ -934,11 +1714,68 @@ async function initializeHeader() {
 
 
 /* =========================================
-   EXPOSE
+   INITIALIZE
 ========================================= */
 
-window.initializeHeader =
-    initializeHeader;
+async function initializeHeader() {
+
+    const {
+        header
+    } =
+        getHeaderElements();
+
+
+    if (!header) {
+
+        console.warn(
+            "HEADER: .site-header がありません"
+        );
+
+        return false;
+
+    }
+
+
+    setupHeaderGlobalEvents();
+
+    updatePrimaryNavigation();
+
+    setupHeaderScrollState();
+
+    renderHeaderMenu();
+
+
+    if (
+        !mfdcoHeaderInitialized
+    ) {
+
+        mfdcoHeaderInitialized =
+            true;
+
+
+        await loadInitialHeaderSession();
+
+
+        setupHeaderAuthListener();
+
+    }
+    else {
+
+        renderHeaderAccountButton();
+
+        renderHeaderMenu();
+
+    }
+
+
+    console.log(
+        "MFDCO HEADER: 初期化完了"
+    );
+
+
+    return true;
+
+}
 
 
 
@@ -960,6 +1797,24 @@ async function startHeader() {
     await initializeHeader();
 
 }
+
+
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+window.initializeHeader =
+    initializeHeader;
+
+window.openMfdcoHeaderMenu =
+    openHeaderMenu;
+
+window.closeMfdcoHeaderMenu =
+    closeHeaderMenu;
+
+window.refreshMfdcoHeader =
+    startHeader;
 
 
 
@@ -988,11 +1843,6 @@ else {
 }
 
 
-
-/* =========================================
-   LOG
-========================================= */
-
 console.log(
-    "MFDCO header.js loaded successfully."
+    "MFDCO header.js stable navigation version loaded."
 );

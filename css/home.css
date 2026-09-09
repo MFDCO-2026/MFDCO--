@@ -1,0 +1,1236 @@
+/* =========================================
+   MFDCO WEBSITE
+   HOME PAGE
+========================================= */
+
+
+/* =========================================
+   01. HERO
+========================================= */
+
+.hero {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    height:
+        100vh;
+
+    min-height:
+        650px;
+
+    overflow:
+        hidden;
+
+}
+
+
+/* =========================================
+   HERO VIDEO
+========================================= */
+
+.hero-video {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+}
+
+
+/* =========================================
+   HERO OVERLAY
+========================================= */
+
+.hero-overlay {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0.15) 40%,
+            rgba(0, 0, 0, 0.70)
+        );
+
+}
+
+
+/* =========================================
+   HERO CONTENT
+========================================= */
+
+.hero-content {
+
+    position:
+        absolute;
+
+    left:
+        8%;
+
+    bottom:
+        15%;
+
+    max-width:
+        1000px;
+
+    color:
+        var(--white);
+
+}
+
+
+.hero-label {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.85
+        );
+
+    font-size:
+        12px;
+
+    line-height:
+        1.8;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+.hero h1 {
+
+    margin-top:
+        18px;
+
+    font-size:
+        clamp(
+            36px,
+            5vw,
+            72px
+        );
+
+    font-weight:
+        500;
+
+    line-height:
+        1.3;
+
+    letter-spacing:
+        0.08em;
+
+}
+
+
+.hero-name {
+
+    margin-top:
+        8px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.8
+        );
+
+    font-size:
+        15px;
+
+    letter-spacing:
+        0.35em;
+
+}
+
+
+.hero-line {
+
+    width:
+        90px;
+
+    height:
+        3px;
+
+    margin-top:
+        28px;
+
+    background:
+        var(--main-color);
+
+}
+
+
+/* =========================================
+   SCROLL INDICATOR
+========================================= */
+
+.scroll-indicator {
+
+    position:
+        absolute;
+
+    right:
+        5%;
+
+    bottom:
+        45px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    color:
+        #ffffff;
+
+    font-size:
+        9px;
+
+    letter-spacing:
+        0.2em;
+
+}
+
+
+.scroll-indicator div {
+
+    width:
+        1px;
+
+    height:
+        50px;
+
+    background:
+        #ffffff;
+
+}
+
+
+/* =========================================
+   02. ABOUT
+========================================= */
+
+.about-content {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1.1fr 1fr;
+
+    gap:
+        100px;
+
+}
+
+
+.about-lead {
+
+    font-size:
+        24px;
+
+    font-weight:
+        500;
+
+    line-height:
+        1.9;
+
+}
+
+
+.about-text {
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        14px;
+
+}
+
+
+.about-text p {
+
+    margin-bottom:
+        25px;
+
+}
+
+
+/* =========================================
+   ABOUT VIDEO
+========================================= */
+
+.about-video {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    aspect-ratio:
+        16 / 9;
+
+    overflow:
+        hidden;
+
+    background:
+        #050505;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+}
+
+
+.about-video video {
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+}
+
+
+/* =========================================
+   ABOUT VIDEO CAPTION
+========================================= */
+
+.about-video-caption {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        40px;
+
+    margin-top:
+        20px;
+
+    padding-bottom:
+        10px;
+
+}
+
+
+.about-video-caption p {
+
+    margin:
+        0;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.65
+        );
+
+    line-height:
+        1.8;
+
+}
+
+
+.about-video-caption .about-video-label {
+
+    flex-shrink:
+        0;
+
+    color:
+        #ffffff;
+
+    font-size:
+        0.75rem;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+/* =========================================
+   03. TOP WORKS
+========================================= */
+
+.works-section {
+
+    max-width:
+        none;
+
+    background:
+        #f5f7f7;
+
+}
+
+
+.works-section > .section-header,
+.works-section > .works-grid,
+.works-section > .section-more {
+
+    max-width:
+        var(--max-width);
+
+    margin-left:
+        auto;
+
+    margin-right:
+        auto;
+
+}
+
+
+/* =========================================
+   TOP WORK GRID
+========================================= */
+
+.works-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            1fr
+        );
+
+    gap:
+        24px;
+
+}
+
+
+/* =========================================
+   TOP WORK CARD
+========================================= */
+
+.work-card {
+
+    background:
+        var(--white);
+
+    border:
+        1px solid
+        #e2e2e2;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+
+.works-section .work-card {
+
+    display:
+        block;
+
+    color:
+        inherit;
+
+    text-decoration:
+        none;
+
+}
+
+
+.work-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 12px 30px
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+}
+
+
+/* =========================================
+   TOP WORK IMAGE
+========================================= */
+
+.work-image,
+.works-section .work-image {
+
+    position:
+        relative;
+
+    aspect-ratio:
+        1 / 1;
+
+    overflow:
+        hidden;
+
+    background:
+        #e9eeee;
+
+}
+
+
+.work-image img,
+.works-section .work-image img {
+
+    position:
+        relative;
+
+    z-index:
+        1;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    transition:
+        transform 0.5s ease;
+
+}
+
+
+.work-card:hover
+.work-image img {
+
+    transform:
+        scale(1.05);
+
+}
+
+
+/* =========================================
+   IMAGE PLACEHOLDER
+========================================= */
+
+.top-work-image-placeholder {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        #e9eeee;
+
+    color:
+        #859494;
+
+    font-size:
+        12px;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+/* =========================================
+   WORK OVERLAY
+========================================= */
+
+.work-overlay {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    z-index:
+        2;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        rgba(
+            22,
+            75,
+            75,
+            0.75
+        );
+
+    opacity:
+        0;
+
+    transition:
+        opacity 0.3s ease;
+
+}
+
+
+.work-card:hover
+.work-overlay {
+
+    opacity:
+        1;
+
+}
+
+
+.work-overlay span {
+
+    padding:
+        10px 25px;
+
+    border:
+        1px solid
+        #ffffff;
+
+    color:
+        #ffffff;
+
+    font-size:
+        11px;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+/* =========================================
+   WORK INFO
+========================================= */
+
+.work-info {
+
+    padding:
+        22px;
+
+}
+
+
+.works-section .work-info {
+
+    min-height:
+        125px;
+
+}
+
+
+.work-id,
+.works-section .work-id {
+
+    color:
+        var(--main-color);
+
+    font-size:
+        9px;
+
+    letter-spacing:
+        0.15em;
+
+}
+
+
+.work-info h3 {
+
+    margin-top:
+        7px;
+
+    font-size:
+        18px;
+
+    font-weight:
+        500;
+
+    overflow-wrap:
+        anywhere;
+
+}
+
+
+.work-info p:last-child,
+.works-section .work-author {
+
+    margin-top:
+        5px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        12px;
+
+}
+
+
+/* =========================================
+   TOP WORK MESSAGE
+========================================= */
+
+.top-works-loading,
+.top-works-message {
+
+    grid-column:
+        1 / -1;
+
+    width:
+        100%;
+
+    min-height:
+        180px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        40px;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid
+        #e2e2e2;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        13px;
+
+    text-align:
+        center;
+
+}
+
+
+.works-section .section-more {
+
+    margin-top:
+        45px;
+
+}
+
+
+/* =========================================
+   04. TOP NEWS
+========================================= */
+
+.news-list {
+
+    border-top:
+        1px solid
+        var(--line);
+
+}
+
+
+.news-item {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        130px
+        100px
+        1fr
+        30px;
+
+    align-items:
+        center;
+
+    gap:
+        25px;
+
+    min-height:
+        75px;
+
+    border-bottom:
+        1px solid
+        var(--line);
+
+    transition:
+        padding-left 0.25s ease;
+
+}
+
+
+.news-item:hover {
+
+    padding-left:
+        10px;
+
+}
+
+
+.news-item time {
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        12px;
+
+}
+
+
+.news-category {
+
+    color:
+        var(--main-color);
+
+    font-size:
+        9px;
+
+    letter-spacing:
+        0.15em;
+
+}
+
+
+.news-item p {
+
+    font-size:
+        14px;
+
+}
+
+
+.news-arrow {
+
+    color:
+        var(--main-color);
+
+}
+
+
+/* =========================================
+   05. TOP JOIN
+========================================= */
+
+.join-section {
+
+    position:
+        relative;
+
+    min-height:
+        480px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        var(--main-color);
+
+    color:
+        #ffffff;
+
+    text-align:
+        center;
+
+}
+
+
+.join-content {
+
+    position:
+        relative;
+
+    max-width:
+        650px;
+
+    padding:
+        70px 30px;
+
+}
+
+
+.join-content .section-label {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.7
+        );
+
+}
+
+
+.join-content h2 {
+
+    margin-top:
+        10px;
+
+    font-size:
+        42px;
+
+    font-weight:
+        500;
+
+    letter-spacing:
+        0.08em;
+
+}
+
+
+.join-content > p:not(.section-label) {
+
+    margin-top:
+        25px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.8
+        );
+
+    font-size:
+        14px;
+
+}
+
+
+/* =========================================
+   JOIN LARGE BUTTON
+========================================= */
+
+.join-large-button {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        30px;
+
+    margin-top:
+        40px;
+
+    padding:
+        16px 35px;
+
+    border:
+        0;
+
+    background:
+        #ffffff;
+
+    color:
+        var(--main-color);
+
+    font-size:
+        13px;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+
+}
+
+
+.join-large-button:hover {
+
+    background:
+        #eeeeee;
+
+}
+
+
+/* =========================================
+   90. TABLET
+========================================= */
+
+@media (
+    max-width: 900px
+) {
+
+    /* =====================================
+       ABOUT
+    ====================================== */
+
+    .about-content {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            45px;
+
+    }
+
+
+    .about-video-caption {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+        gap:
+            10px;
+
+    }
+
+}
+
+
+/* =========================================
+   91. MOBILE
+========================================= */
+
+@media (
+    max-width: 800px
+) {
+
+    /* =====================================
+       HERO
+    ====================================== */
+
+    .hero {
+
+        min-height:
+            600px;
+
+    }
+
+
+    .hero-content {
+
+        left:
+            25px;
+
+        right:
+            25px;
+
+        bottom:
+            15%;
+
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            34px;
+
+    }
+
+
+    /* =====================================
+       ABOUT
+    ====================================== */
+
+    .about-lead {
+
+        font-size:
+            20px;
+
+    }
+
+
+    /* =====================================
+       TOP WORKS
+    ====================================== */
+
+    .works-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            20px;
+
+    }
+
+
+    .top-works-loading,
+    .top-works-message {
+
+        min-height:
+            140px;
+
+        padding:
+            30px 20px;
+
+    }
+
+
+    .works-section
+    .work-info {
+
+        min-height:
+            auto;
+
+    }
+
+
+    /* =====================================
+       NEWS
+    ====================================== */
+
+    .news-item {
+
+        grid-template-columns:
+            1fr
+            30px;
+
+        gap:
+            10px;
+
+        padding:
+            18px 0;
+
+    }
+
+
+    .news-item time {
+
+        grid-column:
+            1;
+
+    }
+
+
+    .news-category {
+
+        display:
+            none;
+
+    }
+
+
+    .news-item p {
+
+        grid-column:
+            1;
+
+        grid-row:
+            2;
+
+    }
+
+
+    .news-arrow {
+
+        grid-column:
+            2;
+
+        grid-row:
+            1 / 3;
+
+    }
+
+
+    /* =====================================
+       JOIN
+    ====================================== */
+
+    .join-content h2 {
+
+        font-size:
+            32px;
+
+    }
+
+}

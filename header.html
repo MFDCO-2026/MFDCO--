@@ -1,180 +1,6 @@
 <header class="site-header">
 
-    <style>
-
-        /* =========================================
-           HEADER FINAL CONTROL
-        ========================================= */
-
-        .site-header .header-inner {
-            align-items: center;
-        }
-
-
-        .site-header .main-nav {
-            align-items: center;
-        }
-
-
-        /* =========================================
-           USER BUTTON
-        ========================================= */
-
-        .site-header .main-nav #header-member-link {
-            height: 48px;
-            min-height: 48px;
-
-            margin: 0;
-
-            padding: 0 14px;
-
-            box-sizing: border-box;
-
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            align-self: center;
-        }
-
-
-        /* =========================================
-           DISCORD BUTTON
-        ========================================= */
-
-        .site-header .main-nav #header-discord-link {
-            width: 130px;
-            min-width: 130px;
-
-            height: 48px;
-            min-height: 48px;
-
-            flex: 0 0 130px;
-
-            /*
-             * 左のユーザー欄との間隔
-             */
-            margin: 0 0 0 10px;
-
-            padding: 0 15px;
-
-            box-sizing: border-box;
-
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            align-self: center;
-
-            background: #292929;
-
-            border: 0;
-
-            color: #ffffff;
-
-            text-decoration: none;
-
-            overflow: hidden;
-
-            transition:
-                background-color 0.2s ease,
-                opacity 0.2s ease;
-        }
-
-
-        .site-header .main-nav #header-discord-link:hover {
-            background: #202020;
-            color: #ffffff;
-        }
-
-
-        /*
-         * style.css の
-         * .main-nav a::after を無効化
-         */
-
-        .site-header .main-nav #header-discord-link::after {
-            display: none;
-        }
-
-
-        /*
-         * 未ログイン時
-         */
-
-        .site-header .main-nav #header-discord-link[hidden] {
-            display: none !important;
-        }
-
-
-        /* =========================================
-           DISCORD IMAGE
-        ========================================= */
-
-        .header-discord-image {
-            display: block;
-
-            width: auto;
-            height: auto;
-
-            max-width: 100px;
-            max-height: 22px;
-
-            object-fit: contain;
-
-            border: 0;
-        }
-
-
-        /* =========================================
-           MOBILE
-        ========================================= */
-
-        @media (max-width: 1000px) {
-
-            .site-header .main-nav #header-member-link {
-                width: 100%;
-
-                height: 48px;
-                min-height: 48px;
-
-                margin: 10px 0 0;
-
-                padding: 0 14px;
-
-                justify-content: flex-start;
-            }
-
-
-            .site-header .main-nav #header-discord-link {
-                width: 100%;
-                min-width: 0;
-
-                height: 48px;
-                min-height: 48px;
-
-                flex: none;
-
-                margin: 8px 0 0;
-
-                padding: 0 18px;
-
-                justify-content: center;
-            }
-
-
-            .header-discord-image {
-                max-width: 105px;
-                max-height: 22px;
-            }
-
-        }
-
-    </style>
-
-
     <div class="header-inner">
-
 
         <!-- =====================================
              BRAND
@@ -183,8 +9,8 @@
         <a
             href="index.html"
             class="site-brand"
+            aria-label="MFDCO ホーム"
         >
-
             <img
                 src="assets/logo.png"
                 alt="MFDCO"
@@ -194,136 +20,148 @@
             <span class="site-title">
                 マイクラ軍事茶番開発協力機構
             </span>
-
         </a>
 
 
-
         <!-- =====================================
-             NAVIGATION
+             DESKTOP NAVIGATION
         ====================================== -->
 
         <nav
-            id="main-navigation"
-            class="main-nav"
-            aria-label="メインメニュー"
+            class="header-primary-nav"
+            aria-label="主要メニュー"
         >
-
-
-            <a href="index.html">
-                ホーム
-            </a>
-
-
             <a href="about.html">
                 MFDCOとは
             </a>
-
 
             <a href="works.html">
                 提供作品
             </a>
 
-
             <a href="members.html">
-                加盟国
+                加盟国一覧
             </a>
-
-
-            <a href="movies.html">
-                映像作品
-            </a>
-
 
             <a href="news.html">
                 お知らせ
             </a>
-
-
-
-            <!-- =================================
-                 USER / LOGIN
-            ================================== -->
-
-            <a
-                href="join.html"
-                class="header-join"
-                id="header-member-link"
-            >
-
-                <span
-                    id="header-user-icon-wrap"
-                    class="header-user-icon-wrap"
-                    hidden
-                >
-
-                    <img
-                        id="header-user-icon"
-                        class="header-user-icon"
-                        alt=""
-                    >
-
-                </span>
-
-
-                <span
-                    id="header-login-text"
-                    class="header-login-text"
-                >
-                    参加 / ログイン
-                </span>
-
-            </a>
-
-
-
-            <!-- =================================
-                 DISCORD
-                 ログイン時のみ表示
-            ================================== -->
-
-            <a
-                href="#"
-                id="header-discord-link"
-                class="header-discord-link"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="MFDCO Discordを開く"
-                hidden
-            >
-
-                <img
-                    src="assets/discord-button.png"
-                    alt="Discord"
-                    class="header-discord-image"
-                >
-
-            </a>
-
-
         </nav>
 
 
-
         <!-- =====================================
-             MOBILE MENU BUTTON
+             RIGHT AREA
         ====================================== -->
 
-        <button
-            class="menu-button"
-            type="button"
-            aria-label="メニューを開く"
-            aria-expanded="false"
-            aria-controls="main-navigation"
-        >
+        <div class="header-right">
 
-            <span></span>
-            <span></span>
-            <span></span>
+            <!-- ACCOUNT -->
 
-        </button>
+            <a
+                href="join.html"
+                id="header-account-button"
+                class="header-account-button"
+            >
+                <span
+                    id="header-account-icon-wrap"
+                    class="header-account-icon-wrap"
+                    hidden
+                >
+                    <img
+                        id="header-account-icon"
+                        class="header-account-icon"
+                        alt=""
+                    >
+                </span>
 
+                <span
+                    id="header-account-name"
+                    class="header-account-name"
+                >
+                    ログイン
+                </span>
+            </a>
+
+
+            <!-- MENU -->
+
+            <button
+                id="header-menu-button"
+                class="header-menu-button"
+                type="button"
+                aria-label="メニューを開く"
+                aria-expanded="false"
+                aria-controls="header-side-menu"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
 
     </div>
+
+
+    <!-- =====================================
+         OVERLAY
+    ====================================== -->
+
+    <div
+        id="header-menu-overlay"
+        class="header-menu-overlay"
+        hidden
+    ></div>
+
+
+    <!-- =====================================
+         SIDE MENU
+    ====================================== -->
+
+    <aside
+        id="header-side-menu"
+        class="header-side-menu"
+        aria-label="サイトメニュー"
+        aria-hidden="true"
+    >
+
+        <div class="header-side-menu-inner">
+
+            <div class="header-side-menu-header">
+
+                <div>
+                    <p class="header-side-menu-label">
+                        MFDCO
+                    </p>
+
+                    <p class="header-side-menu-title">
+                        MENU
+                    </p>
+                </div>
+
+
+                <button
+                    id="header-menu-close"
+                    class="header-menu-close"
+                    type="button"
+                    aria-label="メニューを閉じる"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <!-- JSで生成 -->
+
+            <nav
+                id="header-menu-content"
+                class="header-menu-content"
+                aria-label="MFDCO メニュー"
+            ></nav>
+
+        </div>
+
+    </aside>
 
 </header>
