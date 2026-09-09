@@ -1,0 +1,812 @@
+/* =========================================
+   MFDCO MORSE
+========================================= */
+
+
+:root {
+    --background: #ffffff;
+    --text: #111111;
+    --text-muted: #666666;
+    --line: #dddddd;
+
+    --main: #164b4b;
+    --main-dark: #0e3838;
+
+    --surface: #f5f7f7;
+    --surface-light: #fafafa;
+
+    --danger: #a62929;
+
+    --max-width: 1200px;
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    margin: 0;
+
+    background: var(--background);
+    color: var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans JP",
+        sans-serif;
+
+    line-height: 1.6;
+}
+
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================
+   COMMON
+========================================= */
+
+.tool-container {
+    width: min(var(--max-width), calc(100% - 40px));
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.tool-header {
+    min-height: 70px;
+
+    display: flex;
+    align-items: center;
+
+    border-bottom: 1px solid var(--line);
+
+    background: rgba(255, 255, 255, 0.96);
+}
+
+
+.tool-header-inner {
+    width: min(var(--max-width), calc(100% - 40px));
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.back-link {
+    color: var(--main);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+
+.tool-brand {
+    color: var(--text-muted);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.tool-hero {
+    padding: 80px 0 70px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+
+.tool-eyebrow {
+    margin: 0 0 12px;
+
+    color: var(--main);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+}
+
+
+.tool-hero h1 {
+    margin: 0;
+
+    font-size: clamp(36px, 6vw, 66px);
+    font-weight: 500;
+
+    line-height: 1.25;
+
+    letter-spacing: 0.04em;
+}
+
+
+.tool-lead {
+    max-width: 720px;
+
+    margin: 22px 0 0;
+
+    color: var(--text-muted);
+
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.tool-main {
+    padding: 70px 0 120px;
+}
+
+
+/* =========================================
+   SETTINGS
+========================================= */
+
+.settings-panel {
+    padding: 30px;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface-light);
+}
+
+
+.settings-group + .settings-group {
+    margin-top: 25px;
+}
+
+
+.settings-label {
+    margin: 0 0 10px;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.switch-group {
+    display: flex;
+
+    width: min(420px, 100%);
+
+    border: 1px solid var(--main);
+}
+
+
+.switch-button {
+    flex: 1;
+
+    min-height: 45px;
+
+    padding: 9px 20px;
+
+    border: 0;
+    border-right: 1px solid var(--main);
+
+    background: #ffffff;
+    color: var(--main);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.switch-button:last-child {
+    border-right: 0;
+}
+
+
+.switch-button.active {
+    background: var(--main);
+    color: #ffffff;
+}
+
+
+.settings-divider {
+    margin: 30px 0;
+
+    border-top: 1px solid var(--line);
+}
+
+
+.symbol-settings {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 15px;
+}
+
+
+.symbol-setting {
+    min-width: 0;
+}
+
+
+.symbol-setting label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.symbol-setting input {
+    width: 100%;
+    min-height: 45px;
+
+    padding: 8px 12px;
+
+    border: 1px solid var(--line);
+    border-radius: 0;
+
+    outline: none;
+
+    background: #ffffff;
+    color: var(--text);
+}
+
+
+.symbol-setting input:focus {
+    border-color: var(--main);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(22, 75, 75, 0.10);
+}
+
+
+.input-note {
+    display: block;
+
+    margin-top: 6px;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+}
+
+
+/* =========================================
+   TEXT SECTION
+========================================= */
+
+.text-section {
+    margin-top: 70px;
+}
+
+
+.text-section-header {
+    margin-bottom: 14px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.section-number {
+    margin: 0 0 4px;
+
+    color: var(--main);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+}
+
+
+.text-section h2,
+.audio-heading h2 {
+    margin: 0;
+
+    font-size: 26px;
+    font-weight: 500;
+}
+
+
+.copy-button {
+    min-height: 34px;
+
+    padding: 6px 15px;
+
+    border: 1px solid var(--main);
+
+    background: #ffffff;
+    color: var(--main);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.copy-button:hover {
+    background: var(--main);
+    color: #ffffff;
+}
+
+
+.morse-textarea {
+    display: block;
+
+    width: 100%;
+    min-height: 190px;
+
+    resize: vertical;
+
+    padding: 20px;
+
+    border: 1px solid var(--line);
+    border-radius: 0;
+
+    outline: none;
+
+    background: #ffffff;
+    color: var(--text);
+
+    font-family:
+        "Noto Sans Mono",
+        "Consolas",
+        monospace;
+
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+
+.morse-textarea:focus {
+    border-color: var(--main);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(22, 75, 75, 0.08);
+}
+
+
+.result-textarea {
+    background: var(--surface-light);
+}
+
+
+.conversion-message,
+.audio-message {
+    min-height: 20px;
+
+    margin: 8px 0 0;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+}
+
+
+.conversion-message.error,
+.audio-message.error {
+    color: var(--danger);
+}
+
+
+/* =========================================
+   AUDIO
+========================================= */
+
+.audio-section {
+    margin-top: 80px;
+
+    padding: 35px;
+
+    border: 1px solid var(--line);
+}
+
+
+.audio-heading p:last-child {
+    margin: 12px 0 0;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+}
+
+
+.audio-controls {
+    margin-top: 30px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) auto;
+
+    gap: 50px;
+
+    align-items: end;
+}
+
+
+.speed-control {
+    min-width: 0;
+}
+
+
+.speed-header {
+    margin-bottom: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.speed-header label {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.speed-value {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 11px;
+}
+
+
+.speed-value input {
+    width: 65px;
+
+    padding: 5px 7px;
+
+    border: 1px solid var(--line);
+
+    text-align: right;
+}
+
+
+#speed-range {
+    width: 100%;
+
+    accent-color: var(--main);
+}
+
+
+.speed-scale {
+    margin-top: 5px;
+
+    display: flex;
+    justify-content: space-between;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+}
+
+
+.audio-buttons {
+    display: flex;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+}
+
+
+.primary-action-button,
+.secondary-action-button {
+    min-height: 46px;
+
+    padding: 9px 18px;
+
+    border: 1px solid var(--main);
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.primary-action-button {
+    background: var(--main);
+    color: #ffffff;
+}
+
+
+.primary-action-button:hover {
+    background: var(--main-dark);
+}
+
+
+.secondary-action-button {
+    background: #ffffff;
+    color: var(--main);
+}
+
+
+.secondary-action-button:hover:not(:disabled) {
+    background: var(--surface);
+}
+
+
+.primary-action-button:disabled,
+.secondary-action-button:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.45;
+}
+
+
+/* =========================================
+   INFORMATION
+========================================= */
+
+.tool-information {
+    margin-top: 100px;
+}
+
+
+.tool-information > h2 {
+    margin: 0 0 30px;
+
+    font-size: 27px;
+    font-weight: 500;
+}
+
+
+.information-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+}
+
+
+.information-grid > div {
+    padding: 25px;
+
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+
+.information-grid span {
+    color: var(--main);
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+.information-grid h3 {
+    margin: 10px 0 8px;
+
+    font-size: 15px;
+}
+
+
+.information-grid p {
+    margin: 0;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+    line-height: 1.9;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.tool-footer {
+    padding: 30px 0;
+
+    border-top: 1px solid var(--line);
+
+    background: var(--surface-light);
+}
+
+
+.tool-footer .tool-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.tool-footer p {
+    margin: 0;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+
+    letter-spacing: 0.14em;
+}
+
+
+.tool-footer a {
+    color: var(--main);
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .symbol-settings {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .audio-controls {
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+    }
+
+
+    .information-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .tool-container,
+    .tool-header-inner {
+        width: min(100% - 30px, var(--max-width));
+    }
+
+
+    .tool-hero {
+        padding: 60px 0 55px;
+    }
+
+
+    .tool-main {
+        padding: 50px 0 80px;
+    }
+
+
+    .settings-panel {
+        padding: 20px;
+    }
+
+
+    .symbol-settings {
+        grid-template-columns: 1fr;
+    }
+
+
+    .switch-group {
+        width: 100%;
+    }
+
+
+    .text-section {
+        margin-top: 55px;
+    }
+
+
+    .morse-textarea {
+        min-height: 160px;
+
+        padding: 15px;
+
+        font-size: 14px;
+    }
+
+
+    .audio-section {
+        margin-top: 60px;
+
+        padding: 22px;
+    }
+
+
+    .audio-buttons {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    #download-button {
+        grid-column: 1 / -1;
+    }
+
+
+    .primary-action-button,
+    .secondary-action-button {
+        width: 100%;
+    }
+
+
+    .tool-information {
+        margin-top: 70px;
+    }
+
+}

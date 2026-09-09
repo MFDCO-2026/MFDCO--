@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>モールス符号変換機 | MFDCO</title>
+
+    <meta
+        name="description"
+        content="和文・英文モールス符号の符号化・翻訳、音声再生・音声生成に対応したMFDCOツールです。"
+    >
+
+    <link rel="icon" type="image/png" href="../../assets/logo.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+    <main class="morse-page">
+
+        <!-- =====================================
+             HEADER
+        ====================================== -->
+
+        <header class="tool-header">
+
+            <div class="tool-header-inner">
+
+                <a
+                    href="../../tools.html"
+                    class="back-link"
+                >
+                    ← ツール一覧
+                </a>
+
+                <div class="tool-brand">
+                    MFDCO TOOLS
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================
+             HERO
+        ====================================== -->
+
+        <section class="tool-hero">
+
+            <div class="tool-container">
+
+                <p class="tool-eyebrow">
+                    MFDCO MORSE
+                </p>
+
+                <h1>
+                    モールス符号変換機
+                </h1>
+
+                <p class="tool-lead">
+                    和文・英文モールス符号の符号化と翻訳、
+                    音声再生・音声生成に対応しています。
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             MAIN
+        ====================================== -->
+
+        <section class="tool-main">
+
+            <div class="tool-container">
+
+
+                <!-- =================================
+                     SETTINGS
+                ================================== -->
+
+                <section class="settings-panel">
+
+                    <div class="settings-group">
+
+                        <p class="settings-label">
+                            方式
+                        </p>
+
+                        <div
+                            class="switch-group"
+                            id="language-switch"
+                        >
+
+                            <button
+                                type="button"
+                                class="switch-button active"
+                                data-language="ja"
+                            >
+                                和式
+                            </button>
+
+                            <button
+                                type="button"
+                                class="switch-button"
+                                data-language="en"
+                            >
+                                英式
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="settings-group">
+
+                        <p class="settings-label">
+                            変換
+                        </p>
+
+                        <div
+                            class="switch-group"
+                            id="mode-switch"
+                        >
+
+                            <button
+                                type="button"
+                                class="switch-button active"
+                                data-mode="encode"
+                            >
+                                符号化
+                            </button>
+
+                            <button
+                                type="button"
+                                class="switch-button"
+                                data-mode="decode"
+                            >
+                                翻訳
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="settings-divider"></div>
+
+
+                    <div class="symbol-settings">
+
+                        <div class="symbol-setting">
+
+                            <label for="long-symbol">
+                                長音
+                            </label>
+
+                            <input
+                                type="text"
+                                id="long-symbol"
+                                value="ー"
+                                maxlength="4"
+                            >
+
+                        </div>
+
+
+                        <div class="symbol-setting">
+
+                            <label for="short-symbol">
+                                短音
+                            </label>
+
+                            <input
+                                type="text"
+                                id="short-symbol"
+                                value="・"
+                                maxlength="4"
+                            >
+
+                        </div>
+
+
+                        <div class="symbol-setting">
+
+                            <label for="letter-separator">
+                                文字区切り
+                            </label>
+
+                            <input
+                                type="text"
+                                id="letter-separator"
+                                value=" "
+                                maxlength="4"
+                            >
+
+                            <span class="input-note">
+                                初期値：半角スペース
+                            </span>
+
+                        </div>
+
+
+                        <div class="symbol-setting">
+
+                            <label for="word-separator">
+                                単語区切り
+                            </label>
+
+                            <input
+                                type="text"
+                                id="word-separator"
+                                value="/"
+                                maxlength="4"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     INPUT
+                ================================== -->
+
+                <section class="text-section">
+
+                    <div class="text-section-header">
+
+                        <div>
+
+                            <p class="section-number">
+                                01
+                            </p>
+
+                            <h2 id="input-title">
+                                原文
+                            </h2>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            id="copy-input"
+                            class="copy-button"
+                        >
+                            コピー
+                        </button>
+
+                    </div>
+
+
+                    <textarea
+                        id="morse-input"
+                        class="morse-textarea"
+                        placeholder="変換する文章を入力してください。"
+                        spellcheck="false"
+                    ></textarea>
+
+                </section>
+
+
+                <!-- =================================
+                     RESULT
+                ================================== -->
+
+                <section class="text-section">
+
+                    <div class="text-section-header">
+
+                        <div>
+
+                            <p class="section-number">
+                                02
+                            </p>
+
+                            <h2 id="result-title">
+                                変換結果
+                            </h2>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            id="copy-result"
+                            class="copy-button"
+                        >
+                            コピー
+                        </button>
+
+                    </div>
+
+
+                    <textarea
+                        id="morse-result"
+                        class="morse-textarea result-textarea"
+                        readonly
+                        placeholder="ここに変換結果が表示されます。"
+                        spellcheck="false"
+                    ></textarea>
+
+
+                    <p
+                        id="conversion-message"
+                        class="conversion-message"
+                        aria-live="polite"
+                    ></p>
+
+                </section>
+
+
+                <!-- =================================
+                     AUDIO
+                ================================== -->
+
+                <section class="audio-section">
+
+                    <div class="audio-heading">
+
+                        <p class="section-number">
+                            03
+                        </p>
+
+                        <h2>
+                            音声
+                        </h2>
+
+                        <p>
+                            モールス符号を指定した速度で再生・保存します。
+                        </p>
+
+                    </div>
+
+
+                    <div class="audio-controls">
+
+                        <div class="speed-control">
+
+                            <div class="speed-header">
+
+                                <label for="speed-range">
+                                    速度
+                                </label>
+
+                                <div class="speed-value">
+
+                                    <input
+                                        type="number"
+                                        id="speed-number"
+                                        min="5"
+                                        max="60"
+                                        value="20"
+                                    >
+
+                                    <span>
+                                        WPM
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <input
+                                type="range"
+                                id="speed-range"
+                                min="5"
+                                max="60"
+                                value="20"
+                                step="1"
+                            >
+
+                            <div class="speed-scale">
+                                <span>5</span>
+                                <span>60 WPM</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="audio-buttons">
+
+                            <button
+                                type="button"
+                                id="play-button"
+                                class="primary-action-button"
+                            >
+                                <span aria-hidden="true">▶</span>
+                                再生
+                            </button>
+
+
+                            <button
+                                type="button"
+                                id="stop-button"
+                                class="secondary-action-button"
+                                disabled
+                            >
+                                <span aria-hidden="true">■</span>
+                                停止
+                            </button>
+
+
+                            <button
+                                type="button"
+                                id="download-button"
+                                class="secondary-action-button"
+                            >
+                                <span aria-hidden="true">↓</span>
+                                WAVをダウンロード
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <p
+                        id="audio-message"
+                        class="audio-message"
+                        aria-live="polite"
+                    ></p>
+
+                </section>
+
+
+                <!-- =================================
+                     INFORMATION
+                ================================== -->
+
+                <section class="tool-information">
+
+                    <h2>
+                        使い方
+                    </h2>
+
+                    <div class="information-grid">
+
+                        <div>
+                            <span>01</span>
+
+                            <h3>
+                                方式を選択
+                            </h3>
+
+                            <p>
+                                和式または英式モールス符号を選択します。
+                            </p>
+                        </div>
+
+
+                        <div>
+                            <span>02</span>
+
+                            <h3>
+                                変換方法を選択
+                            </h3>
+
+                            <p>
+                                通常の文章をモールス符号へ変換する「符号化」と、
+                                モールス符号を文章へ戻す「翻訳」を切り替えられます。
+                            </p>
+                        </div>
+
+
+                        <div>
+                            <span>03</span>
+
+                            <h3>
+                                音声を利用
+                            </h3>
+
+                            <p>
+                                速度を指定して再生するほか、
+                                WAV音声として保存できます。
+                            </p>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="tool-footer">
+
+        <div class="tool-container">
+
+            <p>
+                MFDCO TOOLS
+            </p>
+
+            <a href="../../index.html">
+                MFDCO
+            </a>
+
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

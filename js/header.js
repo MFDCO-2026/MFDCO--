@@ -75,8 +75,7 @@ const MFDCO_HEADER_MENU = [
 
             {
                 label: "ツールを利用",
-                disabled: true,
-                note: "追加予定"
+                href: "tools.html"
             }
 
         ]
@@ -143,8 +142,7 @@ const MFDCO_HEADER_MENU = [
 
             {
                 label: "フィードバック",
-                disabled: true,
-                note: "追加予定"
+                href:"https://docs.google.com/forms/d/e/1FAIpQLSc3i4fw7V8rzvM-3MIezqTwIczndj76Id6fs8Iu0p4IwFWgwA/viewform?usp=header"
             }
 
         ]

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ツール | MFDCO</title>
+
+    <meta
+        name="description"
+        content="MFDCOが提供する制作・管理・補助用ツールを利用できます。"
+    >
+
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/tools.css">
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+    <div id="header-container"></div>
+
+
+    <main class="tools-page">
+
+        <!-- =====================================
+             HERO
+        ====================================== -->
+
+        <section class="tools-hero">
+
+            <div class="tools-hero-inner">
+
+                <p class="tools-eyebrow">
+                    MFDCO TOOLS
+                </p>
+
+                <h1>
+                    ツール
+                </h1>
+
+                <p class="tools-lead">
+                    MFDCOが提供する制作・管理・補助用ツールを利用できます。
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             TOOLS
+        ====================================== -->
+
+        <section class="tools-content">
+
+            <div class="tools-content-inner">
+
+                <div class="tools-section-heading">
+
+                    <p class="tools-section-number">
+                        01
+                    </p>
+
+                    <h2>
+                        利用可能なツール
+                    </h2>
+
+                </div>
+
+
+                <!--
+                    tools.js がここへ
+                    ツールカードを自動生成します
+                -->
+
+                <div
+                    id="tools-grid"
+                    class="tools-grid"
+                ></div>
+
+
+                <!-- データがない場合 -->
+
+                <div
+                    id="tools-empty"
+                    class="tools-empty"
+                    hidden
+                >
+                    現在公開されているツールはありません。
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <div id="footer-container"></div>
+
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+
+    <!-- COMMON -->
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+
+    <!-- PAGE -->
+    <script src="js/tools.js"></script>
+
+</body>
+
+</html>
