@@ -68,9 +68,12 @@ function cacheElements() {
         "filetype-row",
         "filetype",
 
-        "download-button",
-        "external-button",
-        "download-error"
+       "download-button",
+"external-button",
+"download-error",
+
+"work-owner-actions",
+"edit-work-button"
     ];
 
 
@@ -212,11 +215,120 @@ async function loadWork() {
         await loadAuthor();
 
 
-        renderWork();
+renderWork();
+
+/* =========================================
+   OWNER ACTIONS
+========================================= */
+
+async function setupOwnerActions() {
+
+    if (
+        !elements.workOwnerActions ||
+        !elements.editWorkButton ||
+        !currentWork
+    ) {
+
+        return;
+
+    }
 
 
-        elements.workLoading.hidden =
-            true;
+    /*
+     * 初期状態では必ず非表示
+     */
+
+    elements.workOwnerActions.hidden =
+        true;
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await window.supabaseClient
+                .auth
+                .getUser();
+
+
+        if (error) {
+
+            console.warn(
+                "OWNER AUTH CHECK ERROR:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        const user =
+            data?.user ||
+            null;
+
+
+        /*
+         * ログアウト中
+         */
+
+        if (!user) {
+
+            return;
+
+        }
+
+
+        /*
+         * 投稿者本人ではない
+         */
+
+        if (
+            user.id !==
+            currentWork.user_id
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+         * 投稿者本人
+         */
+
+        elements.editWorkButton.href =
+            `edit-work.html?id=${encodeURIComponent(currentWork.id)}`;
+
+
+        elements.workOwnerActions.hidden =
+            false;
+
+
+        console.log(
+            "MFDCO WORK OWNER:",
+            user.id
+        );
+
+    }
+    catch (error) {
+
+        console.warn(
+            "OWNER ACTION ERROR:",
+            error
+        );
+
+    }
+
+}
+
+await setupOwnerActions();
+
+
+elements.workLoading.hidden =
+    true;
 
 
         elements.workContent.hidden =
