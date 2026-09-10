@@ -14,125 +14,218 @@
         メールをご確認ください | MFDCO
     </title>
 
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/logo.png"
+    >
+
     <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/footer.css">
-<link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/auth.css">
 
 </head>
 
 <body>
 
 
+    <!-- =========================================
+         COMMON HEADER
+    ========================================== -->
+
     <div id="header-container"></div>
 
 
-    <main>
 
-        <section class="join-page">
+    <!-- =========================================
+         AUTH PAGE
+    ========================================== -->
 
-            <div class="join-container">
+    <main class="auth-page">
 
-                <div class="join-panel active">
+        <div class="auth-container">
 
-                    <p class="section-label">
-                        EMAIL VERIFICATION
+
+            <!-- =================================
+                 HEADER
+            ================================== -->
+
+            <div class="auth-header">
+
+                <p class="auth-label">
+                    EMAIL VERIFICATION
+                </p>
+
+                <h1>
+                    メールをご確認ください
+                </h1>
+
+                <p class="auth-description">
+                    MFDCOへのアカウント登録を受け付けました。<br>
+                    ご登録いただいたメールアドレス宛に、
+                    確認メールを送信しています。
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================
+                 CARD
+            ================================== -->
+
+            <div class="auth-card">
+
+
+                <!-- =================================
+                     STEP
+                ================================== -->
+
+                <div class="auth-step">
+
+                    <div class="auth-step-number">
+                        01
+                    </div>
+
+                    <p class="auth-step-text">
+                        メールアドレスを確認
                     </p>
 
-                    <h1>
-                        メールをご確認ください
-                    </h1>
+                </div>
 
 
-                    <p>
-                        MFDCOへのアカウント登録を
-                        受け付けました。
-                    </p>
+                <!-- =================================
+                     NEXT STEP
+                ================================== -->
 
+                <section class="auth-form-section">
 
-                    <p>
-                        ご登録いただいたメールアドレス宛に、
-                        確認メールを送信しています。
-                    </p>
+                    <h2 class="auth-form-title">
+                        次の手順
+                    </h2>
 
-
-                    <div class="form-section">
-
-                        <h2>
-                            次の手順
-                        </h2>
-
-                        <p class="form-note">
-                            メール内の
+                    <p class="auth-text">
+                        MFDCOから送信された確認メールを開き、
+                        メール内の
+                        <strong>
                             「メールアドレスを確認する」
-                            リンクを開いてください。
-                        </p>
+                        </strong>
+                        リンクを開いてください。
+                    </p>
 
-                        <p class="form-note">
-                            確認が完了すると、
-                            MFDCOのプロフィール登録画面へ移動します。
-                        </p>
+                    <p class="auth-text">
+                        メールアドレスの確認が完了すると、
+                        MFDCOのプロフィール登録画面へ移動します。
+                    </p>
+
+                </section>
+
+
+
+                <!-- =================================
+                     NOT RECEIVED
+                ================================== -->
+
+                <section class="auth-form-section">
+
+                    <h2 class="auth-form-title">
+                        メールが届かない場合
+                    </h2>
+
+                    <div class="auth-notice">
+
+                        ・迷惑メールフォルダをご確認ください。<br>
+
+                        ・メールの受信まで数分かかる場合があります。<br>
+
+                        ・入力したメールアドレスに誤りがないか
+                        ご確認ください。<br>
+
+                        ・メール受信設定によって、
+                        MFDCOからのメールが拒否されていないか
+                        ご確認ください。
 
                     </div>
 
+                </section>
 
-                    <div class="form-section">
 
-                        <h2>
-                            メールが届かない場合
-                        </h2>
 
-                        <p class="form-note">
-                            ・迷惑メールフォルダをご確認ください。<br>
-                            ・数分待ってから再度ご確認ください。<br>
-                            ・入力したメールアドレスに誤りがないかご確認ください。
-                        </p>
+                <!-- =================================
+                     RESEND
+                ================================== -->
 
-                    </div>
+                <div class="auth-resend">
 
+                    <p>
+                        確認メールが届かない場合は、
+                        再送することができます。
+                    </p>
 
                     <button
                         type="button"
                         id="resend-email-button"
-                        class="join-submit"
                     >
                         確認メールを再送する
                     </button>
 
-
-                    <p
-                        id="resend-message"
-                        class="form-note"
-                    ></p>
+                </div>
 
 
-                    <div class="join-switch">
 
-                        <span>
-                            登録画面へ戻る
-                        </span>
+                <!-- =================================
+                     MESSAGE
+                ================================== -->
 
-                        <a href="join.html">
-                            戻る
-                        </a>
+                <div
+                    id="resend-message"
+                    class="auth-flow-message"
+                    hidden
+                ></div>
 
-                    </div>
+
+
+                <!-- =================================
+                     ACTIONS
+                ================================== -->
+
+                <div class="auth-actions">
+
+                    <a
+                        href="join.html"
+                        class="auth-action-secondary"
+                    >
+                        登録画面へ戻る
+                    </a>
 
                 </div>
 
+
             </div>
 
-        </section>
+        </div>
 
     </main>
 
 
+
+    <!-- =========================================
+         COMMON FOOTER
+    ========================================== -->
+
     <div id="footer-container"></div>
 
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="js/supabase-config.js"></script>
+    <script src="js/header.js"></script>
     <script src="js/check-email.js"></script>
     <script src="js/main.js"></script>
 
