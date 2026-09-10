@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>空母発艦重量計算機 | MFDCO</title>
+
+    <meta
+        name="description"
+        content="Minecraft・架空兵器向けのMFDCO空母発艦重量シミュレーターです。"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="../../assets/logo.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body>
+
+<main class="launch-page">
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="tool-header">
+
+        <div class="tool-header-inner">
+
+            <a
+                href="../../tools.html"
+                class="back-link"
+            >
+                ← ツール一覧
+            </a>
+
+            <p class="tool-brand">
+                MFDCO TOOLS / CARRIER LAUNCH
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <section class="tool-hero">
+
+        <div class="tool-container hero-inner">
+
+            <div>
+
+                <p class="tool-eyebrow">
+                    MFDCO CARRIER LAUNCH CALCULATOR
+                </p>
+
+                <h1>
+                    空母発艦重量計算機
+                </h1>
+
+            </div>
+
+
+            <div class="hero-right">
+
+                <span class="simulation-badge">
+                    MFDCO SIMULATION
+                </span>
+
+                <p class="tool-lead">
+                    カタパルト・風・艦速・翼面積などから、
+                    MFDCOシミュレーション上の最大発艦重量を計算します。
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <section class="tool-main">
+
+        <div class="tool-container">
+
+
+            <!-- =================================
+                 PRESET
+            ================================== -->
+
+            <section class="preset-section">
+
+                <div class="preset-left">
+
+                    <div>
+
+                        <p class="section-number">
+                            00
+                        </p>
+
+                        <h2>
+                            プリセット
+                        </h2>
+
+                    </div>
+
+
+                    <select
+                        id="preset-select"
+                        class="select-input"
+                    >
+                        <option value="large-emals">
+                            大型電磁式（MFDCO標準）
+                        </option>
+
+                        <option value="medium-emals">
+                            中型電磁式
+                        </option>
+
+                        <option value="steam">
+                            蒸気式
+                        </option>
+
+                        <option value="minecraft">
+                            Minecraft簡易式
+                        </option>
+
+                        <option value="custom">
+                            カスタム
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <p class="preset-note">
+                    プリセット値はMFDCO独自のシミュレーション用設定です。
+                    実在する艦艇・カタパルトの性能値ではありません。
+                </p>
+
+            </section>
+
+
+            <!-- =================================
+                 INPUT GRID
+            ================================== -->
+
+            <div class="input-grid">
+
+
+                <!-- =============================
+                     CATAPULT
+                ============================== -->
+
+                <section class="input-section">
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <p class="section-number">
+                                01
+                            </p>
+
+                            <h2>
+                                カタパルト
+                            </h2>
+
+                        </div>
+
+                        <span
+                            id="catapult-type-label"
+                            class="section-meta"
+                        >
+                            ELECTROMAGNETIC
+                        </span>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="field-grid">
+
+
+                            <label class="field">
+
+                                <span class="field-label">
+                                    カタパルト長
+                                </span>
+
+                                <div class="input-unit">
+
+                                    <input
+                                        type="number"
+                                        id="catapult-length"
+                                        min="1"
+                                        step="1"
+                                        value="90"
+                                    >
+
+                                    <span>
+                                        m
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+
+                            <label class="field">
+
+                                <span class="field-label">
+                                    MFDCO平均推力
+                                </span>
+
+                                <div class="input-unit">
+
+                                    <input
+                                        type="number"
+                                        id="catapult-force"
+                                        min="1"
+                                        step="10"
+                                        value="1000"
+                                    >
+
+                                    <span>
+                                        kN
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+
+                            <label class="field">
+
+                                <span class="field-label">
+                                    システム効率
+                                </span>
+
+                                <div class="input-unit">
+
+                                    <input
+                                        type="number"
+                                        id="catapult-efficiency"
+                                        min="1"
+                                        max="100"
+                                        step="1"
+                                        value="85"
+                                    >
+
+                                    <span>
+                                        %
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+
+                            <label class="field">
+
+                                <span class="field-label">
+                                    発艦安全係数
+                                </span>
+
+                                <div class="input-unit">
+
+                                    <input
+                                        type="number"
+                                        id="safety-factor"
+                                        min="1"
+                                        max="2"
+                                        step="0.01"
+                                        value="1.20"
+                                    >
+
+                                    <span>
+                                        ×
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =============================
+                     ENVIRONMENT
+                ============================== -->
+
+                <section class="input-section">
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <p class="section-number">
+                                02
+                            </p>
+
+                            <h2>
+                                艦艇・環境
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="field-grid">
+
+
+                            <label class="field">
+
+                                <span class="field-label">
+                                    艦速
+                                </span>
+
+                                <div class="input-unit">
+
+                                    <input
+                                        type="number"
+                                        id="ship-speed"
+                                        min="0"
+                                        step="0.1"
+                                        value="15"
+                                    >
+
+                                    <span>
+                                        m/s
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+
+                            <label class="field">
+
+                                <span class="field-label">
+                                    向かい風
+                                </span>
+
+                                <div class="input-unit">
+
+                                    <input
+                                        type="number"
+                                        id="headwind"
+                                        min="0"
+                                        step="0.1"
+                                        value="8"
+                                    >
+
+                                    <span>
+                                        m/s
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+
+                            <label class="field">
+
+                                <span class="field-label">
+                                    空気密度
+                                </span>
+
+                                <div class="input-unit">
+
+                                    <input
+                                        type="number"
+                                        id="air-density"
+                                        min="0.1"
+                                        step="0.001"
+                                        value="1.225"
+                                    >
+
+                                    <span>
+                                        kg/m³
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+
+                            <div class="field">
+
+                                <span class="field-label">
+                                    甲板上の基礎対気速度
+                                </span>
+
+                                <div class="calculated-field">
+
+                                    <strong id="base-air-speed">
+                                        23.0
+                                    </strong>
+
+                                    <span>
+                                        m/s
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =============================
+                     AIRCRAFT
+                ============================== -->
+
+                <section class="input-section aircraft-section">
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <p class="section-number">
+                                03
+                            </p>
+
+                            <h2>
+                                航空機
+                            </h2>
+
+                        </div>
+
+                        <span class="section-meta">
+                            1 BLOCK = 1 m²
+                        </span>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="field-grid aircraft-grid">
+
+
+                            <label class="field">
+
+                                <span class="field-label">
+                                    翼面積
+                                </span>
+
+                                <div class="input-unit">
+
+                                    <input
+                                        type="number"
+                                        id="wing-blocks"
+                                        min="1"
+                                        step="1"
+                                        value="50"
+                                    >
+
+                                    <span>
+                                        blocks
+                                    </span>
+
+                                </div>
+
+                                <small class="field-help">
+                                    Minecraft上で翼が占めるブロック数
+                                </small>
+
+                            </label>
+
+
+                            <div class="field">
+
+                                <span class="field-label">
+                                    換算翼面積
+                                </span>
+
+                                <div class="calculated-field">
+
+                                    <strong id="wing-area-display">
+                                        50.0
+                                    </strong>
+
+                                    <span>
+                                        m²
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <label class="field">
+
+                                <span class="field-label">
+                                    最大揚力係数
+                                </span>
+
+                                <div class="input-unit">
+
+                                    <input
+                                        type="number"
+                                        id="lift-coefficient"
+                                        min="0.1"
+                                        max="5"
+                                        step="0.05"
+                                        value="1.60"
+                                    >
+
+                                    <span>
+                                        CL
+                                    </span>
+
+                                </div>
+
+                            </label>
+
+
+                            <label class="field">
+
+                                <span class="field-label">
+                                    実際の機体重量
+                                </span>
+
+                                <div class="input-unit">
+
+                                    <input
+                                        type="number"
+                                        id="aircraft-mass"
+                                        min="0"
+                                        step="100"
+                                        value="25000"
+                                    >
+
+                                    <span>
+                                        kg
+                                    </span>
+
+                                </div>
+
+                                <small class="field-help">
+                                    0の場合は最大重量のみ計算
+                                </small>
+
+                            </label>
+
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- =================================
+                 CALCULATE
+            ================================== -->
+
+            <div class="calculate-area">
+
+                <button
+                    type="button"
+                    id="calculate-button"
+                    class="calculate-button"
+                >
+
+                    <span class="calculate-en">
+                        CALCULATE
+                    </span>
+
+                    <span>
+                        発艦重量を計算
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================
+                 RESULT
+            ================================== -->
+
+            <section
+                id="result-section"
+                class="result-section"
+            >
+
+                <div class="result-header">
+
+                    <div>
+
+                        <p class="section-number">
+                            RESULT
+                        </p>
+
+                        <h2>
+                            シミュレーション結果
+                        </h2>
+
+                    </div>
+
+
+                    <span
+                        id="launch-status"
+                        class="launch-status neutral"
+                    >
+                        未計算
+                    </span>
+
+                </div>
+
+
+                <div class="primary-result">
+
+                    <p>
+                        推定最大発艦重量
+                    </p>
+
+                    <div>
+
+                        <strong id="max-mass-result">
+                            ---
+                        </strong>
+
+                        <span>
+                            kg
+                        </span>
+
+                    </div>
+
+                    <small id="max-mass-ton-result">
+                        --- t
+                    </small>
+
+                </div>
+
+
+                <div class="result-grid">
+
+
+                    <div class="result-card">
+
+                        <span>
+                            必要対気速度
+                        </span>
+
+                        <strong id="required-speed-result">
+                            ---
+                        </strong>
+
+                        <small>
+                            m/s
+                        </small>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <span>
+                            カタパルト必要加速分
+                        </span>
+
+                        <strong id="catapult-speed-result">
+                            ---
+                        </strong>
+
+                        <small>
+                            m/s
+                        </small>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <span>
+                            推定平均加速度
+                        </span>
+
+                        <strong id="acceleration-result">
+                            ---
+                        </strong>
+
+                        <small>
+                            m/s²
+                        </small>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <span>
+                            推定G
+                        </span>
+
+                        <strong id="g-force-result">
+                            ---
+                        </strong>
+
+                        <small>
+                            G
+                        </small>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <span>
+                            発艦余裕率
+                        </span>
+
+                        <strong id="margin-result">
+                            ---
+                        </strong>
+
+                        <small>
+                            %
+                        </small>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <span>
+                            翼面荷重
+                        </span>
+
+                        <strong id="wing-loading-result">
+                            ---
+                        </strong>
+
+                        <small>
+                            kg/m²
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="judgement-box">
+
+                    <div>
+
+                        <span class="judgement-label">
+                            MFDCO判定
+                        </span>
+
+                        <strong id="judgement-title">
+                            計算待ち
+                        </strong>
+
+                    </div>
+
+
+                    <p id="judgement-description">
+                        条件を設定して「発艦重量を計算」を押してください。
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 INFO
+            ================================== -->
+
+            <section class="info-section">
+
+                <div>
+
+                    <p class="section-number">
+                        ABOUT
+                    </p>
+
+                    <h2>
+                        計算について
+                    </h2>
+
+                </div>
+
+
+                <div class="info-grid">
+
+                    <p>
+                        翼面積はMinecraftの1ブロックを
+                        1m × 1mとして1 block = 1m²に換算します。
+                    </p>
+
+                    <p>
+                        艦速と向かい風は甲板上で既に得られている
+                        対気速度として計算に加えられます。
+                    </p>
+
+                    <p>
+                        最大重量は揚力条件とカタパルトの
+                        MFDCOシミュレーションエネルギーから推定します。
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <p class="disclaimer">
+                本ツールで使用するカタパルト推力・効率・判定基準等は
+                MFDCO独自のシミュレーション値です。
+                実在する航空母艦・航空機・軍事装備の性能や運用限界を示すものではありません。
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="tool-footer">
+
+    <div class="tool-container">
+
+        <span>
+            MFDCO CARRIER LAUNCH CALCULATOR
+        </span>
+
+        <a href="../../index.html">
+            MFDCO
+        </a>
+
+    </div>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

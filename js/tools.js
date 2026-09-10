@@ -18,13 +18,75 @@ const MFDCO_TOOLS = [
     {
         id: "mfdco-morse",
 
-        title: "モールス符号変換機",
+        title: "モールス符号変換機(ver-8.9.1)",
 
         description:
             "和文・英文モールス符号の符号化・翻訳、速度指定による音声再生・WAV生成に対応しています。",
 
         href:
             "tools/MFDCO_morse/index.html",
+
+        status:
+            "available"
+    }
+
+    ,
+    {
+        id: "mfdco-morse",
+
+        title: "MFDCO暗号機(ver-8.9.1)",
+
+        description:
+            "エニグマを参考に制作された暗号機です．すべての文字列に対応し，詳細な設定が可能です．",
+
+        href:
+            "tools/MFDCO_Cipher/index.html",
+
+        status:
+            "available"
+    }
+    ,
+    {
+        id: "mfdco-morse",
+
+        title: "空母発艦重量シミュレーター(ver-8.9.1)",
+
+        description:
+            "発艦重量などを簡易的にシミュレーションすることができます．※操作性のため厳密な計算は省略されています．",
+
+        href:
+            "tools/MFDCO_CarrierLaunch/index.html",
+
+        status:
+            "available"
+    }
+ ,
+    {
+        id: "mfdco-morse",
+
+        title: "防空戦闘シミュレーター(beta-1.3)",
+
+        description:
+            "SSMに対する防空戦闘をシミュレーションできます．兵器のテンプレートは準備中です",
+
+        href:
+            "tools/MFDCO_MFDCO_AirDefense/index.html",
+
+        status:
+            "beta"
+    }
+
+     ,
+    {
+        id: "mfdco-morse",
+
+        title: "TNT弾道シミュレーター(beta-1.1)",
+
+        description:
+            "TNTの挙動をもとに弾道計算を行うツールですが，制作難易度が高く難航しています．有識者HELP！",
+
+        href:
+            "tools/MFDCO_TNTBallistics/index.html",
 
         status:
             "beta"

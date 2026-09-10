@@ -107,8 +107,7 @@ const MFDCO_HEADER_MENU = [
 
             {
                 label: "制作依頼",
-                disabled: true,
-                note: "追加予定"
+                href: "requests.html"
             },
 
             {

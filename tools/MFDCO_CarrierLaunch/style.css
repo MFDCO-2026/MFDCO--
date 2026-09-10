@@ -1,0 +1,926 @@
+/* =========================================
+   MFDCO CARRIER LAUNCH CALCULATOR
+========================================= */
+
+:root {
+    --background: #ffffff;
+    --text: #111111;
+    --muted: #666666;
+    --line: #d9dede;
+
+    --main: #164b4b;
+    --main-dark: #0d3737;
+
+    --surface: #f4f7f7;
+    --surface-light: #fafbfb;
+
+    --success: #2f6752;
+    --warning: #8a681c;
+    --danger: #8f3434;
+
+    --max-width: 1380px;
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    margin: 0;
+
+    background: var(--background);
+    color: var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans JP",
+        sans-serif;
+
+    line-height: 1.5;
+}
+
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================
+   COMMON
+========================================= */
+
+.tool-container {
+    width: min(
+        var(--max-width),
+        calc(100% - 36px)
+    );
+
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.tool-header {
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+
+    border-bottom: 1px solid var(--line);
+}
+
+
+.tool-header-inner {
+    width: min(
+        var(--max-width),
+        calc(100% - 36px)
+    );
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.back-link {
+    color: var(--main);
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+.tool-brand {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.tool-hero {
+    padding: 20px 0;
+
+    border-bottom: 1px solid var(--line);
+}
+
+
+.hero-inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 40px;
+}
+
+
+.tool-eyebrow {
+    margin: 0 0 3px;
+
+    color: var(--main);
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+}
+
+
+.tool-hero h1 {
+    margin: 0;
+
+    font-size: clamp(27px, 4vw, 42px);
+    font-weight: 500;
+
+    line-height: 1.15;
+}
+
+
+.hero-right {
+    max-width: 560px;
+}
+
+
+.simulation-badge {
+    display: inline-block;
+
+    margin-bottom: 6px;
+
+    padding: 3px 7px;
+
+    background: var(--main);
+    color: #ffffff;
+
+    font-size: 7px;
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+}
+
+
+.tool-lead {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.tool-main {
+    padding: 22px 0 46px;
+}
+
+
+/* =========================================
+   SECTION COMMON
+========================================= */
+
+.section-number {
+    margin: 0 0 1px;
+
+    color: var(--main);
+
+    font-size: 7px;
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+}
+
+
+.section-heading {
+    min-height: 29px;
+
+    margin-bottom: 6px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+
+.section-heading h2,
+.preset-section h2,
+.result-header h2,
+.info-section h2 {
+    margin: 0;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+.section-meta {
+    color: var(--muted);
+
+    font-size: 7px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   PRESET
+========================================= */
+
+.preset-section {
+    padding: 10px 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface-light);
+}
+
+
+.preset-left {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+.select-input {
+    min-width: 240px;
+    min-height: 32px;
+
+    padding: 4px 8px;
+
+    border: 1px solid var(--main);
+    border-radius: 0;
+
+    background: #ffffff;
+    color: var(--main);
+
+    outline: none;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+.preset-note {
+    max-width: 600px;
+
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 7px;
+    line-height: 1.6;
+
+    text-align: right;
+}
+
+
+/* =========================================
+   INPUT GRID
+========================================= */
+
+.input-grid {
+    margin-top: 18px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+
+.aircraft-section {
+    grid-column: 1 / -1;
+}
+
+
+.panel {
+    padding: 12px;
+
+    border: 1px solid var(--line);
+
+    background: #ffffff;
+}
+
+
+/* =========================================
+   FIELDS
+========================================= */
+
+.field-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 9px;
+}
+
+
+.aircraft-grid {
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+}
+
+
+.field {
+    min-width: 0;
+}
+
+
+.field-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: var(--muted);
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+.input-unit,
+.calculated-field {
+    min-height: 33px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) auto;
+
+    align-items: center;
+
+    border: 1px solid var(--line);
+
+    background: #ffffff;
+}
+
+
+.input-unit:focus-within {
+    border-color: var(--main);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(22, 75, 75, 0.08);
+}
+
+
+.input-unit input {
+    min-width: 0;
+    width: 100%;
+
+    padding: 5px 7px;
+
+    border: 0;
+    outline: none;
+
+    background: transparent;
+
+    font-size: 10px;
+}
+
+
+.input-unit span,
+.calculated-field span {
+    min-width: 47px;
+
+    padding: 0 7px;
+
+    color: var(--muted);
+
+    font-size: 7px;
+
+    text-align: right;
+}
+
+
+.calculated-field {
+    padding-left: 8px;
+
+    background: var(--surface-light);
+}
+
+
+.calculated-field strong {
+    color: var(--main);
+
+    font-size: 11px;
+}
+
+
+.field-help {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 6px;
+}
+
+
+/* =========================================
+   CALCULATE
+========================================= */
+
+.calculate-area {
+    margin-top: 14px;
+}
+
+
+.calculate-button {
+    width: 100%;
+    min-height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 13px;
+
+    border: 1px solid var(--main);
+
+    background: var(--main);
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.calculate-button:hover {
+    background: var(--main-dark);
+
+    transform: translateY(-1px);
+}
+
+
+.calculate-en {
+    opacity: 0.55;
+
+    font-size: 7px;
+
+    letter-spacing: 0.12em;
+}
+
+
+/* =========================================
+   RESULT
+========================================= */
+
+.result-section {
+    margin-top: 20px;
+
+    padding: 14px;
+
+    border: 1px solid var(--line);
+}
+
+
+.result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.launch-status {
+    padding: 5px 10px;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface);
+    color: var(--muted);
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+.launch-status.good {
+    border-color: var(--success);
+
+    background: #f1f7f4;
+    color: var(--success);
+}
+
+
+.launch-status.warning {
+    border-color: var(--warning);
+
+    background: #faf7ef;
+    color: var(--warning);
+}
+
+
+.launch-status.danger {
+    border-color: var(--danger);
+
+    background: #faf2f2;
+    color: var(--danger);
+}
+
+
+/* =========================================
+   PRIMARY RESULT
+========================================= */
+
+.primary-result {
+    margin-top: 12px;
+
+    padding: 17px;
+
+    background: var(--main);
+    color: #ffffff;
+
+    text-align: center;
+}
+
+
+.primary-result p {
+    margin: 0 0 4px;
+
+    opacity: 0.72;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+.primary-result div {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+
+    gap: 8px;
+}
+
+
+.primary-result strong {
+    font-size: clamp(34px, 6vw, 58px);
+    font-weight: 500;
+
+    line-height: 1;
+}
+
+
+.primary-result div span {
+    font-size: 12px;
+}
+
+
+.primary-result small {
+    display: block;
+
+    margin-top: 5px;
+
+    opacity: 0.65;
+
+    font-size: 8px;
+}
+
+
+/* =========================================
+   RESULT GRID
+========================================= */
+
+.result-grid {
+    margin-top: 9px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, minmax(0, 1fr));
+
+    gap: 7px;
+}
+
+
+.result-card {
+    min-width: 0;
+
+    padding: 9px;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface-light);
+
+    text-align: center;
+}
+
+
+.result-card span {
+    display: block;
+
+    min-height: 25px;
+
+    color: var(--muted);
+
+    font-size: 7px;
+}
+
+
+.result-card strong {
+    display: block;
+
+    color: var(--main);
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+
+.result-card small {
+    color: var(--muted);
+
+    font-size: 7px;
+}
+
+
+/* =========================================
+   JUDGEMENT
+========================================= */
+
+.judgement-box {
+    margin-top: 9px;
+
+    padding: 10px 12px;
+
+    display: grid;
+
+    grid-template-columns:
+        180px minmax(0, 1fr);
+
+    align-items: center;
+
+    gap: 20px;
+
+    border: 1px solid var(--line);
+}
+
+
+.judgement-label {
+    display: block;
+
+    color: var(--main);
+
+    font-size: 7px;
+    font-weight: 700;
+}
+
+
+.judgement-box strong {
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 14px;
+}
+
+
+.judgement-box p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 8px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   INFO
+========================================= */
+
+.info-section {
+    margin-top: 18px;
+
+    padding-top: 13px;
+
+    display: grid;
+
+    grid-template-columns:
+        160px minmax(0, 1fr);
+
+    gap: 25px;
+
+    border-top: 1px solid var(--line);
+}
+
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+
+.info-grid p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 7px;
+    line-height: 1.7;
+}
+
+
+.disclaimer {
+    margin: 18px 0 0;
+
+    color: var(--muted);
+
+    font-size: 7px;
+    line-height: 1.7;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.tool-footer {
+    padding: 14px 0;
+
+    border-top: 1px solid var(--line);
+
+    background: var(--surface-light);
+}
+
+
+.tool-footer .tool-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.tool-footer span {
+    color: var(--muted);
+
+    font-size: 7px;
+
+    letter-spacing: 0.1em;
+}
+
+
+.tool-footer a {
+    color: var(--main);
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 950px) {
+
+    .result-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+
+    .aircraft-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .preset-section,
+    .hero-inner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+
+    .preset-note {
+        text-align: left;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+    .tool-container,
+    .tool-header-inner {
+        width: calc(100% - 24px);
+    }
+
+
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .aircraft-section {
+        grid-column: auto;
+    }
+
+
+    .field-grid,
+    .aircraft-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .preset-left {
+        width: 100%;
+
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 7px;
+    }
+
+
+    .select-input {
+        width: 100%;
+        min-width: 0;
+    }
+
+
+    .result-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .judgement-box,
+    .info-section,
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

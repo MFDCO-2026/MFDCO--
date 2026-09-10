@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>制作依頼 | MFDCO</title>
+    <meta name="description" content="MFDCOの制作依頼一覧。依頼への着手、完成作品の共有、確認・完了までを管理できます。">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/requests.css">
+</head>
+<body class="requests-page">
+    <div id="header-container"></div>
+
+    <main class="requests-main">
+        <section class="requests-hero">
+            <div class="requests-shell requests-hero-grid">
+                <div>
+                    <p class="requests-kicker">MFDCO REQUESTS</p>
+                    <h1>制作依頼</h1>
+                    <p class="requests-lead">MFDCO利用者が公開している制作依頼を確認し、ログイン中のメンバーは依頼への着手や完成作品の提出ができます。</p>
+                </div>
+                <div class="requests-hero-actions">
+                    <a href="request-submit.html" class="requests-primary-link">制作依頼を投稿 <span>→</span></a>
+                    <p id="requests-login-note" class="requests-login-note">ログイン状況を確認しています...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="requests-content">
+            <div class="requests-shell">
+                <div class="requests-toolbar">
+                    <div class="requests-search-wrap">
+                        <label for="requests-search">SEARCH</label>
+                        <input id="requests-search" type="search" placeholder="タイトル・説明・タグ・依頼者名で検索" autocomplete="off">
+                    </div>
+                    <div class="requests-sort-wrap">
+                        <label for="requests-sort">SORT</label>
+                        <select id="requests-sort">
+                            <option value="newest">新しい順</option>
+                            <option value="oldest">古い順</option>
+                            <option value="updated">更新順</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="requests-filter-row" role="group" aria-label="制作依頼の状態で絞り込み">
+                    <button type="button" class="requests-filter is-active" data-filter="all">すべて</button>
+                    <button type="button" class="requests-filter" data-filter="open">未着手</button>
+                    <button type="button" class="requests-filter" data-filter="in_progress">着手中</button>
+                    <button type="button" class="requests-filter" data-filter="review">確認待ち</button>
+                    <button type="button" class="requests-filter" data-filter="completed">完了</button>
+                    <button type="button" class="requests-filter requests-filter-personal" data-filter="mine" hidden>自分が着手中</button>
+                    <button type="button" class="requests-filter requests-filter-personal" data-filter="owned" hidden>自分の依頼</button>
+                </div>
+
+                <div class="requests-summary">
+                    <p><span id="requests-result-count">0</span> 件</p>
+                    <button id="requests-refresh" class="requests-text-button" type="button">再読み込み</button>
+                </div>
+
+                <div id="requests-message" class="requests-message" hidden></div>
+                <div id="requests-loading" class="requests-loading"><span class="requests-spinner" aria-hidden="true"></span><p>制作依頼を読み込んでいます...</p></div>
+                <div id="requests-grid" class="requests-grid" aria-live="polite"></div>
+                <div id="requests-empty" class="requests-empty" hidden>
+                    <p class="requests-kicker">NO REQUESTS</p>
+                    <h2>条件に一致する制作依頼はありません。</h2>
+                    <p>検索条件またはフィルターを変更してください。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="submission-modal" class="requests-modal" hidden>
+        <div class="requests-modal-backdrop" data-close-modal></div>
+        <section class="requests-modal-panel" role="dialog" aria-modal="true" aria-labelledby="submission-modal-title">
+            <button type="button" class="requests-modal-close" data-close-modal aria-label="閉じる">×</button>
+            <p class="requests-kicker">SUBMIT COMPLETED WORK</p>
+            <h2 id="submission-modal-title">完成作品を提出</h2>
+            <p class="requests-modal-description">あなたがMFDCOへ提供した公開済み作品を、この制作依頼の完成候補として共有します。提出後は依頼者による確認待ちになります。</p>
+            <div class="requests-form-field">
+                <label for="submission-work-select">提供作品</label>
+                <select id="submission-work-select"><option value="">作品を選択してください</option></select>
+                <p id="submission-work-help" class="requests-field-help"></p>
+            </div>
+            <div class="requests-form-field">
+                <label for="submission-message">依頼者へのメッセージ</label>
+                <textarea id="submission-message" maxlength="1000" placeholder="完成内容や確認してほしい点など（任意）"></textarea>
+            </div>
+            <div id="submission-modal-message" class="requests-message" hidden></div>
+            <div class="requests-modal-actions">
+                <button type="button" class="requests-secondary-button" data-close-modal>キャンセル</button>
+                <button id="submission-confirm" type="button" class="requests-primary-button">確認待ちとして提出</button>
+            </div>
+        </section>
+    </div>
+
+    <div id="status-modal" class="requests-modal" hidden>
+        <div class="requests-modal-backdrop" data-close-status-modal></div>
+        <section class="requests-modal-panel requests-modal-panel-small" role="dialog" aria-modal="true" aria-labelledby="status-modal-title">
+            <button type="button" class="requests-modal-close" data-close-status-modal aria-label="閉じる">×</button>
+            <p class="requests-kicker">REQUEST STATUS</p>
+            <h2 id="status-modal-title">依頼の状態を変更</h2>
+            <div class="requests-form-field">
+                <label for="status-select">状態</label>
+                <select id="status-select">
+                    <option value="open">未着手</option>
+                    <option value="in_progress">着手中</option>
+                    <option value="review">確認待ち</option>
+                    <option value="completed">完了</option>
+                </select>
+            </div>
+            <p class="requests-field-help">通常は、着手者が参加すると「着手中」、完成作品が提出されると「確認待ち」へ自動で移行します。</p>
+            <div id="status-modal-message" class="requests-message" hidden></div>
+            <div class="requests-modal-actions">
+                <button type="button" class="requests-secondary-button" data-close-status-modal>キャンセル</button>
+                <button id="status-confirm" type="button" class="requests-primary-button">状態を更新</button>
+            </div>
+        </section>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div><p class="footer-logo">MFDCO</p><p class="footer-name">MILITARY FARCE DEVELOPMENT<br>COOPERATION ORGANIZATION</p></div>
+            <div class="footer-links">
+                <a href="about.html">MFDCOとは</a><a href="works.html">提供作品</a><a href="members.html">加盟国一覧</a><a href="news.html">お知らせ</a><a href="privacy.html">プライバシー</a>
+            </div>
+            <p class="copyright">© 2026 MFDCO</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/requests.js"></script>
+</body>
+</html>

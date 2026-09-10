@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>MFDCO 暗号機 | MFDCO</title>
+
+    <meta
+        name="description"
+        content="文字セット・ダイヤル・暗号鍵を自由に設定できるMFDCO独自のローター式暗号・数値変換ツールです。"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="../../assets/logo.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body>
+
+<main class="cipher-page">
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="tool-header">
+
+        <div class="tool-header-inner">
+
+            <a
+                href="../../tools.html"
+                class="back-link"
+            >
+                ← ツール一覧
+            </a>
+
+            <p class="tool-brand">
+                MFDCO TOOLS / CIPHER
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <section class="tool-hero">
+
+        <div class="tool-container hero-inner">
+
+            <div>
+
+                <p class="tool-eyebrow">
+                    MFDCO CIPHER
+                </p>
+
+                <h1>
+                    MFDCO 暗号機
+                </h1>
+
+            </div>
+
+            <p class="tool-lead">
+                文字セット・暗号鍵・ダイヤルを設定して使用する
+                MFDCO独自のローター式暗号・数値変換ツールです。
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <section class="tool-main">
+
+        <div class="tool-container">
+
+
+            <!-- =================================
+                 TOP GRID
+            ================================== -->
+
+            <div class="top-grid">
+
+
+                <!-- =============================
+                     01 CHARACTER
+                ============================== -->
+
+                <section class="compact-section">
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <p class="section-number">
+                                01
+                            </p>
+
+                            <h2>
+                                使用文字
+                            </h2>
+
+                        </div>
+
+                        <span
+                            id="alphabet-count"
+                            class="section-meta"
+                        >
+                            0文字
+                        </span>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="preset-buttons">
+
+                            <button
+                                type="button"
+                                data-character-set="upper"
+                            >
+                                ABC
+                            </button>
+
+                            <button
+                                type="button"
+                                data-character-set="lower"
+                            >
+                                abc
+                            </button>
+
+                            <button
+                                type="button"
+                                data-character-set="numbers"
+                            >
+                                123
+                            </button>
+
+                            <button
+                                type="button"
+                                data-character-set="symbols"
+                            >
+                                記号
+                            </button>
+
+                            <button
+                                type="button"
+                                data-character-set="hiragana"
+                            >
+                                かな
+                            </button>
+
+                            <button
+                                type="button"
+                                data-character-set="katakana"
+                            >
+                                カナ
+                            </button>
+
+                            <button
+                                type="button"
+                                id="clear-alphabet"
+                                class="danger-button"
+                            >
+                                クリア
+                            </button>
+
+                        </div>
+
+
+                        <textarea
+                            id="alphabet-input"
+                            class="alphabet-input"
+                            spellcheck="false"
+                            aria-label="使用文字"
+                        ></textarea>
+
+
+                        <div class="character-bottom">
+
+                            <p>
+                                重複文字は自動的に除去されます
+                            </p>
+
+
+                            <label class="toggle-row">
+
+                                <span>
+                                    スペースを暗号化
+                                </span>
+
+                                <input
+                                    type="checkbox"
+                                    id="encrypt-space"
+                                >
+
+                                <span class="toggle-ui"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =============================
+                     02 KEY
+                ============================== -->
+
+                <section class="compact-section">
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <p class="section-number">
+                                02
+                            </p>
+
+                            <h2>
+                                暗号鍵
+                            </h2>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            id="copy-key"
+                            class="copy-button"
+                        >
+                            コピー
+                        </button>
+
+                    </div>
+
+
+                    <div class="panel key-panel">
+
+                        <div class="key-row">
+
+                            <input
+                                type="text"
+                                id="cipher-key"
+                                class="text-input key-input"
+                                value="MFDCO"
+                                autocomplete="off"
+                                spellcheck="false"
+                            >
+
+                            <button
+                                type="button"
+                                id="random-key"
+                                class="small-button"
+                            >
+                                ランダム生成
+                            </button>
+
+                        </div>
+
+
+                        <p class="key-note">
+                            暗号鍵は暗号化・復号化の実行時に自動的に使用されます。
+                            復号時には暗号化時と同じ鍵を入力してください。
+                        </p>
+
+
+                        <div class="settings-actions">
+
+                            <button
+                                type="button"
+                                id="import-settings"
+                                class="small-button"
+                            >
+                                設定をインポート
+                            </button>
+
+                            <button
+                                type="button"
+                                id="export-settings"
+                                class="small-button"
+                            >
+                                設定をエクスポート
+                            </button>
+
+                        </div>
+
+
+                        <input
+                            type="file"
+                            id="import-file"
+                            accept=".json,application/json"
+                            hidden
+                        >
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- =================================
+                 03 ROTORS
+            ================================== -->
+
+            <section class="rotor-section">
+
+                <div class="section-heading rotor-heading">
+
+                    <div>
+
+                        <p class="section-number">
+                            03
+                        </p>
+
+                        <h2>
+                            ダイヤル
+                        </h2>
+
+                    </div>
+
+
+                    <div class="rotor-heading-right">
+
+                        <span
+                            id="rotor-count"
+                            class="rotor-count"
+                        >
+                            3 / 9
+                        </span>
+
+                        <button
+                            type="button"
+                            id="randomize-rotors"
+                            class="small-button"
+                        >
+                            全ランダム
+                        </button>
+
+                        <button
+                            type="button"
+                            id="reset-rotors"
+                            class="small-button"
+                        >
+                            初期化
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="rotor-list"
+                    class="rotor-list"
+                ></div>
+
+
+                <div class="rotor-add-area">
+
+                    <button
+                        type="button"
+                        id="add-rotor"
+                        class="add-rotor-button"
+                    >
+
+                        <span class="add-icon">
+                            ＋
+                        </span>
+
+                        <span>
+                            ダイヤルを追加
+                        </span>
+
+                        <small>
+                            最大9個
+                        </small>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="remove-rotor"
+                        class="remove-rotor-button"
+                    >
+                        − 最後のダイヤルを削除
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 04 ADVANCED
+            ================================== -->
+
+            <section class="advanced-section">
+
+                <div class="advanced-row">
+
+                    <div class="advanced-title">
+
+                        <p class="section-number">
+                            04
+                        </p>
+
+                        <h2>
+                            高度な設定
+                        </h2>
+
+                    </div>
+
+
+                    <div class="advanced-options">
+
+                        <label class="toggle-row">
+
+                            <span>
+                                反射補正
+                            </span>
+
+                            <input
+                                type="checkbox"
+                                id="use-reflector"
+                                checked
+                            >
+
+                            <span class="toggle-ui"></span>
+
+                        </label>
+
+
+                        <label class="toggle-row">
+
+                            <span>
+                                可変ステップ
+                            </span>
+
+                            <input
+                                type="checkbox"
+                                id="variable-step"
+                                checked
+                            >
+
+                            <span class="toggle-ui"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="plugboard-row">
+
+                        <label for="plugboard-input">
+                            プラグボード
+                        </label>
+
+                        <input
+                            type="text"
+                            id="plugboard-input"
+                            class="text-input"
+                            placeholder="A:G B:7 C:X"
+                            spellcheck="false"
+                        >
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 05 INPUT / RESULT
+            ================================== -->
+
+            <section class="conversion-section">
+
+                <div class="conversion-grid">
+
+
+                    <!-- INPUT -->
+
+                    <div class="conversion-box">
+
+                        <div class="box-heading">
+
+                            <div>
+
+                                <p class="section-number">
+                                    05
+                                </p>
+
+                                <h2>
+                                    入力
+                                </h2>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                id="copy-input"
+                                class="copy-button"
+                            >
+                                コピー
+                            </button>
+
+                        </div>
+
+
+                        <textarea
+                            id="cipher-input"
+                            class="main-textarea"
+                            placeholder="文章または暗号文を入力"
+                            spellcheck="false"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- RESULT -->
+
+                    <div class="conversion-box">
+
+                        <div class="box-heading">
+
+                            <div>
+
+                                <p class="section-number">
+                                    06
+                                </p>
+
+                                <h2>
+                                    暗号 / 復号結果
+                                </h2>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                id="copy-result"
+                                class="copy-button"
+                            >
+                                コピー
+                            </button>
+
+                        </div>
+
+
+                        <textarea
+                            id="cipher-result"
+                            class="main-textarea result-textarea"
+                            readonly
+                            placeholder="結果"
+                            spellcheck="false"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EXECUTE -->
+
+                <div class="execute-buttons">
+
+                    <button
+                        type="button"
+                        id="encrypt-button"
+                        class="execute-button encrypt-button"
+                    >
+
+                        <span class="execute-en">
+                            ENCRYPT
+                        </span>
+
+                        <span>
+                            暗号化
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="decrypt-button"
+                        class="execute-button decrypt-button"
+                    >
+
+                        <span class="execute-en">
+                            DECRYPT
+                        </span>
+
+                        <span>
+                            復号化
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="status-message"
+                    class="status-message"
+                    aria-live="polite"
+                ></p>
+
+            </section>
+
+
+            <!-- =================================
+                 07 NUMERIC
+            ================================== -->
+
+            <section class="numeric-section">
+
+                <div class="numeric-heading">
+
+                    <div>
+
+                        <p class="section-number">
+                            07
+                        </p>
+
+                        <h2>
+                            数値化
+                        </h2>
+
+                    </div>
+
+
+                    <div class="base-switch">
+
+                        <button
+                            type="button"
+                            class="base-button"
+                            data-base="2"
+                        >
+                            2進
+                        </button>
+
+                        <button
+                            type="button"
+                            class="base-button active"
+                            data-base="10"
+                        >
+                            10進
+                        </button>
+
+                        <button
+                            type="button"
+                            class="base-button"
+                            data-base="16"
+                        >
+                            16進
+                        </button>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="copy-numeric"
+                        class="copy-button"
+                    >
+                        コピー
+                    </button>
+
+                </div>
+
+
+                <div class="numeric-content">
+
+                    <textarea
+                        id="numeric-result"
+                        class="numeric-textarea"
+                        readonly
+                        placeholder="数値化 / 復元結果"
+                        spellcheck="false"
+                    ></textarea>
+
+
+                    <div class="numeric-actions">
+
+                        <button
+                            type="button"
+                            id="numeric-encode-button"
+                            class="numeric-action-button"
+                        >
+                            入力を数値化
+                        </button>
+
+                        <button
+                            type="button"
+                            id="numeric-decode-button"
+                            class="numeric-action-button secondary"
+                        >
+                            数値から復元
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <p class="numeric-note">
+                    数値から復元する場合は、数値を左側の「入力」欄へ入力してください。
+                </p>
+
+            </section>
+
+
+            <p class="security-note">
+                MFDCO Cipherは作品・ゲーム等での利用を想定した独自暗号です。
+                実際の機密情報やパスワードの保護には使用しないでください。
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="tool-footer">
+
+    <div class="tool-container">
+
+        <span>
+            MFDCO CIPHER
+        </span>
+
+        <a href="../../index.html">
+            MFDCO
+        </a>
+
+    </div>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

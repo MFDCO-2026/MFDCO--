@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MFDCO TNT Cannon Simulator</title>
+  <meta name="description" content="Minecraft Java Edition 1.7.10向けMFDCO TNTキャノン設計・弾道シミュレーター">
+  <link rel="icon" type="image/png" href="../../assets/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="tool-page">
+  <header class="tool-header">
+    <div class="tool-container tool-header-inner">
+      <a href="../../tools.html" class="back-link">← ツール一覧</a>
+      <p class="tool-brand">MFDCO TOOLS / TNT CANNON SIMULATOR</p>
+    </div>
+  </header>
+
+  <section class="tool-hero">
+    <div class="tool-container hero-inner">
+      <div>
+        <p class="hero-label">MFDCO TNT CANNON SIMULATOR</p>
+        <h1>TNTキャノン設計・弾道計算機</h1>
+      </div>
+      <div class="hero-info">
+        <div class="hero-badges">
+          <span class="badge">JAVA 1.7.10</span>
+          <span class="badge secondary">MFDCO APPROXIMATION</span>
+        </div>
+        <p>一次装薬の11×11配置、装薬タイプ、起爆タイミング、二次・三次装薬、目標座標から、弾道・速度・安全性・推奨装薬配置を計算します。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tool-main">
+    <div class="tool-container">
+      <section class="section-block compact-section">
+        <div class="section-heading"><div><p class="section-number">01</p><h2>物理モデル</h2></div></div>
+        <div class="field-grid three">
+          <label class="field"><span class="field-label">Minecraftバージョン</span><select id="physics-version"><option value="java-1.7.10">Java Edition 1.7.10</option><option disabled>Java Edition 26.n（追加予定）</option><option disabled>Bedrock Edition 26.n（追加予定）</option></select></label>
+          <label class="field"><span class="field-label">計算モード</span><select id="simulation-mode"><option value="balanced">標準</option><option value="accurate">高精度</option><option value="fast">高速</option></select></label>
+          <div class="field"><span class="field-label">モデル</span><div class="readout">Vanilla由来 + MFDCO近似</div></div>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><p class="section-number">02</p><h2>発射地点・弾頭</h2></div></div>
+        <div class="field-grid three">
+          <label class="field"><span class="field-label">Launch X</span><input id="launch-x" type="number" step="0.01" value="0"></label>
+          <label class="field"><span class="field-label">Launch Y</span><input id="launch-y" type="number" step="0.01" value="64"></label>
+          <label class="field"><span class="field-label">Launch Z</span><input id="launch-z" type="number" step="0.01" value="0"></label>
+          <label class="field"><span class="field-label">弾頭点火</span><div class="input-unit"><input id="warhead-ignite-tick" type="number" min="0" step="1" value="0"><span>tick</span></div></label>
+          <label class="field"><span class="field-label">弾頭排出</span><div class="input-unit"><input id="warhead-release-tick" type="number" min="0" step="1" value="6"><span>tick</span></div></label>
+          <div class="field"><span class="field-label">弾頭</span><div class="readout">通常TNT × 1（固定）</div></div>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div><p class="section-number">03</p><h2>一次装薬</h2></div>
+          <div class="section-actions"><button id="primary-clear" class="small-button" type="button">全消去</button><button id="primary-east-preset" class="small-button" type="button">東向き例</button></div>
+        </div>
+        <div class="field-grid four">
+          <label class="field"><span class="field-label">装薬タイプ</span><select id="primary-charge-type"><option value="tnt">TNT</option><option value="tnt-minecart">TNT付きトロッコ</option></select></label>
+          <label class="field"><span class="field-label">起爆</span><div class="input-unit"><input id="primary-tick" type="number" min="0" step="1" value="8"><span>tick</span></div></label>
+          <label class="field"><span class="field-label">装薬高さ</span><div class="input-unit"><input id="primary-y-offset" type="number" step="0.1" value="0"><span>block</span></div></label>
+          <div class="field"><span class="field-label">合計装薬数</span><div id="primary-total" class="readout">0</div></div>
+        </div>
+        <p class="charge-help">各セルに装薬数を直接入力します。中央は弾頭固定です。上 = 北 -Z、右 = 東 +X。</p>
+        <div class="charge-grid-wrapper"><div id="charge-grid" class="charge-grid" aria-label="11×11 一次装薬配置"></div></div>
+        <details class="advanced-box">
+          <summary>ADVANCED / 一次装薬詳細</summary>
+          <div class="field-grid four advanced-grid">
+            <label class="field"><span class="field-label">MFDCO装薬効率</span><input id="primary-efficiency" type="number" min="0" step="0.001" value="1.000"></label>
+            <label class="field"><span class="field-label">露出率</span><input id="primary-exposure" type="number" min="0" max="1" step="0.01" value="1.00"></label>
+            <label class="field"><span class="field-label">安全半径</span><div class="input-unit"><input id="safe-radius" type="number" min="0.1" step="0.1" value="1.0"><span>block</span></div></label>
+            <label class="field"><span class="field-label">排出位置誤差</span><div class="input-unit"><input id="dispenser-error" type="number" min="0" step="0.01" value="0.10"><span>block</span></div></label>
+          </div>
+        </details>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><p class="section-number">04</p><h2>二次・三次装薬</h2></div></div>
+        <div class="stage-grid">
+          <div class="stage-card">
+            <div class="stage-title-row"><h3>SECONDARY / 二次装薬</h3><label class="switch-row"><input id="secondary-enabled" type="checkbox"><span>使用</span></label></div>
+            <div class="field-grid two">
+              <label class="field"><span class="field-label">装薬タイプ</span><select id="secondary-type"><option value="tnt">TNT</option><option value="tnt-minecart">TNT付きトロッコ</option></select></label>
+              <label class="field"><span class="field-label">装薬数</span><input id="secondary-count" type="number" min="0" step="1" value="8"></label>
+              <label class="field"><span class="field-label">起爆</span><div class="input-unit"><input id="secondary-tick" type="number" min="0" step="1" value="24"><span>tick</span></div></label>
+              <label class="field"><span class="field-label">方向</span><select id="secondary-direction-mode"><option value="auto">AUTO / 目標方向</option><option value="manual">手動</option></select></label>
+              <label class="field"><span class="field-label">手動方位</span><div class="input-unit"><input id="secondary-angle" type="number" min="0" max="360" step="0.1" value="90"><span>°</span></div></label>
+              <label class="field"><span class="field-label">弾頭距離</span><div class="input-unit"><input id="secondary-distance" type="number" min="0.1" step="0.1" value="1.5"><span>block</span></div></label>
+              <label class="field"><span class="field-label">高さ方向補正</span><input id="secondary-y-impulse" type="number" step="0.01" value="0"></label>
+              <label class="field"><span class="field-label">MFDCO効率</span><input id="secondary-efficiency" type="number" min="0" step="0.01" value="1.00"></label>
+            </div>
+          </div>
+          <div class="stage-card">
+            <div class="stage-title-row"><h3>TERTIARY / 三次装薬</h3><label class="switch-row"><input id="tertiary-enabled" type="checkbox"><span>使用</span></label></div>
+            <div class="field-grid two">
+              <label class="field"><span class="field-label">装薬タイプ</span><select id="tertiary-type"><option value="tnt">TNT</option><option value="tnt-minecart">TNT付きトロッコ</option></select></label>
+              <label class="field"><span class="field-label">装薬数</span><input id="tertiary-count" type="number" min="0" step="1" value="6"></label>
+              <label class="field"><span class="field-label">起爆</span><div class="input-unit"><input id="tertiary-tick" type="number" min="0" step="1" value="40"><span>tick</span></div></label>
+              <label class="field"><span class="field-label">方向</span><select id="tertiary-direction-mode"><option value="auto">AUTO / 目標方向</option><option value="manual">手動</option></select></label>
+              <label class="field"><span class="field-label">手動方位</span><div class="input-unit"><input id="tertiary-angle" type="number" min="0" max="360" step="0.1" value="90"><span>°</span></div></label>
+              <label class="field"><span class="field-label">弾頭距離</span><div class="input-unit"><input id="tertiary-distance" type="number" min="0.1" step="0.1" value="1.5"><span>block</span></div></label>
+              <label class="field"><span class="field-label">高さ方向補正</span><input id="tertiary-y-impulse" type="number" step="0.01" value="0"></label>
+              <label class="field"><span class="field-label">MFDCO効率</span><input id="tertiary-efficiency" type="number" min="0" step="0.01" value="1.00"></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><p class="section-number">05</p><h2>目標座標</h2></div></div>
+        <div class="target-grid">
+          <label class="switch-row target-enable"><input id="target-enabled" type="checkbox" checked><span>目標を使用</span></label>
+          <label class="field"><span class="field-label">Target X</span><input id="target-x" type="number" step="0.01" value="100"></label>
+          <label class="field"><span class="field-label">Target Z</span><input id="target-z" type="number" step="0.01" value="0"></label>
+          <div class="field"><span class="field-label">目標距離</span><div id="target-distance-readout" class="readout">---</div></div>
+          <div class="field"><span class="field-label">必要方位</span><div id="target-bearing-readout" class="readout">---</div></div>
+        </div>
+      </section>
+
+      <section class="section-block auto-design-section">
+        <div class="section-heading"><div><p class="section-number">06</p><h2>目標から装薬を提案</h2></div></div>
+        <div class="field-grid four">
+          <label class="field"><span class="field-label">提案装薬タイプ</span><select id="design-charge-type"><option value="tnt">TNT</option><option value="tnt-minecart">TNT付きトロッコ</option></select></label>
+          <label class="field"><span class="field-label">最大装薬数</span><input id="design-max-charge" type="number" min="1" max="999" step="1" value="96"></label>
+          <label class="field"><span class="field-label">探索優先</span><select id="design-priority"><option value="accuracy">命中精度</option><option value="low-charge">少ない装薬数</option></select></label>
+          <div class="field"><span class="field-label">対象</span><div class="readout">一次装薬のみ</div></div>
+        </div>
+        <button id="auto-design-button" class="calculate-button secondary-action" type="button"><span>AUTO DESIGN</span>目標から装薬を計算</button>
+        <div id="design-results" class="design-results"><p class="empty-note">まだ提案を計算していません。</p></div>
+      </section>
+
+      <div class="calculate-area"><button id="calculate-button" class="calculate-button" type="button"><span>SIMULATE</span>TNT弾道を計算</button></div>
+
+      <section class="result-section">
+        <div class="result-heading"><div><p class="section-number">RESULT</p><h2>シミュレーション結果</h2></div><span id="safety-status" class="status neutral">未計算</span></div>
+        <div class="main-result-grid">
+          <div class="main-result-card"><span>最終起爆地点</span><strong id="result-final-coordinate">X --- / Y --- / Z ---</strong></div>
+          <div class="main-result-card"><span>水平飛距離</span><strong><span id="result-distance">---</span> blocks</strong></div>
+          <div class="main-result-card"><span>方位</span><strong id="result-bearing">---</strong></div>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric-card"><span>一次装薬直後</span><strong id="result-primary-speed">---</strong><small>block/tick</small></div>
+          <div class="metric-card"><span>二次装薬直後</span><strong id="result-secondary-speed">---</strong><small>block/tick</small></div>
+          <div class="metric-card"><span>三次装薬直後</span><strong id="result-tertiary-speed">---</strong><small>block/tick</small></div>
+          <div class="metric-card"><span>最高合成速度</span><strong id="result-max-speed">---</strong><small>block/tick</small></div>
+          <div class="metric-card"><span>最高水平速度</span><strong id="result-max-horizontal">---</strong><small>block/tick</small></div>
+          <div class="metric-card"><span>起爆時速度</span><strong id="result-final-speed">---</strong><small>block/tick</small></div>
+          <div class="metric-card"><span>最高高度</span><strong id="result-max-y">---</strong><small>Y</small></div>
+          <div class="metric-card"><span>最高速度tick</span><strong id="result-max-speed-tick">---</strong><small>tick</small></div>
+          <div class="metric-card"><span>総合予測</span><strong id="result-confidence">---</strong><small>MFDCO</small></div>
+        </div>
+        <div class="safety-box"><div><span>SELF-DETONATION CHECK</span><strong id="safety-title">計算待ち</strong></div><p id="safety-description">シミュレーションを実行してください。</p></div>
+        <div id="target-result-box" class="target-result-box" hidden>
+          <div><span>目標との差</span><strong id="target-error-distance">---</strong></div>
+          <div><span>ΔX</span><strong id="target-error-x">---</strong></div>
+          <div><span>ΔZ</span><strong id="target-error-z">---</strong></div>
+        </div>
+      </section>
+
+      <section class="section-block trajectory-section">
+        <div class="section-heading"><div><p class="section-number">TRAJECTORY</p><h2>軌跡図</h2></div><div class="view-switch"><button class="small-button active" data-view="top" type="button">上面 X/Z</button><button class="small-button" data-view="side" type="button">側面 距離/Y</button></div></div>
+        <div class="canvas-wrapper"><canvas id="trajectory-canvas" width="1100" height="560"></canvas></div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><p class="section-number">TIMELINE</p><h2>イベントタイムライン</h2></div></div>
+        <div class="timeline-table-wrapper"><table class="timeline-table"><thead><tr><th>tick</th><th>秒</th><th>イベント</th><th>X</th><th>Y</th><th>Z</th><th>速度</th></tr></thead><tbody id="timeline-body"><tr><td colspan="7">シミュレーションを実行してください。</td></tr></tbody></table></div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><p class="section-number">CALIBRATION</p><h2>実測値による補正</h2></div></div>
+        <div class="field-grid four">
+          <label class="field"><span class="field-label">実測水平飛距離</span><div class="input-unit"><input id="measured-distance" type="number" min="0" step="0.01"><span>blocks</span></div></label>
+          <div class="field"><span class="field-label">現在の一次効率</span><div id="current-efficiency-readout" class="readout">1.000</div></div>
+          <div class="field"><span class="field-label">推奨一次効率</span><div id="calibrated-efficiency-readout" class="readout">---</div></div>
+          <button id="calibrate-button" class="small-button field-button" type="button">補正値を計算</button>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><p class="section-number">DATA</p><h2>設定データ</h2></div></div>
+        <div class="data-actions"><button id="export-button" class="small-button" type="button">設定を書き出す</button><label class="small-button file-button">設定を読み込む<input id="import-input" type="file" accept="application/json,.json"></label><button id="reset-button" class="small-button" type="button">設定を初期化</button></div>
+      </section>
+
+      <section class="disclaimer"><strong>MFDCO SIMULATION / APPROXIMATION</strong><p>本ツールはMinecraft内のTNTキャノン設計補助用です。Java Edition 1.7.10由来のTNT基本運動を参考にしていますが、爆発による射出力、TNT付きトロッコ装薬、複数装薬、水流、エンティティ衝突、ディスペンサー排出誤差、二次・三次装薬などにはMFDCO独自近似を含みます。実ゲーム内の結果との完全一致を保証するものではありません。</p></section>
+    </div>
+  </section>
+</main>
+<footer class="tool-footer"><div class="tool-container"><span>MFDCO TNT CANNON SIMULATOR</span><a href="../../index.html">MFDCO</a></div></footer>
+<script src="script.js"></script>
+</body>
+</html>

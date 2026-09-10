@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MFDCO AIR DEFENSE SIMULATOR</title>
+  <link rel="icon" type="image/png" href="../../assets/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="tool-header">
+    <div class="tool-header-inner">
+      <a class="back-link" href="../../tools.html">← ツール一覧へ</a>
+      <div class="tool-brand">MFDCO AIR DEFENSE SIMULATOR</div>
+    </div>
+  </header>
+
+  <main class="tool-page">
+    <section class="hero-panel">
+      <div>
+        <p class="eyebrow">MFDCO SIMULATION</p>
+        <h1>防空・迎撃シミュレーター</h1>
+        <p class="hero-copy">Minecraft軍事茶番・架空世界向け。入力した架空性能をもとに、探知・追尾・第一波・第二波・多層迎撃・天候・電子戦・弾薬・冷却・飽和・到達確率を時間軸でシミュレーションします。</p>
+      </div>
+      <div class="hero-badges">
+        <span>FICTIONAL MODEL</span>
+        <span>MONTE CARLO</span>
+      </div>
+    </section>
+
+    <section class="panel section-block" id="scenario-section">
+      <div class="section-heading"><span>01</span><div><p>SCENARIO</p><h2>シナリオ</h2></div></div>
+      <div class="form-grid cols-4">
+        <label class="field span-2"><span>シナリオ名</span><input id="scenario-name" type="text" value="艦隊防空テスト 01"></label>
+        <label class="field"><span>試行回数</span><select id="simulation-count"><option value="1000">1,000</option><option value="5000">5,000</option><option value="10000" selected>10,000</option><option value="20000">20,000</option></select></label>
+        <label class="field"><span>時間精度</span><select id="time-step"><option value="0.05" selected>0.05 秒</option><option value="0.1">0.10 秒</option><option value="0.25">0.25 秒</option></select></label>
+        <label class="field"><span>乱数</span><select id="seed-mode"><option value="random">ランダム</option><option value="fixed">固定SEED</option></select></label>
+        <label class="field span-2"><span>SEED</span><input id="seed-value" type="text" value="MFDCO-001"></label>
+        <label class="field"><span>警戒状態</span><select id="readiness"><option value="peacetime">平時</option><option value="alert" selected>警戒</option><option value="combat">戦闘配置</option></select></label>
+        <label class="field"><span>交戦方式</span><select id="engagement-mode"><option value="handoff" selected>撃ち漏らしを次層へ</option><option value="overlap">重複交戦を許可</option></select></label>
+      </div>
+    </section>
+
+    <section class="panel section-block">
+      <div class="section-heading"><span>02</span><div><p>ATTACK GROUPS</p><h2>攻撃側</h2></div></div>
+      <div class="toolbar-row"><button class="button primary" id="add-attack-group" type="button">＋ 攻撃グループを追加</button></div>
+      <div id="attack-groups" class="dynamic-list"></div>
+    </section>
+
+    <section class="panel section-block">
+      <div class="section-heading"><span>03</span><div><p>ENVIRONMENT</p><h2>天候・電子戦</h2></div></div>
+      <div class="form-grid cols-4">
+        <label class="field"><span>天候</span><select id="weather-preset"></select></label>
+        <label class="field"><span>雨量 0–10</span><input id="rain-level" type="number" min="0" max="10" step="1"></label>
+        <label class="field"><span>視界 0–10</span><input id="visibility-level" type="number" min="0" max="10" step="1"></label>
+        <label class="field"><span>風 0–10</span><input id="wind-level" type="number" min="0" max="10" step="1"></label>
+        <label class="field"><span>電波妨害 0–10</span><input id="jamming-level" type="number" min="0" max="10" step="1" value="4"></label>
+        <label class="field"><span>チャフ 0–10</span><input id="chaff-level" type="number" min="0" max="10" step="1" value="3"></label>
+        <label class="field"><span>防衛ECCM 0–10</span><input id="eccm-level" type="number" min="0" max="10" step="1" value="5"></label>
+      </div>
+    </section>
+
+    <section class="panel section-block">
+      <div class="section-heading"><span>04</span><div><p>DEFENSE NETWORK</p><h2>防衛側</h2></div></div>
+      <div class="toolbar-row"><button class="button primary" id="add-defense-system" type="button">＋ 防空装備を追加</button></div>
+      <div id="defense-systems" class="dynamic-list"></div>
+    </section>
+
+    <section class="panel section-block">
+      <div class="section-heading"><span>05</span><div><p>CONFIGURATION</p><h2>設定チェック</h2></div></div>
+      <div id="config-messages" class="message-list"><div class="message ok">設定を確認してください。</div></div>
+      <div class="run-row">
+        <button class="button primary xl" id="simulate-button" type="button">SIMULATE / シミュレーション開始</button>
+      </div>
+      <div id="progress-wrap" class="progress-wrap" hidden><div class="progress-bar"><span id="progress-bar"></span></div><p id="progress-text">計算中...</p></div>
+    </section>
+
+    <section class="panel section-block results-section" id="results-section" hidden>
+      <div class="section-heading"><span>06</span><div><p>SUMMARY</p><h2>シミュレーション結果</h2></div></div>
+      <div id="summary-cards" class="summary-grid"></div>
+    </section>
+
+    <section class="panel section-block results-section" id="impact-section" hidden>
+      <div class="section-heading"><span>07</span><div><p>IMPACT PROBABILITY</p><h2>目標到達数の確率分布</h2></div></div>
+      <div class="chart-wrap"><canvas id="impact-chart" width="1200" height="420"></canvas></div>
+      <div class="table-wrap"><table><thead><tr><th>到達数</th><th>確率</th><th>回数</th></tr></thead><tbody id="impact-table-body"></tbody></table></div>
+    </section>
+
+    <section class="panel section-block results-section" id="remaining-section" hidden>
+      <div class="section-heading"><span>08</span><div><p>ATTACKERS / TIME</p><h2>時間ごとの平均残存攻撃体数</h2></div></div>
+      <div class="chart-wrap"><canvas id="remaining-chart" width="1200" height="420"></canvas></div>
+    </section>
+
+    <section class="panel section-block results-section" id="timeline-section" hidden>
+      <div class="section-heading"><span>09</span><div><p>EVENT TIMELINE</p><h2>イベントタイムライン</h2></div></div>
+      <div class="toolbar-row timeline-filters" id="timeline-filters"></div>
+      <div class="table-wrap timeline-table-wrap"><table><thead><tr><th>時間</th><th>種別</th><th>イベント</th></tr></thead><tbody id="timeline-body"></tbody></table></div>
+    </section>
+
+    <section class="panel section-block results-section" id="defense-results-section" hidden>
+      <div class="section-heading"><span>10</span><div><p>DEFENSE RESULTS</p><h2>防空装備別結果</h2></div></div>
+      <div id="defense-results" class="result-card-grid"></div>
+    </section>
+
+    <section class="panel section-block results-section" id="attack-results-section" hidden>
+      <div class="section-heading"><span>11</span><div><p>ATTACK RESULTS</p><h2>攻撃グループ別結果</h2></div></div>
+      <div id="attack-results" class="result-card-grid"></div>
+    </section>
+
+    <section class="panel section-block results-section" id="analysis-section" hidden>
+      <div class="section-heading"><span>12</span><div><p>ANALYSIS</p><h2>環境・飽和分析</h2></div></div>
+      <div id="analysis-content" class="analysis-grid"></div>
+    </section>
+
+    <section class="panel section-block results-section" id="assessment-section" hidden>
+      <div class="section-heading"><span>13</span><div><p>OVERALL ASSESSMENT</p><h2>総合評価</h2></div></div>
+      <div id="assessment-content"></div>
+    </section>
+
+    <section class="panel section-block">
+      <div class="section-heading"><span>14</span><div><p>COMPARE</p><h2>比較</h2></div></div>
+      <div class="toolbar-row">
+        <button class="button" id="save-plan-a" type="button">現在結果をPLAN Aへ保存</button>
+        <button class="button" id="save-plan-b" type="button">現在結果をPLAN Bへ保存</button>
+        <button class="button" id="clear-compare" type="button">比較をクリア</button>
+      </div>
+      <div id="compare-output" class="compare-output empty-state">PLAN A / PLAN Bを保存すると比較できます。</div>
+    </section>
+
+    <section class="panel section-block">
+      <div class="section-heading"><span>15</span><div><p>TEMPLATE EDITOR</p><h2>テンプレート保存</h2></div></div>
+      <div class="toolbar-row">
+        <select id="template-source"></select>
+        <input id="custom-template-name" type="text" placeholder="テンプレート名">
+        <button class="button" id="save-custom-template" type="button">攻撃テンプレートとして保存</button>
+      </div>
+      <p class="small-note">カスタムテンプレートはこのブラウザのlocalStorageに保存されます。</p>
+    </section>
+
+    <section class="panel section-block">
+      <div class="section-heading"><span>16</span><div><p>DATA</p><h2>保存・読込</h2></div></div>
+      <div class="toolbar-row wrap">
+        <button class="button" id="export-json" type="button">EXPORT JSON</button>
+        <label class="button file-button">IMPORT JSON<input id="import-json" type="file" accept="application/json,.json"></label>
+        <button class="button danger" id="reset-all" type="button">RESET</button>
+        <input id="local-preset-name" type="text" placeholder="ローカル保存名">
+        <button class="button" id="save-local" type="button">現在設定を保存</button>
+      </div>
+      <div id="local-presets" class="local-presets"></div>
+    </section>
+
+    <section class="disclaimer">
+      <strong>注意</strong>
+      <p>本ツールはMinecraft軍事茶番・架空世界向けのMFDCO独自シミュレーションです。実在する兵器・軍事システムの性能評価、運用計画、交戦最適化を目的としたものではありません。表示されるテンプレート・補正・迎撃率・天候影響はすべて架空のモデルです。</p>
+    </section>
+  </main>
+
+  <footer class="tool-footer"><a href="../../index.html">MFDCO</a><span>© MFDCO</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>

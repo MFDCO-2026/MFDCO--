@@ -1,0 +1,1186 @@
+/* =========================================
+   MFDCO CIPHER
+========================================= */
+
+:root {
+    --background: #ffffff;
+    --text: #111111;
+    --text-muted: #666666;
+    --line: #d9dede;
+
+    --main: #164b4b;
+    --main-dark: #0e3838;
+
+    --surface: #f4f7f7;
+    --surface-light: #fafbfb;
+
+    --danger: #a52a2a;
+
+    --max-width: 1380px;
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    margin: 0;
+
+    background: var(--background);
+    color: var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans JP",
+        sans-serif;
+
+    line-height: 1.5;
+}
+
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================
+   COMMON
+========================================= */
+
+.tool-container {
+    width: min(
+        var(--max-width),
+        calc(100% - 36px)
+    );
+
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.tool-header {
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+
+    border-bottom: 1px solid var(--line);
+
+    background: #ffffff;
+}
+
+
+.tool-header-inner {
+    width: min(
+        var(--max-width),
+        calc(100% - 36px)
+    );
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.back-link {
+    color: var(--main);
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+.tool-brand {
+    margin: 0;
+
+    color: var(--text-muted);
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.tool-hero {
+    padding: 20px 0;
+
+    border-bottom: 1px solid var(--line);
+}
+
+
+.hero-inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 40px;
+}
+
+
+.tool-eyebrow {
+    margin: 0 0 3px;
+
+    color: var(--main);
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 0.17em;
+}
+
+
+.tool-hero h1 {
+    margin: 0;
+
+    font-size: clamp(
+        27px,
+        4vw,
+        42px
+    );
+
+    font-weight: 500;
+
+    line-height: 1.15;
+}
+
+
+.tool-lead {
+    max-width: 540px;
+
+    margin: 0;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.tool-main {
+    padding: 22px 0 45px;
+}
+
+
+/* =========================================
+   TOP
+========================================= */
+
+.top-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+
+/* =========================================
+   SECTIONS
+========================================= */
+
+.compact-section,
+.rotor-section,
+.advanced-section,
+.conversion-section,
+.numeric-section {
+    min-width: 0;
+}
+
+
+.rotor-section,
+.advanced-section,
+.conversion-section,
+.numeric-section {
+    margin-top: 19px;
+}
+
+
+.section-heading,
+.box-heading,
+.numeric-heading {
+    min-height: 29px;
+
+    margin-bottom: 6px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+
+.section-number {
+    margin: 0 0 1px;
+
+    color: var(--main);
+
+    font-size: 7px;
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+}
+
+
+.section-heading h2,
+.box-heading h2,
+.numeric-heading h2,
+.advanced-title h2 {
+    margin: 0;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+.section-meta {
+    color: var(--text-muted);
+
+    font-size: 8px;
+}
+
+
+/* =========================================
+   PANEL
+========================================= */
+
+.panel {
+    height: calc(100% - 35px);
+
+    padding: 12px;
+
+    border: 1px solid var(--line);
+
+    background: #ffffff;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.preset-buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+    margin-bottom: 7px;
+}
+
+
+.preset-buttons button,
+.small-button,
+.copy-button {
+    min-height: 27px;
+
+    padding: 4px 9px;
+
+    border: 1px solid var(--main);
+
+    background: #ffffff;
+    color: var(--main);
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+.preset-buttons button:hover,
+.small-button:hover,
+.copy-button:hover {
+    background: var(--surface);
+}
+
+
+.preset-buttons .danger-button {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+
+/* =========================================
+   ALPHABET
+========================================= */
+
+.alphabet-input {
+    display: block;
+
+    width: 100%;
+    height: 61px;
+
+    padding: 7px;
+
+    resize: vertical;
+
+    border: 1px solid var(--line);
+    border-radius: 0;
+
+    outline: none;
+
+    font-family:
+        "Consolas",
+        "Noto Sans Mono",
+        monospace;
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+
+.alphabet-input:focus,
+.text-input:focus,
+.main-textarea:focus,
+.numeric-textarea:focus {
+    border-color: var(--main);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(22, 75, 75, 0.08);
+}
+
+
+.character-bottom {
+    margin-top: 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+
+.character-bottom p,
+.key-note {
+    margin: 0;
+
+    color: var(--text-muted);
+
+    font-size: 7px;
+}
+
+
+/* =========================================
+   TOGGLE
+========================================= */
+
+.toggle-row {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+.toggle-row input {
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+.toggle-ui {
+    position: relative;
+
+    width: 32px;
+    height: 18px;
+
+    border: 1px solid var(--line);
+
+    background: #d8dddd;
+
+    transition: background 0.2s ease;
+}
+
+
+.toggle-ui::after {
+    content: "";
+
+    position: absolute;
+
+    top: 2px;
+    left: 2px;
+
+    width: 12px;
+    height: 12px;
+
+    background: #ffffff;
+
+    transition: transform 0.2s ease;
+}
+
+
+.toggle-row input:checked + .toggle-ui {
+    background: var(--main);
+}
+
+
+.toggle-row input:checked + .toggle-ui::after {
+    transform: translateX(14px);
+}
+
+
+/* =========================================
+   KEY
+========================================= */
+
+.key-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.key-row {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) auto;
+
+    gap: 6px;
+}
+
+
+.text-input {
+    width: 100%;
+    min-height: 29px;
+
+    padding: 4px 8px;
+
+    border: 1px solid var(--line);
+    border-radius: 0;
+
+    outline: none;
+
+    background: #ffffff;
+
+    font-size: 9px;
+}
+
+
+.key-input {
+    font-family:
+        "Consolas",
+        monospace;
+}
+
+
+.key-note {
+    margin-top: 8px;
+
+    line-height: 1.6;
+}
+
+
+.settings-actions {
+    margin-top: auto;
+    padding-top: 8px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 6px;
+}
+
+
+/* =========================================
+   ROTOR
+========================================= */
+
+.rotor-heading {
+    align-items: center;
+}
+
+
+.rotor-heading-right {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+}
+
+
+.rotor-count {
+    margin-right: 4px;
+
+    color: var(--main);
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+.rotor-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 8px;
+}
+
+
+.rotor-item {
+    min-width: 0;
+
+    padding: 9px;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface-light);
+}
+
+
+.rotor-item-header {
+    margin-bottom: 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 8px;
+}
+
+
+.rotor-item-header h3 {
+    margin: 0;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+.rotor-random-button {
+    min-height: 23px;
+
+    padding: 3px 7px;
+
+    border: 1px solid var(--main);
+
+    background: #ffffff;
+    color: var(--main);
+
+    font-size: 7px;
+    font-weight: 700;
+}
+
+
+.rotor-value-label {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--text-muted);
+
+    font-size: 7px;
+}
+
+
+.rotor-value-input {
+    width: 100%;
+    min-height: 27px;
+
+    padding: 4px 6px;
+
+    border: 1px solid var(--line);
+
+    background: #ffffff;
+
+    font-family:
+        "Consolas",
+        monospace;
+
+    font-size: 8px;
+}
+
+
+/* =========================================
+   ADD ROTOR
+========================================= */
+
+.rotor-add-area {
+    margin-top: 8px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) auto;
+
+    gap: 7px;
+}
+
+
+.add-rotor-button {
+    min-height: 40px;
+
+    padding: 5px 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    border: 2px solid var(--main);
+
+    background: var(--main);
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+.add-rotor-button:hover:not(:disabled) {
+    background: var(--main-dark);
+}
+
+
+.add-rotor-button:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.4;
+}
+
+
+.add-icon {
+    font-size: 18px;
+}
+
+
+.add-rotor-button small {
+    opacity: 0.65;
+
+    font-size: 7px;
+}
+
+
+.remove-rotor-button {
+    min-height: 40px;
+
+    padding: 5px 12px;
+
+    border: 1px solid var(--line);
+
+    background: #ffffff;
+    color: var(--text-muted);
+
+    font-size: 8px;
+}
+
+
+/* =========================================
+   ADVANCED
+========================================= */
+
+.advanced-section {
+    padding: 9px 12px;
+
+    border: 1px solid var(--line);
+
+    background: var(--surface-light);
+}
+
+
+.advanced-row {
+    display: grid;
+
+    grid-template-columns:
+        auto auto minmax(220px, 1fr);
+
+    align-items: center;
+
+    gap: 24px;
+}
+
+
+.advanced-title {
+    min-width: 100px;
+}
+
+
+.advanced-options {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+.plugboard-row {
+    display: grid;
+
+    grid-template-columns:
+        auto minmax(0, 1fr);
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.plugboard-row label {
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   INPUT / RESULT
+========================================= */
+
+.conversion-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+
+.main-textarea {
+    display: block;
+
+    width: 100%;
+    height: 100px;
+
+    padding: 9px;
+
+    resize: vertical;
+
+    border: 1px solid var(--line);
+    border-radius: 0;
+
+    outline: none;
+
+    background: #ffffff;
+
+    font-family:
+        "Consolas",
+        "Noto Sans Mono",
+        monospace;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+.result-textarea {
+    background: var(--surface-light);
+}
+
+
+/* =========================================
+   EXECUTE
+========================================= */
+
+.execute-buttons {
+    margin-top: 8px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+}
+
+
+.execute-button {
+    min-height: 42px;
+
+    padding: 5px 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    border: 1px solid var(--main);
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.encrypt-button {
+    background: var(--main);
+    color: #ffffff;
+}
+
+
+.decrypt-button {
+    background: #ffffff;
+    color: var(--main);
+}
+
+
+.execute-button:hover {
+    background: var(--main-dark);
+    color: #ffffff;
+}
+
+
+.execute-en {
+    opacity: 0.55;
+
+    font-size: 7px;
+
+    letter-spacing: 0.12em;
+}
+
+
+.status-message {
+    min-height: 14px;
+
+    margin: 4px 0 0;
+
+    color: var(--text-muted);
+
+    font-size: 8px;
+}
+
+
+.status-message.error {
+    color: var(--danger);
+}
+
+
+/* =========================================
+   NUMERIC
+========================================= */
+
+.numeric-section {
+    padding: 11px 12px;
+
+    border: 1px solid var(--line);
+}
+
+
+.numeric-heading {
+    align-items: center;
+}
+
+
+.base-switch {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    width: 210px;
+
+    border: 1px solid var(--main);
+}
+
+
+.base-button {
+    min-height: 27px;
+
+    padding: 3px 9px;
+
+    border: 0;
+    border-right: 1px solid var(--main);
+
+    background: #ffffff;
+    color: var(--main);
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+.base-button:last-child {
+    border-right: 0;
+}
+
+
+.base-button.active {
+    background: var(--main);
+    color: #ffffff;
+}
+
+
+.numeric-content {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) 130px;
+
+    gap: 7px;
+}
+
+
+.numeric-textarea {
+    display: block;
+
+    width: 100%;
+    height: 58px;
+
+    padding: 7px;
+
+    resize: vertical;
+
+    border: 1px solid var(--line);
+    border-radius: 0;
+
+    outline: none;
+
+    background: var(--surface-light);
+
+    font-family:
+        "Consolas",
+        monospace;
+
+    font-size: 9px;
+}
+
+
+.numeric-actions {
+    display: grid;
+
+    grid-template-rows:
+        repeat(2, 1fr);
+
+    gap: 5px;
+}
+
+
+.numeric-action-button {
+    border: 1px solid var(--main);
+
+    background: var(--main);
+    color: #ffffff;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+.numeric-action-button.secondary {
+    background: #ffffff;
+    color: var(--main);
+}
+
+
+.numeric-action-button:hover {
+    background: var(--main-dark);
+    color: #ffffff;
+}
+
+
+.numeric-note {
+    margin: 5px 0 0;
+
+    color: var(--text-muted);
+
+    font-size: 7px;
+}
+
+
+/* =========================================
+   SECURITY
+========================================= */
+
+.security-note {
+    margin: 16px 0 0;
+
+    color: var(--text-muted);
+
+    font-size: 7px;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.tool-footer {
+    padding: 14px 0;
+
+    border-top: 1px solid var(--line);
+
+    background: var(--surface-light);
+}
+
+
+.tool-footer .tool-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.tool-footer span {
+    color: var(--text-muted);
+
+    font-size: 7px;
+}
+
+
+.tool-footer a {
+    color: var(--main);
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 950px) {
+
+    .hero-inner {
+        display: block;
+    }
+
+
+    .tool-lead {
+        margin-top: 8px;
+    }
+
+
+    .rotor-list {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .advanced-row {
+        grid-template-columns: 1fr;
+
+        gap: 9px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+    .tool-container,
+    .tool-header-inner {
+        width: calc(100% - 24px);
+    }
+
+
+    .top-grid,
+    .conversion-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .rotor-list {
+        grid-template-columns: 1fr;
+    }
+
+
+    .rotor-add-area {
+        grid-template-columns: 1fr;
+    }
+
+
+    .advanced-options {
+        flex-wrap: wrap;
+    }
+
+
+    .plugboard-row {
+        grid-template-columns: 1fr;
+    }
+
+
+    .numeric-heading {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+
+    .base-switch {
+        width: 100%;
+
+        order: 3;
+    }
+
+
+    .numeric-content {
+        grid-template-columns: 1fr;
+    }
+
+
+    .numeric-actions {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        grid-template-rows: none;
+    }
+
+
+    .numeric-action-button {
+        min-height: 35px;
+    }
+
+}

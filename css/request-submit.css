@@ -1,0 +1,605 @@
+/* =========================================
+   MFDCO REQUEST SUBMIT
+   ========================================= */
+
+.request-submit-page {
+    margin: 0;
+    background: #ffffff;
+    color: #111111;
+}
+
+.request-submit-main {
+    padding-top: 76px;
+}
+
+.request-submit-shell {
+    width: min(1040px, calc(100% - 80px));
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   HERO
+   ========================================= */
+
+.request-submit-hero {
+    padding: 82px 0 64px;
+    border-bottom: 1px solid #dddddd;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #ffffff 75%,
+            #f2f7f7 75%,
+            #f2f7f7 100%
+        );
+}
+
+.request-submit-kicker {
+    margin: 0 0 10px;
+    color: #164b4b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.request-submit-hero h1 {
+    margin: 0;
+    font-size: clamp(36px, 5vw, 62px);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: 0.05em;
+}
+
+.request-submit-lead {
+    max-width: 720px;
+    margin: 22px 0 0;
+    color: #626868;
+    font-size: 13px;
+    line-height: 2;
+}
+
+.request-submit-back {
+    display: inline-flex;
+    margin-top: 28px;
+    color: #164b4b;
+    font-size: 11px;
+    text-decoration: none;
+}
+
+.request-submit-back:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+
+/* =========================================
+   CONTENT
+   ========================================= */
+
+.request-submit-content {
+    padding: 45px 0 110px;
+}
+
+
+/* =========================================
+   AUTH
+   ========================================= */
+
+.request-submit-auth {
+    margin-bottom: 22px;
+    border: 1px solid #dce2e2;
+    background: #f7fafa;
+    padding: 16px 18px;
+}
+
+.request-submit-auth.is-error {
+    border-color: #d8baba;
+    background: #fff7f7;
+}
+
+.request-submit-small-label {
+    margin: 0 0 5px;
+    color: #164b4b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.request-submit-auth > p:last-child {
+    margin: 0;
+    color: #555d5d;
+    font-size: 12px;
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.request-submit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.request-submit-section {
+    border: 1px solid #dfe3e3;
+    background: #ffffff;
+    padding: 28px;
+}
+
+.request-submit-section-heading {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    margin-bottom: 26px;
+}
+
+.request-submit-section-heading > p {
+    display: grid;
+    place-items: center;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    background: #164b4b;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.request-submit-section-heading span {
+    display: block;
+    margin-bottom: 4px;
+    color: #164b4b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.request-submit-section-heading h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+
+/* =========================================
+   FIELD
+   ========================================= */
+
+.request-submit-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.request-submit-field label {
+    color: #252929;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.request-submit-required {
+    display: inline-flex;
+    margin-left: 6px;
+    border: 1px solid #164b4b;
+    padding: 2px 5px;
+    color: #164b4b;
+    font-size: 8px;
+    vertical-align: middle;
+}
+
+.request-submit-field input,
+.request-submit-field select,
+.request-submit-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #cfd5d5;
+    border-radius: 0;
+    background: #ffffff;
+    color: #111111;
+    padding: 13px 14px;
+    font: inherit;
+    font-size: 13px;
+    outline: none;
+}
+
+.request-submit-field input,
+.request-submit-field select {
+    min-height: 49px;
+}
+
+.request-submit-field textarea {
+    min-height: 240px;
+    resize: vertical;
+    line-height: 1.8;
+}
+
+.request-submit-field input:focus,
+.request-submit-field select:focus,
+.request-submit-field textarea:focus {
+    border-color: #164b4b;
+    box-shadow:
+        0 0 0 2px rgba(22, 75, 75, 0.08);
+}
+
+.request-submit-field-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.request-submit-field-bottom p,
+.request-submit-field-bottom span,
+.request-submit-help {
+    margin: 0;
+    color: #858b8b;
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+.request-submit-field-bottom span {
+    white-space: nowrap;
+}
+
+.request-submit-field-bottom strong {
+    color: #164b4b;
+}
+
+
+/* =========================================
+   TAG
+   ========================================= */
+
+.request-submit-tag-input-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+}
+
+.request-submit-secondary-button {
+    min-width: 100px;
+    border: 1px solid #164b4b;
+    background: #ffffff;
+    color: #164b4b;
+    padding: 10px 16px;
+    font: inherit;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.request-submit-secondary-button:hover {
+    background: #f0f6f6;
+}
+
+.request-submit-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    min-height: 10px;
+    margin-top: 8px;
+}
+
+.request-submit-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #cad3d3;
+    background: #f5f8f8;
+    padding: 6px 8px 6px 10px;
+    color: #4f5757;
+    font-size: 10px;
+}
+
+.request-submit-tag button {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border: 0;
+    background: transparent;
+    color: #777777;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.request-submit-tag button:hover {
+    color: #111111;
+}
+
+
+/* =========================================
+   PREVIEW
+   ========================================= */
+
+.request-submit-preview {
+    border: 1px solid #d8dede;
+    padding: 22px;
+    background: #fbfcfc;
+}
+
+.request-submit-preview-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.request-submit-preview-top > span:last-child {
+    color: #9ba0a0;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+}
+
+.request-submit-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid #164b4b;
+    padding: 4px 9px;
+    color: #164b4b;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.request-submit-status::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #164b4b;
+}
+
+.request-submit-preview-category {
+    margin: 18px 0 0;
+    color: #164b4b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.request-submit-preview h3 {
+    margin: 7px 0 0;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.request-submit-preview-description {
+    margin: 12px 0 0;
+    color: #656b6b;
+    font-size: 12px;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.request-submit-preview-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 18px;
+}
+
+.request-submit-preview-tag {
+    border: 1px solid #d8dede;
+    background: #ffffff;
+    padding: 4px 8px;
+    color: #5d6363;
+    font-size: 9px;
+}
+
+
+/* =========================================
+   CONFIRM
+   ========================================= */
+
+.request-submit-confirm {
+    border: 1px solid #dfe3e3;
+    padding: 22px;
+}
+
+.request-submit-checkbox {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.request-submit-checkbox input {
+    flex: 0 0 auto;
+    width: 17px;
+    height: 17px;
+    margin-top: 2px;
+    accent-color: #164b4b;
+}
+
+.request-submit-checkbox span {
+    color: #333838;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.request-submit-confirm-note {
+    margin: 10px 0 0 29px;
+    color: #858b8b;
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   MESSAGE
+   ========================================= */
+
+.request-submit-message {
+    border: 1px solid #d8dede;
+    background: #f7fafa;
+    padding: 13px 15px;
+    color: #555d5d;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.request-submit-message.is-error {
+    border-color: #d8b8b8;
+    background: #fff6f6;
+    color: #8a3030;
+}
+
+.request-submit-message.is-success {
+    border-color: #b8d2c5;
+    background: #f3faf6;
+    color: #245d43;
+}
+
+
+/* =========================================
+   ACTIONS
+   ========================================= */
+
+.request-submit-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.request-submit-cancel,
+.request-submit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 49px;
+    box-sizing: border-box;
+    padding: 11px 22px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+}
+
+.request-submit-cancel {
+    border: 1px solid #cfd5d5;
+    background: #ffffff;
+    color: #555b5b;
+}
+
+.request-submit-cancel:hover {
+    border-color: #164b4b;
+    color: #164b4b;
+}
+
+.request-submit-button {
+    gap: 35px;
+    min-width: 230px;
+    border: 1px solid #164b4b;
+    background: #164b4b;
+    color: #ffffff;
+    font: inherit;
+    cursor: pointer;
+}
+
+.request-submit-button:hover {
+    background: #0f3b3b;
+    border-color: #0f3b3b;
+}
+
+.request-submit-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 800px) {
+
+    .request-submit-shell {
+        width: min(100% - 40px, 1040px);
+    }
+
+    .request-submit-section {
+        padding: 22px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .request-submit-main {
+        padding-top: 65px;
+    }
+
+    .request-submit-shell {
+        width: min(100% - 28px, 1040px);
+    }
+
+    .request-submit-hero {
+        padding: 55px 0 45px;
+        background: #ffffff;
+    }
+
+    .request-submit-content {
+        padding: 30px 0 80px;
+    }
+
+    .request-submit-section {
+        padding: 18px 15px;
+    }
+
+    .request-submit-section-heading {
+        gap: 12px;
+    }
+
+    .request-submit-section-heading > p {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .request-submit-section-heading h2 {
+        font-size: 19px;
+    }
+
+    .request-submit-field-bottom {
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .request-submit-tag-input-row {
+        grid-template-columns: 1fr;
+    }
+
+    .request-submit-secondary-button {
+        min-height: 44px;
+    }
+
+    .request-submit-preview {
+        padding: 17px;
+    }
+
+    .request-submit-preview h3 {
+        font-size: 20px;
+    }
+
+    .request-submit-actions {
+        flex-direction: column-reverse;
+    }
+
+    .request-submit-actions > * {
+        width: 100%;
+    }
+
+    .request-submit-button {
+        min-width: 0;
+    }
+
+}

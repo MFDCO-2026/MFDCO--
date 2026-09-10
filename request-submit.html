@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>制作依頼を投稿 | MFDCO</title>
+    <meta
+        name="description"
+        content="MFDCOに新しい制作依頼を投稿します。"
+    >
+
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/request-submit.css">
+</head>
+
+<body class="request-submit-page">
+
+    <!-- HEADER -->
+    <div id="header-container"></div>
+
+    <main class="request-submit-main">
+
+        <!-- HERO -->
+        <section class="request-submit-hero">
+            <div class="request-submit-shell">
+
+                <p class="request-submit-kicker">
+                    MFDCO REQUESTS
+                </p>
+
+                <h1>制作依頼を投稿</h1>
+
+                <p class="request-submit-lead">
+                    MFDCO利用者へ向けて、新しい制作依頼を公開します。
+                    投稿された依頼は制作依頼一覧に「未着手」として掲載されます。
+                </p>
+
+                <a
+                    href="requests.html"
+                    class="request-submit-back"
+                >
+                    ← 制作依頼一覧へ戻る
+                </a>
+
+            </div>
+        </section>
+
+
+        <!-- FORM -->
+        <section class="request-submit-content">
+            <div class="request-submit-shell">
+
+                <!-- AUTH -->
+                <div
+                    id="request-submit-auth"
+                    class="request-submit-auth"
+                >
+                    <p class="request-submit-small-label">
+                        ACCOUNT
+                    </p>
+
+                    <p id="request-submit-auth-text">
+                        ログイン状況を確認しています...
+                    </p>
+                </div>
+
+
+                <form
+                    id="request-submit-form"
+                    class="request-submit-form"
+                    novalidate
+                >
+
+                    <!-- 01 -->
+                    <section class="request-submit-section">
+
+                        <div class="request-submit-section-heading">
+                            <p>01</p>
+
+                            <div>
+                                <span>REQUEST TITLE</span>
+                                <h2>依頼タイトル</h2>
+                            </div>
+                        </div>
+
+                        <div class="request-submit-field">
+
+                            <label for="request-title">
+                                タイトル
+                                <span class="request-submit-required">
+                                    必須
+                                </span>
+                            </label>
+
+                            <input
+                                id="request-title"
+                                name="title"
+                                type="text"
+                                maxlength="120"
+                                placeholder="例：艦艇用76mm砲モデルの制作"
+                                required
+                            >
+
+                            <div class="request-submit-field-bottom">
+                                <p>
+                                    依頼内容が分かりやすいタイトルを設定してください。
+                                </p>
+
+                                <span>
+                                    <strong id="request-title-count">0</strong>
+                                    / 120
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- 02 -->
+                    <section class="request-submit-section">
+
+                        <div class="request-submit-section-heading">
+                            <p>02</p>
+
+                            <div>
+                                <span>CATEGORY</span>
+                                <h2>カテゴリー</h2>
+                            </div>
+                        </div>
+
+                        <div class="request-submit-field">
+
+                            <label for="request-category">
+                                カテゴリー
+                                <span class="request-submit-required">
+                                    必須
+                                </span>
+                            </label>
+
+                            <select
+                                id="request-category"
+                                name="category"
+                                required
+                            >
+                                <option value="">
+                                    選択してください
+                                </option>
+
+                                <option value="3Dモデル">
+                                    3Dモデル
+                                </option>
+
+                                <option value="テクスチャ">
+                                    テクスチャ
+                                </option>
+
+                                <option value="スキン">
+                                    スキン
+                                </option>
+
+                                <option value="建築">
+                                    建築
+                                </option>
+
+                                <option value="コマンド・データパック">
+                                    コマンド・データパック
+                                </option>
+
+                                <option value="動画・画像">
+                                    動画・画像
+                                </option>
+
+                                <option value="技術協力">
+                                    技術協力
+                                </option>
+
+                                <option value="その他">
+                                    その他
+                                </option>
+                            </select>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- 03 -->
+                    <section class="request-submit-section">
+
+                        <div class="request-submit-section-heading">
+                            <p>03</p>
+
+                            <div>
+                                <span>DESCRIPTION</span>
+                                <h2>依頼内容</h2>
+                            </div>
+                        </div>
+
+                        <div class="request-submit-field">
+
+                            <label for="request-description">
+                                制作してほしい内容
+                                <span class="request-submit-required">
+                                    必須
+                                </span>
+                            </label>
+
+                            <textarea
+                                id="request-description"
+                                name="description"
+                                maxlength="5000"
+                                placeholder="制作してほしいもの、用途、Minecraftのバージョン、必要な仕様、希望する形式などを詳しく記入してください。"
+                                required
+                            ></textarea>
+
+                            <div class="request-submit-field-bottom">
+                                <p>
+                                    着手する人が判断できるよう、できるだけ詳しく記入してください。
+                                </p>
+
+                                <span>
+                                    <strong id="request-description-count">0</strong>
+                                    / 5000
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- 04 -->
+                    <section class="request-submit-section">
+
+                        <div class="request-submit-section-heading">
+                            <p>04</p>
+
+                            <div>
+                                <span>TAGS</span>
+                                <h2>タグ</h2>
+                            </div>
+                        </div>
+
+                        <div class="request-submit-field">
+
+                            <label for="request-tag-input">
+                                タグ
+                            </label>
+
+                            <div class="request-submit-tag-input-row">
+
+                                <input
+                                    id="request-tag-input"
+                                    type="text"
+                                    maxlength="30"
+                                    placeholder="例：Java"
+                                >
+
+                                <button
+                                    id="request-tag-add"
+                                    type="button"
+                                    class="request-submit-secondary-button"
+                                >
+                                    ＋ 追加
+                                </button>
+
+                            </div>
+
+                            <p class="request-submit-help">
+                                Enterキーまたは「追加」で登録できます。
+                                最大10個まで設定できます。
+                            </p>
+
+                            <div
+                                id="request-tags"
+                                class="request-submit-tags"
+                            ></div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- 05 -->
+                    <section class="request-submit-section">
+
+                        <div class="request-submit-section-heading">
+                            <p>05</p>
+
+                            <div>
+                                <span>PREVIEW</span>
+                                <h2>投稿内容の確認</h2>
+                            </div>
+                        </div>
+
+                        <div class="request-submit-preview">
+
+                            <div class="request-submit-preview-top">
+
+                                <span class="request-submit-status">
+                                    未着手
+                                </span>
+
+                                <span>
+                                    PREVIEW
+                                </span>
+
+                            </div>
+
+                            <p class="request-submit-preview-category">
+                                <span id="preview-category">
+                                    CATEGORY
+                                </span>
+                            </p>
+
+                            <h3 id="preview-title">
+                                制作依頼のタイトル
+                            </h3>
+
+                            <p
+                                id="preview-description"
+                                class="request-submit-preview-description"
+                            >
+                                ここに依頼内容のプレビューが表示されます。
+                            </p>
+
+                            <div
+                                id="preview-tags"
+                                class="request-submit-preview-tags"
+                            ></div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- CONFIRM -->
+                    <section class="request-submit-confirm">
+
+                        <label class="request-submit-checkbox">
+
+                            <input
+                                id="request-confirm"
+                                type="checkbox"
+                            >
+
+                            <span>
+                                投稿内容を確認しました。
+                                この制作依頼をMFDCO上に公開します。
+                            </span>
+
+                        </label>
+
+                        <p class="request-submit-confirm-note">
+                            公開後、ログインしている他の利用者がこの依頼へ
+                            着手できるようになります。
+                        </p>
+
+                    </section>
+
+
+                    <!-- MESSAGE -->
+                    <div
+                        id="request-submit-message"
+                        class="request-submit-message"
+                        hidden
+                    ></div>
+
+
+                    <!-- BUTTON -->
+                    <div class="request-submit-actions">
+
+                        <a
+                            href="requests.html"
+                            class="request-submit-cancel"
+                        >
+                            キャンセル
+                        </a>
+
+                        <button
+                            id="request-submit-button"
+                            type="submit"
+                            class="request-submit-button"
+                        >
+                            <span>制作依頼を公開</span>
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+
+            <div>
+                <p class="footer-logo">
+                    MFDCO
+                </p>
+
+                <p class="footer-name">
+                    MILITARY FARCE DEVELOPMENT<br>
+                    COOPERATION ORGANIZATION
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <a href="about.html">MFDCOとは</a>
+                <a href="works.html">提供作品</a>
+                <a href="members.html">加盟国一覧</a>
+                <a href="news.html">お知らせ</a>
+                <a href="privacy.html">プライバシー</a>
+            </div>
+
+            <p class="copyright">
+                © 2026 MFDCO
+            </p>
+
+        </div>
+    </footer>
+
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+
+    <!-- HEADER -->
+    <script src="js/header.js"></script>
+
+    <!-- PAGE -->
+    <script src="js/request-submit.js"></script>
+
+</body>
+</html>
