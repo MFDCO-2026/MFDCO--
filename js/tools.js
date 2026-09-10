@@ -70,7 +70,7 @@ const MFDCO_TOOLS = [
             "SSMに対する防空戦闘をシミュレーションできます．兵器のテンプレートは準備中です",
 
         href:
-            "tools/MFDCO_MFDCO_AirDefense/index.html",
+            "tools/MFDCO_AirDefense/index.html",
 
         status:
             "beta"
