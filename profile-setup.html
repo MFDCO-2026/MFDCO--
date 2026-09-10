@@ -14,157 +14,241 @@
         プロフィール登録 | MFDCO
     </title>
 
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/logo.png"
+    >
+
     <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/footer.css">
-<link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/auth.css">
 
 </head>
 
 <body>
 
 
+    <!-- =========================================
+         COMMON HEADER
+    ========================================== -->
+
     <div id="header-container"></div>
 
 
-    <main>
 
-        <section class="join-page">
+    <!-- =========================================
+         PROFILE SETUP
+    ========================================== -->
 
-            <div class="join-container">
+    <main class="auth-page">
 
-                <div class="join-panel active">
-
-                    <p class="section-label">
-                        PROFILE SETUP
-                    </p>
-
-                    <h1>
-                        プロフィール登録
-                    </h1>
+        <div class="auth-container">
 
 
-                    <p class="form-note">
-                        メールアドレスの確認が完了しました。
-                        MFDCOで使用するプロフィールを登録してください。
-                    </p>
+            <!-- =================================
+                 PAGE HEADER
+            ================================== -->
+
+            <header class="auth-header">
+
+                <p class="auth-label">
+                    PROFILE SETUP
+                </p>
+
+                <h1>
+                    プロフィール登録
+                </h1>
+
+                <p class="auth-description">
+                    メールアドレスの確認が完了しました。<br>
+                    MFDCOで使用するプロフィールを登録してください。
+                </p>
+
+            </header>
 
 
-                    <div
-                        id="profile-loading"
-                        class="form-section"
-                    >
 
-                        <p>
-                            アカウント情報を確認しています...
-                        </p>
+            <!-- =================================
+                 LOADING
+            ================================== -->
+
+            <div
+                id="profile-loading"
+                class="auth-card auth-loading"
+            >
+
+                <p>
+                    アカウント情報を確認しています...
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================
+                 PROFILE FORM
+            ================================== -->
+
+            <form
+                id="profile-setup-form"
+                class="auth-card"
+                hidden
+            >
+
+
+                <!-- =================================
+                     01 PROFILE
+                ================================== -->
+
+                <section class="auth-form-section">
+
+                    <div class="auth-step">
+
+                        <span class="auth-step-number">
+                            01
+                        </span>
+
+                        <span class="auth-step-text">
+                            基本プロフィール
+                        </span>
 
                     </div>
 
 
-                    <form
-                        id="profile-setup-form"
-                        hidden
-                    >
+                    <h2 class="auth-form-title">
+                        プロフィール
+                    </h2>
 
 
-                        <!-- PROFILE -->
 
-                        <div class="form-section">
+                    <!-- ACTIVITY NAME -->
 
-                            <h2>
-                                プロフィール
-                            </h2>
+                    <div class="form-group">
+
+                        <label for="activity-name">
+                            活動名
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="activity-name"
+                            name="activity_name"
+                            required
+                            maxlength="100"
+                            autocomplete="nickname"
+                            placeholder="MFDCOで使用する活動名"
+                        >
+
+                    </div>
 
 
-                            <div class="form-group">
 
-                                <label for="activity-name">
-                                    活動名
-                                    <span>*</span>
-                                </label>
+                    <!-- ICON -->
+
+                    <div class="form-group">
+
+                        <label for="icon">
+                            アイコン
+                            <span>*</span>
+                        </label>
+
+
+                        <div class="auth-image-setup">
+
+                            <div
+                                class="auth-image-preview icon"
+                            >
+
+                                <img
+                                    id="icon-preview"
+                                    alt="アイコンプレビュー"
+                                    hidden
+                                >
+
+                            </div>
+
+
+                            <div class="auth-image-controls">
 
                                 <input
-                                    type="text"
-                                    id="activity-name"
-                                    name="activity_name"
+                                    type="file"
+                                    id="icon"
+                                    name="icon"
+                                    accept="image/jpeg,image/png,image/webp"
                                     required
                                 >
 
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label>
-                                    アイコン
-                                    <span>*</span>
-                                </label>
-
-                                <div class="image-upload">
-
-                                    <input
-                                        type="file"
-                                        id="icon"
-                                        name="icon"
-                                        accept="image/jpeg,image/png,image/webp"
-                                        required
-                                    >
-
-                                    <img
-                                        id="icon-preview"
-                                        alt=""
-                                    >
-
-                                </div>
-
-                                <p class="form-note">
-                                    1:1の画像を推奨します。
+                                <p class="auth-text">
+                                    1:1の画像を推奨します。<br>
                                     JPEG・PNG・WebP、5MB以下。
                                 </p>
 
                             </div>
 
+                        </div>
 
-                            <div class="form-group">
+                    </div>
 
-                                <label for="fictional-country">
-                                    架空国名
-                                </label>
 
-                                <input
-                                    type="text"
-                                    id="fictional-country"
-                                    name="fictional_country"
+
+                    <!-- COUNTRY -->
+
+                    <div class="form-group">
+
+                        <label for="fictional-country">
+                            架空国名
+                        </label>
+
+                        <input
+                            type="text"
+                            id="fictional-country"
+                            name="fictional_country"
+                            maxlength="100"
+                            placeholder="任意"
+                        >
+
+                    </div>
+
+
+
+                    <!-- FLAG -->
+
+                    <div class="form-group">
+
+                        <label for="flag">
+                            国旗
+                        </label>
+
+
+                        <div class="auth-flag-setup">
+
+                            <div
+                                class="auth-flag-preview"
+                            >
+
+                                <img
+                                    id="flag-preview"
+                                    alt="国旗プレビュー"
+                                    hidden
                                 >
 
                             </div>
 
 
-                            <div class="form-group">
+                            <div class="auth-image-controls">
 
-                                <label>
-                                    国旗
-                                </label>
+                                <input
+                                    type="file"
+                                    id="flag"
+                                    name="flag"
+                                    accept="image/jpeg,image/png,image/webp"
+                                >
 
-                                <div class="image-upload">
-
-                                    <input
-                                        type="file"
-                                        id="flag"
-                                        name="flag"
-                                        accept="image/jpeg,image/png,image/webp"
-                                    >
-
-                                    <img
-                                        id="flag-preview"
-                                        alt=""
-                                    >
-
-                                </div>
-
-                                <p class="form-note">
-                                    任意。
+                                <p class="auth-text">
+                                    任意。<br>
                                     JPEG・PNG・WebP、5MB以下。
                                 </p>
 
@@ -172,298 +256,644 @@
 
                         </div>
 
+                    </div>
 
+                </section>
 
-                        <!-- CREDIT -->
 
-                        <div class="form-section">
 
-                            <h2>
-                                クレジット表記
-                            </h2>
+                <!-- =================================
+                     02 CREDIT
+                ================================== -->
 
+                <section class="auth-form-section">
 
-                            <div class="radio-list">
+                    <div class="auth-step">
 
-                                <label>
+                        <span class="auth-step-number">
+                            02
+                        </span>
 
-                                    <input
-                                        type="radio"
-                                        name="credit-type"
-                                        value="none"
-                                        required
-                                    >
+                        <span class="auth-step-text">
+                            作品利用時の表記
+                        </span>
 
-                                    不要
+                    </div>
 
-                                </label>
 
+                    <h2 class="auth-form-title">
+                        クレジット表記
+                    </h2>
 
-                                <label>
 
-                                    <input
-                                        type="radio"
-                                        name="credit-type"
-                                        value="optional"
-                                    >
+                    <p class="auth-text">
+                        あなたが提供した作品を利用する際の
+                        クレジット表記方法を設定します。
+                    </p>
 
-                                    任意
 
-                                </label>
+                    <div class="auth-radio-list">
 
 
-                                <label>
+                        <label class="auth-radio">
 
-                                    <input
-                                        type="radio"
-                                        name="credit-type"
-                                        value="custom"
-                                    >
+                            <input
+                                type="radio"
+                                name="credit-type"
+                                value="none"
+                                required
+                            >
 
-                                    指定する
+                            <span>
+                                不要
+                            </span>
 
-                                </label>
+                        </label>
 
-                            </div>
 
+                        <label class="auth-radio">
 
-                            <textarea
-                                id="credit-text"
-                                name="credit_text"
-                                disabled
-                                placeholder="希望するクレジット表記"
-                            ></textarea>
+                            <input
+                                type="radio"
+                                name="credit-type"
+                                value="optional"
+                            >
 
-                        </div>
+                            <span>
+                                任意
+                            </span>
 
+                        </label>
 
 
-                        <!-- TAGS -->
+                        <label class="auth-radio">
 
-                        <div class="form-section">
+                            <input
+                                type="radio"
+                                name="credit-type"
+                                value="custom"
+                            >
 
-                            <h2>
-                                タグ
-                            </h2>
+                            <span>
+                                指定する
+                            </span>
 
-                            <p class="form-note">
-                                あなたの活動に当てはまるものを
-                                選択してください。
-                            </p>
+                        </label>
 
 
-                            <div class="tag-list">
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="Youtuber">
-                                    Youtuber
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="BE">
-                                    BE
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="JE 1.7.10">
-                                    JE 1.7.10
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="JE 最新">
-                                    JE 最新
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="回路勢">
-                                    回路勢
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="造形勢">
-                                    造形勢
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="mod">
-                                    mod
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="陸軍">
-                                    陸軍
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="海軍">
-                                    海軍
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="空軍">
-                                    空軍
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="歩兵">
-                                    歩兵
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="現代・近未来">
-                                    現代・近未来
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="WW2">
-                                    WW2
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="WW1">
-                                    WW1
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="産業革命前">
-                                    産業革命前
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="超未来">
-                                    超未来
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="再現">
-                                    再現
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="架空兵器">
-                                    架空兵器
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="コラボ歓迎">
-                                    コラボ歓迎
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="交流歓迎">
-                                    交流歓迎
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="国家運営">
-                                    国家運営
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="同盟歓迎">
-                                    同盟歓迎
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="画像制作">
-                                    画像制作
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="動画制作">
-                                    動画制作
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="音楽制作">
-                                    音楽制作
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="Blender">
-                                    Blender
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="イラスト制作">
-                                    イラスト制作
-                                </label>
-
-                                <label>
-                                    <input type="checkbox" name="tags" value="プログラミング">
-                                    プログラミング
-                                </label>
-
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- BIO -->
-
-                        <div class="form-section">
-
-                            <h2>
-                                自由記述
-                            </h2>
-
-                            <textarea
-                                name="bio"
-                                rows="6"
-                                placeholder="自己紹介やMFDCOでやりたいことなど"
-                            ></textarea>
-
-                        </div>
-
-
-                        <button
-                            type="submit"
-                            class="join-submit"
-                        >
-                            プロフィールを登録する
-                        </button>
-
-
-                    </form>
+                    </div>
 
 
                     <div
-                        id="profile-error"
-                        class="form-section"
-                        hidden
+                        class="form-group"
+                        style="margin-top: 22px;"
                     >
 
-                        <h2>
-                            プロフィール登録を開始できません
-                        </h2>
+                        <label for="credit-text">
+                            希望するクレジット表記
+                        </label>
 
-                        <p id="profile-error-message"></p>
-
-                        <a
-                            href="join.html"
-                            class="join-submit"
-                        >
-                            ログイン画面へ
-                        </a>
+                        <textarea
+                            id="credit-text"
+                            name="credit_text"
+                            rows="4"
+                            disabled
+                            placeholder="例：制作 MFDCO / ○○共和国"
+                        ></textarea>
 
                     </div>
+
+                </section>
+
+
+
+                <!-- =================================
+                     03 TAGS
+                ================================== -->
+
+                <section class="auth-form-section">
+
+                    <div class="auth-step">
+
+                        <span class="auth-step-number">
+                            03
+                        </span>
+
+                        <span class="auth-step-text">
+                            活動カテゴリー
+                        </span>
+
+                    </div>
+
+
+                    <h2 class="auth-form-title">
+                        タグ
+                    </h2>
+
+
+                    <p class="auth-text">
+                        あなたの活動に当てはまるものを
+                        選択してください。
+                    </p>
+
+
+                    <div class="auth-tags">
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-youtuber"
+                                name="tags"
+                                value="Youtuber"
+                            >
+                            <label for="tag-youtuber">
+                                Youtuber
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-be"
+                                name="tags"
+                                value="BE"
+                            >
+                            <label for="tag-be">
+                                BE
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-je-1710"
+                                name="tags"
+                                value="JE 1.7.10"
+                            >
+                            <label for="tag-je-1710">
+                                JE 1.7.10
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-je-latest"
+                                name="tags"
+                                value="JE 最新"
+                            >
+                            <label for="tag-je-latest">
+                                JE 最新
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-redstone"
+                                name="tags"
+                                value="回路勢"
+                            >
+                            <label for="tag-redstone">
+                                回路勢
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-modeling"
+                                name="tags"
+                                value="造形勢"
+                            >
+                            <label for="tag-modeling">
+                                造形勢
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-mod"
+                                name="tags"
+                                value="mod"
+                            >
+                            <label for="tag-mod">
+                                mod
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-army"
+                                name="tags"
+                                value="陸軍"
+                            >
+                            <label for="tag-army">
+                                陸軍
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-navy"
+                                name="tags"
+                                value="海軍"
+                            >
+                            <label for="tag-navy">
+                                海軍
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-airforce"
+                                name="tags"
+                                value="空軍"
+                            >
+                            <label for="tag-airforce">
+                                空軍
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-infantry"
+                                name="tags"
+                                value="歩兵"
+                            >
+                            <label for="tag-infantry">
+                                歩兵
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-modern"
+                                name="tags"
+                                value="現代・近未来"
+                            >
+                            <label for="tag-modern">
+                                現代・近未来
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-ww2"
+                                name="tags"
+                                value="WW2"
+                            >
+                            <label for="tag-ww2">
+                                WW2
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-ww1"
+                                name="tags"
+                                value="WW1"
+                            >
+                            <label for="tag-ww1">
+                                WW1
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-pre-industrial"
+                                name="tags"
+                                value="産業革命前"
+                            >
+                            <label for="tag-pre-industrial">
+                                産業革命前
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-future"
+                                name="tags"
+                                value="超未来"
+                            >
+                            <label for="tag-future">
+                                超未来
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-recreation"
+                                name="tags"
+                                value="再現"
+                            >
+                            <label for="tag-recreation">
+                                再現
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-fictional-weapons"
+                                name="tags"
+                                value="架空兵器"
+                            >
+                            <label for="tag-fictional-weapons">
+                                架空兵器
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-collab"
+                                name="tags"
+                                value="コラボ歓迎"
+                            >
+                            <label for="tag-collab">
+                                コラボ歓迎
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-social"
+                                name="tags"
+                                value="交流歓迎"
+                            >
+                            <label for="tag-social">
+                                交流歓迎
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-country"
+                                name="tags"
+                                value="国家運営"
+                            >
+                            <label for="tag-country">
+                                国家運営
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-alliance"
+                                name="tags"
+                                value="同盟歓迎"
+                            >
+                            <label for="tag-alliance">
+                                同盟歓迎
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-image"
+                                name="tags"
+                                value="画像制作"
+                            >
+                            <label for="tag-image">
+                                画像制作
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-video"
+                                name="tags"
+                                value="動画制作"
+                            >
+                            <label for="tag-video">
+                                動画制作
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-music"
+                                name="tags"
+                                value="音楽制作"
+                            >
+                            <label for="tag-music">
+                                音楽制作
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-blender"
+                                name="tags"
+                                value="Blender"
+                            >
+                            <label for="tag-blender">
+                                Blender
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-illustration"
+                                name="tags"
+                                value="イラスト制作"
+                            >
+                            <label for="tag-illustration">
+                                イラスト制作
+                            </label>
+                        </div>
+
+
+                        <div class="auth-tag">
+                            <input
+                                type="checkbox"
+                                id="tag-programming"
+                                name="tags"
+                                value="プログラミング"
+                            >
+                            <label for="tag-programming">
+                                プログラミング
+                            </label>
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================
+                     04 BIO
+                ================================== -->
+
+                <section class="auth-form-section">
+
+                    <div class="auth-step">
+
+                        <span class="auth-step-number">
+                            04
+                        </span>
+
+                        <span class="auth-step-text">
+                            自己紹介
+                        </span>
+
+                    </div>
+
+
+                    <h2 class="auth-form-title">
+                        自由記述
+                    </h2>
+
+
+                    <div class="form-group">
+
+                        <label for="profile-bio">
+                            自己紹介・活動内容
+                        </label>
+
+                        <textarea
+                            id="profile-bio"
+                            name="bio"
+                            rows="6"
+                            maxlength="2000"
+                            placeholder="自己紹介やMFDCOでやりたいことなど"
+                        ></textarea>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================
+                     SUBMIT
+                ================================== -->
+
+                <div class="auth-actions">
+
+                    <button
+                        type="submit"
+                        class="auth-action-primary"
+                    >
+                        プロフィールを登録する
+                    </button>
+
+                </div>
+
+
+            </form>
+
+
+
+            <!-- =================================
+                 ERROR
+            ================================== -->
+
+            <div
+                id="profile-error"
+                class="auth-card center"
+                hidden
+            >
+
+                <div class="auth-icon">
+                    !
+                </div>
+
+                <h2 class="auth-card-title">
+                    プロフィール登録を開始できません
+                </h2>
+
+                <p
+                    id="profile-error-message"
+                    class="auth-text"
+                >
+                </p>
+
+                <div class="auth-actions">
+
+                    <a
+                        href="join.html"
+                        class="auth-action-secondary"
+                    >
+                        ログイン画面へ
+                    </a>
 
                 </div>
 
             </div>
 
-        </section>
+
+        </div>
 
     </main>
 
 
+
+    <!-- =========================================
+         COMMON FOOTER
+    ========================================== -->
+
     <div id="footer-container"></div>
 
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="js/supabase-config.js"></script>
+    <script src="js/header.js"></script>
     <script src="js/profile-setup.js"></script>
     <script src="js/main.js"></script>
 
