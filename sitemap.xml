@@ -3,10 +3,12 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
 >
 
+    <!-- トップページ -->
     <url>
         <loc>https://mfdco-2026.github.io/MFDCO--/</loc>
     </url>
 
+    <!-- 基本ページ -->
     <url>
         <loc>https://mfdco-2026.github.io/MFDCO--/about.html</loc>
     </url>
@@ -30,5 +32,22 @@
     <url>
         <loc>https://mfdco-2026.github.io/MFDCO--/join.html</loc>
     </url>
+
+
+    <!-- ========================= -->
+    <!-- MFDCO ツール -->
+    <!-- ========================= -->
+
+    <url>
+        <loc>https://mfdco-2026.github.io/MFDCO--/tools/</loc>
+    </url>
+
+    <!-- MFDCO Cipher -->
+    <url>
+        <loc>https://mfdco-2026.github.io/MFDCO--/tools/cipher.html</loc>
+    </url>
+
+    <!-- ここから下に実際のツールを追加 -->
+
 
 </urlset>
