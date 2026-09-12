@@ -1,0 +1,115 @@
+MFDCO Tools v2.4 Data-Driven Audit
+==================================
+
+Public functions: 72
+Regression tests: 72 / 72 (100%)
+Candidate metadata: 72 / 72 (100%)
+
+Structural result
+-----------------
+- Calculator candidates: registry-driven
+- Code-page candidates: registry-driven
+- Wiki: registry-driven
+- Diagnostics: one row per public function
+- Release tests: one regression per public function
+- Hard-coded code-page mathNames list: removed
+
+Regression result
+-----------------
+COVERAGE {"publicCount":72,"tested":72,"candidates":72,"testCoverage":1,"candidateCoverage":1}
+PASS sqrt
+PASS cbrt
+PASS abs
+PASS floor
+PASS ceil
+PASS round
+PASS trunc
+PASS min
+PASS max
+PASS hypot
+PASS sign
+PASS clamp
+PASS factorial
+PASS nCr
+PASS nPr
+PASS gcd
+PASS lcm
+PASS isfinite
+PASS isnan
+PASS sin
+PASS cos
+PASS tan
+PASS asin
+PASS acos
+PASS atan
+PASS sinh
+PASS cosh
+PASS tanh
+PASS asinh
+PASS acosh
+PASS atanh
+PASS ln
+PASS log10
+PASS log2
+PASS exp
+PASS pow
+PASS diff
+PASS diff2
+PASS integral
+PASS solve
+PASS sum
+PASS product
+PASS kineticEnergy
+PASS momentum
+PASS force
+PASS torque
+PASS work
+PASS power
+PASS efficiency
+PASS hydrostaticP
+PASS dynamicPressure
+PASS reynolds
+PASS mach
+PASS continuityV2
+PASS bernoulliHead
+PASS bernoulliP2
+PASS dragForce
+PASS liftForce
+PASS idealGasP
+PASS idealGasV
+PASS ohmV
+PASS ohmI
+PASS ohmR
+PASS electricPower
+PASS stress
+PASS strain
+PASS hookeStress
+PASS eulerBuckling
+PASS heatConduction
+PASS log
+PASS rad
+PASS deg
+PASS coverage-tests
+PASS coverage-candidates
+
+JavaScript validation
+---------------------
+- mfdco-storage.js: OK
+- mfdco-functions.js: OK
+- mfdco-engine.js: OK
+- mfdco-units.js: OK
+- mfdco-templates.js: OK
+- mfdco-ui.js: OK
+- mfdco-calendar.js: OK
+- mfdco-shell.js: OK
+- mfdco-results.js: OK
+- mfdco-release-tests.js: OK
+- mfdco-manifest.js: OK
+- calculator.html: OK
+- code.html: OK
+- diagnostics.html: OK
+- features.html: OK
+- files.html: OK
+- index.html: OK
+- results.html: OK
+- unit-converter.html: OK

@@ -1,0 +1,23 @@
+MFDCO Tools v3.8.2
+===================
+
+Public-release stabilization release.
+
+Fixed
+-----
+- Results graph area disappearing/collapsing after Graph Analysis was added
+- graph legends losing the source expression
+- new graph statistics not being generated
+- graph-analysis controls becoming stale after selection/range changes
+- 12 older templates failing immediately because required example variables were undefined
+
+Verified
+--------
+- 142/142 public functions
+- 153/153 units
+- 33/33 templates
+- 20/20 language constructs
+- every template executes exactly as inserted
+- graph sampling/rendering/statistics/analysis/resampling pipeline
+- local navigation/script/style references
+- calendar smoke tests

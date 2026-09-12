@@ -1,0 +1,26 @@
+MFDCO_math <-> MFDCO Tools 接続
+================================
+
+公開URL:
+https://mfdco.net/tools.html
+
+MFDCO_math からツール一覧:
+mfdco-shell.js
+  const MFDCO_TOOLS_LIST_URL="https://mfdco.net/tools.html";
+
+ツール一覧から MFDCO_math:
+  href: "tools/MFDCO_math/index.html"
+
+ツール一覧から単位変換器:
+  href: "tools/MFDCO_math/unit-converter.html"
+
+想定サーバー構成:
+/
+├─ tools.html
+└─ tools/
+   └─ MFDCO_math/
+      ├─ index.html
+      ├─ calculator.html
+      ├─ code.html
+      ├─ results.html
+      └─ unit-converter.html

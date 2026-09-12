@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MFDCO_math - 単位変換器</title>
+<link rel="stylesheet" href="mfdco-base.css">
+<link rel="stylesheet" href="unit-converter.css">
+
+
+</head>
+<body>
+<header class="site-header">
+  <div class="site-brand">
+    <div class="site-logo">M</div>
+    <div><div class="site-title">MFDCO_math</div><div class="small">Scientific / Utility Math</div></div>
+  </div>
+  <nav class="site-nav">
+    <a href="files.html">ファイル</a>
+    <a href="calculator.html">関数電卓</a>
+    <a href="code.html">コード</a>
+    <a href="results.html">結果</a>
+    <a href="unit-converter.html" class="active">単位変換器</a>
+    <a href="features.html">機能一覧</a>
+  </nav>
+</header>
+
+<main>
+  <section class="card">
+    <div class="title-row">
+      <div>
+        <h1>単位変換器</h1>
+        <div class="small">変換元の種類に合わせて、変換可能な単位だけを候補表示します。</div>
+      </div>
+    </div>
+
+    <div class="converter">
+      <div class="field">
+        <label>変換元</label>
+        <input id="valueInput" type="number" value="1" step="any">
+        <div class="unit-row">
+          <select id="fromPrefix"></select>
+          <select id="fromUnit"></select>
+        </div>
+      </div>
+
+      <button class="swap" id="swapBtn">⇄</button>
+
+      <div class="field">
+        <label>変換先</label>
+        <input id="outputInput" readonly>
+        <div class="unit-row">
+          <select id="toPrefix"></select>
+          <select id="toUnit"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-box" id="resultBox">1 m = 1 m</div>
+    <div class="meta" id="categoryInfo"></div>
+  </section>
+
+  <section class="card">
+    <div class="title-row">
+      <div>
+        <h2>暦・日付変換</h2>
+        <div class="small">西暦・皇紀・日本の元号・曜日・ISO週・ユリウス日、および各種暦を表示します。</div>
+      </div>
+    </div>
+
+    <div class="calendar-grid">
+      <div class="field">
+        <label>入力方式</label>
+        <select id="calendarMode">
+          <option value="gregorian">西暦</option>
+          <option value="koki">皇紀</option>
+          <option value="era">元号</option>
+          <option value="jdn">ユリウス日 (JDN)</option>
+        </select>
+      </div>
+      <div class="field" id="calendarMainField">
+        <label>年</label>
+        <input id="calendarYear" type="number" value="2026">
+      </div>
+      <div class="field" id="monthDayField">
+        <label>月日</label>
+        <input id="calendarMonthDay" type="text" value="09-12" placeholder="MM-DD">
+      </div>
+      <button class="primary" id="calendarConvertBtn">変換</button>
+    </div>
+
+    <div id="eraInputRow" class="calendar-grid" style="display:none;margin-top:8px">
+      <div class="field">
+        <label>元号（令和～大化）</label>
+        <select id="eraName"></select>
+      </div>
+      <div class="field">
+        <label>年</label>
+        <input id="eraYear" type="number" value="8" min="1">
+      </div>
+      <div class="field">
+        <label>歴史元号検索</label>
+        <input id="eraSearch" placeholder="例: 元禄 / 天平 / 大化">
+      </div>
+      <div></div>
+    </div>
+
+    <div id="jdnInputRow" style="display:none;margin-top:8px" class="calendar-grid">
+      <div class="field">
+        <label>Julian Day Number</label>
+        <input id="jdnInput" type="number" value="2461295" step="1">
+      </div>
+      <div></div><div></div><div></div>
+    </div>
+
+    <div class="calendar-output" style="grid-template-columns:repeat(4,1fr)">
+      <div><b>西暦</b><span id="gregorianOut">—</span></div>
+      <div><b>曜日</b><span id="weekdayOut">—</span></div>
+      <div><b>皇紀</b><span id="kokiOut">—</span></div>
+      <div><b>日本元号</b><span id="eraOut">—</span></div>
+      <div><b>ISO週</b><span id="isoWeekOut">—</span></div>
+      <div><b>年内通算日</b><span id="dayOfYearOut">—</span></div>
+      <div><b>Julian Day</b><span id="jdnOut">—</span></div>
+      <div><b>MJD</b><span id="mjdOut">—</span></div>
+    </div>
+
+    <div class="calendar-output" id="otherCalendars" style="grid-template-columns:repeat(4,1fr);margin-top:8px">
+      <div><b>ユリウス暦</b><span id="julianCalendarOut">—</span></div>
+      <div><b>仏暦</b><span id="buddhistOut">—</span></div>
+      <div><b>民国紀元</b><span id="rocOut">—</span></div>
+      <div><b>イスラム暦</b><span id="islamicOut">—</span></div>
+      <div><b>ヘブライ暦</b><span id="hebrewOut">—</span></div>
+      <div><b>ペルシャ暦</b><span id="persianOut">—</span></div>
+      <div><b>インド国定暦</b><span id="indianOut">—</span></div>
+      <div><b>中国暦</b><span id="chineseOut">—</span></div>
+    </div>
+
+    <div class="note" style="margin-top:8px">
+      古代・中世の元号は、当時の太陰太陽暦と現代の西暦の日付体系が一致しないため、歴史日付は参考換算です。
+      大化～大宝以前には元号の中断・非公式年号を含む扱いがあります。
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="title-row">
+      <div>
+        <h2>ユーザー定義単位</h2>
+        <div class="small">既存の基準単位に対する倍率として保存します。保存内容はこのブラウザに保持されます。</div>
+      </div>
+    </div>
+
+    <div class="custom-grid">
+      <div class="field">
+        <label>単位名</label>
+        <input id="customName" placeholder="例: MFDCO距離">
+      </div>
+      <div class="field">
+        <label>記号</label>
+        <input id="customSymbol" placeholder="例: md">
+      </div>
+      <div class="field">
+        <label>種類</label>
+        <select id="customCategory"></select>
+      </div>
+      <div class="field">
+        <label>基準単位</label>
+        <select id="customBaseUnit"></select>
+      </div>
+      <div class="field">
+        <label>倍率</label>
+        <input id="customFactor" type="number" value="1" step="any">
+      </div>
+      <button class="primary" id="saveCustomBtn">保存</button>
+    </div>
+
+    <div class="note" style="margin-top:6px">例：「1 md = 2.5 m」にしたい場合、種類=長さ、基準単位=m、倍率=2.5。</div>
+    <div class="custom-list" id="customList"></div>
+  </section>
+
+  <section class="card">
+    <div class="title-row">
+      <div>
+        <h2>利用可能な単位一覧</h2>
+        <div class="small">SI接頭語は別途選択できる単位のみ「接頭語可」と表示します。</div>
+      </div>
+      <div class="table-tools">
+        <input id="tableSearch" placeholder="単位名・記号・種類で検索">
+      </div>
+    </div>
+
+    <div class="unit-table-wrap">
+      <table class="unit-table">
+        <thead>
+          <tr><th>種類</th><th>単位</th><th>記号</th><th>基準換算</th><th>接頭語</th><th>備考</th></tr>
+        </thead>
+        <tbody id="unitTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script src="mfdco-project-schema.js"></script>
+<script src="mfdco-storage.js"></script>
+<script src="mfdco-workspace.js"></script>
+<script src="mfdco-symbolic.js"></script>
+<script src="mfdco-advanced.js"></script>
+<script src="mfdco-functions.js"></script>
+<script src="mfdco-units.js"></script>
+<script src="mfdco-quantities.js"></script>
+<script src="mfdco-templates.js"></script>
+<script src="mfdco-language.js"></script>
+<script src="mfdco-syntax.js"></script>
+<script src="mfdco-registry-search.js"></script>
+<script src="mfdco-ui.js"></script>
+<script src="mfdco-calendar.js"></script>
+<script src="mfdco-shell.js"></script>
+<script src="mfdco-results.js"></script>
+<script src="mfdco-release-tests.js"></script>
+<script src="mfdco-manifest.js"></script>
+<script src="mfdco-engine.js"></script>
+<script>
+const PREFIXES=MFDCOUnits.PREFIXES;
+
+const CATEGORY_NAMES=MFDCOUnits.CATEGORY_NAMES;
+
+const BUILTIN_UNITS=MFDCOUnits.BUILTIN_UNITS;
+
+const fromPrefix=document.getElementById("fromPrefix");
+const toPrefix=document.getElementById("toPrefix");
+const fromUnit=document.getElementById("fromUnit");
+const toUnit=document.getElementById("toUnit");
+const valueInput=document.getElementById("valueInput");
+const outputInput=document.getElementById("outputInput");
+const resultBox=document.getElementById("resultBox");
+const categoryInfo=document.getElementById("categoryInfo");
+
+let customUnits=[];
+
+function loadCustom(){
+  try{customUnits=MFDCOStorage.getCustomUnits()}catch(_){customUnits=[]}
+  if(!Array.isArray(customUnits))customUnits=[];
+}
+function saveCustom(){MFDCOStorage.setCustomUnits(customUnits)}
+function units(){return [...BUILTIN_UNITS,...customUnits]}
+function prefixFactor(symbol){return MFDCOUnits.prefixFactor(symbol)}
+function getUnit(id){return units().find(u=>u.id===id)}
+function unitDisplay(u){return MFDCOUnits.unitDisplay(u)}
+
+function fillPrefixes(){
+  for(const [v,l] of PREFIXES){fromPrefix.add(new Option(l,v));toPrefix.add(new Option(l,v))}
+}
+function fillFromUnits(keep){
+  const list=units().slice().sort((a,b)=>(CATEGORY_NAMES[a.cat]||a.cat).localeCompare(CATEGORY_NAMES[b.cat]||b.cat,"ja")||a.name.localeCompare(b.name,"ja"));
+  fromUnit.innerHTML="";
+  for(const u of list)fromUnit.add(new Option(`${CATEGORY_NAMES[u.cat]||u.cat}｜${unitDisplay(u)}`,u.id));
+  if(keep&&list.some(u=>u.id===keep))fromUnit.value=keep;
+}
+function fillToUnits(){
+  const from=getUnit(fromUnit.value);if(!from)return;
+  const list=units().filter(u=>u.cat===from.cat);
+  const old=toUnit.value;
+  toUnit.innerHTML="";
+  for(const u of list)toUnit.add(new Option(unitDisplay(u),u.id));
+  if(list.some(u=>u.id===old))toUnit.value=old;
+  else if(list.some(u=>u.id!==from.id))toUnit.value=list.find(u=>u.id!==from.id).id;
+  else toUnit.value=from.id;
+  updatePrefixAvailability();
+}
+function updatePrefixAvailability(){
+  const a=getUnit(fromUnit.value),b=getUnit(toUnit.value);
+  fromPrefix.disabled=!a?.prefix;
+  toPrefix.disabled=!b?.prefix;
+  if(!a?.prefix)fromPrefix.value="";
+  if(!b?.prefix)toPrefix.value="";
+}
+function convert(){
+  const a=getUnit(fromUnit.value),b=getUnit(toUnit.value),val=Number(valueInput.value);
+  if(!a||!b||!Number.isFinite(val)){outputInput.value="";resultBox.textContent="入力を確認してください";return}
+  try{
+    const out=MFDCOUnits.convertValue(val,a,b,fromPrefix.value,toPrefix.value);
+    const shown=Number(out.toPrecision(12));
+    outputInput.value=shown;
+    resultBox.textContent=`${val} ${fromPrefix.value}${a.symbol} = ${shown} ${toPrefix.value}${b.symbol}`;
+    categoryInfo.textContent=`種類: ${MFDCOUnits.categoryName(a.cat)}${a.note?` / ${a.note}`:""}`;
+  }catch(e){
+    outputInput.value="";resultBox.textContent=e.message;
+  }
+}
+fromUnit.onchange=()=>{fillToUnits();convert()};
+toUnit.onchange=()=>{updatePrefixAvailability();convert()};
+[fromPrefix,toPrefix,valueInput].forEach(x=>x.addEventListener("input",convert));
+document.getElementById("swapBtn").onclick=()=>{
+  const a=fromUnit.value,b=toUnit.value,ap=fromPrefix.value,bp=toPrefix.value;
+  fromUnit.value=b;fillToUnits();if([...toUnit.options].some(o=>o.value===a))toUnit.value=a;
+  fromPrefix.value=bp;toPrefix.value=ap;updatePrefixAvailability();convert();
+};
+
+const ERA_CATALOG=MFDCOCalendar.eras;
+
+function fillEraSelect(filter=""){
+  const sel=document.getElementById("eraName");
+  const current=sel.value;
+  sel.innerHTML="";
+  const q=filter.trim();
+  const reversed=[...ERA_CATALOG].reverse();
+  for(const e of reversed){
+    if(q && !e.name.includes(q))continue;
+    sel.add(new Option(`${e.name}（${e.startYear}年頃～）`,e.name));
+  }
+  if([...sel.options].some(o=>o.value===current))sel.value=current;
+  else if([...sel.options].some(o=>o.value==="令和"))sel.value="令和";
+}
+
+function parseMD(){
+  const raw=document.getElementById("calendarMonthDay").value.trim();
+  const m=raw.match(/^(\d{1,2})-(\d{1,2})$/);
+  return m?[Number(m[1]),Number(m[2])]:[1,1];
+}
+function pad(n){return String(n).padStart(2,"0")}
+function validDateUTC(y,m,d){return MFDCOCalendar.validDateUTC(y,m,d)}
+function gregorianToJDN(y,m,d){return MFDCOCalendar.gregorianToJDN(y,m,d)}
+function jdnToGregorian(jdn){return MFDCOCalendar.jdnToGregorian(jdn)}
+function jdnToJulian(jdn){return MFDCOCalendar.jdnToJulian(jdn)}
+function isoWeek(dt){
+  const d=new Date(Date.UTC(dt.getUTCFullYear(),dt.getUTCMonth(),dt.getUTCDate()));
+  let day=d.getUTCDay();if(day===0)day=7;
+  d.setUTCDate(d.getUTCDate()+4-day);
+  const isoYear=d.getUTCFullYear();
+  const yearStart=new Date(Date.UTC(isoYear,0,1));
+  const week=Math.ceil((((d-yearStart)/86400000)+1)/7);
+  return `${isoYear}-W${String(week).padStart(2,"0")}`;
+}
+function dayOfYear(dt){
+  const start=Date.UTC(dt.getUTCFullYear(),0,1);
+  return Math.floor((dt.getTime()-start)/86400000)+1;
+}
+function formatIntlCalendar(dt,calendar){
+  try{
+    return new Intl.DateTimeFormat(`ja-JP-u-ca-${calendar}`,{
+      year:"numeric",month:"long",day:"numeric",timeZone:"UTC"
+    }).format(dt);
+  }catch(_){
+    return "未対応";
+  }
+}
+function formatJapaneseEra(dt){
+  try{
+    return new Intl.DateTimeFormat("ja-JP-u-ca-japanese",{
+      era:"long",year:"numeric",month:"long",day:"numeric",timeZone:"UTC"
+    }).format(dt);
+  }catch(_){
+    return "未対応";
+  }
+}
+function eraApproxToGregorian(){
+  const name=document.getElementById("eraName").value;
+  const e=ERA_CATALOG.find(x=>x.name===name);
+  const ey=Math.max(1,Number(document.getElementById("eraYear").value)||1);
+  if(!e)return null;
+  return e.startYear+ey-1;
+}
+function convertCalendar(){
+  const mode=document.getElementById("calendarMode").value;
+  let y,m,d,jdn;
+
+  if(mode==="jdn"){
+    jdn=Math.round(Number(document.getElementById("jdnInput").value));
+    if(!Number.isFinite(jdn))return;
+    const g=jdnToGregorian(jdn);y=g.year;m=g.month;d=g.day;
+  }else{
+    [m,d]=parseMD();
+    if(mode==="gregorian")y=Number(document.getElementById("calendarYear").value);
+    else if(mode==="koki")y=Number(document.getElementById("calendarYear").value)-660;
+    else y=eraApproxToGregorian();
+    if(!Number.isInteger(y))return;
+    jdn=gregorianToJDN(y,m,d);
+  }
+
+  const dt=validDateUTC(y,m,d);
+  if(!dt){
+    document.getElementById("gregorianOut").textContent="日付が不正です";
+    return;
+  }
+
+  const weekday=new Intl.DateTimeFormat("ja-JP",{weekday:"long",timeZone:"UTC"}).format(dt);
+  const jul=jdnToJulian(jdn);
+
+  document.getElementById("gregorianOut").textContent=`${y}-${pad(m)}-${pad(d)}`;
+  document.getElementById("weekdayOut").textContent=weekday;
+  document.getElementById("kokiOut").textContent=`皇紀${y+660}年`;
+  document.getElementById("eraOut").textContent=formatJapaneseEra(dt);
+  document.getElementById("isoWeekOut").textContent=isoWeek(dt);
+  document.getElementById("dayOfYearOut").textContent=`${dayOfYear(dt)}日目`;
+  document.getElementById("jdnOut").textContent=String(jdn);
+  document.getElementById("mjdOut").textContent=String(jdn-2400001);
+  document.getElementById("julianCalendarOut").textContent=`${jul.year}-${pad(jul.month)}-${pad(jul.day)}`;
+  document.getElementById("buddhistOut").textContent=formatIntlCalendar(dt,"buddhist");
+  document.getElementById("rocOut").textContent=formatIntlCalendar(dt,"roc");
+  document.getElementById("islamicOut").textContent=formatIntlCalendar(dt,"islamic-civil");
+  document.getElementById("hebrewOut").textContent=formatIntlCalendar(dt,"hebrew");
+  document.getElementById("persianOut").textContent=formatIntlCalendar(dt,"persian");
+  document.getElementById("indianOut").textContent=formatIntlCalendar(dt,"indian");
+  document.getElementById("chineseOut").textContent=formatIntlCalendar(dt,"chinese");
+}
+document.getElementById("calendarMode").onchange=()=>{
+  const mode=document.getElementById("calendarMode").value;
+  document.getElementById("eraInputRow").style.display=mode==="era"?"grid":"none";
+  document.getElementById("jdnInputRow").style.display=mode==="jdn"?"grid":"none";
+  document.getElementById("calendarMainField").style.display=(mode==="era"||mode==="jdn")?"none":"grid";
+  document.getElementById("monthDayField").style.display=mode==="jdn"?"none":"grid";
+};
+document.getElementById("eraSearch").oninput=e=>fillEraSelect(e.target.value);
+document.getElementById("calendarConvertBtn").onclick=convertCalendar;
+fillEraSelect();
+
+function fillCustomForm(){
+  const catSel=document.getElementById("customCategory");
+  catSel.innerHTML="";
+  for(const [k,v] of Object.entries(CATEGORY_NAMES))catSel.add(new Option(v,k));
+  fillBaseUnits();
+}
+function fillBaseUnits(){
+  const cat=document.getElementById("customCategory").value,sel=document.getElementById("customBaseUnit");
+  sel.innerHTML="";
+  for(const u of BUILTIN_UNITS.filter(u=>u.cat===cat))sel.add(new Option(unitDisplay(u),u.id));
+}
+document.getElementById("customCategory").onchange=fillBaseUnits;
+document.getElementById("saveCustomBtn").onclick=()=>{
+  const name=document.getElementById("customName").value.trim(),symbol=document.getElementById("customSymbol").value.trim();
+  const cat=document.getElementById("customCategory").value,baseId=document.getElementById("customBaseUnit").value;
+  const mult=Number(document.getElementById("customFactor").value),base=getUnit(baseId);
+  if(!name||!symbol||!base||!Number.isFinite(mult)||mult<=0){alert("入力を確認してください");return}
+  if(cat==="temperature"){alert("絶対温度はオフセットを含むため、現在ユーザー定義単位には使用できません");return}
+  const id="user-"+Date.now().toString(36);
+  customUnits.push({id,name,symbol,cat,factor:base.factor*mult,prefix:false,note:`ユーザー定義: 1 ${symbol} = ${mult} ${base.symbol}`,custom:true});
+  saveCustom();renderCustom();const keep=fromUnit.value;fillFromUnits(keep);fillToUnits();renderTable();convert();
+  document.getElementById("customName").value="";document.getElementById("customSymbol").value="";
+};
+function renderCustom(){
+  const host=document.getElementById("customList");host.innerHTML="";
+  if(!customUnits.length){host.innerHTML='<span class="small">保存済みのユーザー定義単位はありません。</span>';return}
+  customUnits.forEach(u=>{
+    const d=document.createElement("span");d.className="custom-chip";d.innerHTML=`${u.name} (${u.symbol}) <button title="削除">×</button>`;
+    d.querySelector("button").onclick=()=>{
+      customUnits=customUnits.filter(x=>x.id!==u.id);saveCustom();renderCustom();
+      fillFromUnits();fillToUnits();renderTable();convert();
+    };host.appendChild(d);
+  });
+}
+function factorText(u){return MFDCOUnits.factorText(u)}
+function renderTable(){
+  const q=document.getElementById("tableSearch").value.trim().toLowerCase(),tbody=document.getElementById("unitTableBody");
+  tbody.innerHTML="";
+  const list=units().filter(u=>!q||[u.name,u.symbol,CATEGORY_NAMES[u.cat]||u.cat,u.note||""].join(" ").toLowerCase().includes(q));
+  for(const u of list){
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td><span class="badge">${CATEGORY_NAMES[u.cat]||u.cat}</span></td><td>${u.name}</td><td><code>${u.symbol}</code></td><td>${factorText(u)}</td><td>${u.prefix?"接頭語可":"—"}</td><td>${u.note||""}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+document.getElementById("tableSearch").oninput=renderTable;
+
+loadCustom();fillPrefixes();fillFromUnits("m");fillToUnits();fillCustomForm();renderCustom();renderTable();convert();convertCalendar();
+</script>
+
+<script>MFDCOShell.init();</script>
+</body>
+</html>
+

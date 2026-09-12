@@ -1,0 +1,293 @@
+MFDCO Tools v2.5 Registry / Schema Audit
+=========================================
+
+Coverage
+--------
+Public functions: 72 / 72 (100%)
+Built-in units: 153 / 153 (100%)
+Templates: 16 / 16 (100%)
+
+New project-format protections
+------------------------------
+- MFDCO_PROJECT format validation
+- allowed storage-key validation
+- DEG/RAD validation
+- JSON payload validation for structured fields
+- legacy v1 migration test
+- invalid project rejection test
+
+Full regression output
+----------------------
+COVERAGE {"publicCount":72,"tested":72,"candidates":72,"testCoverage":1,"candidateCoverage":1,"unitCount":153,"unitTested":153,"unitTestCoverage":1,"templateCount":16,"templateTested":16,"templateTestCoverage":1}
+PASS FUNCTION sqrt
+PASS FUNCTION cbrt
+PASS FUNCTION abs
+PASS FUNCTION floor
+PASS FUNCTION ceil
+PASS FUNCTION round
+PASS FUNCTION trunc
+PASS FUNCTION min
+PASS FUNCTION max
+PASS FUNCTION hypot
+PASS FUNCTION sign
+PASS FUNCTION clamp
+PASS FUNCTION factorial
+PASS FUNCTION nCr
+PASS FUNCTION nPr
+PASS FUNCTION gcd
+PASS FUNCTION lcm
+PASS FUNCTION isfinite
+PASS FUNCTION isnan
+PASS FUNCTION sin
+PASS FUNCTION cos
+PASS FUNCTION tan
+PASS FUNCTION asin
+PASS FUNCTION acos
+PASS FUNCTION atan
+PASS FUNCTION sinh
+PASS FUNCTION cosh
+PASS FUNCTION tanh
+PASS FUNCTION asinh
+PASS FUNCTION acosh
+PASS FUNCTION atanh
+PASS FUNCTION ln
+PASS FUNCTION log10
+PASS FUNCTION log2
+PASS FUNCTION exp
+PASS FUNCTION pow
+PASS FUNCTION diff
+PASS FUNCTION diff2
+PASS FUNCTION integral
+PASS FUNCTION solve
+PASS FUNCTION sum
+PASS FUNCTION product
+PASS FUNCTION kineticEnergy
+PASS FUNCTION momentum
+PASS FUNCTION force
+PASS FUNCTION torque
+PASS FUNCTION work
+PASS FUNCTION power
+PASS FUNCTION efficiency
+PASS FUNCTION hydrostaticP
+PASS FUNCTION dynamicPressure
+PASS FUNCTION reynolds
+PASS FUNCTION mach
+PASS FUNCTION continuityV2
+PASS FUNCTION bernoulliHead
+PASS FUNCTION bernoulliP2
+PASS FUNCTION dragForce
+PASS FUNCTION liftForce
+PASS FUNCTION idealGasP
+PASS FUNCTION idealGasV
+PASS FUNCTION ohmV
+PASS FUNCTION ohmI
+PASS FUNCTION ohmR
+PASS FUNCTION electricPower
+PASS FUNCTION stress
+PASS FUNCTION strain
+PASS FUNCTION hookeStress
+PASS FUNCTION eulerBuckling
+PASS FUNCTION heatConduction
+PASS FUNCTION log
+PASS FUNCTION rad
+PASS FUNCTION deg
+PASS UNIT m
+PASS UNIT angstrom
+PASS UNIT inch
+PASS UNIT ft
+PASS UNIT yd
+PASS UNIT mile
+PASS UNIT fathom
+PASS UNIT chain
+PASS UNIT furlong
+PASS UNIT nmi
+PASS UNIT au
+PASS UNIT ly
+PASS UNIT pc
+PASS UNIT sun
+PASS UNIT shaku
+PASS UNIT ken
+PASS UNIT jo
+PASS UNIT cho_len
+PASS UNIT ri
+PASS UNIT m2
+PASS UNIT ha
+PASS UNIT acre
+PASS UNIT sqft
+PASS UNIT sqin
+PASS UNIT sqyd
+PASS UNIT tsubo
+PASS UNIT se
+PASS UNIT tan_area
+PASS UNIT chobu
+PASS UNIT m3
+PASS UNIT L
+PASS UNIT usgal
+PASS UNIT impgal
+PASS UNIT usqt
+PASS UNIT uspt
+PASS UNIT usfloz
+PASS UNIT bbl
+PASS UNIT go
+PASS UNIT sho
+PASS UNIT to
+PASS UNIT koku
+PASS UNIT s
+PASS UNIT min
+PASS UNIT h_time
+PASS UNIT day
+PASS UNIT week
+PASS UNIT fortnight
+PASS UNIT julianYear
+PASS UNIT kg
+PASS UNIT g
+PASS UNIT tonne
+PASS UNIT lb
+PASS UNIT oz
+PASS UNIT stone
+PASS UNIT grain
+PASS UNIT carat
+PASS UNIT momme
+PASS UNIT ryo_mass
+PASS UNIT kin
+PASS UNIT kan
+PASS UNIT mps
+PASS UNIT kmh
+PASS UNIT mph
+PASS UNIT knot
+PASS UNIT c
+PASS UNIT mps2
+PASS UNIT gal
+PASS UNIT g0
+PASS UNIT N
+PASS UNIT dyn
+PASS UNIT kgf
+PASS UNIT lbf
+PASS UNIT Nm
+PASS UNIT kgfm
+PASS UNIT ftlbf_t
+PASS UNIT Pa
+PASS UNIT bar
+PASS UNIT atm
+PASS UNIT torr
+PASS UNIT mmHg
+PASS UNIT mmH2O
+PASS UNIT psi
+PASS UNIT J
+PASS UNIT Wh
+PASS UNIT cal
+PASS UNIT eV
+PASS UNIT erg
+PASS UNIT ftlbf_e
+PASS UNIT BTU
+PASS UNIT therm
+PASS UNIT toe
+PASS UNIT kgTNT
+PASS UNIT tonTNT
+PASS UNIT ktTNT
+PASS UNIT MtTNT
+PASS UNIT W
+PASS UNIT hp
+PASS UNIT PS
+PASS UNIT BTUh
+PASS UNIT Hz
+PASS UNIT C
+PASS UNIT A
+PASS UNIT V
+PASS UNIT ohm
+PASS UNIT S
+PASS UNIT F
+PASS UNIT H
+PASS UNIT Wb
+PASS UNIT Tmag
+PASS UNIT K
+PASS UNIT degC
+PASS UNIT degF
+PASS UNIT degR
+PASS UNIT Kdelta
+PASS UNIT Cdelta
+PASS UNIT Fdelta
+PASS UNIT mol
+PASS UNIT cd
+PASS UNIT lm
+PASS UNIT lx
+PASS UNIT rad
+PASS UNIT deg
+PASS UNIT gon
+PASS UNIT arcmin
+PASS UNIT arcsec
+PASS UNIT turn
+PASS UNIT bit
+PASS UNIT byte
+PASS UNIT KiB
+PASS UNIT MiB
+PASS UNIT GiB
+PASS UNIT kgm3
+PASS UNIT gcm3
+PASS UNIT lbft3
+PASS UNIT Pas
+PASS UNIT P
+PASS UNIT cP
+PASS UNIT m2s
+PASS UNIT St
+PASS UNIT cSt
+PASS UNIT Bq
+PASS UNIT Ci
+PASS UNIT Gy
+PASS UNIT radDose
+PASS UNIT Sv
+PASS UNIT rem
+PASS UNIT mcBlock
+PASS UNIT mcChunk
+PASS UNIT mcRegion
+PASS UNIT mcTick
+PASS UNIT redstoneTick
+PASS UNIT mcDay
+PASS UNIT mcHour
+PASS TEMPLATE quadratic
+PASS TEMPLATE calculus
+PASS TEMPLATE statistics
+PASS TEMPLATE plot
+PASS TEMPLATE projectile
+PASS TEMPLATE freefall
+PASS TEMPLATE energy
+PASS TEMPLATE bernoulli
+PASS TEMPLATE reynolds
+PASS TEMPLATE continuity
+PASS TEMPLATE drag
+PASS TEMPLATE idealgas
+PASS TEMPLATE ohm
+PASS TEMPLATE heat
+PASS TEMPLATE strength
+PASS TEMPLATE constants
+PASS PROJECT valid project
+PASS PROJECT v1 migration
+PASS PROJECT reject invalid angle
+PASS function-coverage
+PASS function-candidates
+PASS unit-coverage
+PASS template-coverage
+TOTAL 248 FAIL 0
+
+JavaScript validation
+---------------------
+- mfdco-project-schema.js: OK
+- mfdco-storage.js: OK
+- mfdco-functions.js: OK
+- mfdco-engine.js: OK
+- mfdco-units.js: OK
+- mfdco-templates.js: OK
+- mfdco-ui.js: OK
+- mfdco-calendar.js: OK
+- mfdco-shell.js: OK
+- mfdco-results.js: OK
+- mfdco-release-tests.js: OK
+- mfdco-manifest.js: OK
+- calculator.html: OK
+- code.html: OK
+- diagnostics.html: OK
+- features.html: OK
+- files.html: OK
+- index.html: OK
+- results.html: OK
+- unit-converter.html: OK

@@ -1,0 +1,55 @@
+MFDCO Tools v3.2 Architecture
+================================
+
+Shared state indicator
+----------------------
+calculator.html and code.html show that code/results are shared.
+
+The global header also shows:
+- 共有中・保存済み
+- 未保存変更あり
+
+MFDCOWorkspace now tracks:
+- dirty
+- lastSavedAt
+- lastChangeAt
+- lastSource
+
+Code changes and result changes mark the project dirty.
+Project save/save-as/import/new mark it saved.
+
+Import size protection
+----------------------
+MFDCOProjectSchema.MAX_IMPORT_BYTES = 2 MiB
+
+Shell import checks the file size before FileReader reads it.
+
+Deep schema validation
+----------------------
+Project validation now checks the internal shapes of:
+- variables
+- custom units
+- ANS history
+- last results / logs / plots
+- angle mode
+
+Invalid structured payloads are rejected before project application.
+
+Regression additions
+--------------------
+Tests cover:
+- dirty after code edit
+- dirty after result edit
+- saved-state reset
+- malformed variable rejection
+- malformed custom-unit rejection
+- malformed ANS rejection
+- malformed result rejection
+- oversized import rejection
+
+Recommended v3.3
+----------------
+1. Add dirty-state confirmation before page close/reload when appropriate.
+2. Add explicit autosave mode option.
+3. Add structured plot-series validation including point arrays.
+4. Add project backup snapshots before destructive new/open operations.

@@ -1,0 +1,32 @@
+MFDCO Tools v2.6 Architecture
+================================
+
+New: mfdco-language.js
+
+It is the single source of truth for:
+print, plot, if, else, for, while, and, or, not, ==, !=, <, >, <=, >=.
+
+The same registry drives:
+- calculator code candidates
+- dedicated code-page candidates
+- Wiki language reference
+- diagnostics
+- release regression tests
+
+Template regression was strengthened:
+- source must exist
+- source must contain executable content
+- templates are passed through the interpreter as smoke tests
+- parser/statement errors fail
+
+Release coverage now includes:
+- 72 public functions
+- 153 built-in units
+- 16 formula templates
+- all language constructs
+- project schema tests
+
+Recommended v2.7:
+- derive syntax highlighting from registries
+- make Wiki unit/template tables fully registry-driven
+- add complete save/load roundtrip regression tests

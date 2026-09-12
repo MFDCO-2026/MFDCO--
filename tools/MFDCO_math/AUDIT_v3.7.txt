@@ -1,0 +1,79 @@
+MFDCO Tools v3.7 Audit
+=======================
+
+Coverage
+--------
+Functions: 95/95
+Units: 153/153
+Templates: 16/16
+Language: 20/20
+
+New symbolic functions
+----------------------
+primeFactors
+factorInteger
+simplifyFraction
+expandPoly
+collectPoly
+simplifyPoly
+factorPoly
+polyDegree
+polyCoefficients
+polyDerivative
+polyIntegral
+taylorCoefficients
+taylor
+maclaurin
+
+Quantity-aware engineering
+--------------------------
+force: PASS
+kineticEnergy: PASS
+power: PASS
+ohmV: PASS
+stress: PASS
+
+Symbolic regression
+-------------------
+prime factorization: PASS
+fraction reduction: PASS
+polynomial expansion: PASS
+term collection: PASS
+polynomial factorization: PASS
+symbolic derivative: PASS
+symbolic integral: PASS
+Taylor/Maclaurin: PASS
+
+Regression
+----------
+TOTAL 402
+FAIL 0
+
+JavaScript validation
+---------------------
+- mfdco-project-schema.js: OK
+- mfdco-storage.js: OK
+- mfdco-workspace.js: OK
+- mfdco-symbolic.js: OK
+- mfdco-functions.js: OK
+- mfdco-units.js: OK
+- mfdco-quantities.js: OK
+- mfdco-engine.js: OK
+- mfdco-templates.js: OK
+- mfdco-language.js: OK
+- mfdco-syntax.js: OK
+- mfdco-registry-search.js: OK
+- mfdco-ui.js: OK
+- mfdco-calendar.js: OK
+- mfdco-shell.js: OK
+- mfdco-results.js: OK
+- mfdco-release-tests.js: OK
+- mfdco-manifest.js: OK
+- calculator.html: inline JS OK
+- code.html: inline JS OK
+- diagnostics.html: inline JS OK
+- features.html: inline JS OK
+- files.html: inline JS OK
+- index.html: inline JS OK
+- results.html: inline JS OK
+- unit-converter.html: inline JS OK

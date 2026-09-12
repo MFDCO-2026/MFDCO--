@@ -1,0 +1,44 @@
+MFDCO Tools v2.5 Architecture
+================================
+
+v2.5 extends the v2.4 release invariant beyond functions.
+
+Units
+-----
+Every built-in unit in mfdco-units.js now carries regression-test metadata.
+mfdco-release-tests.js executes one conversion test per built-in unit.
+
+Templates
+---------
+Every template in mfdco-templates.js now carries regression metadata.
+Release tests verify that each registered template resolves to non-empty source.
+
+Project schema
+--------------
+mfdco-project-schema.js defines:
+- accepted top-level project structure
+- allowed storage keys
+- angle-mode validation
+- JSON-string validation for structured stored values
+- v1 -> v2 migration normalization
+- rejection of invalid project data
+
+mfdco-storage.js delegates project migration/validation to this schema module.
+
+Release invariant
+-----------------
+100% of:
+- public functions
+- built-in units
+- templates
+
+must have regression metadata.
+
+diagnostics.html runs all three registries plus project-schema tests.
+
+Recommended v2.6
+----------------
+1. Add declarative metadata/tests for language syntax: print, plot, if, else, for, while.
+2. Add richer template execution tests, not only syntax smoke tests.
+3. Add project schema version 3 only when new persistent fields require it.
+4. Generate the Wiki's unit/template reference sections entirely from registries.

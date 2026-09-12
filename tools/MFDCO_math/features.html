@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MFDCO_math - 機能一覧</title>
+<link rel="stylesheet" href="mfdco-base.css">
+<link rel="stylesheet" href="features.css">
+
+</head>
+<body id="top">
+<header class="site-header">
+  <div class="site-brand">
+    <div class="site-logo">M</div>
+    <div><div class="site-title">MFDCO_math</div><div class="small">Scientific / Utility Math</div></div>
+  </div>
+  <nav class="site-nav">
+    <a href="files.html">ファイル</a>
+    <a href="calculator.html">関数電卓</a>
+    <a href="code.html">コード</a>
+    <a href="results.html">結果</a>
+    <a href="unit-converter.html">単位変換器</a>
+    <a href="features.html" class="active">機能一覧</a>
+  </nav>
+</header>
+
+<div class="wiki-shell">
+<aside class="sidebar">
+  <div class="search-wrap">
+    <input id="docSearch" type="search" placeholder="Wiki内を検索…">
+    <div class="search-count" id="searchCount">すべて表示中</div>
+  </div>
+  <nav class="toc">
+    <a href="#start">1. はじめに</a>
+    <a class="sub" href="#quickstart">5分クイックスタート</a>
+    <a href="#calculator">2. 関数電卓</a>
+    <a href="#variables">3. 変数・ANS</a>
+    <a href="#code">4. コード</a>
+    <a class="sub" href="#control">制御構文</a>
+    <a href="#plot">5. グラフ</a>
+    <a href="#results">6. 結果画面</a>
+    <a href="#units">7. 単位変換</a>
+    <a href="#calendar">8. 暦変換</a>
+    <a href="#files">9. ファイル</a>
+    <a href="#functions">10. 関数リファレンス</a>
+    <a href="#constants">11. 定数</a>
+    <a href="#advanced">12. 上級テクニック</a>
+    <a href="#errors">13. エラー対処</a>
+    <a href="#shortcuts">14. ショートカット</a>
+  </nav>
+</aside>
+
+<main class="content">
+<section class="hero searchable" data-search="MFDCO_math wiki 使い方 初級 上級 マニュアル">
+  <h1>MFDCO_math Wiki</h1>
+  <p>関数電卓・コード実行・グラフ・単位変換・暦変換・ファイル管理をまとめた総合マニュアルです。</p>
+  <p class="small">初めて使う場合は「5分クイックスタート」から、構文を調べたい場合は左上の検索欄から関数名を入力してください。</p>
+  <div class="quick-links">
+    <a href="#quickstart">まず使ってみる</a>
+    <a href="#code">コードを書く</a>
+    <a href="#plot">グラフを描く</a>
+    <a href="#functions">関数を探す</a>
+    <a href="#errors">エラーを直す</a>
+  </div>
+</section>
+
+<section class="doc-section searchable" id="start" data-search="はじめに 初級 基本 画面">
+<h2>1. はじめに</h2>
+<p>MFDCO_math は、通常の関数電卓としての操作と、複数行の計算コードを使う操作を同じ計算環境で扱うツールです。簡単な計算は関数電卓、変数や繰り返し処理を含む計算はコード画面、グラフ確認は結果画面、単位は単位変換器を使います。</p>
+<div class="grid3">
+  <div class="mini-card"><b>初級</b><p>四則演算、三角関数、ANS、単位変換、テンプレートを使う。</p></div>
+  <div class="mini-card"><b>中級</b><p>変数、複数行コード、if / for、工学関数、plot() を使う。</p></div>
+  <div class="mini-card"><b>上級</b><p>数値微積分、求根、while、複数グラフ、複雑な工学式を組み合わせる。</p></div>
+</div>
+
+<h3 id="quickstart">5分クイックスタート</h3>
+<div class="flow"><span>関数電卓で式を入力</span><i>→</i><span>= で計算</span><i>→</i><span>答えを保存</span><i>→</i><span>コードへ追加</span><i>→</i><span>必要なら plot()</span><i>→</i><span>結果画面で確認</span></div>
+<pre><button class="copy-btn">コピー</button># まずはコード画面で実行
+a = 3
+b = 4
+c = sqrt(a^2 + b^2)
+print("斜辺", c)
+result = c</pre>
+<div class="tip"><b>ポイント:</b> べき乗は <code>^</code> を使えます。例: <code>x^2</code>。コード画面は <kbd>Ctrl</kbd> + <kbd>Enter</kbd> でも実行できます。</div>
+</section>
+
+<section class="doc-section searchable" id="calculator" data-search="関数電卓 入力 DEG RAD 式を追加 答えを追加 答えを保存">
+<h2>2. 関数電卓</h2>
+<p>画面左側が通常の関数電卓です。ボタン操作でもキーボード入力でも式を作れます。<code>=</code> を押すと計算し、次の入力を始めるまでは式と答えが残ります。</p>
+<div class="grid2">
+  <div class="mini-card"><b>式を追加</b><p>現在の式をコードエディタへ追加します。コードで選択していた位置がある場合はその位置に挿入します。</p></div>
+  <div class="mini-card"><b>答えを追加</b><p>計算結果の数値だけをコードへ追加します。</p></div>
+  <div class="mini-card"><b>答えを保存</b><p>答えを <code>ANS(n)</code> として履歴へ保存します。</p></div>
+  <div class="mini-card"><b>DEG / RAD</b><p>三角関数の角度モードを切り替えます。DEGは度、RADはラジアンです。</p></div>
+</div>
+<div class="tip"><b>％ と ±:</b> <code>%</code> は百分率として扱います（例: <code>200*10%</code> → 20）。余りは <code>mod</code> を使います。<code>±</code> は現在の式全体の符号を反転します。</div>
+<h3>入力例</h3>
+<pre><button class="copy-btn">コピー</button>sqrt(3^2 + 4^2)
+sin(30)
+log10(1000)
+nCr(10, 3)</pre>
+</section>
+
+<section class="doc-section searchable" id="variables" data-search="変数 ANS 履歴 保存 名前 値 単位">
+<h2>3. 変数・ANS</h2>
+<h3>変数</h3>
+<p>変数は「名前 = 値」の形で使います。コード画面では代入した変数を、その後の行から何度でも利用できます。</p>
+<pre><button class="copy-btn">コピー</button>mass = 12.5
+velocity = 30
+energy = kineticEnergy(mass, velocity)
+print("運動エネルギー", energy)</pre>
+<p>変数名は英字または <code>_</code> から始め、後ろに数字を付けられます。例: <code>v1</code>, <code>rho_water2</code>, <code>project_mass</code>。</p>
+
+<h3>ANS履歴</h3>
+<p>関数電卓で「答えを保存」を押すと <code>ANS(1)</code>, <code>ANS(2)</code> …として参照できます。</p>
+<pre><button class="copy-btn">コピー</button>a = ANS(1)
+b = ANS(2)
+result = a + b</pre>
+<div class="note">ANS番号は保存履歴に対応します。プロジェクト保存時にはANS履歴も一緒に保存されます。</div>
+</section>
+
+<section class="doc-section searchable" id="code" data-search="コード 実行 print 代入 コメント # result">
+<h2>4. コード画面</h2>
+<p>左約1/4が候補、右側が大きなコードエディタと結果/ログです。候補をクリックすると、最後に選択したコード位置へ挿入されます。</p>
+<div class="note"><b>角度モード:</b> コード画面にも DEG / RAD 切替があります。関数電卓と同じ設定を共有し、プロジェクト保存にも含まれます。</div>
+
+<h3>基本構文</h3>
+<div class="syntax-card searchable" data-search="代入 変数">
+<div class="syntax-title">代入</div>
+<pre><button class="copy-btn">コピー</button>x = 10
+y = x * 2</pre>
+</div>
+<div class="syntax-card searchable" data-search="print 出力 ログ">
+<div class="syntax-title">出力</div>
+<pre><button class="copy-btn">コピー</button>print("x =", x)</pre>
+<p class="small"><code>print()</code> の内容は結果 / ログへ表示されます。</p>
+</div>
+<div class="syntax-card searchable" data-search="# コメント">
+<div class="syntax-title">コメント</div>
+<pre><button class="copy-btn">コピー</button># この行は実行されません
+x = 10  # 行末コメント</pre>
+</div>
+<div class="syntax-card searchable" data-search="result 最終結果">
+<div class="syntax-title">result</div>
+<pre><button class="copy-btn">コピー</button>result = sqrt(2)</pre>
+<p class="small"><code>result</code> に代入すると、その値を明示的な主要結果としてログに出せます。</p>
+</div>
+
+<h3 id="control">制御構文</h3>
+<h4>if / else</h4>
+<pre><button class="copy-btn">コピー</button>x = 12
+if x > 10:
+  print("10より大きい")
+else:
+  print("10以下")</pre>
+<h4>for</h4>
+<pre><button class="copy-btn">コピー</button>for i = 1 to 5:
+  print(i)</pre>
+<h4>while</h4>
+<pre><button class="copy-btn">コピー</button>x = 0
+while x < 5:
+  x = x + 1
+  print(x)</pre>
+<h4>比較・論理演算子</h4>
+<div class="table-wrap">
+<table><thead><tr><th>分類</th><th>構文</th><th>意味</th></tr></thead><tbody>
+<tr><td>比較</td><td><code>== != &lt; &gt; &lt;= &gt;=</code></td><td>等しい、等しくない、大小比較</td></tr>
+<tr><td>論理AND</td><td><code>条件1 and 条件2</code></td><td>両方が真</td></tr>
+<tr><td>論理OR</td><td><code>条件1 or 条件2</code></td><td>どちらかが真</td></tr>
+<tr><td>否定</td><td><code>not 条件</code></td><td>真偽を反転</td></tr>
+</tbody></table>
+</div>
+<div class="warn"><b>インデント:</b> if / for / while の中は現在2スペースで字下げするのが安全です。無限ループ防止のため while には反復上限があります。</div>
+</section>
+
+<section class="doc-section searchable" id="plot" data-search="plot グラフ 複数 x y 範囲">
+<h2>5. グラフ</h2>
+<p><code>plot()</code> はコードを実行した画面には直接描画せず、グラフデータを「結果」ページへ送ります。</p>
+<h3>基本構文</h3>
+<pre><button class="copy-btn">コピー</button>plot(x, y式, xmin, xmax)</pre>
+<p>第1引数がX軸変数、最後の2引数がX軸範囲、その間がY式です。</p>
+<h3>1系列</h3>
+<pre><button class="copy-btn">コピー</button>plot(x, x^2 - 4*x + 3, -2, 6)</pre>
+<h3>複数系列</h3>
+<pre><button class="copy-btn">コピー</button>plot(x, sin(x), cos(x), tan(x), -180, 180)</pre>
+<p>1つの <code>plot()</code> に最大8系列まで指定できます。また、複数の <code>plot()</code> を実行すれば、結果画面では別々のグラフとして自動分割されます。</p>
+<div class="tip">グラフ編集では、タイトル、X/Y軸ラベル、X範囲、グリッド表示を変更でき、各グラフをPNG保存できます。</div>
+</section>
+
+<section class="doc-section searchable" id="results" data-search="結果 ログ グラフ 数値特性 min max 平均 標準偏差 PNG">
+<h2>6. 結果画面</h2>
+<p>結果ページは上から「結果 / ログ」「グラフ＋数値特性」「グラフ編集」の3段構成です。</p>
+<div class="grid3">
+<div class="mini-card"><b>結果 / ログ</b><p><code>print()</code>、result、エラー、plot実行通知などを表示。</p></div>
+<div class="mini-card"><b>数値特性</b><p>系列ごとの min / max / 平均 / 標準偏差 / 有効点数を表で確認。</p></div>
+<div class="mini-card"><b>画像出力</b><p>各グラフのPNGボタン、または編集欄の出力ボタンから保存。</p></div>
+</div>
+</section>
+
+<section class="doc-section searchable" id="units" data-search="単位変換 SI 接頭語 尺貫法 TNT Minecraft Ω 光年 ユーザー定義">
+<h2>7. 単位変換</h2>
+<p>変換元を選ぶと、その単位と同じ種類だけが「変換先」候補に表示されます。SI接頭語は単位とは別の欄で指定します。</p>
+<h3>対応例</h3>
+<div class="grid3">
+<div class="mini-card"><b>SI・工学</b><p>m, kg, s, N, Pa, J, W, Hz, Ω, V, A, F, H, Wb, T など。</p></div>
+<div class="mini-card"><b>尺貫法・英米</b><p>寸、尺、間、丈、里、坪、合、升、匁、斤、貫、inch、ft、mile、gallon 等。</p></div>
+<div class="mini-card"><b>特殊</b><p>光年、AU、pc、TNT換算、放射線、粘度、Minecraft単位など。</p></div>
+</div>
+<h3>ユーザー定義単位</h3>
+<p>「1個の独自単位が基準単位の何倍か」を保存できます。</p>
+<pre><button class="copy-btn">コピー</button>例:
+単位名 = MFDCO距離
+記号 = md
+種類 = 長さ
+基準単位 = m
+倍率 = 2.5
+
+→ 1 md = 2.5 m</pre>
+<p>保存した単位は、その後の通常の変換候補と単位一覧にも追加されます。</p>
+</section>
+
+<section class="doc-section searchable" id="calendar" data-search="暦 西暦 皇紀 元号 大化 令和 曜日 ISO週 JDN MJD ユリウス 仏暦 民国 イスラム ヘブライ ペルシャ 中国">
+<h2>8. 暦・日付変換</h2>
+<p>西暦、皇紀、元号、Julian Day Numberから日付を入力し、複数の暦情報へ変換できます。</p>
+<div class="grid2">
+<div class="mini-card"><b>日付情報</b><p>曜日、ISO週、年内通算日、Julian Day、MJD。</p></div>
+<div class="mini-card"><b>日本</b><p>皇紀、日本元号。元号候補は大化から令和まで。</p></div>
+<div class="mini-card"><b>他暦</b><p>ユリウス暦、仏暦、民国紀元、イスラム暦、ヘブライ暦、ペルシャ暦、インド国定暦、中国暦。</p></div>
+<div class="mini-card"><b>歴史上の日付</b><p>古代・中世は当時の暦法と現代西暦の対応が単純ではないため、歴史用途では参考換算として扱います。</p></div>
+</div>
+</section>
+
+<section class="doc-section searchable" id="files" data-search="ファイル 保存 名前を付けて保存 エクスポート 読み込み mfdco json txt プロジェクト">
+<h2>9. ファイル・プロジェクト管理</h2>
+<p>ヘッダーの「ファイル」を押すとプロジェクト操作メニューが開きます。</p>
+<div class="table-wrap">
+<table><thead><tr><th>操作</th><th>内容</th></tr></thead><tbody>
+<tr><td>保存</td><td>現在のプロジェクト名でブラウザ内保存を更新。</td></tr>
+<tr><td>名前を付けて保存</td><td>新しい名前でブラウザ内に保存。</td></tr>
+<tr><td>保存済みプロジェクト</td><td>保存一覧を開き、プロジェクトを開く・削除する。</td></tr>
+<tr><td>プロジェクトをエクスポート</td><td><code>.mfdco.json</code> としてPCへ保存。</td></tr>
+<tr><td>プロジェクトを読み込み</td><td><code>.mfdco.json</code> / JSON を読み込む。</td></tr>
+<tr><td>コードをTXTでエクスポート</td><td>現在のコードのみ <code>.txt</code> として保存。</td></tr>
+<tr><td>新規</td><td>現在の作業データを消去して新しいプロジェクトを開始。</td></tr>
+</tbody></table>
+</div>
+<p>プロジェクトにはコード、結果・グラフ、ユーザー定義単位、ANS履歴などがまとめて保存されます。</p>
+</section>
+
+<section class="doc-section" id="functions">
+<h2>10. 関数リファレンス</h2><div class="tip" id="registryCoverage"><b>v3.1 レジストリ:</b> 読み込み中…</div>
+<p>関数名、用途、構文、引数、戻り値、例をまとめています。上の検索欄に <code>reynolds</code> や「抵抗」などを入力すると絞り込めます。</p><div class="tip"><b>v3.1:</b> この表は計算エンジンと同じ <code>mfdco-functions.js</code> から自動生成されます。関数本体・候補・Wikiのズレを防ぎます。</div>
+<div class="table-wrap">
+<table id="functionTable">
+<thead><tr><th>分類</th><th>構文</th><th>機能</th><th>引数</th><th>戻り値</th><th>例</th><th>候補</th><th>診断</th><th>難度</th></tr></thead>
+<tbody>
+<tr class="searchable" data-search="基本数学 sqrt(x) 平方根 x ≥ 0 数値 sqrt(25)  →  5 初級">
+<td><span class="tag">基本数学</span></td>
+<td><code>sqrt(x)</code></td>
+<td>平方根</td>
+<td>x ≥ 0</td>
+<td>数値</td>
+<td><code>sqrt(25)  →  5</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 cbrt(x) 立方根 x 数値 cbrt(27)  →  3 初級">
+<td><span class="tag">基本数学</span></td>
+<td><code>cbrt(x)</code></td>
+<td>立方根</td>
+<td>x</td>
+<td>数値</td>
+<td><code>cbrt(27)  →  3</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 abs(x) 絶対値 x 数値 abs(-8)  →  8 初級">
+<td><span class="tag">基本数学</span></td>
+<td><code>abs(x)</code></td>
+<td>絶対値</td>
+<td>x</td>
+<td>数値</td>
+<td><code>abs(-8)  →  8</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 floor(x) 小数点以下を切り下げ x 整数 floor(3.9)  →  3 初級">
+<td><span class="tag">基本数学</span></td>
+<td><code>floor(x)</code></td>
+<td>小数点以下を切り下げ</td>
+<td>x</td>
+<td>整数</td>
+<td><code>floor(3.9)  →  3</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 ceil(x) 小数点以下を切り上げ x 整数 ceil(3.1)  →  4 初級">
+<td><span class="tag">基本数学</span></td>
+<td><code>ceil(x)</code></td>
+<td>小数点以下を切り上げ</td>
+<td>x</td>
+<td>整数</td>
+<td><code>ceil(3.1)  →  4</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 round(x) 最も近い整数へ丸める x 整数 round(3.6)  →  4 初級">
+<td><span class="tag">基本数学</span></td>
+<td><code>round(x)</code></td>
+<td>最も近い整数へ丸める</td>
+<td>x</td>
+<td>整数</td>
+<td><code>round(3.6)  →  4</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 trunc(x) 小数部分を切り捨てる x 整数 trunc(-3.8)  →  -3 初級">
+<td><span class="tag">基本数学</span></td>
+<td><code>trunc(x)</code></td>
+<td>小数部分を切り捨てる</td>
+<td>x</td>
+<td>整数</td>
+<td><code>trunc(-3.8)  →  -3</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 min(a,b,...) 最小値 複数の数値 数値 min(8,3,5)  →  3 初級">
+<td><span class="tag">基本数学</span></td>
+<td><code>min(a,b,...)</code></td>
+<td>最小値</td>
+<td>複数の数値</td>
+<td>数値</td>
+<td><code>min(8,3,5)  →  3</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 max(a,b,...) 最大値 複数の数値 数値 max(8,3,5)  →  8 初級">
+<td><span class="tag">基本数学</span></td>
+<td><code>max(a,b,...)</code></td>
+<td>最大値</td>
+<td>複数の数値</td>
+<td>数値</td>
+<td><code>max(8,3,5)  →  8</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 hypot(a,b,...) 平方和の平方根 複数の数値 数値 hypot(3,4)  →  5 中級">
+<td><span class="tag">基本数学</span></td>
+<td><code>hypot(a,b,...)</code></td>
+<td>平方和の平方根</td>
+<td>複数の数値</td>
+<td>数値</td>
+<td><code>hypot(3,4)  →  5</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 sign(x) 符号を -1 / 0 / 1 で返す x -1 / 0 / 1 sign(-12)  →  -1 中級">
+<td><span class="tag">基本数学</span></td>
+<td><code>sign(x)</code></td>
+<td>符号を -1 / 0 / 1 で返す</td>
+<td>x</td>
+<td>-1 / 0 / 1</td>
+<td><code>sign(-12)  →  -1</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 clamp(x,min,max) 値を指定範囲内に制限 値, 下限, 上限 数値 clamp(15,0,10)  →  10 中級">
+<td><span class="tag">基本数学</span></td>
+<td><code>clamp(x,min,max)</code></td>
+<td>値を指定範囲内に制限</td>
+<td>値, 下限, 上限</td>
+<td>数値</td>
+<td><code>clamp(15,0,10)  →  10</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 factorial(n) 階乗 n! 0以上の整数 数値 factorial(5)  →  120 中級">
+<td><span class="tag">基本数学</span></td>
+<td><code>factorial(n)</code></td>
+<td>階乗 n!</td>
+<td>0以上の整数</td>
+<td>数値</td>
+<td><code>factorial(5)  →  120</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 nCr(n,r) 組合せ n, r 数値 nCr(5,2)  →  10 中級">
+<td><span class="tag">基本数学</span></td>
+<td><code>nCr(n,r)</code></td>
+<td>組合せ</td>
+<td>n, r</td>
+<td>数値</td>
+<td><code>nCr(5,2)  →  10</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 nPr(n,r) 順列 n, r 数値 nPr(5,2)  →  20 中級">
+<td><span class="tag">基本数学</span></td>
+<td><code>nPr(n,r)</code></td>
+<td>順列</td>
+<td>n, r</td>
+<td>数値</td>
+<td><code>nPr(5,2)  →  20</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 gcd(a,b) 最大公約数 整数a, 整数b 整数 gcd(24,18)  →  6 中級">
+<td><span class="tag">基本数学</span></td>
+<td><code>gcd(a,b)</code></td>
+<td>最大公約数</td>
+<td>整数a, 整数b</td>
+<td>整数</td>
+<td><code>gcd(24,18)  →  6</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 lcm(a,b) 最小公倍数 整数a, 整数b 整数 lcm(6,8)  →  24 中級">
+<td><span class="tag">基本数学</span></td>
+<td><code>lcm(a,b)</code></td>
+<td>最小公倍数</td>
+<td>整数a, 整数b</td>
+<td>整数</td>
+<td><code>lcm(6,8)  →  24</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 isfinite(x) 有限数かを判定 x 真偽値 isfinite(10) 上級">
+<td><span class="tag">基本数学</span></td>
+<td><code>isfinite(x)</code></td>
+<td>有限数かを判定</td>
+<td>x</td>
+<td>真偽値</td>
+<td><code>isfinite(10)</code></td>
+<td><span class="level lv3">上級</span></td>
+</tr>
+<tr class="searchable" data-search="基本数学 isnan(x) NaNかを判定 x 真偽値 isnan(x) 上級">
+<td><span class="tag">基本数学</span></td>
+<td><code>isnan(x)</code></td>
+<td>NaNかを判定</td>
+<td>x</td>
+<td>真偽値</td>
+<td><code>isnan(x)</code></td>
+<td><span class="level lv3">上級</span></td>
+</tr>
+<tr class="searchable" data-search="三角・双曲線 sin(x) 正弦 角度 x 数値 sin(30)  →  0.5（DEG時） 初級">
+<td><span class="tag">三角・双曲線</span></td>
+<td><code>sin(x)</code></td>
+<td>正弦</td>
+<td>角度 x</td>
+<td>数値</td>
+<td><code>sin(30)  →  0.5（DEG時）</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="三角・双曲線 cos(x) 余弦 角度 x 数値 cos(60)  →  0.5（DEG時） 初級">
+<td><span class="tag">三角・双曲線</span></td>
+<td><code>cos(x)</code></td>
+<td>余弦</td>
+<td>角度 x</td>
+<td>数値</td>
+<td><code>cos(60)  →  0.5（DEG時）</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="三角・双曲線 tan(x) 正接 角度 x 数値 tan(45)  →  1（DEG時） 初級">
+<td><span class="tag">三角・双曲線</span></td>
+<td><code>tan(x)</code></td>
+<td>正接</td>
+<td>角度 x</td>
+<td>数値</td>
+<td><code>tan(45)  →  1（DEG時）</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="三角・双曲線 asin(x) 逆正弦 -1～1 角度 asin(0.5)  →  30（DEG時） 中級">
+<td><span class="tag">三角・双曲線</span></td>
+<td><code>asin(x)</code></td>
+<td>逆正弦</td>
+<td>-1～1</td>
+<td>角度</td>
+<td><code>asin(0.5)  →  30（DEG時）</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="三角・双曲線 acos(x) 逆余弦 -1～1 角度 acos(0.5)  →  60（DEG時） 中級">
+<td><span class="tag">三角・双曲線</span></td>
+<td><code>acos(x)</code></td>
+<td>逆余弦</td>
+<td>-1～1</td>
+<td>角度</td>
+<td><code>acos(0.5)  →  60（DEG時）</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="三角・双曲線 atan(x) 逆正接 x 角度 atan(1)  →  45（DEG時） 中級">
+<td><span class="tag">三角・双曲線</span></td>
+<td><code>atan(x)</code></td>
+<td>逆正接</td>
+<td>x</td>
+<td>角度</td>
+<td><code>atan(1)  →  45（DEG時）</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="三角・双曲線 sinh(x) 双曲線正弦 x 数値 sinh(1) 中級">
+<td><span class="tag">三角・双曲線</span></td>
+<td><code>sinh(x)</code></td>
+<td>双曲線正弦</td>
+<td>x</td>
+<td>数値</td>
+<td><code>sinh(1)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="三角・双曲線 cosh(x) 双曲線余弦 x 数値 cosh(1) 中級">
+<td><span class="tag">三角・双曲線</span></td>
+<td><code>cosh(x)</code></td>
+<td>双曲線余弦</td>
+<td>x</td>
+<td>数値</td>
+<td><code>cosh(1)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="三角・双曲線 tanh(x) 双曲線正接 x 数値 tanh(1) 中級">
+<td><span class="tag">三角・双曲線</span></td>
+<td><code>tanh(x)</code></td>
+<td>双曲線正接</td>
+<td>x</td>
+<td>数値</td>
+<td><code>tanh(1)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="三角・双曲線 asinh(x) 逆双曲線正弦 x 数値 asinh(1) 上級">
+<td><span class="tag">三角・双曲線</span></td>
+<td><code>asinh(x)</code></td>
+<td>逆双曲線正弦</td>
+<td>x</td>
+<td>数値</td>
+<td><code>asinh(1)</code></td>
+<td><span class="level lv3">上級</span></td>
+</tr>
+<tr class="searchable" data-search="三角・双曲線 acosh(x) 逆双曲線余弦 x ≥ 1 数値 acosh(2) 上級">
+<td><span class="tag">三角・双曲線</span></td>
+<td><code>acosh(x)</code></td>
+<td>逆双曲線余弦</td>
+<td>x ≥ 1</td>
+<td>数値</td>
+<td><code>acosh(2)</code></td>
+<td><span class="level lv3">上級</span></td>
+</tr>
+<tr class="searchable" data-search="三角・双曲線 atanh(x) 逆双曲線正接 -1 &lt; x &lt; 1 数値 atanh(0.5) 上級">
+<td><span class="tag">三角・双曲線</span></td>
+<td><code>atanh(x)</code></td>
+<td>逆双曲線正接</td>
+<td>-1 &lt; x &lt; 1</td>
+<td>数値</td>
+<td><code>atanh(0.5)</code></td>
+<td><span class="level lv3">上級</span></td>
+</tr>
+<tr class="searchable" data-search="指数・対数 ln(x) / log(x) 自然対数 x &gt; 0 数値 ln(e)  →  1 初級">
+<td><span class="tag">指数・対数</span></td>
+<td><code>ln(x) / log(x)</code></td>
+<td>自然対数</td>
+<td>x &gt; 0</td>
+<td>数値</td>
+<td><code>ln(e)  →  1</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="指数・対数 log10(x) 常用対数 x &gt; 0 数値 log10(1000)  →  3 初級">
+<td><span class="tag">指数・対数</span></td>
+<td><code>log10(x)</code></td>
+<td>常用対数</td>
+<td>x &gt; 0</td>
+<td>数値</td>
+<td><code>log10(1000)  →  3</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="指数・対数 log2(x) 底2の対数 x &gt; 0 数値 log2(8)  →  3 中級">
+<td><span class="tag">指数・対数</span></td>
+<td><code>log2(x)</code></td>
+<td>底2の対数</td>
+<td>x &gt; 0</td>
+<td>数値</td>
+<td><code>log2(8)  →  3</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="指数・対数 exp(x) e の x 乗 x 数値 exp(1)  →  e 初級">
+<td><span class="tag">指数・対数</span></td>
+<td><code>exp(x)</code></td>
+<td>e の x 乗</td>
+<td>x</td>
+<td>数値</td>
+<td><code>exp(1)  →  e</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="指数・対数 pow(a,b) a の b 乗 a, b 数値 pow(2,10)  →  1024 初級">
+<td><span class="tag">指数・対数</span></td>
+<td><code>pow(a,b)</code></td>
+<td>a の b 乗</td>
+<td>a, b</td>
+<td>数値</td>
+<td><code>pow(2,10)  →  1024</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="微積分・数値解析 diff(&quot;式&quot;,&quot;変数&quot;,x) 数値微分（1階） 式文字列, 変数名, 評価点 数値 diff(&quot;x^2&quot;,&quot;x&quot;,3)  →  約6 中級">
+<td><span class="tag">微積分・数値解析</span></td>
+<td><code>diff(&quot;式&quot;,&quot;変数&quot;,x)</code></td>
+<td>数値微分（1階）</td>
+<td>式文字列, 変数名, 評価点</td>
+<td>数値</td>
+<td><code>diff(&quot;x^2&quot;,&quot;x&quot;,3)  →  約6</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="微積分・数値解析 diff2(&quot;式&quot;,&quot;変数&quot;,x) 数値微分（2階） 式文字列, 変数名, 評価点 数値 diff2(&quot;x^3&quot;,&quot;x&quot;,2)  →  約12 上級">
+<td><span class="tag">微積分・数値解析</span></td>
+<td><code>diff2(&quot;式&quot;,&quot;変数&quot;,x)</code></td>
+<td>数値微分（2階）</td>
+<td>式文字列, 変数名, 評価点</td>
+<td>数値</td>
+<td><code>diff2(&quot;x^3&quot;,&quot;x&quot;,2)  →  約12</code></td>
+<td><span class="level lv3">上級</span></td>
+</tr>
+<tr class="searchable" data-search="微積分・数値解析 integral(&quot;式&quot;,&quot;変数&quot;,a,b) 定積分（Simpson法） 式, 変数, 下限, 上限 数値 integral(&quot;sin(x)&quot;,&quot;x&quot;,0,pi) 中級">
+<td><span class="tag">微積分・数値解析</span></td>
+<td><code>integral(&quot;式&quot;,&quot;変数&quot;,a,b)</code></td>
+<td>定積分（Simpson法）</td>
+<td>式, 変数, 下限, 上限</td>
+<td>数値</td>
+<td><code>integral(&quot;sin(x)&quot;,&quot;x&quot;,0,pi)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="微積分・数値解析 solve(&quot;式&quot;,&quot;変数&quot;,a,b) 区間内の根を数値的に求める 式, 変数, 左端, 右端 数値 solve(&quot;x^2-2&quot;,&quot;x&quot;,0,2) 上級">
+<td><span class="tag">微積分・数値解析</span></td>
+<td><code>solve(&quot;式&quot;,&quot;変数&quot;,a,b)</code></td>
+<td>区間内の根を数値的に求める</td>
+<td>式, 変数, 左端, 右端</td>
+<td>数値</td>
+<td><code>solve(&quot;x^2-2&quot;,&quot;x&quot;,0,2)</code></td>
+<td><span class="level lv3">上級</span></td>
+</tr>
+<tr class="searchable" data-search="微積分・数値解析 sum(&quot;式&quot;,&quot;変数&quot;,a,b) 総和 式, 変数, 開始, 終了 数値 sum(&quot;i^2&quot;,&quot;i&quot;,1,10)  →  385 中級">
+<td><span class="tag">微積分・数値解析</span></td>
+<td><code>sum(&quot;式&quot;,&quot;変数&quot;,a,b)</code></td>
+<td>総和</td>
+<td>式, 変数, 開始, 終了</td>
+<td>数値</td>
+<td><code>sum(&quot;i^2&quot;,&quot;i&quot;,1,10)  →  385</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="微積分・数値解析 product(&quot;式&quot;,&quot;変数&quot;,a,b) 総積 式, 変数, 開始, 終了 数値 product(&quot;i&quot;,&quot;i&quot;,1,5)  →  120 中級">
+<td><span class="tag">微積分・数値解析</span></td>
+<td><code>product(&quot;式&quot;,&quot;変数&quot;,a,b)</code></td>
+<td>総積</td>
+<td>式, 変数, 開始, 終了</td>
+<td>数値</td>
+<td><code>product(&quot;i&quot;,&quot;i&quot;,1,5)  →  120</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="力学 kineticEnergy(m,v) 運動エネルギー ½mv² 質量m, 速度v J kineticEnergy(2,10)  →  100 初級">
+<td><span class="tag">力学</span></td>
+<td><code>kineticEnergy(m,v)</code></td>
+<td>運動エネルギー ½mv²</td>
+<td>質量m, 速度v</td>
+<td>J</td>
+<td><code>kineticEnergy(2,10)  →  100</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="力学 momentum(m,v) 運動量 mv 質量m, 速度v kg·m/s momentum(2,10)  →  20 初級">
+<td><span class="tag">力学</span></td>
+<td><code>momentum(m,v)</code></td>
+<td>運動量 mv</td>
+<td>質量m, 速度v</td>
+<td>kg·m/s</td>
+<td><code>momentum(2,10)  →  20</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="力学 force(m,a) 力 F=ma 質量m, 加速度a N force(5,9.8) 初級">
+<td><span class="tag">力学</span></td>
+<td><code>force(m,a)</code></td>
+<td>力 F=ma</td>
+<td>質量m, 加速度a</td>
+<td>N</td>
+<td><code>force(5,9.8)</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="力学 torque(F,r) トルク τ=Fr 力F, 腕長r N·m torque(100,0.5) 初級">
+<td><span class="tag">力学</span></td>
+<td><code>torque(F,r)</code></td>
+<td>トルク τ=Fr</td>
+<td>力F, 腕長r</td>
+<td>N·m</td>
+<td><code>torque(100,0.5)</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="力学 work(F,s) 仕事 W=Fs 力F, 距離s J work(20,4) 初級">
+<td><span class="tag">力学</span></td>
+<td><code>work(F,s)</code></td>
+<td>仕事 W=Fs</td>
+<td>力F, 距離s</td>
+<td>J</td>
+<td><code>work(20,4)</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="力学 power(W,t) 仕事率 P=W/t 仕事W, 時間t W power(1000,5) 初級">
+<td><span class="tag">力学</span></td>
+<td><code>power(W,t)</code></td>
+<td>仕事率 P=W/t</td>
+<td>仕事W, 時間t</td>
+<td>W</td>
+<td><code>power(1000,5)</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="力学 efficiency(out,input) 効率 out/input 出力, 入力 比率 efficiency(80,100)  →  0.8 初級">
+<td><span class="tag">力学</span></td>
+<td><code>efficiency(out,input)</code></td>
+<td>効率 out/input</td>
+<td>出力, 入力</td>
+<td>比率</td>
+<td><code>efficiency(80,100)  →  0.8</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="流体 hydrostaticP(rho,g,h) 静水圧 ρgh 密度ρ, 重力g, 深さh Pa hydrostaticP(1000,g0,10) 中級">
+<td><span class="tag">流体</span></td>
+<td><code>hydrostaticP(rho,g,h)</code></td>
+<td>静水圧 ρgh</td>
+<td>密度ρ, 重力g, 深さh</td>
+<td>Pa</td>
+<td><code>hydrostaticP(1000,g0,10)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="流体 dynamicPressure(rho,v) 動圧 ½ρv² 密度ρ, 速度v Pa dynamicPressure(1.225,100) 中級">
+<td><span class="tag">流体</span></td>
+<td><code>dynamicPressure(rho,v)</code></td>
+<td>動圧 ½ρv²</td>
+<td>密度ρ, 速度v</td>
+<td>Pa</td>
+<td><code>dynamicPressure(1.225,100)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="流体 reynolds(rho,v,L,mu) レイノルズ数 密度, 速度, 代表長さ, 粘度 無次元 reynolds(1.225,10,1,1.81e-5) 中級">
+<td><span class="tag">流体</span></td>
+<td><code>reynolds(rho,v,L,mu)</code></td>
+<td>レイノルズ数</td>
+<td>密度, 速度, 代表長さ, 粘度</td>
+<td>無次元</td>
+<td><code>reynolds(1.225,10,1,1.81e-5)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="流体 mach(v,a) マッハ数 v/a 速度v, 音速a 無次元 mach(340,340)  →  1 中級">
+<td><span class="tag">流体</span></td>
+<td><code>mach(v,a)</code></td>
+<td>マッハ数 v/a</td>
+<td>速度v, 音速a</td>
+<td>無次元</td>
+<td><code>mach(340,340)  →  1</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="流体 continuityV2(A1,v1,A2) 連続の式から v₂ A₁, v₁, A₂ 速度 continuityV2(2,3,1)  →  6 中級">
+<td><span class="tag">流体</span></td>
+<td><code>continuityV2(A1,v1,A2)</code></td>
+<td>連続の式から v₂</td>
+<td>A₁, v₁, A₂</td>
+<td>速度</td>
+<td><code>continuityV2(2,3,1)  →  6</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="流体 bernoulliHead(p,rho,v,z,g) ベルヌーイの全水頭 圧力, 密度, 速度, 高さ, 重力 m bernoulliHead(p,rho,v,z) 上級">
+<td><span class="tag">流体</span></td>
+<td><code>bernoulliHead(p,rho,v,z,g)</code></td>
+<td>ベルヌーイの全水頭</td>
+<td>圧力, 密度, 速度, 高さ, 重力</td>
+<td>m</td>
+<td><code>bernoulliHead(p,rho,v,z)</code></td>
+<td><span class="level lv3">上級</span></td>
+</tr>
+<tr class="searchable" data-search="流体 bernoulliP2(p1,rho,v1,z1,v2,z2,g) ベルヌーイ式から P₂ P₁,ρ,v₁,z₁,v₂,z₂[,g] Pa bernoulliP2(...) 上級">
+<td><span class="tag">流体</span></td>
+<td><code>bernoulliP2(p1,rho,v1,z1,v2,z2,g)</code></td>
+<td>ベルヌーイ式から P₂</td>
+<td>P₁,ρ,v₁,z₁,v₂,z₂[,g]</td>
+<td>Pa</td>
+<td><code>bernoulliP2(...)</code></td>
+<td><span class="level lv3">上級</span></td>
+</tr>
+<tr class="searchable" data-search="流体 dragForce(rho,v,Cd,A) 抗力 ½ρv²CdA 密度, 速度, 抗力係数, 面積 N dragForce(1.225,50,0.3,2) 中級">
+<td><span class="tag">流体</span></td>
+<td><code>dragForce(rho,v,Cd,A)</code></td>
+<td>抗力 ½ρv²CdA</td>
+<td>密度, 速度, 抗力係数, 面積</td>
+<td>N</td>
+<td><code>dragForce(1.225,50,0.3,2)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="流体 liftForce(rho,v,Cl,A) 揚力 ½ρv²ClA 密度, 速度, 揚力係数, 面積 N liftForce(1.225,50,1.0,2) 中級">
+<td><span class="tag">流体</span></td>
+<td><code>liftForce(rho,v,Cl,A)</code></td>
+<td>揚力 ½ρv²ClA</td>
+<td>密度, 速度, 揚力係数, 面積</td>
+<td>N</td>
+<td><code>liftForce(1.225,50,1.0,2)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="熱・気体 idealGasP(n,T,V,R) 理想気体の圧力 P=nRT/V 物質量, 温度, 体積[,R] Pa idealGasP(1,300,0.024) 中級">
+<td><span class="tag">熱・気体</span></td>
+<td><code>idealGasP(n,T,V,R)</code></td>
+<td>理想気体の圧力 P=nRT/V</td>
+<td>物質量, 温度, 体積[,R]</td>
+<td>Pa</td>
+<td><code>idealGasP(1,300,0.024)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="熱・気体 idealGasV(n,T,P,R) 理想気体の体積 V=nRT/P 物質量, 温度, 圧力[,R] m³ idealGasV(1,300,101325) 中級">
+<td><span class="tag">熱・気体</span></td>
+<td><code>idealGasV(n,T,P,R)</code></td>
+<td>理想気体の体積 V=nRT/P</td>
+<td>物質量, 温度, 圧力[,R]</td>
+<td>m³</td>
+<td><code>idealGasV(1,300,101325)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="電気 ohmV(I,R) オームの法則 V=IR 電流, 抵抗 V ohmV(2,5)  →  10 初級">
+<td><span class="tag">電気</span></td>
+<td><code>ohmV(I,R)</code></td>
+<td>オームの法則 V=IR</td>
+<td>電流, 抵抗</td>
+<td>V</td>
+<td><code>ohmV(2,5)  →  10</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="電気 ohmI(V,R) オームの法則 I=V/R 電圧, 抵抗 A ohmI(12,6)  →  2 初級">
+<td><span class="tag">電気</span></td>
+<td><code>ohmI(V,R)</code></td>
+<td>オームの法則 I=V/R</td>
+<td>電圧, 抵抗</td>
+<td>A</td>
+<td><code>ohmI(12,6)  →  2</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="電気 ohmR(V,I) オームの法則 R=V/I 電圧, 電流 Ω ohmR(12,2)  →  6 初級">
+<td><span class="tag">電気</span></td>
+<td><code>ohmR(V,I)</code></td>
+<td>オームの法則 R=V/I</td>
+<td>電圧, 電流</td>
+<td>Ω</td>
+<td><code>ohmR(12,2)  →  6</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="電気 electricPower(V,I) 電力 P=VI 電圧, 電流 W electricPower(12,2)  →  24 初級">
+<td><span class="tag">電気</span></td>
+<td><code>electricPower(V,I)</code></td>
+<td>電力 P=VI</td>
+<td>電圧, 電流</td>
+<td>W</td>
+<td><code>electricPower(12,2)  →  24</code></td>
+<td><span class="level lv1">初級</span></td>
+</tr>
+<tr class="searchable" data-search="材料 stress(F,A) 応力 σ=F/A 力, 面積 Pa stress(10000,0.002) 中級">
+<td><span class="tag">材料</span></td>
+<td><code>stress(F,A)</code></td>
+<td>応力 σ=F/A</td>
+<td>力, 面積</td>
+<td>Pa</td>
+<td><code>stress(10000,0.002)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="材料 strain(dL,L) ひずみ ε=ΔL/L 伸び, 元長さ 無次元 strain(0.001,1) 中級">
+<td><span class="tag">材料</span></td>
+<td><code>strain(dL,L)</code></td>
+<td>ひずみ ε=ΔL/L</td>
+<td>伸び, 元長さ</td>
+<td>無次元</td>
+<td><code>strain(0.001,1)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="材料 hookeStress(E,eps) フック則 σ=Eε ヤング率, ひずみ Pa hookeStress(200e9,0.001) 中級">
+<td><span class="tag">材料</span></td>
+<td><code>hookeStress(E,eps)</code></td>
+<td>フック則 σ=Eε</td>
+<td>ヤング率, ひずみ</td>
+<td>Pa</td>
+<td><code>hookeStress(200e9,0.001)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+<tr class="searchable" data-search="材料 eulerBuckling(E,I,K,L) Euler座屈荷重 E,断面二次M,I,係数K,長さL N eulerBuckling(E,I,K,L) 上級">
+<td><span class="tag">材料</span></td>
+<td><code>eulerBuckling(E,I,K,L)</code></td>
+<td>Euler座屈荷重</td>
+<td>E,断面二次M,I,係数K,長さL</td>
+<td>N</td>
+<td><code>eulerBuckling(E,I,K,L)</code></td>
+<td><span class="level lv3">上級</span></td>
+</tr>
+<tr class="searchable" data-search="熱 heatConduction(k,A,dT,L) 定常熱伝導 Q̇=kAΔT/L 熱伝導率, 面積, 温度差, 厚さ W heatConduction(50,0.1,30,0.01) 中級">
+<td><span class="tag">熱</span></td>
+<td><code>heatConduction(k,A,dT,L)</code></td>
+<td>定常熱伝導 Q̇=kAΔT/L</td>
+<td>熱伝導率, 面積, 温度差, 厚さ</td>
+<td>W</td>
+<td><code>heatConduction(50,0.1,30,0.01)</code></td>
+<td><span class="level lv2">中級</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="doc-section" id="constants">
+<h2>11. 組み込み定数</h2>
+<div class="table-wrap">
+<table id="constantTable">
+<thead><tr><th>名前</th><th>意味</th><th>値・備考</th></tr></thead>
+<tbody><tr class="searchable" data-search="pi 円周率 π 3.1415926535…"><td><code>pi</code></td><td>円周率 π</td><td>3.1415926535…</td></tr>
+<tr class="searchable" data-search="e ネイピア数 e 2.7182818284…"><td><code>e</code></td><td>ネイピア数 e</td><td>2.7182818284…</td></tr>
+<tr class="searchable" data-search="phi 黄金比 φ 約1.6180339887"><td><code>phi</code></td><td>黄金比 φ</td><td>約1.6180339887</td></tr>
+<tr class="searchable" data-search="g0 標準重力加速度 9.80665 m/s²"><td><code>g0</code></td><td>標準重力加速度</td><td>9.80665 m/s²</td></tr>
+<tr class="searchable" data-search="c0 真空中の光速度 299792458 m/s"><td><code>c0</code></td><td>真空中の光速度</td><td>299792458 m/s</td></tr>
+<tr class="searchable" data-search="G 万有引力定数 6.67430×10⁻¹¹"><td><code>G</code></td><td>万有引力定数</td><td>6.67430×10⁻¹¹</td></tr>
+<tr class="searchable" data-search="h Planck定数 6.62607015×10⁻³⁴ J·s"><td><code>h</code></td><td>Planck定数</td><td>6.62607015×10⁻³⁴ J·s</td></tr>
+<tr class="searchable" data-search="hbar 換算Planck定数 約1.05457×10⁻³⁴ J·s"><td><code>hbar</code></td><td>換算Planck定数</td><td>約1.05457×10⁻³⁴ J·s</td></tr>
+<tr class="searchable" data-search="kB Boltzmann定数 1.380649×10⁻²³ J/K"><td><code>kB</code></td><td>Boltzmann定数</td><td>1.380649×10⁻²³ J/K</td></tr>
+<tr class="searchable" data-search="NA Avogadro定数 6.02214076×10²³ mol⁻¹"><td><code>NA</code></td><td>Avogadro定数</td><td>6.02214076×10²³ mol⁻¹</td></tr>
+<tr class="searchable" data-search="Rgas モル気体定数 8.314462618… J/(mol·K)"><td><code>Rgas</code></td><td>モル気体定数</td><td>8.314462618… J/(mol·K)</td></tr>
+<tr class="searchable" data-search="qe 電気素量 1.602176634×10⁻¹⁹ C"><td><code>qe</code></td><td>電気素量</td><td>1.602176634×10⁻¹⁹ C</td></tr>
+<tr class="searchable" data-search="eps0 真空の誘電率 約8.85419×10⁻¹² F/m"><td><code>eps0</code></td><td>真空の誘電率</td><td>約8.85419×10⁻¹² F/m</td></tr>
+<tr class="searchable" data-search="mu0 真空の透磁率 約1.25664×10⁻⁶ H/m"><td><code>mu0</code></td><td>真空の透磁率</td><td>約1.25664×10⁻⁶ H/m</td></tr>
+<tr class="searchable" data-search="sigmaSB Stefan–Boltzmann定数 約5.67037×10⁻⁸"><td><code>sigmaSB</code></td><td>Stefan–Boltzmann定数</td><td>約5.67037×10⁻⁸</td></tr>
+<tr class="searchable" data-search="atm 標準大気圧 101325 Pa"><td><code>atm</code></td><td>標準大気圧</td><td>101325 Pa</td></tr>
+<tr class="searchable" data-search="rho_water 水の密度（基準） 1000 kg/m³"><td><code>rho_water</code></td><td>水の密度（基準）</td><td>1000 kg/m³</td></tr>
+<tr class="searchable" data-search="MC_TICK Minecraft tick基準 20 tick/s"><td><code>MC_TICK</code></td><td>Minecraft tick基準</td><td>20 tick/s</td></tr>
+<tr class="searchable" data-search="MCg MFDCO用予約定数 現在値 0"><td><code>MCg</code></td><td>MFDCO用予約定数</td><td>現在値 0</td></tr></tbody>
+</table>
+</div>
+<div class="note">物理計算では、入力単位を自動判定しません。たとえば <code>force(m,a)</code> は、mをkg、aをm/s²で入れたときNになります。単位を揃えてから計算してください。</div>
+</section>
+
+<section class="doc-section searchable" id="advanced" data-search="上級 応用 数値解析 複合 工学 グラフ 変数">
+<h2>12. 上級テクニック</h2>
+<h3>工学計算を段階化する</h3>
+<pre><button class="copy-btn">コピー</button>rho = 1.225
+v = 80
+Cd = 0.32
+A = 2.1
+
+q = dynamicPressure(rho, v)
+Fd = dragForce(rho, v, Cd, A)
+
+print("動圧", q)
+print("抗力", Fd)</pre>
+
+<h3>数値解とグラフを組み合わせる</h3>
+<pre><button class="copy-btn">コピー</button>root = solve("x^3 - 4*x - 1", "x", 0, 3)
+print("root", root)
+plot(x, x^3 - 4*x - 1, -3, 3)</pre>
+
+<h3>複数ケースを for で試す</h3>
+<pre><button class="copy-btn">コピー</button>for v = 10 to 100:
+  q = dynamicPressure(1.225, v)
+  if q > 2000:
+    print("2000 Paを超える速度", v)</pre>
+<div class="tip">同じ計算を何度も手入力するより、変数化・関数化された組み込み式・ループを組み合わせるとミスが減ります。</div>
+</section>
+
+<section class="doc-section searchable" id="errors" data-search="エラー ERROR line 使用できない文字 divide zero solve 区間 while plot">
+
+
+<section class="card">
+<h2>単位レジストリ</h2>
+<div class="small">組み込み単位は MFDCOUnits.BUILTIN_UNITS から自動生成されています。</div>
+<div style="overflow:auto;max-height:420px">
+<table>
+<thead><tr><th>分類</th><th>ID</th><th>名称</th><th>記号</th><th>SI接頭語</th><th>診断</th></tr></thead>
+<tbody id="unitReferenceBody"></tbody>
+</table>
+</div>
+</section>
+
+<section class="card">
+<h2>公式テンプレート</h2>
+<div class="small">候補画面と同じ MFDCOTemplates レジストリから生成されています。</div>
+<div style="overflow:auto">
+<table>
+<thead><tr><th>分類</th><th>名称</th><th>キー</th><th>難度</th><th>診断</th></tr></thead>
+<tbody id="templateReferenceBody"></tbody>
+</table>
+</div>
+</section>
+<section class="card">
+<h2>コード言語リファレンス</h2>
+<div class="small">制御構文・論理演算・比較・print・plot は共通レジストリから生成されています。</div>
+<div style="overflow:auto"><table>
+<thead><tr><th>分類</th><th>名前</th><th>構文</th><th>説明</th><th>例</th><th>診断</th></tr></thead>
+<tbody id="languageReferenceBody"></tbody>
+</table></div>
+</section>
+<h2>13. エラー対処</h2><div class="tip"><b>システム診断:</b> 更新後の関数・単位・暦・plot・保存・モジュール接続は <a href="diagnostics.html">診断ページ</a> から一括確認できます。</div>
+<div class="table-wrap">
+<table><thead><tr><th>症状</th><th>確認すること</th></tr></thead><tbody>
+<tr><td><code>ERROR (line N)</code></td><td>N行目の構文・変数名・括弧・引数個数を確認。</td></tr>
+<tr><td>変数が未定義</td><td>使う前の行で <code>x = ...</code> と代入したか確認。</td></tr>
+<tr><td>計算できない</td><td>平方根の負数、0除算、対数の0以下など数学的な定義域を確認。</td></tr>
+<tr><td><code>solve</code> が失敗</td><td>指定区間の両端で式の符号が変わる区間を与える。</td></tr>
+<tr><td><code>plot()</code> が表示されない</td><td>コード実行後、ヘッダーの「結果」を開く。X範囲や式も確認。</td></tr>
+<tr><td>if / for / while が不自然</td><td>末尾の <code>:</code> と、内部の2スペースインデントを確認。</td></tr>
+<tr><td>単位変換先が出ない</td><td>変換元と同じ種類の単位だけが候補になります。</td></tr>
+<tr><td>読み込んだプロジェクトがおかしい</td><td>MFDCO専用プロジェクト形式か確認し、必要なら元ファイルを再エクスポート。</td></tr>
+</tbody></table>
+</div>
+</section>
+
+<section class="doc-section searchable" id="shortcuts" data-search="ショートカット Ctrl Enter Tab Esc キーボード">
+<h2>14. ショートカット・操作のコツ</h2>
+<div class="table-wrap">
+<table><thead><tr><th>操作</th><th>内容</th></tr></thead><tbody>
+<tr><td><kbd>Ctrl</kbd> + <kbd>Enter</kbd></td><td>コードを実行。</td></tr>
+<tr><td><kbd>Tab</kbd></td><td>コード画面で2スペース挿入。</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>関数電卓の候補オーバーレイを閉じる。</td></tr>
+<tr><td>候補をクリック</td><td>最後に選択していたコード位置へ挿入。位置がなければ末尾へ追加。</td></tr>
+<tr><td>検索欄</td><td>このWiki内の関数・機能・用語をリアルタイム検索。</td></tr>
+</tbody></table>
+</div>
+<p class="small">MFDCO_math v3.1 Wiki。機能追加に合わせてこのページも更新する前提のリファレンスです。</p>
+</section>
+
+<section class="wiki-section" id="quantity-reference">
+  <h2>単位付き計算・次元解析</h2>
+  <p>数値の直後に単位を書くと、単位を保持したまま計算できます。</p>
+  <table>
+    <thead><tr><th>入力</th><th>結果</th></tr></thead>
+    <tbody>
+      <tr><td><code>1 km + 500 m</code></td><td>1.5 km</td></tr>
+      <tr><td><code>100 m / 5 s</code></td><td>20 m/s</td></tr>
+      <tr><td><code>2 N * 3 m</code></td><td>6 J</td></tr>
+      <tr><td><code>100 km/h -&gt; m/s</code></td><td>27.777… m/s</td></tr>
+      <tr><td><code>10 m + 3 s</code></td><td>次元不一致エラー</td></tr>
+    </tbody>
+  </table>
+  <p class="small">絶対温度（degC / degF など）は、曖昧な物理演算を防ぐため通常の加減乗除を制限しています。</p>
+</section>
+
+<section class="wiki-section" id="symbolic-reference">
+  <h2>式整理・展開・級数</h2>
+  <p>整数整理、1変数多項式の展開・同類項整理・因数分解・記号微積分、テイラー／マクローリン展開に対応します。</p>
+  <table>
+    <thead><tr><th>入力例</th><th>用途</th></tr></thead>
+    <tbody>
+      <tr><td><code>factorInteger(360)</code></td><td>素因数分解</td></tr>
+      <tr><td><code>simplifyFraction(84,126)</code></td><td>分数の約分</td></tr>
+      <tr><td><code>expandPoly("(x+1)^3","x")</code></td><td>多項式展開</td></tr>
+      <tr><td><code>collectPoly("x+x^2+2*x-3","x")</code></td><td>同類項整理</td></tr>
+      <tr><td><code>factorPoly("x^2-1","x")</code></td><td>因数分解</td></tr>
+      <tr><td><code>polyDerivative("x^3+2*x","x")</code></td><td>記号微分</td></tr>
+      <tr><td><code>polyIntegral("3*x^2+2","x")</code></td><td>記号積分</td></tr>
+      <tr><td><code>maclaurin("sin(x)","x",7)</code></td><td>マクローリン展開</td></tr>
+      <tr><td><code>taylor("ln(x)","x",1,6)</code></td><td>任意点まわりのテイラー展開</td></tr>
+    </tbody>
+  </table>
+  <p class="small">多項式の記号整理は現在1変数を正式対応。テイラー展開の三角関数は数学標準のラジアン基準です。</p>
+</section>
+<section class="wiki-section"><h2>複素数・方程式・統計</h2>
+<p>複素数、多項式の全根、連立方程式、一般微分・偏微分、極限、統計・回帰、正規/二項/ポアソン分布を追加しました。</p></section>
+<section class="wiki-section"><h2>大規模コードテンプレート</h2>
+<p>for / while / if / elif / def / break / continue / plot / print を組み合わせた長いテンプレートを追加。候補から押すだけでコードへ挿入できます。</p></section></main>
+</div>
+
+<a class="backtop" href="#top" title="一番上へ">↑</a>
+
+<script src="mfdco-project-schema.js"></script>
+<script src="mfdco-storage.js"></script>
+<script src="mfdco-workspace.js"></script>
+<script src="mfdco-symbolic.js"></script>
+<script src="mfdco-advanced.js"></script>
+<script src="mfdco-functions.js"></script>
+<script src="mfdco-units.js"></script>
+<script src="mfdco-quantities.js"></script>
+<script src="mfdco-templates.js"></script>
+<script src="mfdco-language.js"></script>
+<script src="mfdco-syntax.js"></script>
+<script src="mfdco-registry-search.js"></script>
+<script src="mfdco-ui.js"></script>
+<script src="mfdco-calendar.js"></script>
+<script src="mfdco-shell.js"></script>
+<script src="mfdco-results.js"></script>
+<script src="mfdco-release-tests.js"></script>
+<script src="mfdco-manifest.js"></script>
+<script src="mfdco-engine.js"></script>
+<script>
+
+function renderSharedReference(){
+  const tbody=document.querySelector("#functionTable tbody");
+  if(tbody){
+    tbody.innerHTML="";
+    MFDCOFunctions.functions.forEach(def=>{
+      const tr=document.createElement("tr");
+      tr.className="searchable";
+      tr.dataset.search=[def.category,def.name,def.syntax,def.description,def.args,def.returns,def.example,def.level].join(" ");
+      const levelClass=def.level==="初級"?"lv1":def.level==="中級"?"lv2":"lv3";
+      tr.innerHTML=`<td><span class="tag">${def.category}</span></td><td><code>${def.syntax}</code></td>
+        <td>${def.description}</td><td>${def.args}</td><td>${def.returns}</td>
+        <td><code>${def.example}</code></td><td>${(def.candidateGroups||[]).join(" / ")||"—"}</td>
+        <td>${def.test?"✓":"未設定"}</td><td><span class="level ${levelClass}">${def.level}</span></td>`;
+      tbody.appendChild(tr);
+    });
+  }
+  const cbody=document.querySelector("#constantTable tbody");
+  if(cbody){
+    cbody.innerHTML="";
+    MFDCOFunctions.constants.forEach(def=>{
+      const tr=document.createElement("tr");tr.className="searchable";
+      tr.dataset.search=[def.name,def.label,def.display,def.category].join(" ");
+      tr.innerHTML=`<td><code>${def.name}</code></td><td>${def.label}</td><td>${def.display}</td>`;
+      cbody.appendChild(tr);
+    });
+  }
+}
+renderSharedReference();
+
+const cov=MFDCOReleaseTests.fullCoverage();
+const covBox=document.getElementById("registryCoverage");
+if(covBox)covBox.innerHTML=`<b>v3.1 レジストリ:</b> 関数 ${cov.tested}/${cov.publicCount}、単位 ${cov.unitTested}/${cov.unitCount}、テンプレート ${cov.templateTested}/${cov.templateCount} が回帰テスト登録済み。`;
+
+
+
+const search=document.getElementById("docSearch");
+const count=document.getElementById("searchCount");
+function normalize(s){return String(s).toLowerCase().replace(/\s+/g," ")}
+function applySearch(){
+  const q=normalize(search.value.trim());
+  const items=[...document.querySelectorAll(".searchable")];
+  if(!q){
+    items.forEach(x=>x.classList.remove("hidden-search"));
+    count.textContent="すべて表示中";
+    return;
+  }
+  let visible=0;
+  items.forEach(el=>{
+    const text=normalize(el.dataset.search||el.textContent);
+    const ok=q.split(" ").every(k=>text.includes(k));
+    el.classList.toggle("hidden-search",!ok);
+    if(ok)visible++;
+  });
+  count.textContent=`${visible}件一致`;
+}
+search.addEventListener("input",applySearch);
+
+document.querySelectorAll("pre .copy-btn").forEach(btn=>{
+  btn.onclick=async()=>{
+    const pre=btn.parentElement;
+    const clone=pre.cloneNode(true);
+    clone.querySelector(".copy-btn")?.remove();
+    await navigator.clipboard.writeText(clone.textContent.trim());
+    const old=btn.textContent;btn.textContent="コピー済み";
+    setTimeout(()=>btn.textContent=old,1000);
+  };
+});
+</script>
+
+<script>
+function renderLanguageReference(){
+  const host=document.getElementById("languageReferenceBody");if(!host)return;host.innerHTML="";
+  MFDCOLanguage.constructs.forEach(def=>{
+    const tr=document.createElement("tr");tr.className="searchable";
+    tr.dataset.search=[def.id,def.label,def.category,def.syntax,def.description,def.example].join(" ");
+    tr.innerHTML=`<td>${def.category}</td><td><code>${def.label}</code></td><td><code>${def.syntax}</code></td><td>${def.description}</td><td><code>${String(def.example).replace(/</g,"&lt;").replace(/>/g,"&gt;")}</code></td><td>${def.test?"✓":"未設定"}</td>`;
+    host.appendChild(tr);
+  });
+}
+
+function renderUnitReference(){
+  const host=document.getElementById("unitReferenceBody");if(!host)return;
+  host.innerHTML="";
+  MFDCOUnits.BUILTIN_UNITS.forEach(u=>{
+    const tr=document.createElement("tr");tr.className="searchable";
+    tr.dataset.search=[u.id,u.name,u.symbol,u.cat,MFDCOUnits.categoryName(u.cat)].join(" ");
+    tr.innerHTML=`<td>${MFDCOUnits.categoryName(u.cat)}</td><td><code>${u.id}</code></td>
+      <td>${u.name}</td><td><code>${u.symbol}</code></td><td>${u.prefix?"可":"不可"}</td>
+      <td>${u.test?"✓":"未設定"}</td>`;
+    host.appendChild(tr);
+  });
+}
+function renderTemplateReference(){
+  const host=document.getElementById("templateReferenceBody");if(!host)return;
+  host.innerHTML="";
+  MFDCOTemplates.definitions.forEach(def=>{
+    const tr=document.createElement("tr");tr.className="searchable";
+    tr.dataset.search=[def.key,def.label,def.category,def.level].join(" ");
+    tr.innerHTML=`<td>${def.category}</td><td>${def.label}</td><td><code>${def.key}</code></td>
+      <td>${def.level||"—"}</td><td>${def.test?"✓":"未設定"}</td>`;
+    host.appendChild(tr);
+  });
+}
+renderUnitReference();
+renderTemplateReference();
+
+renderLanguageReference();
+
+MFDCOShell.init();</script>
+</body>
+</html>

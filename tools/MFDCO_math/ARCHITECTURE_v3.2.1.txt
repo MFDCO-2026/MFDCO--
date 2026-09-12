@@ -1,0 +1,45 @@
+MFDCO Tools v3.2.1 Hotfix
+================================
+
+Fix 1: Calculator / Code page sharing
+-------------------------------------
+Cause:
+Browsers do not define reliable localStorage sharing semantics for file:// URLs.
+In practice, calculator.html and code.html can receive separate localStorage areas.
+
+Fix:
+mfdco-workspace.js now uses a same-tab portable workspace stored in window.name
+as a bridge between HTML page navigations.
+
+Canonical state:
+- shared code
+- shared results/logs/plots
+- dirty/saved status
+
+The portable state is mirrored into each page's own storage after navigation.
+
+Both calculator.html and code.html now use exactly the same DEFAULT_CODE and
+initialize through MFDCOWorkspace.initializeCode().
+
+This means:
+calculator -> code -> calculator
+keeps the same code and result even when the application is opened directly
+from local files without a web server.
+
+Fix 2: File dropdown
+--------------------
+The File menu is moved from the header DOM subtree to document.body when the
+shell initializes.
+
+It uses:
+- position: fixed
+- viewport-aware positioning
+- z-index: 10000
+- scrolling for tall menus
+
+Therefore opening File no longer expands, clips, or changes header height.
+
+Regression
+----------
+Added portable-workspace tests that simulate two HTML pages with isolated
+storage adapters while preserving window.name.

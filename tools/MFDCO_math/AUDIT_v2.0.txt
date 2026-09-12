@@ -1,0 +1,64 @@
+MFDCO Tools v2.0 Refactor Audit
+================================
+
+Purpose
+-------
+Remove the architectural cause of "button/documentation exists but implementation differs by page".
+
+Results
+-------
+- mfdco-storage.js: syntax OK
+- mfdco-functions.js: syntax OK
+- mfdco-engine.js: syntax OK
+- calculator.html: inline syntax OK
+- code.html: inline syntax OK
+- features.html: inline syntax OK
+- files.html: inline syntax OK
+- index.html: inline syntax OK
+- results.html: inline syntax OK
+- unit-converter.html: inline syntax OK
+- calculator.html: duplicated math/interpreter core = 0
+- code.html: duplicated math/interpreter core = 0
+- features.html: function reference generated from shared registry
+
+Functional engine self-test
+---------------------------
+PASS sqrt
+PASS percent
+PASS mod
+PASS trig DEG
+PASS trig RAD
+PASS ANS
+PASS nCr
+PASS diff
+PASS integral
+PASS solve
+PASS work
+PASS reynolds
+PASS ohm
+PASS heat
+PASS interpreter
+
+Shared registry
+---------------
+Function metadata entries: 72
+Constant entries: 21
+
+Key change
+----------
+calculator.html and code.html no longer contain their own copies of:
+- factorial/math scope
+- expression evaluator implementation
+- plot sampler
+- if/else/for/while interpreter
+
+Both pages delegate those operations to mfdco-engine.js and mfdco-functions.js.
+
+Project storage
+---------------
+mfdco-storage.js centralizes project keys and project version 2 serialization.
+Older MFDCO_PROJECT v1 data keys remain readable and are migrated without deleting compatible data.
+
+Next recommended step
+---------------------
+Move formula/template metadata and unit definitions into shared registries too, then add a permanent browser self-test screen for release verification.

@@ -1,0 +1,57 @@
+MFDCO Tools v2.9 Architecture
+================================
+
+CSS architecture
+----------------
+All inline <style> blocks have been removed from HTML.
+
+Each page now loads:
+1. mfdco-base.css
+2. its own page stylesheet
+
+Examples:
+- calculator.html -> calculator.css
+- code.html -> code.css
+- results.html -> results.css
+- unit-converter.html -> unit-converter.css
+- features.html -> features.css
+- diagnostics.html -> diagnostics.css
+
+Registry search
+---------------
+New module: mfdco-registry-search.js
+
+It provides normalized search across:
+- functions
+- constants
+- units
+- templates
+- language constructs
+
+Wiki filtering uses the same matcher.
+
+Calculator:
+- function candidate search
+- formula/template search
+
+Code page:
+- unified candidate search
+
+Syntax cleanup
+--------------
+The old hard-coded highlightLine() function in code.html was removed.
+MFDCOSyntax remains the single syntax-highlighting implementation.
+
+Release invariant
+-----------------
+HTML should contain no inline <style> blocks.
+Every HTML page must link:
+- mfdco-base.css
+- its page-specific CSS
+
+Recommended v3.0
+----------------
+1. Introduce an injectable storage adapter to test actual MFDCOStorage CRUD.
+2. Add registry-powered fuzzy ranking/search result UI.
+3. Move candidate rendering into a shared candidate UI controller.
+4. Finish results-page controller extraction including editor markup metadata.

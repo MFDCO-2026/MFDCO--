@@ -1,0 +1,9 @@
+MFDCO Tools v3.8
+================
+Adds mfdco-advanced.js: complex numbers, polynomial roots, exact equation helpers,
+linear systems, symbolic substitution, general derivative/partial, limits,
+statistics/regression, probability distributions, mechanics/orbital/electrical functions.
+
+Templates are expanded to 33 total. New large templates combine for/while,
+if/elif, def/return, break/continue, print and plot. They use the existing
+one-click template insertion UI.

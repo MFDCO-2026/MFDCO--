@@ -1,0 +1,53 @@
+MFDCO Tools v2.2 Separation Audit
+=================================
+
+New modules
+-----------
+- mfdco-calendar.js
+- mfdco-shell.js
+
+Validation
+----------
+- mfdco-storage.js: syntax OK
+- mfdco-functions.js: syntax OK
+- mfdco-engine.js: syntax OK
+- mfdco-units.js: syntax OK
+- mfdco-templates.js: syntax OK
+- mfdco-ui.js: syntax OK
+- mfdco-calendar.js: syntax OK
+- mfdco-shell.js: syntax OK
+- calculator.html: inline syntax OK
+- code.html: inline syntax OK
+- features.html: inline syntax OK
+- files.html: inline syntax OK
+- index.html: inline syntax OK
+- results.html: inline syntax OK
+- unit-converter.html: inline syntax OK
+- all HTML pages: shared shell connected
+- unit-converter.html: embedded era catalogue removed
+- duplicated page-local exportProject definitions outside files.html: 0
+
+Calendar self-test
+------------------
+PASS weekday 2026-09-12
+PASS Koki
+PASS JDN roundtrip
+PASS ISO week
+PASS Julian conversion
+PASS Era catalogue
+PASS Taika exists
+PASS Reiwa exists
+PASS summary
+
+Result
+------
+- Japanese-era data and core date/calendar algorithms are in mfdco-calendar.js.
+- All HTML pages initialize the same mfdco-shell.js.
+- Shared header navigation and file/project menu now have one implementation.
+- Unit converter delegates core date helpers to the shared calendar module.
+
+Next
+----
+The largest remaining duplication is result/graph rendering and some page-local
+candidate rendering. v2.3 should move those into shared modules and add a
+visible diagnostics page.

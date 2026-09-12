@@ -1,0 +1,48 @@
+MFDCO Tools v2.8 Audit
+=======================
+
+Coverage
+--------
+Functions: 72/72 (100%)
+Units: 153/153 (100%)
+Templates: 16/16 (100%)
+Language: 15/15 (100%)
+
+Shared CSS
+----------
+Every HTML page links mfdco-base.css.
+
+Results architecture
+--------------------
+results.html delegates state/render/edit/export/clear coordination to
+MFDCOResults.createResultsController().
+
+Regression
+----------
+TOTAL 270
+FAIL 0
+
+JavaScript validation
+---------------------
+- mfdco-project-schema.js: OK
+- mfdco-storage.js: OK
+- mfdco-functions.js: OK
+- mfdco-engine.js: OK
+- mfdco-units.js: OK
+- mfdco-templates.js: OK
+- mfdco-language.js: OK
+- mfdco-syntax.js: OK
+- mfdco-ui.js: OK
+- mfdco-calendar.js: OK
+- mfdco-shell.js: OK
+- mfdco-results.js: OK
+- mfdco-release-tests.js: OK
+- mfdco-manifest.js: OK
+- calculator.html: OK
+- code.html: OK
+- diagnostics.html: OK
+- features.html: OK
+- files.html: OK
+- index.html: OK
+- results.html: OK
+- unit-converter.html: OK

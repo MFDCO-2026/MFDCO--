@@ -1,0 +1,64 @@
+MFDCO Tools v3.0 Architecture
+================================
+
+Storage adapters
+----------------
+MFDCOStorage no longer talks directly to localStorage throughout its API.
+
+It now uses a replaceable adapter interface:
+- getItem(key)
+- setItem(key, value)
+- removeItem(key)
+- optional clear(), keys()
+
+Built-in adapters:
+- createLocalStorageAdapter()
+- createMemoryAdapter(seed)
+
+Runtime control:
+- setAdapter(adapter)
+- getAdapter()
+- withAdapter(adapter, callback)
+
+Production
+----------
+Browser execution uses localStorage through the localStorage adapter.
+
+Testing
+-------
+Diagnostics and release tests use an isolated memory adapter, so they can
+exercise real CRUD behavior without touching the user's project data.
+
+Storage CRUD regression covers:
+- raw set/get/remove
+- code
+- angle mode
+- ANS history
+- variables
+- custom units
+- results save/clear
+- project collection
+- project clearing
+- project application
+- library save/load/delete
+- adapter dump
+
+Project-library API
+-------------------
+New shared storage operations:
+- saveProjectToLibrary(name)
+- loadProjectFromLibrary(name)
+- deleteProjectFromLibrary(name)
+- clearProjectData()
+
+v3.0 invariant
+--------------
+All storage behavior used by the application must be testable against an
+isolated adapter without browser localStorage.
+
+Recommended v3.1
+----------------
+1. Refactor shell/files page to use the new library CRUD helpers exclusively.
+2. Add transaction-style rollback for failed project imports.
+3. Add storage quota/error diagnostics.
+4. Add project import size limits and stricter structured-payload schemas.

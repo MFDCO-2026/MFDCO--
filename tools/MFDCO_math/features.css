@@ -1,0 +1,88 @@
+/* MFDCO Tools v2.9 page stylesheet: features.html */
+
+:root{
+  --bg:#f4f7f6;--panel:#fff;--text:#111817;--muted:#6d7775;
+  --main:#173f3c;--line:#d7dfdd;--dark:#101817;--soft:#eef4f3
+}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:Inter,"Segoe UI","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+button,input{font:inherit}
+.site-header{height:58px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:100}
+.site-brand{display:flex;gap:10px;align-items:center}
+.site-logo{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--main);color:#fff;font-weight:800}
+.site-title{font-size:14px;font-weight:750}.small{font-size:11px;color:var(--muted)}
+.site-nav{display:flex;gap:5px;overflow-x:auto}
+.site-nav a{text-decoration:none;color:var(--text);padding:7px 10px;border-radius:8px;font-size:12px;white-space:nowrap}
+.site-nav a:hover{background:#eef3f2}.site-nav a.active{background:var(--main);color:#fff}
+
+.wiki-shell{max-width:1500px;margin:auto;display:grid;grid-template-columns:250px minmax(0,1fr);gap:14px;padding:14px}
+.sidebar{position:sticky;top:72px;align-self:start;max-height:calc(100vh - 86px);overflow:auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}
+.search-wrap{position:sticky;top:0;background:#fff;padding-bottom:8px;z-index:3}
+#docSearch{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 9px}
+.search-count{font-size:10px;color:var(--muted);margin-top:4px}
+.toc{display:grid;gap:2px}
+.toc a{text-decoration:none;color:var(--text);font-size:12px;padding:6px 8px;border-radius:7px}
+.toc a:hover{background:var(--soft)}
+.toc .sub{padding-left:19px;font-size:11px;color:#40504e}
+
+.content{min-width:0}
+.hero,.doc-section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:12px}
+.hero h1{font-size:28px;margin:0 0 4px}.hero p{margin:4px 0}
+.quick-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.quick-links a{text-decoration:none;background:var(--main);color:#fff;border-radius:8px;padding:6px 9px;font-size:11px}
+.doc-section h2{font-size:20px;margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.doc-section h3{font-size:15px;margin:20px 0 7px}
+.doc-section h4{font-size:13px;margin:14px 0 5px}
+p{margin:7px 0}
+.note,.tip,.warn{padding:10px 12px;border-radius:9px;margin:10px 0;font-size:12px}
+.note{background:#f4f7f6;border-left:4px solid #78908c}
+.tip{background:#edf6f2;border-left:4px solid var(--main)}
+.warn{background:#fff5e8;border-left:4px solid #c57a22}
+kbd{border:1px solid #bac5c3;border-bottom-width:2px;background:#fff;border-radius:5px;padding:1px 5px;font-size:11px}
+code{font-family:Consolas,"SFMono-Regular",monospace;background:#f0f4f3;border-radius:4px;padding:1px 4px}
+pre{background:var(--dark);color:#eaf2f0;padding:12px;border-radius:9px;overflow:auto;font:12px/1.55 Consolas,monospace;position:relative}
+.copy-btn{position:absolute;right:7px;top:7px;border:1px solid #52635f;background:#172220;color:#fff;border-radius:6px;padding:3px 6px;font-size:10px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.mini-card{border:1px solid var(--line);border-radius:10px;padding:10px;background:#fbfdfc}
+.mini-card b{font-size:12px}.mini-card p{font-size:11px;color:#4c5957}
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:5px;font-size:12px}
+.flow span{background:var(--soft);border-radius:7px;padding:5px 8px}.flow i{font-style:normal;color:var(--muted)}
+
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:9px}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th,td{border-bottom:1px solid var(--line);padding:7px;text-align:left;vertical-align:top}
+th{background:#f7faf9;position:sticky;top:0;z-index:2;white-space:nowrap}
+.tag{display:inline-block;background:#eef4f3;color:var(--main);border-radius:999px;padding:2px 6px;white-space:nowrap}
+.level{display:inline-block;border-radius:999px;padding:2px 6px;white-space:nowrap;font-weight:700}
+.lv1{background:#e9f5ed;color:#28653c}.lv2{background:#edf3fb;color:#365f93}.lv3{background:#f6edf9;color:#744681}
+.syntax-card{border:1px solid var(--line);border-radius:10px;padding:10px;margin:7px 0}
+.syntax-card .syntax-title{font-weight:750;font-size:12px}
+.syntax-card pre{margin-bottom:4px}
+.hidden-search{display:none!important}
+.backtop{position:fixed;right:16px;bottom:16px;width:38px;height:38px;border:0;border-radius:50%;background:var(--main);color:#fff;display:grid;place-items:center;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+
+.file-menu-wrap{position:relative}
+.file-menu-trigger{border:0;background:transparent;color:var(--text);padding:7px 10px;border-radius:8px;font-size:12px;white-space:nowrap;cursor:pointer}
+.file-menu-trigger:hover,.file-menu-trigger.open{background:#eef3f2}
+.file-menu{position:absolute;top:38px;left:0;z-index:300;display:none;width:230px;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 14px 36px rgba(0,0,0,.16);padding:6px}
+.file-menu.open{display:block}
+.file-menu button{width:100%;border:0;background:#fff;text-align:left;padding:8px 9px;border-radius:7px;font-size:12px;cursor:pointer;color:var(--text)}
+.file-menu button:hover{background:#eef3f2}.file-menu button.danger{color:#a13737}
+.file-menu hr{border:0;border-top:1px solid var(--line);margin:5px 2px}.file-menu .menu-title{padding:5px 9px 3px;font-size:10px;color:var(--muted);font-weight:700}
+.file-toast{position:fixed;right:16px;bottom:16px;z-index:500;display:none;background:#101817;color:#fff;border-radius:9px;padding:9px 12px;font-size:12px;box-shadow:0 10px 28px rgba(0,0,0,.2)}
+.file-toast.show{display:block}
+
+@media(max-width:950px){
+  .wiki-shell{grid-template-columns:1fr}
+  .sidebar{position:relative;top:auto;max-height:none}
+  .toc{grid-template-columns:repeat(2,1fr)}
+  .grid3{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+  .site-header{height:auto;min-height:58px;align-items:flex-start;padding:10px}
+  .site-nav{max-width:60vw}
+  .grid2,.grid3,.toc{grid-template-columns:1fr}
+  .wiki-shell{padding:8px}
+  .hero,.doc-section{padding:13px}
+}

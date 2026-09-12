@@ -1,0 +1,63 @@
+MFDCO Tools v3.4 Architecture
+================================
+
+Shared Undo / Redo
+------------------
+The code workspace now keeps a shared history with up to 100 snapshots.
+
+Available from both Calculator and Code:
+- Undo button
+- Redo button
+- Ctrl+Z
+- Ctrl+Y
+- Ctrl+Shift+Z
+
+Language extensions
+-------------------
+Added:
+- elif
+- break
+- continue
+- def
+- return
+
+Example:
+def square(x):
+  return x^2
+
+for i = 1 to 5:
+  if i == 3:
+    continue
+  print(square(i))
+
+Vector / Matrix
+---------------
+New public functions:
+- vec
+- dot
+- cross
+- norm
+- normalize
+- transpose
+- det
+- matmul
+- solveLinear
+
+Arrays/matrices are now supported expression values.
+
+Registry integration
+--------------------
+The new functions and language constructs are visible through the existing
+registries, so they automatically flow into:
+- syntax highlighting
+- candidate search
+- Wiki/reference tables
+- diagnostics
+- release tests
+
+Recommended v3.5
+----------------
+1. Formula-aware graph re-sampling.
+2. Roots / extrema / intersections / tangent / area.
+3. CSV / SVG export.
+4. Structured Undo/Redo for variables and results.

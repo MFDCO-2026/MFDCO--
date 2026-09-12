@@ -1,0 +1,29 @@
+MFDCO Tools v3.8 Audit
+=======================
+
+Coverage
+--------
+Functions: 142/142
+Units: 153/153
+Templates: 33/33
+Language: 20/20
+
+New areas
+---------
+- Complex numbers: PASS
+- Polynomial real/complex roots: PASS
+- Exact equation helper: PASS
+- Linear systems: PASS
+- Symbolic substitution: PASS
+- General derivative/partial: PASS
+- Numerical limit: PASS
+- Statistics and regression: PASS
+- Probability distributions: PASS
+- Mechanics/orbital/electrical additions: PASS
+- 30+ one-click templates: PASS
+- for/plot/def large templates: PASS
+
+Regression
+----------
+TOTAL 489
+FAIL 0

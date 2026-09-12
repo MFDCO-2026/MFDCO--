@@ -1,0 +1,10 @@
+MFDCO_math 1.0.2
+================
+
+ホームページ接続を公開URLへ確定。
+
+- MFDCO_math → https://mfdco.net/tools.html
+- tools.html → tools/MFDCO_math/index.html
+- tools.html → tools/MFDCO_math/unit-converter.html
+
+ツール一覧側では計算機と単位変換器を別カードとして表示可能。

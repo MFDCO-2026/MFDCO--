@@ -1,0 +1,68 @@
+MFDCO Tools v2.2 Architecture
+================================
+
+Core computation
+----------------
+mfdco-functions.js
+  Mathematical/engineering functions, constants, metadata.
+
+mfdco-engine.js
+  Expression evaluator, code interpreter, ANS and plot sampling.
+
+mfdco-storage.js
+  Persistent state and project serialization.
+
+Data / domain registries
+------------------------
+mfdco-units.js
+  Units, prefixes, unit categories and scalar unit conversion.
+
+mfdco-templates.js
+  Shared formula/code templates.
+
+mfdco-calendar.js
+  Japanese era catalogue, Gregorian/JDN/Julian conversion, weekday,
+  ISO week, day-of-year, Koki conversion and Intl calendar formatting.
+
+Shared UI
+---------
+mfdco-ui.js
+  Small DOM helpers.
+
+mfdco-shell.js
+  Shared header, navigation, file menu, import/export/save/new project
+  actions and toast notifications.
+
+Page responsibility
+-------------------
+calculator.html
+  Calculator/editor page-specific UI.
+
+code.html
+  Dedicated code editor UI.
+
+unit-converter.html
+  Unit/calendar page-specific controls. Unit and calendar algorithms now
+  come from shared modules.
+
+results.html
+  Result/graph viewer.
+
+files.html
+  Saved-project library page.
+
+features.html
+  Wiki/reference.
+
+Result
+------
+HTML pages no longer need to each own the file-menu implementation.
+Calendar algorithms and era data are no longer intended to live inside
+unit-converter.html.
+
+Recommended v2.3
+----------------
+1. Create mfdco-results.js for graph rendering/statistics/export.
+2. Create mfdco-manifest.js with feature/version/schema declarations.
+3. Add diagnostics.html that executes automated capability tests in-browser.
+4. Move remaining page-local candidate rendering into metadata-driven shared UI.

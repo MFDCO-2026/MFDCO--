@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MFDCO_math - システム診断</title>
+<link rel="stylesheet" href="mfdco-base.css">
+<link rel="stylesheet" href="diagnostics.css">
+
+</head><body>
+<header class="site-header"></header>
+<main>
+<section class="card">
+<div class="toolbar"><div><h1>システム診断</h1><div class="small">MFDCO_math v3.8 の主要機能をブラウザ内で実行確認します。</div></div>
+<button class="primary" id="runBtn">診断を実行</button></div>
+<div class="summary" id="summary">未実行</div>
+<div class="note">保存テストは一時キーのみを使用し、現在のプロジェクト内容には触れません。</div>
+</section>
+<section class="card">
+<table><thead><tr><th>分類</th><th>テスト</th><th>結果</th><th>詳細</th></tr></thead><tbody id="rows"></tbody></table>
+</section>
+</main>
+<script src="mfdco-project-schema.js"></script>
+<script src="mfdco-storage.js"></script>
+<script src="mfdco-workspace.js"></script>
+<script src="mfdco-symbolic.js"></script>
+<script src="mfdco-advanced.js"></script>
+<script src="mfdco-functions.js"></script>
+<script src="mfdco-units.js"></script>
+<script src="mfdco-quantities.js"></script>
+<script src="mfdco-templates.js"></script>
+<script src="mfdco-language.js"></script>
+<script src="mfdco-syntax.js"></script>
+<script src="mfdco-registry-search.js"></script>
+<script src="mfdco-ui.js"></script>
+<script src="mfdco-calendar.js"></script>
+<script src="mfdco-shell.js"></script>
+<script src="mfdco-results.js"></script>
+<script src="mfdco-release-tests.js"></script>
+<script src="mfdco-manifest.js"></script>
+<script src="mfdco-engine.js"></script>
+<script>
+const rows=document.getElementById("rows"),summary=document.getElementById("summary");
+const tests=[];
+function test(group,name,fn){tests.push({group,name,fn})}
+function near(a,b,t=1e-7){return Math.abs(a-b)<=t*Math.max(1,Math.abs(b))}
+function addCoreTests(){
+  MFDCOManifest.status().forEach(m=>test("モジュール",m.id,()=>({ok:m.ok,detail:`${m.globalName} / expected ${m.expected} / actual ${m.actual??"未読込"}`})));
+  test("レジストリ","全公開関数に回帰テスト",()=>{const m=MFDCOFunctions.missingTests();return {ok:m.length===0,detail:m.length?m.map(x=>x.name).join(", "):`${MFDCOFunctions.functions.length}関数すべて設定済み`}});
+  test("レジストリ","全公開関数に候補グループ",()=>{const m=MFDCOFunctions.missingCandidateGroups();return {ok:m.length===0,detail:m.length?m.map(x=>x.name).join(", "):`${MFDCOFunctions.functions.length}関数すべて設定済み`}});
+  for(const r of MFDCOReleaseTests.runFunctionTests()){
+    test("公開関数",r.name,()=>({ok:r.ok,detail:r.error||(`expected ${r.expected} / actual ${r.actual}`)}));
+  }
+  const fc=MFDCOReleaseTests.fullCoverage();
+  test("レジストリ","全組み込み単位に回帰テスト",()=>({ok:fc.unitTestCoverage===1,detail:`${fc.unitTested}/${fc.unitCount}`}));
+  test("レジストリ","全テンプレートに回帰テスト",()=>({ok:fc.templateTestCoverage===1,detail:`${fc.templateTested}/${fc.templateCount}`}));
+  test("レジストリ","全コード言語機能に回帰テスト",()=>({ok:fc.languageTestCoverage===1,detail:`${fc.languageTested}/${fc.languageCount}`}));
+  for(const r of MFDCOReleaseTests.runLanguageTests())
+    test("コード言語",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runUnitTests())
+    test("単位回帰",r.name,()=>({ok:r.ok,detail:r.error||(`expected ${r.expected} / actual ${r.actual}`)}));
+  for(const r of MFDCOReleaseTests.runTemplateTests())
+    test("テンプレート回帰",r.name,()=>({ok:r.ok,detail:r.error||""}));
+  for(const r of MFDCOReleaseTests.runProjectSchemaTests())
+    test("プロジェクト形式",r.name,()=>({ok:r.ok,detail:r.error||""}));
+  for(const r of MFDCOReleaseTests.runStorageRoundtripTests())
+    test("保存ラウンドトリップ",r.name,()=>({ok:r.ok,detail:r.error||""}));
+  for(const r of MFDCOReleaseTests.runStorageAdapterTests())
+    test("ストレージCRUD",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runWorkspaceTests())
+    test("コード・結果共有",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runPortableWorkspaceTests())
+    test("ページ間共有",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runWorkspaceStatusTests())
+    test("共有状態",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runDeepSchemaTests())
+    test("プロジェクト詳細検証",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runBackupTests())
+    test("バックアップ",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runAutosaveStateTests())
+    test("自動保存状態",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runUndoRedoTests())
+    test("Undo/Redo",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runAdvancedLanguageTests())
+    test("コード言語拡張",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runVectorMatrixTests())
+    test("ベクトル・行列",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runAdvancedMathTests())
+    test("複素数・方程式",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runStatisticsTests())
+    test("統計・確率",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runTemplateScaleTests())
+    test("テンプレート拡張",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runSymbolicTests())
+    test("式整理・記号計算",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runQuantityEngineeringTests())
+    test("単位対応工学関数",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runQuantityTests())
+    test("単位付き計算・次元解析",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runGraphAnalysisTests())
+    test("グラフ解析",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  for(const r of MFDCOReleaseTests.runRollbackTests())
+    test("読込ロールバック",r.name,()=>({ok:r.ok,detail:r.error||r.detail||""}));
+  test("UI基盤","共通CSS読込",()=>!!document.querySelector('link[href="mfdco-base.css"]'));
+  test("結果基盤","結果コントローラ",()=>typeof MFDCOResults.createResultsController==="function");
+  test("検索基盤","レジストリ検索",()=>typeof MFDCORegistrySearch.search==="function"&&MFDCORegistrySearch.search("sqrt").length>0);
+  test("CSS基盤","ページ専用CSS",()=>[...document.querySelectorAll('link[rel="stylesheet"]')].some(x=>x.href.endsWith(location.pathname.split("/").pop().replace(".html",".css"))));
+  test("関数","sqrt(25)",()=>near(MFDCOEngine.evaluate("sqrt(25)"),5));
+  test("関数","200 × 10%",()=>near(MFDCOEngine.evaluate("200*10%"),20));
+  test("関数","sin(30) DEG",()=>near(MFDCOEngine.evaluate("sin(30)",{angleMode:"DEG"}),.5));
+  test("関数","nCr(5,2)",()=>MFDCOEngine.evaluate("nCr(5,2)")===10);
+  test("数値解析","diff",()=>near(MFDCOEngine.evaluate('diff("x^2","x",3)'),6,1e-5));
+  test("数値解析","integral",()=>near(MFDCOEngine.evaluate('integral("x","x",0,1)'),.5,1e-5));
+  test("数値解析","solve",()=>near(MFDCOEngine.evaluate('solve("x^2-2","x",0,2)'),Math.sqrt(2),1e-6));
+  test("コード","if / for / plot",()=>{
+    const r=MFDCOEngine.runCode('a=3\\nb=4\\nc=sqrt(a^2+b^2)\\nif c == 5:\\n  print("ok",c)\\nfor i = 1 to 3:\\n  a=a+i\\nplot(x,x^2,-2,2)');
+    return r.vars.a===9&&r.plots.length===1&&r.logs.some(x=>x.includes("ok"));
+  });
+  test("ANS","ANS(1)",()=>MFDCOEngine.evaluate("ANS(1)+1",{ansHistory:[{value:41}]})===42);
+  test("単位","1 m → ft",()=>near(MFDCOUnits.convertValue(1,MFDCOUnits.getBuiltIn("m"),MFDCOUnits.getBuiltIn("ft")),3.280839895));
+  test("単位","100 °C → °F",()=>near(MFDCOUnits.convertValue(100,MFDCOUnits.getBuiltIn("degC"),MFDCOUnits.getBuiltIn("degF")),212));
+  test("単位","尺・光年・Ω・TNT",()=>["shaku","ly","ohm","ktTNT"].every(x=>!!MFDCOUnits.getBuiltIn(x)));
+  test("暦","2026-09-12 曜日",()=>MFDCOCalendar.weekdayJa(2026,9,12).includes("土"));
+  test("暦","JDN往復",()=>{
+    const j=MFDCOCalendar.gregorianToJDN(2026,9,12),d=MFDCOCalendar.jdnToGregorian(j);
+    return d.year===2026&&d.month===9&&d.day===12;
+  });
+  test("暦","大化～令和",()=>!!MFDCOCalendar.findEra("大化")&&!!MFDCOCalendar.findEra("令和"));
+  test("テンプレート","共有テンプレート",()=>MFDCOTemplates.definitions.length>=16&&typeof MFDCOTemplates.get("quadratic")==="string");
+  test("保存","JSON保存/復元",()=>{
+    const key="mfdco:diagnostic-temp",obj={a:1,b:"ok"};
+    MFDCOStorage.setJSON(key,obj);const got=MFDCOStorage.getJSON(key,null);MFDCOStorage.remove(key);
+    return got?.a===1&&got?.b==="ok";
+  });
+  test("結果","plot統計",()=>{
+    const p=MFDCOEngine.samplePlotData("x",["x^2"],-2,2,{angleMode:"DEG",vars:{},ansHistory:[]});
+    return p.series[0].stats.count>500&&near(p.series[0].stats.min,0,1e-3)&&p.series[0].stats.max>3.9;
+  });
+}
+addCoreTests();
+async function run(){
+  rows.innerHTML="";let pass=0,fail=0,lastGroup="";
+  for(const t of tests){
+    const tr=document.createElement("tr");
+    let ok=false,detail="";
+    try{
+      const r=await t.fn();
+      if(typeof r==="object"&&r!==null&&"ok" in r){ok=!!r.ok;detail=r.detail||""}
+      else ok=!!r;
+    }catch(e){detail=e.message||String(e)}
+    ok?pass++:fail++;
+    tr.innerHTML=`<td class="${t.group!==lastGroup?"group":""}">${t.group!==lastGroup?t.group:""}</td>
+      <td class="mono">${t.name}</td><td class="${ok?"pass":"fail"}">${ok?"PASS":"FAIL"}</td>
+      <td>${detail}</td>`;
+    rows.appendChild(tr);lastGroup=t.group;
+  }
+  summary.textContent=`PASS ${pass} / FAIL ${fail} / TOTAL ${pass+fail}`;
+  summary.className="summary "+(fail?"fail":"pass");
+}
+document.getElementById("runBtn").onclick=run;
+MFDCOShell.init();run();
+</script>
+</body></html>

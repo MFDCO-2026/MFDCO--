@@ -1,0 +1,80 @@
+MFDCO Tools v3.8.2 - Public Release Final Audit
+================================================
+
+STATUS
+------
+PUBLIC RELEASE CANDIDATE: PASS
+
+Blocking defects found and fixed
+--------------------------------
+1. Results-page graph area could collapse almost to zero height.
+   The page had 4 major sections but CSS only allocated 3 explicit grid rows.
+   Fixed with a 4-row, scroll-safe layout and a minimum 360px graph workspace.
+
+2. 12 legacy one-click templates were not immediately executable.
+   They depended on undefined variables such as a/b/c, v0, rho, I, R, E, etc.
+   All now contain usable example input values.
+
+3. New graph series stored "expr" while older Results UI expected "expression".
+   This caused graph legends/statistics to lose the actual expression label.
+   Compatibility metadata is now generated.
+
+4. Newly sampled graphs did not include numerical statistics.
+   min / max / mean / standard deviation / point count are now generated.
+
+5. Graph-analysis selectors could become stale after Apply/Clear/card selection.
+   Selection synchronization was added.
+
+Coverage
+--------
+Functions: 142/142
+Units: 153/153
+Templates: 33/33
+Language constructs: 20/20
+
+Enhanced regression
+-------------------
+TOTAL 530
+FAIL 0
+
+The enhanced regression includes the normal diagnostic suite PLUS:
+- every one-click template executed exactly as inserted
+- plot() -> sampled points -> statistics -> analysis -> resampling
+- graph expression label propagation
+- roots detection on x^2 - 4*x + 3
+- canvas drawing pipeline using a browser-compatible mock context
+- legacy graph statistics fallback
+
+Static/deployment checks
+------------------------
+- JavaScript modules syntax checked: 19
+- inline HTML scripts syntax checked: 14
+- local page/script/style references: PASS
+- duplicate HTML IDs: none found
+- Results page has four explicit layout rows: PASS
+- graph workspace minimum height: PASS
+- mobile Results layout includes all four sections: PASS
+
+Calendar smoke
+--------------
+- Gregorian -> JDN: PASS
+- JDN -> Gregorian: PASS
+- Gregorian -> Koki: PASS
+- weekday helper: PASS
+
+Multi-user isolation
+--------------------
+Different devices / browser profiles do not share workspace data.
+There is no shared server-side editing store.
+BroadcastChannel only synchronizes same-origin tabs in the same browser profile.
+
+Publication caveats
+-------------------
+Automated tests cannot completely replace a real-browser acceptance pass on the final host.
+PNG/CSV/SVG/project-download click behavior should be checked once on the actual deployed origin.
+Historical Japanese-era conversion retains its previously documented approximation limits.
+The symbolic engine is intentionally not a complete general-purpose CAS.
+
+Automated/static conclusion
+---------------------------
+No known blocking defect remains.

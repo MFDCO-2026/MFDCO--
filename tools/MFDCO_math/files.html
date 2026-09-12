@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MFDCO_math - ファイル</title>
+<link rel="stylesheet" href="mfdco-base.css">
+<link rel="stylesheet" href="files.css">
+</head>
+<body>
+<header class="site-header">
+<div class="site-brand"><div class="site-logo">M</div><div><div class="site-title">MFDCO_math</div><div class="small">Scientific / Utility Math</div></div></div>
+<nav class="site-nav">
+<a href="files.html">ファイル</a><a href="calculator.html">関数電卓</a><a href="code.html">コード</a>
+<a href="results.html">結果</a><a href="unit-converter.html">単位変換器</a><a href="features.html">機能一覧</a>
+</nav></header>
+<main>
+<div class="card">
+<h1>保存済みプロジェクト</h1>
+<div class="small">「ファイル → 名前を付けて保存」で保存したプロジェクトをここから開けます。</div>
+<div class="project-list" id="projectList"></div>
+</div>
+</main>
+<script src="mfdco-project-schema.js"></script>
+<script src="mfdco-storage.js"></script>
+<script src="mfdco-workspace.js"></script>
+<script src="mfdco-symbolic.js"></script>
+<script src="mfdco-advanced.js"></script>
+<script src="mfdco-functions.js"></script>
+<script src="mfdco-units.js"></script>
+<script src="mfdco-quantities.js"></script>
+<script src="mfdco-templates.js"></script>
+<script src="mfdco-language.js"></script>
+<script src="mfdco-syntax.js"></script>
+<script src="mfdco-registry-search.js"></script>
+<script src="mfdco-ui.js"></script>
+<script src="mfdco-calendar.js"></script>
+<script src="mfdco-shell.js"></script>
+<script src="mfdco-results.js"></script>
+<script src="mfdco-release-tests.js"></script>
+<script src="mfdco-manifest.js"></script>
+<script src="mfdco-engine.js"></script>
+<script>
+function render(){
+  const host=document.getElementById("projectList");
+  const lib=MFDCOStorage.getProjectLibrary();
+  host.innerHTML="";
+  if(!lib.length){
+    const empty=document.createElement("div");
+    empty.className="empty";
+    empty.textContent="保存済みプロジェクトはありません。";
+    host.appendChild(empty);
+    return;
+  }
+
+  lib.forEach(record=>{
+    const row=document.createElement("div");
+    row.className="project-row";
+
+    const info=document.createElement("div");
+    const title=document.createElement("b");
+    title.textContent=record.name;
+    const date=document.createElement("div");
+    date.className="small";
+    const d=new Date(record.savedAt);
+    date.textContent=isNaN(d)?String(record.savedAt||""):d.toLocaleString("ja-JP");
+    info.append(title,date);
+
+    const actions=document.createElement("div");
+    actions.className="actions";
+
+    const open=document.createElement("button");
+    open.className="secondary";
+    open.textContent="開く";
+    open.onclick=()=>{
+      try{
+        MFDCOStorage.loadProjectFromLibrary(record.name);
+        location.href="code.html";
+      }catch(e){
+        alert("プロジェクトを開けませんでした。\n現在の作業内容は復元されています。\n"+e.message);
+      }
+    };
+
+    const del=document.createElement("button");
+    del.className="secondary danger";
+    del.textContent="削除";
+    del.onclick=()=>{
+      if(!confirm(`${record.name}を削除しますか？`))return;
+      try{
+        MFDCOStorage.deleteProjectFromLibrary(record.name);
+        render();
+      }catch(e){alert(e.message)}
+    };
+
+    actions.append(open,del);
+    row.append(info,actions);
+    host.appendChild(row);
+  });
+}
+render();
+</script>
+
+<script>MFDCOShell.init();</script>
+</body></html>

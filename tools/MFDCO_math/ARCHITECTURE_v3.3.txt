@@ -1,0 +1,40 @@
+MFDCO Tools v3.3 Architecture
+================================
+
+Project safety
+--------------
+- beforeunload warning when dirty and autosave is OFF
+- backup snapshot before New Project
+- backup snapshot before Import Project
+- restore latest backup from File menu
+
+Autosave
+--------
+File menu:
+- 自動保存 ON/OFF
+
+When enabled:
+- code/result/variable changes mark workspace dirty
+- shell schedules project save after 1.2 seconds
+- header indicates autosave state
+
+Project identity
+----------------
+Header now shows the current project name.
+
+Deep plot validation
+--------------------
+Project schema validates:
+- plot series object
+- series expression / label types
+- point arrays
+- each [x,y] point
+- null y for discontinuities
+- xmin < xmax
+
+Recommended v3.4
+----------------
+1. Add explicit backup browser/history UI.
+2. Add autosave interval preference.
+3. Add undo/redo history shared between Calculator and Code.
+4. Add conflict indicator when two tabs edit the same line simultaneously.

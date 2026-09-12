@@ -1,0 +1,63 @@
+MFDCO Tools v3.1 Architecture
+================================
+
+Shared code/result workspace
+----------------------------
+New module: mfdco-workspace.js
+
+calculator.html and code.html now share:
+- the exact same code value
+- execution logs
+- plot/result payload
+
+Both pages restore the shared state when opened.
+Changes are also broadcast through:
+- a same-document custom event
+- the browser storage event for other tabs/windows
+
+An intentionally empty code editor is preserved as empty on the other page.
+
+Results page
+------------
+mfdco-results.js now prefers MFDCOWorkspace for result load/save/clear, keeping
+the results page on the same shared result payload.
+
+Project CRUD
+------------
+mfdco-shell.js now uses MFDCOStorage library CRUD helpers.
+files.html also uses those same helpers and no longer accesses localStorage directly.
+
+Library records are normalized so older wrapper records and raw project records
+can both be read.
+
+Transactional imports
+---------------------
+applyProjectTransactional():
+1. validates/migrates the incoming project before mutation
+2. snapshots current project data
+3. applies the new project
+4. restores the snapshot if any write fails
+
+Shell import and saved-project opening both use the transactional path.
+
+Security cleanup
+----------------
+files.html creates project names with textContent instead of inserting untrusted
+project names into innerHTML.
+
+Regression
+----------
+New tests cover:
+- calculator/code shared code
+- empty shared code
+- shared logs/plots
+- result clearing
+- simulated project write failure
+- rollback of code and angle mode
+
+Recommended v3.2
+----------------
+1. Add a visible shared-state indicator to calculator/code pages.
+2. Share selected code cursor/selection only if useful; keep it page-local by default.
+3. Add import file-size limits and deeper schemas for variables/custom units/results.
+4. Add an explicit project dirty/saved state in the header.

@@ -1,0 +1,37 @@
+MFDCO Tools v3.2.2 Live Sync Hotfix
+======================================
+
+Code sharing is now live and bidirectional while both tabs are open.
+
+Primary transport:
+- BroadcastChannel: MFDCO_TOOLS_WORKSPACE_V1
+
+Peer protocol:
+- request-state
+- state
+- code-update
+- results-update
+
+Startup:
+A newly opened Code/Calculator tab asks other open MFDCO tabs for the current
+code. This prevents a stale empty editor from winning simply because that page
+had old local storage.
+
+Editing:
+Every active edit receives a revision and is broadcast immediately.
+The other tab applies it without sending it back again, preventing feedback loops.
+
+Covered edit paths:
+- keyboard typing
+- Tab insertion
+- clear
+- candidate/function/template insertion
+- ANS insertion
+- other programmatic insertions
+
+Fallbacks remain:
+- storage event
+- window.name navigation bridge
+- local storage mirror
+
+The v3.2.1 fixed File menu overlay is retained.

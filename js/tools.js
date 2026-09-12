@@ -32,7 +32,7 @@ const MFDCO_TOOLS = [
 
     ,
     {
-        id: "mfdco-morse",
+        id: "mfdco-cipher",
 
         title: "MFDCO暗号機(ver-8.9.1)",
 
@@ -47,7 +47,7 @@ const MFDCO_TOOLS = [
     }
     ,
     {
-        id: "mfdco-morse",
+        id: "mfdco-cv",
 
         title: "空母発艦重量シミュレーター(ver-8.9.1)",
 
@@ -60,9 +60,41 @@ const MFDCO_TOOLS = [
         status:
             "available"
     }
+      ,
+    {
+        id: "mfdco-math",
+
+        title: "計算機(ver8.9.2)",
+
+        description:
+            "基本的な関数電卓をコードに変換し，グラフのプロットまで行える高性能計算ツールです",
+
+        href:
+            "tools/MFDCO_math/index.html",
+
+        status:
+            "available"
+    }
+
+     ,
+    {
+        id: "mfdco-unit-converter",
+
+        title: "単位変換機(ver8.9.2)",
+
+        description:
+            "計算機の機能の一つでSI単位系～in,kn,尺,寸までかなり多くの単位を変換できます",
+
+        href:
+            "tools/MFDCO_math/unit-converter.html",
+
+        status:
+            "available"
+    }
+
  ,
     {
-        id: "mfdco-morse",
+        id: "mfdco-airdf",
 
         title: "防空戦闘シミュレーター(beta-1.3)",
 
@@ -78,7 +110,7 @@ const MFDCO_TOOLS = [
 
      ,
     {
-        id: "mfdco-morse",
+        id: "mfdco-tntbs",
 
         title: "TNT弾道シミュレーター(beta-1.1)",
 
@@ -93,6 +125,8 @@ const MFDCO_TOOLS = [
     }
 
 ];
+
+
 
 
 /* =========================================

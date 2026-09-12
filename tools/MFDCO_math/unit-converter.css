@@ -1,0 +1,68 @@
+/* MFDCO Tools v2.9 page stylesheet: unit-converter.html */
+
+:root{
+  --bg:#f4f7f6;--panel:#fff;--text:#111817;--muted:#6d7775;
+  --main:#173f3c;--line:#d7dfdd;--dark:#101817;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,"Segoe UI","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text)}
+button,input,select{font:inherit}button{cursor:pointer}
+.site-header{
+  height:58px;background:#fff;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;padding:0 18px
+}
+.site-brand{display:flex;gap:10px;align-items:center}
+.site-logo{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--main);color:#fff;font-weight:800}
+.site-title{font-size:14px;font-weight:750}.small{font-size:11px;color:var(--muted)}
+.site-nav{display:flex;gap:5px;overflow-x:auto}
+.site-nav a{text-decoration:none;color:var(--text);padding:7px 10px;border-radius:8px;font-size:12px;white-space:nowrap}
+.site-nav a.active{background:var(--main);color:#fff}
+main{max-width:1180px;margin:auto;padding:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+h1{font-size:20px;margin:0 0 4px}h2{font-size:14px;margin:0}
+.title-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.primary{border:0;background:var(--main);color:#fff;border-radius:8px;padding:8px 11px}
+.secondary{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 10px}
+.field{display:grid;gap:4px}.field label{font-size:11px;color:var(--muted);font-weight:700}
+input,select{border:1px solid var(--line);border-radius:8px;background:#fff;padding:8px;min-width:0}
+.converter{
+  display:grid;grid-template-columns:minmax(0,1fr) 42px minmax(0,1fr);
+  gap:10px;align-items:end
+}
+.unit-row{display:grid;grid-template-columns:120px minmax(0,1fr);gap:6px}
+.swap{width:42px;height:38px;border:1px solid var(--line);background:#fff;border-radius:9px}
+.result-box{
+  margin-top:12px;background:var(--dark);color:#fff;border-radius:10px;padding:12px;
+  font:16px Consolas,monospace;min-height:48px
+}
+.meta{font-size:11px;color:var(--muted);margin-top:6px}
+.calendar-grid{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end}
+.calendar-output{
+  margin-top:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px
+}
+.calendar-output>div{border:1px solid var(--line);border-radius:8px;padding:8px;background:#fbfdfc}
+.calendar-output b{display:block;font-size:11px;margin-bottom:4px}.calendar-output span{font:13px Consolas,monospace}
+
+.custom-grid{
+  display:grid;grid-template-columns:1.1fr .8fr .7fr .9fr .9fr auto;
+  gap:7px;align-items:end
+}
+.custom-list{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+.custom-chip{border:1px solid var(--line);border-radius:999px;padding:5px 7px;font-size:11px;background:#fbfdfc}
+.custom-chip button{border:0;background:transparent;color:#9f3232;margin-left:5px;padding:0}
+
+.table-tools{display:flex;gap:6px;align-items:center}
+.table-tools input{width:220px}
+.unit-table-wrap{max-height:520px;overflow:auto;border:1px solid var(--line);border-radius:9px}
+.unit-table{width:100%;border-collapse:collapse;font-size:11px}
+.unit-table th,.unit-table td{padding:7px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.unit-table th{position:sticky;top:0;background:#f7faf9;z-index:2}
+.badge{display:inline-block;padding:2px 6px;border-radius:999px;background:#eef4f3;color:var(--main);font-size:10px}
+.note{font-size:10px;color:var(--muted)}
+@media(max-width:800px){
+  .converter,.calendar-grid,.custom-grid{grid-template-columns:1fr}
+  .swap{width:100%}
+  .calendar-output{grid-template-columns:1fr}
+  .unit-row{grid-template-columns:110px 1fr}
+}
+

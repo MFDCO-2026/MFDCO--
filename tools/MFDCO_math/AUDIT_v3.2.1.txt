@@ -1,0 +1,58 @@
+MFDCO Tools v3.2.1 Audit
+=========================
+
+Hotfix targets
+--------------
+1. Calculator <-> Code content sharing under file://
+2. File menu expanding/clipping inside header
+
+Sharing
+-------
+- canonical default code: unified
+- code page initial state: shared workspace
+- calculator initial state: shared workspace
+- same-tab file:// navigation bridge: window.name portable workspace
+- shared result/log/plot payload: portable
+- portable state mirrored into each page storage
+
+File menu
+---------
+- removed from header layout at runtime
+- appended to document.body
+- position: fixed
+- z-index: 10000
+- viewport-aware left/top position
+- closes on outside click
+- repositions on resize/scroll
+
+Regression
+----------
+TOTAL 313
+FAIL 0
+
+JavaScript validation
+---------------------
+- mfdco-project-schema.js: OK
+- mfdco-storage.js: OK
+- mfdco-workspace.js: OK
+- mfdco-functions.js: OK
+- mfdco-engine.js: OK
+- mfdco-units.js: OK
+- mfdco-templates.js: OK
+- mfdco-language.js: OK
+- mfdco-syntax.js: OK
+- mfdco-registry-search.js: OK
+- mfdco-ui.js: OK
+- mfdco-calendar.js: OK
+- mfdco-shell.js: OK
+- mfdco-results.js: OK
+- mfdco-release-tests.js: OK
+- mfdco-manifest.js: OK
+- calculator.html: inline JS OK
+- code.html: inline JS OK
+- diagnostics.html: inline JS OK
+- features.html: inline JS OK
+- files.html: inline JS OK
+- index.html: inline JS OK
+- results.html: inline JS OK
+- unit-converter.html: inline JS OK

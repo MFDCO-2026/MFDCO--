@@ -1,0 +1,53 @@
+MFDCO Tools v3.6 Audit
+=======================
+
+Coverage
+--------
+Functions: 81/81
+Units: 153/153
+Templates: 16/16
+Language: 20/20
+
+Quantity engine
+---------------
+- unit literals: PASS
+- SI prefixes: PASS
+- compound units: PASS
+- dimensional addition/subtraction: PASS
+- multiplication/division propagation: PASS
+- conversion arrow: PASS
+- quantity variables: PASS
+- quantity comparisons: PASS
+
+Regression
+----------
+TOTAL 371
+FAIL 0
+
+JavaScript validation
+---------------------
+- mfdco-project-schema.js: OK
+- mfdco-storage.js: OK
+- mfdco-workspace.js: OK
+- mfdco-functions.js: OK
+- mfdco-units.js: OK
+- mfdco-quantities.js: OK
+- mfdco-engine.js: OK
+- mfdco-templates.js: OK
+- mfdco-language.js: OK
+- mfdco-syntax.js: OK
+- mfdco-registry-search.js: OK
+- mfdco-ui.js: OK
+- mfdco-calendar.js: OK
+- mfdco-shell.js: OK
+- mfdco-results.js: OK
+- mfdco-release-tests.js: OK
+- mfdco-manifest.js: OK
+- calculator.html: inline JS OK
+- code.html: inline JS OK
+- diagnostics.html: inline JS OK
+- features.html: inline JS OK
+- files.html: inline JS OK
+- index.html: inline JS OK
+- results.html: inline JS OK
+- unit-converter.html: inline JS OK

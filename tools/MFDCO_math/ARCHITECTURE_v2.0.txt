@@ -1,0 +1,41 @@
+MFDCO Tools v2.0 Architecture
+================================
+
+The v2.0 refactor establishes one source of truth for calculation behavior.
+
+mfdco-functions.js
+  - Public function metadata used by candidates and Wiki.
+  - Physical/mathematical constants.
+  - Actual mathematical and engineering function implementations.
+  - Numerical calculus functions are created with the shared evaluator.
+
+mfdco-engine.js
+  - Expression tokenizer/evaluator.
+  - ANS resolution.
+  - if / else / for / while interpreter.
+  - print(), assignment and plot().
+  - Plot sampling and numerical statistics.
+  - Both calculator.html and code.html call this same engine.
+
+mfdco-storage.js
+  - Central storage keys.
+  - Code, ANS, variables, angle mode, custom units and results.
+  - Project serialization / migration / loading.
+  - v1 project data is accepted and migrated to project format version 2.
+
+HTML pages
+  calculator.html  UI only + calculator-specific interaction.
+  code.html        UI only + editor interaction.
+  features.html    Wiki/reference generated from mfdco-functions.js.
+  results.html     Result/graph viewer.
+  unit-converter.html Unit/date converter.
+  files.html       Project library UI.
+
+Rule for future functions
+-------------------------
+1. Add implementation to mfdco-functions.js createScope().
+2. Add one metadata entry to FUNCTION_DEFINITIONS.
+3. The Wiki and candidate UI can read the same metadata.
+4. Add/extend a self-test in the release audit.
+
+Do not copy the evaluator/interpreter into an HTML page again.

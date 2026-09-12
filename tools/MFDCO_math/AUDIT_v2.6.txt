@@ -1,0 +1,54 @@
+MFDCO Tools v2.6 Audit
+=======================
+
+Coverage
+--------
+Functions: 72/72 (100%)
+Units: 153/153 (100%)
+Templates: 16/16 (100%)
+Language: 15/15 (100%)
+
+Language registry
+-----------------
+- calculator candidates: registry-driven
+- code-page candidates: registry-driven
+- Wiki language reference: registry-driven
+- diagnostics: registry-driven
+- release tests: registry-driven
+
+Template regression
+-------------------
+Templates are now checked for non-empty executable content and are passed
+through the interpreter as smoke tests where possible.
+
+Final regression
+----------------
+TOTAL 264
+FAIL 0
+
+All public functions, units, templates, language constructs and project-schema
+tests passed.
+
+JavaScript validation
+---------------------
+- mfdco-project-schema.js: OK
+- mfdco-storage.js: OK
+- mfdco-functions.js: OK
+- mfdco-engine.js: OK
+- mfdco-units.js: OK
+- mfdco-templates.js: OK
+- mfdco-language.js: OK
+- mfdco-ui.js: OK
+- mfdco-calendar.js: OK
+- mfdco-shell.js: OK
+- mfdco-results.js: OK
+- mfdco-release-tests.js: OK
+- mfdco-manifest.js: OK
+- calculator.html: OK
+- code.html: OK
+- diagnostics.html: OK
+- features.html: OK
+- files.html: OK
+- index.html: OK
+- results.html: OK
+- unit-converter.html: OK

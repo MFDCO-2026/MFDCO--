@@ -1,0 +1,42 @@
+MFDCO Tools v2.8 Architecture
+================================
+
+Shared CSS
+----------
+mfdco-base.css centralizes common visual primitives:
+- background/text/theme variables
+- header/navigation
+- file menu and toast
+- card/panel
+- buttons and fields
+- tables
+- status/empty/tip blocks
+- syntax highlight colors
+
+Results controller
+------------------
+mfdco-results.js now owns:
+- result payload loading/saving
+- graph grid rendering
+- statistics rendering
+- graph selector state
+- graph-editor synchronization
+- editor application
+- PNG export dispatch
+- result clearing
+- resize redraw binding
+
+results.html now only creates and initializes a shared results controller.
+
+Diagnostics
+-----------
+diagnostics.html verifies:
+- common stylesheet linkage
+- shared results controller availability
+
+Recommended v2.9
+----------------
+1. Split page-specific CSS into calculator.css/code.css/results.css/unit.css/wiki.css.
+2. Add a common registry-search service for Wiki and candidate palettes.
+3. Add an in-memory storage adapter so MFDCOStorage itself can be roundtrip-tested.
+4. Move remaining results editor markup metadata into mfdco-results.js.

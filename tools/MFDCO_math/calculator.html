@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MFDCO_math - 関数電卓</title>
+<link rel="stylesheet" href="mfdco-base.css">
+<link rel="stylesheet" href="calculator.css">
+
+
+</head>
+<body>
+<header class="site-header">
+  <div class="site-brand">
+    <div class="site-logo">M</div>
+    <div>
+      <div class="site-title">MFDCO_math</div>
+      <div class="small">Scientific / Utility Math</div>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <a href="files.html">ファイル</a>
+    <a href="calculator.html" class="active">関数電卓</a>
+    <a href="code.html">コード</a>
+    <a href="results.html">結果</a>
+    <a href="unit-converter.html">単位変換器</a>
+    <a href="features.html">機能一覧</a>
+  </nav>
+</header>
+<div class="page-shell">
+<div class="app">
+  <section class="left">
+    <div class="top-workspace">
+      <div class="calc-column">
+        <div class="calc-menu-backdrop" id="calcMenuBackdrop"></div>
+
+        <div class="calc-menu-modal" id="functionOverlay">
+          <div class="calc-menu-head">
+            <h3>関数候補</h3>
+            <button class="calc-menu-close" data-close-calc-menu>閉じる</button>
+          </div>
+          <div class="calc-menu-body">
+            <div class="calc-menu-hint">選択した関数を計算コードへ追加します。</div>
+            <input class="candidate-search-input" id="functionCandidateSearch" type="search"
+                   placeholder="関数・定数・言語機能を検索">
+            <div class="candidate-accordion">
+              <details class="candidate-section" open>
+                <summary>三角関数 <span>⌄</span></summary>
+                <div class="candidate-content" id="trigCandidates"></div>
+              </details>
+              <details class="candidate-section">
+                <summary>対数・指数 <span>⌄</span></summary>
+                <div class="candidate-content" id="logCandidates"></div>
+              </details>
+              <details class="candidate-section">
+                <summary>微積分・数値解析 <span>⌄</span></summary>
+                <div class="candidate-content" id="calculusCandidates"></div>
+              </details>
+              <details class="candidate-section">
+                <summary>論理・判定 <span>⌄</span></summary>
+                <div class="candidate-content" id="logicCandidates"></div>
+              </details>
+              <details class="candidate-section">
+                <summary>その他 <span>⌄</span></summary>
+                <div class="candidate-content" id="otherCandidates"></div>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-menu-modal" id="formulaOverlay">
+          <div class="calc-menu-head">
+            <h3>公式・数式候補</h3>
+            <button class="calc-menu-close" data-close-calc-menu>閉じる</button>
+          </div>
+          <div class="calc-menu-body">
+            <input class="candidate-search-input" id="formulaCandidateSearch" type="search"
+                   placeholder="公式・テンプレートを検索">
+            <div class="calc-menu-hint">数学・物理・工学テンプレートを計算コードへ追加します。</div>
+            <div id="formulaCandidates" class="formula-list"></div>
+          </div>
+        </div>
+
+        <div class="card compact-card">
+          <div class="display">
+            <input class="calc-input" id="calcInput" value="" placeholder="式を直接入力、または下のキーを使用" autocomplete="off" spellcheck="false">
+            <div class="answer" id="displayAnswer">0</div>
+          </div>
+
+          <div class="toolbar">
+            <button class="mode active" id="degBtn">DEG</button>
+            <button class="mode" id="radBtn">RAD</button>
+          </div>
+
+          <div class="calc-grid" id="calcKeys"></div>
+
+          <div class="action-row" style="margin-top:10px">
+            <button class="secondary" id="insertExprBtn">式を追加</button>
+            <button class="primary" id="insertAnswerBtn">答えを追加</button>
+            <button class="secondary" id="saveAnsBtn">答えを保存</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-stack">
+        <div class="card compact-card">
+          <div class="section-title">
+            <h2>変数</h2>
+            <div style="display:flex;gap:5px">
+              <button class="secondary" id="unitConvertBtn">変換</button>
+              <button class="primary" id="addVarBtn">＋ 変数</button>
+            </div>
+          </div>
+          <div class="var-grid-head">
+            <div class="var-head">変数名</div>
+            <div class="var-head">値</div>
+            <div class="var-head">単位</div>
+            <div class="var-head">追加</div>
+          </div>
+          <div id="variableBody" class="var-list-scroll"></div>
+
+        </div>
+
+        <div class="card compact-card">
+          <div class="section-title">
+            <h2>ANS履歴</h2>
+            <button class="secondary" id="clearAnsBtn">クリア</button>
+          </div>
+          <div id="ansHistory" class="ans-mini compact-scroll small">まだ保存された答えはありません。</div>
+        </div>
+
+        <div class="card compact-card">
+          <div class="section-title">
+            <h2>候補</h2>
+          </div>
+          <div class="candidate-compact-scroll" aria-label="候補一覧">
+            <div id="constantCandidates" class="formula-list"></div>
+            <div class="code-snippet-group" id="basicCodeCandidates"></div>
+          </div>
+
+          <div class="candidate-buttons-top candidate-launch-row">
+            <button class="overlay-launch" id="functionOverlayBtn">関数</button>
+            <button class="overlay-launch" id="formulaOverlayBtn">公式</button>
+          </div>
+
+
+        </div>
+      </div>
+    </div>  </section>
+
+  <section class="right">
+    <div class="card editor-card" id="codePanel">
+      <div class="section-title">
+        <div>
+          <h2>計算コード</h2>
+          <div class="small">Ctrl + Enter で実行</div>
+        </div>
+        <span class="status" id="statusText">Ready</span>
+      </div>
+
+      <div class="editor-wrap">
+        <div class="line-numbers" id="lineNumbers">1</div>
+        <div class="code-layer-wrap">
+          <pre id="codeHighlight" class="code-highlight" aria-hidden="true"></pre>
+          <div class="editor-share-status"><span class="share-dot"></span><span>コード・結果をリアルタイム共有中</span></div>
+<textarea id="codeEditor" spellcheck="false"># MFDCO Code
+# 関数電卓とコード画面で同じコードを共有します。
+# Ctrl + Enter で実行
+
+a = 3
+b = 4
+c = sqrt(a^2 + b^2)
+
+print("斜辺", c)
+result = c</textarea>
+        </div>
+      </div>
+
+      <div class="action-row compact-action-row">
+        <button class="primary" id="runBtn">▶ 実行</button>
+        <button class="secondary" id="clearCodeBtn">クリア</button>
+        <button class="secondary" id="undoCodeBtn">↶ Undo</button>
+        <button class="secondary" id="redoCodeBtn">↷ Redo</button>
+        <button class="secondary" id="copyCodeBtn">コピー</button>
+        <button class="secondary" id="insertAnsBtn">最新 ANS を追加</button>
+      </div>
+
+    </div>
+
+    <div class="card" id="resultPanel">
+      <div class="section-title">
+        <h2>結果 / ログ</h2>
+        <button class="secondary" id="clearResultBtn">クリア</button>
+      </div>
+      <div class="result-body">
+        <div class="results" id="results">実行結果がここに表示されます。</div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+<script src="mfdco-project-schema.js"></script>
+<script src="mfdco-storage.js"></script>
+<script src="mfdco-workspace.js"></script>
+<script src="mfdco-symbolic.js"></script>
+<script src="mfdco-advanced.js"></script>
+<script src="mfdco-functions.js"></script>
+<script src="mfdco-units.js"></script>
+<script src="mfdco-quantities.js"></script>
+<script src="mfdco-templates.js"></script>
+<script src="mfdco-language.js"></script>
+<script src="mfdco-syntax.js"></script>
+<script src="mfdco-registry-search.js"></script>
+<script src="mfdco-ui.js"></script>
+<script src="mfdco-calendar.js"></script>
+<script src="mfdco-shell.js"></script>
+<script src="mfdco-results.js"></script>
+<script src="mfdco-release-tests.js"></script>
+<script src="mfdco-manifest.js"></script>
+<script src="mfdco-engine.js"></script>
+<script>
+(() => {
+  const calcInput = document.getElementById("calcInput");
+  const answerEl = document.getElementById("displayAnswer");
+  const keysEl = document.getElementById("calcKeys");
+  const codeEditor = document.getElementById("codeEditor");
+  const workspace = MFDCOWorkspace.createClient("calculator");
+  const codeHighlight = document.getElementById("codeHighlight");
+  const lineNumbers = document.getElementById("lineNumbers");
+  const results = document.getElementById("results");
+  const variableBody = document.getElementById("variableBody");
+  const statusText = document.getElementById("statusText");
+
+  let calculatorAns = 0;
+  let hasCalculatedAnswer = false;
+  let resultHold = false;
+  let ansHistory = [];
+  try{
+    const savedAns=MFDCOStorage.getAnsHistory();
+    if(Array.isArray(savedAns))ansHistory=savedAns;
+  }catch(_){}
+  let angleMode = MFDCOStorage.getAngleMode();
+  let varCounter = 0;
+
+  // null = ユーザーがコード内の挿入位置をまだ指定していない。
+  let editorSelection = null;
+
+  const keyDefs = [
+    ["AC","danger"],["⌫","danger"],["(", "fn"],[")","fn"],["ANS","fn"],["÷","op"],
+    ["sin","fn"],["cos","fn"],["tan","fn"],["√","fn"],["^","fn"],["×","op"],
+    ["asin","fn"],["acos","fn"],["atan","fn"],["ln","fn"],["log","fn"],["−","op"],
+    ["7",""],["8",""],["9",""],["π","fn"],["e","fn"],["+","op"],
+    ["4",""],["5",""],["6",""],["x²","fn"],["|x|","fn"],["%","op"],
+    ["1",""],["2",""],["3",""],["!","fn"],["mod","fn"],["=","main"],
+    ["0",""],[".",""],[",","fn"],["floor","fn"],["ceil","fn"],["±","fn"]
+  ];
+
+  keyDefs.forEach(([label, cls]) => {
+    const b = document.createElement("button");
+    b.className = "key " + cls;
+    b.textContent = label;
+    b.addEventListener("click", () => pressKey(label));
+    keysEl.appendChild(b);
+  });
+
+  function currentExpr(){
+    return calcInput.value;
+  }
+
+  function setExpr(value, caret = null){
+    calcInput.value = value;
+    const pos = caret === null ? value.length : Math.max(0, Math.min(caret, value.length));
+    calcInput.selectionStart = calcInput.selectionEnd = pos;
+  }
+
+  function prepareForCalculatorInput(){
+    if(resultHold){
+      setExpr("");
+      answerEl.textContent = "0";
+      hasCalculatedAnswer = false;
+      resultHold = false;
+    }
+  }
+
+  function insertCalcText(text, caretOffsetFromEnd = 0){
+    prepareForCalculatorInput();
+    const start = calcInput.selectionStart ?? calcInput.value.length;
+    const end = calcInput.selectionEnd ?? start;
+    calcInput.value = calcInput.value.slice(0,start) + text + calcInput.value.slice(end);
+    const pos = start + text.length - caretOffsetFromEnd;
+    calcInput.selectionStart = calcInput.selectionEnd = pos;
+    calcInput.focus();
+    hasCalculatedAnswer = false;
+  }
+
+  function pressKey(k){
+    if(k === "AC"){
+      setExpr("");
+      answerEl.textContent = "0";
+      hasCalculatedAnswer = false;
+      resultHold = false;
+      calcInput.focus();
+      return;
+    }
+    if(k === "="){ calculateDisplay(); return; }
+
+    if(k === "±"){
+      prepareForCalculatorInput();
+      const expr=currentExpr().trim();
+      if(!expr){ insertCalcText("-"); return; }
+      if(expr.startsWith("-(") && expr.endsWith(")")) setExpr(expr.slice(2,-1));
+      else if(expr.startsWith("-") && !/[+*/]/.test(expr.slice(1))) setExpr(expr.slice(1));
+      else setExpr(`-(${expr})`);
+      calcInput.focus();
+      hasCalculatedAnswer=false;
+      return;
+    }
+
+    prepareForCalculatorInput();
+
+    if(k === "⌫"){
+      const s = calcInput.selectionStart ?? calcInput.value.length;
+      const e = calcInput.selectionEnd ?? s;
+      if(s !== e){
+        calcInput.value = calcInput.value.slice(0,s) + calcInput.value.slice(e);
+        calcInput.selectionStart = calcInput.selectionEnd = s;
+      } else if(s > 0){
+        calcInput.value = calcInput.value.slice(0,s-1) + calcInput.value.slice(s);
+        calcInput.selectionStart = calcInput.selectionEnd = s-1;
+      }
+      calcInput.focus();
+      return;
+    }
+
+    if(k === "ANS"){
+      if(ansHistory.length === 0){ status("ANS 履歴がありません"); return; }
+      insertCalcText(`ANS(${ansHistory.length})`);
+      return;
+    }
+
+    const paired = {
+      "√":"sqrt()",
+      "sin":"sin()","cos":"cos()","tan":"tan()",
+      "asin":"asin()","acos":"acos()","atan":"atan()",
+      "ln":"ln()","log":"log10()","|x|":"abs()",
+      "floor":"floor()","ceil":"ceil()"
+    };
+    if(paired[k]){
+      insertCalcText(paired[k], 1);
+      return;
+    }
+
+    const map = {
+      "÷":"/","×":"*","−":"-","π":"pi",
+      "x²":"^2","mod":" mod ","!":"!"
+    };
+    insertCalcText(map[k] ?? k);
+  }
+
+  // 直接入力にも対応。結果表示後の最初の実入力で新しい式へ切り替える。
+  calcInput.addEventListener("keydown", e => {
+    if(e.key === "Enter"){
+      e.preventDefault();
+      calculateDisplay();
+      return;
+    }
+    if(resultHold && !e.ctrlKey && !e.metaKey && !e.altKey){
+      const isInputKey = e.key.length === 1 || e.key === "Backspace" || e.key === "Delete";
+      if(isInputKey){
+        setExpr("");
+        answerEl.textContent = "0";
+        hasCalculatedAnswer = false;
+        resultHold = false;
+      }
+    }
+  });
+  calcInput.addEventListener("input", () => {
+    hasCalculatedAnswer = false;
+  });
+
+  function safeEvalExpression(source,vars={}){
+    return MFDCOEngine.evaluate(source,{vars,angleMode,ansHistory});
+  }
+
+  function calculateDisplay(){
+    try{
+      const expression = currentExpr().trim() || "0";
+      calculatorAns = safeEvalExpression(expression, readVariables());
+      hasCalculatedAnswer = true;
+      answerEl.textContent = formatNumber(calculatorAns);
+      resultHold = true;
+      status("計算完了。表示は次の入力まで保持されます");
+    }catch(e){
+      hasCalculatedAnswer = false;
+      answerEl.textContent = "Error";
+      resultHold = true;
+      status(e.message);
+    }
+  }
+
+  function formatNumber(n){
+    if(!Number.isFinite(n)) return String(n);
+    if(Math.abs(n) >= 1e12 || (Math.abs(n) > 0 && Math.abs(n) < 1e-9)) return n.toExponential(10);
+    return String(Number(n.toPrecision(12)));
+  }
+
+  document.getElementById("degBtn").onclick = () => setAngle("DEG");
+  document.getElementById("radBtn").onclick = () => setAngle("RAD");
+
+  function setAngle(mode){
+    angleMode = mode;
+    MFDCOStorage.setAngleMode(angleMode);
+    document.getElementById("degBtn").classList.toggle("active", mode==="DEG");
+    document.getElementById("radBtn").classList.toggle("active", mode==="RAD");
+    status("Angle: " + mode);
+  }
+
+  function rememberEditorSelection(){
+    editorSelection = {
+      start: codeEditor.selectionStart ?? 0,
+      end: codeEditor.selectionEnd ?? (codeEditor.selectionStart ?? 0)
+    };
+  }
+
+  function appendAsNewLine(text){
+    const clean = String(text).replace(/^\n+|\n+$/g,"");
+    let base = codeEditor.value;
+    if(base && !base.endsWith("\n")) base += "\n";
+    codeEditor.value = base + clean + "\n";
+    const p = codeEditor.value.length;
+    codeEditor.selectionStart = codeEditor.selectionEnd = p;
+    editorSelection = null;
+    updateLines();
+    refreshCandidates();
+  }
+
+  function insertCode(text, options={}){
+    const { newLineWhenNoSelection=true } = options;
+    if(editorSelection){
+      const start = editorSelection.start;
+      const end = editorSelection.end;
+      codeEditor.value = codeEditor.value.slice(0,start) + text + codeEditor.value.slice(end);
+      const next = start + text.length;
+      codeEditor.selectionStart = codeEditor.selectionEnd = next;
+      editorSelection = {start:next,end:next};
+      updateLines();
+      refreshCandidates();
+      return;
+    }
+    if(newLineWhenNoSelection) appendAsNewLine(text);
+    else {
+      const p = codeEditor.value.length;
+      codeEditor.value += text;
+      codeEditor.selectionStart = codeEditor.selectionEnd = p + text.length;
+      updateLines();
+      refreshCandidates();
+    }
+  }
+
+  function insertCodeFunction(name){
+    const token = `${name}()`;
+    if(editorSelection){
+      const start = editorSelection.start;
+      const end = editorSelection.end;
+      const selected = codeEditor.value.slice(start,end);
+      const value = selected ? `${name}(${selected})` : token;
+      codeEditor.value = codeEditor.value.slice(0,start) + value + codeEditor.value.slice(end);
+      const caret = selected ? start + value.length : start + name.length + 1;
+      codeEditor.selectionStart = codeEditor.selectionEnd = caret;
+      editorSelection = {start:caret,end:caret};
+      updateLines();
+      refreshCandidates();
+    }else{
+      appendAsNewLine(token);
+      const caret = Math.max(0, codeEditor.value.length - 2);
+      codeEditor.selectionStart = codeEditor.selectionEnd = caret;
+      editorSelection = {start:caret,end:caret};
+    }
+  }
+
+  function renderAnsHistory(){
+    const host = document.getElementById("ansHistory");
+    if(ansHistory.length === 0){
+      host.innerHTML = "まだ保存された答えはありません。";
+      refreshCandidates();
+      return;
+    }
+    host.innerHTML = ansHistory.map((item,i)=>`
+      <div class="ans-item" title="${escapeHtml(item.expression)} = ${formatNumber(item.value)}">
+        <span class="ans-name">ANS(${i+1})</span>
+        <span class="ans-expr">${formatNumber(item.value)} ← ${escapeHtml(item.expression)}</span>
+        <button class="icon-btn ans-insert" data-ans="${i+1}" title="コードへ追加">＋</button>
+      </div>`).join("");
+    host.querySelectorAll(".ans-insert").forEach(btn=>{
+      btn.onclick=()=>{
+        const ref=`ANS(${btn.dataset.ans})`;
+        insertCode(ref);
+        status(`${ref} をコードへ追加しました`);
+      };
+    });
+    refreshCandidates();
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  function saveCurrentAnswer(){
+    if(!hasCalculatedAnswer){
+      status("先に = で計算してください");
+      return;
+    }
+    const item = {
+      value: calculatorAns,
+      expression: currentExpr().trim() || "0",
+      angleMode
+    };
+    ansHistory.push(item);
+    MFDCOStorage.setAnsHistory(ansHistory);
+    renderAnsHistory();
+    resultHold = true;
+    status(`ANS(${ansHistory.length}) として保存しました`);
+  }
+
+  document.getElementById("insertExprBtn").onclick = () => {
+    const expression = currentExpr().trim();
+    if(!expression){ status("追加する式がありません"); return; }
+    insertCode(expression);
+    status("現在の計算式をコードへ追加しました");
+  };
+
+  document.getElementById("insertAnswerBtn").onclick = () => {
+    if(!hasCalculatedAnswer){
+      status("先に = で計算してください");
+      return;
+    }
+    insertCode(formatNumber(calculatorAns));
+    resultHold = true;
+    status("現在の答えをコードへ追加しました");
+  };
+
+  document.getElementById("saveAnsBtn").onclick = saveCurrentAnswer;
+
+  document.getElementById("clearAnsBtn").onclick = () => {
+    ansHistory.length = 0;
+    localStorage.removeItem("mfdco:ansHistory");
+    renderAnsHistory();
+    status("ANS 履歴をクリアしました");
+  };
+
+  const templates = MFDCOTemplates.map;
+
+  document.querySelectorAll("[data-template]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      insertCode(templates[btn.dataset.template]);
+      status("テンプレート追加: " + btn.querySelector("b").textContent);
+    });
+  });
+
+  const SI_PREFIXES = [
+    ["","—"],["Y","Y"],["Z","Z"],["E","E"],["P","P"],["T","T"],["G","G"],["M","M"],["k","k"],
+    ["h","h"],["da","da"],["d","d"],["c","c"],["m","m"],["µ","µ"],["n","n"],["p","p"],["f","f"],["a","a"],["z","z"],["y","y"]
+  ];
+  const SI_BASE_UNITS = [
+    ["","—"],["m","m"],["kg","kg"],["s","s"],["A","A"],["K","K"],["mol","mol"],["cd","cd"]
+  ];
+
+  function optionsHtml(items, selected){
+    return items.map(([v,l])=>`<option value="${escapeAttr(v)}" ${v===selected?"selected":""}>${escapeHtml(l)}</option>`).join("");
+  }
+
+  function persistVariables(){
+    const rows=[...variableBody.querySelectorAll(".var-row")].map(row=>({
+      name:row.querySelector(".v-name")?.value||"",
+      value:row.querySelector(".v-value")?.value||"",
+      prefix:row.querySelector(".v-prefix")?.value||"",
+      unit:row.querySelector(".v-unit")?.value||""
+    }));
+    workspace.setVariables(rows);
+  }
+
+  function loadPersistedVariables(){
+    try{
+      const rows=workspace.getVariables();
+      if(Array.isArray(rows)&&rows.length){
+        rows.forEach(r=>addVariable(r.name||"",r.value||"",r.unit||"",r.prefix||""));
+        return true;
+      }
+    }catch(_){}
+    return false;
+  }
+
+  function addVariable(name="",value="",unit="",savedPrefix="",shouldPersist=true){
+    varCounter++;
+    const prefix = SI_PREFIXES.some(([v])=>v===savedPrefix) ? savedPrefix : "";
+    const baseUnit = SI_BASE_UNITS.some(([v])=>v===unit) ? unit : "";
+    const row=document.createElement("div");
+    row.className="var-row";
+    row.innerHTML = `
+      <input class="v-name" value="${escapeAttr(name)}" placeholder="v${varCounter}">
+      <input class="v-value" value="${escapeAttr(value)}" placeholder="0">
+      <div class="inline-unit">
+        <select class="v-prefix">${optionsHtml(SI_PREFIXES,prefix)}</select>
+        <select class="v-unit">${optionsHtml(SI_BASE_UNITS,baseUnit)}</select>
+      </div>
+      <div class="var-actions">
+        <button class="icon-btn insert-var" title="コードへ追加">＋</button>
+        <button class="icon-btn delete-var" title="削除">×</button>
+      </div>`;
+    row.querySelector(".delete-var").onclick=()=>{ row.remove(); persistVariables(); refreshCandidates(); };
+    row.querySelector(".insert-var").onclick=()=>{
+      const n=row.querySelector(".v-name").value.trim();
+      if(n){
+        insertCode(n);
+        status(`${n} をコードへ追加しました`);
+      }
+    };
+    row.querySelectorAll("input,select").forEach(input=>input.addEventListener("input",()=>{persistVariables();refreshCandidates();}));
+    variableBody.appendChild(row);
+    if(shouldPersist)persistVariables();
+    refreshCandidates();
+  }
+
+  function escapeAttr(s){
+    return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+  }
+
+  function readVariables(){
+    const vars={};
+    [...variableBody.querySelectorAll(".var-row")].forEach(tr=>{
+      const n=tr.querySelector(".v-name").value.trim();
+      const raw=tr.querySelector(".v-value").value.trim();
+      if(!n) return;
+      if(!/^[A-Za-z_][A-Za-z0-9_]*$/.test(n)) throw new Error(`変数名が不正です: ${n}`);
+      const v=Number(raw);
+      if(!Number.isFinite(v)) throw new Error(`変数 ${n} の値が数値ではありません`);
+      const unit=tr.querySelector(".v-unit")?.value||"";
+      const prefix=tr.querySelector(".v-prefix")?.value||"";
+      vars[n]=unit ? MFDCOQuantities.fromUnit(v,unit,prefix) : v;
+    });
+    return vars;
+  }
+
+  function collectVariableNames(){
+    const names = new Set();
+    [...variableBody.querySelectorAll(".v-name")].forEach(i=>{
+      const n=i.value.trim();
+      if(/^[A-Za-z_][A-Za-z0-9_]*$/.test(n)) names.add(n);
+    });
+    for(const line of codeEditor.value.split(/\r?\n/)){
+      const m=line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=/);
+      if(m) names.add(m[1]);
+    }
+    return [...names];
+  }
+
+  function makeCandidateButton(label, insertText=label, title=""){
+    const b=document.createElement("button");
+    b.className="candidate";
+    b.textContent=label;
+    if(title) b.title=title;
+    b.onclick=()=>{
+      insertCode(insertText);
+      status(`${label} をコードへ追加しました`);
+    };
+    return b;
+  }
+
+  function fillCandidateHost(id, buttons){
+    const host=document.getElementById(id);
+    host.innerHTML="";
+    if(buttons.length===0){
+      const s=document.createElement("span");
+      s.className="candidate empty";
+      s.textContent="なし";
+      host.appendChild(s);
+    }else{
+      buttons.forEach(b=>host.appendChild(b));
+    }
+  }
+
+  function refreshCandidates(){
+    const r=MFDCOFunctions;
+    const cHost=document.getElementById("constantCandidates");
+    if(cHost){cHost.innerHTML="";r.constants.forEach(def=>{
+      const b=makeCandidateButton(def.name,def.name,`${def.label} / ${def.display}`);b.className="formula-chip constant";
+      b.dataset.search=[def.name,def.label,def.display,def.category].join(" ");cHost.appendChild(b);
+    })}
+    function group(hostId,name){
+      const host=document.getElementById(hostId);if(!host)return;host.innerHTML="";
+      r.byCandidateGroup(name).forEach(def=>{
+        const b=document.createElement("button");b.className="formula-chip";b.textContent=def.name;b.title=def.description||def.syntax;
+        b.dataset.search=[def.name,def.category,def.syntax,def.description,(def.candidateGroups||[]).join(" ")].join(" ");
+        b.onclick=()=>insertCode(def.insert||`${def.name}()`);host.appendChild(b);
+      });
+    }
+    group("trigCandidates","三角関数");group("logCandidates","対数・指数");
+    group("calculusCandidates","微積分・数値解析");group("logicCandidates","論理・判定");group("otherCandidates","その他");
+    const formulaHost=document.getElementById("formulaCandidates");
+    if(formulaHost){formulaHost.innerHTML="";
+      [...new Set(MFDCOTemplates.definitions.map(x=>x.category))].forEach(g=>{
+        const d=document.createElement("div");d.className="candidate-subtitle";d.textContent=g;formulaHost.appendChild(d);
+        MFDCOTemplates.byCategory(g).forEach(def=>{
+          const b=document.createElement("button");b.className="formula-chip";b.textContent=def.label;
+          b.dataset.search=[def.key,def.label,def.category,def.level].join(" ");
+          b.onclick=()=>{insertCode(MFDCOTemplates.get(def.key));closeCalcMenu()};formulaHost.appendChild(b);
+        })
+      })
+    }
+    const basicHost=document.getElementById("basicCodeCandidates");
+    if(basicHost){
+      basicHost.innerHTML="";
+      MFDCOLanguage.constructs.forEach(def=>{
+        const b=document.createElement("button");
+        b.textContent=def.label;
+        b.title=`${def.syntax} / ${def.description}`;
+        b.dataset.search=[def.id,def.label,def.category,def.syntax,def.description].join(" ");
+        b.onclick=()=>insertCode(def.insert);
+        basicHost.appendChild(b);
+      });
+    }
+  }
+
+
+  const functionCandidateSearch=document.getElementById("functionCandidateSearch");
+  const formulaCandidateSearch=document.getElementById("formulaCandidateSearch");
+  function applyFunctionCandidateSearch(){
+    const q=functionCandidateSearch?.value||"";
+    const root=document.getElementById("functionOverlay");
+    if(root)MFDCORegistrySearch.filterElements(root,q,"button[data-search]");
+  }
+  function applyFormulaCandidateSearch(){
+    const q=formulaCandidateSearch?.value||"";
+    const root=document.getElementById("formulaOverlay");
+    if(root)MFDCORegistrySearch.filterElements(root,q,"button[data-search]");
+  }
+  functionCandidateSearch?.addEventListener("input",applyFunctionCandidateSearch);
+  formulaCandidateSearch?.addEventListener("input",applyFormulaCandidateSearch);
+
+  const calcMenuBackdrop=document.getElementById("calcMenuBackdrop");
+  const functionOverlay=document.getElementById("functionOverlay");
+  const formulaOverlay=document.getElementById("formulaOverlay");
+  const functionOverlayBtn=document.getElementById("functionOverlayBtn");
+  const formulaOverlayBtn=document.getElementById("formulaOverlayBtn");
+
+  function closeCalcMenu(){
+    calcMenuBackdrop?.classList.remove("open");
+    functionOverlay?.classList.remove("open");
+    formulaOverlay?.classList.remove("open");
+  }
+  function openCalcMenu(type){
+    closeCalcMenu();
+    calcMenuBackdrop?.classList.add("open");
+    if(type==="function") functionOverlay?.classList.add("open");
+    if(type==="formula") formulaOverlay?.classList.add("open");
+  }
+  if(functionOverlayBtn) functionOverlayBtn.onclick=()=>openCalcMenu("function");
+  if(formulaOverlayBtn) formulaOverlayBtn.onclick=()=>openCalcMenu("formula");
+  if(calcMenuBackdrop) calcMenuBackdrop.onclick=closeCalcMenu;
+  document.querySelectorAll("[data-close-calc-menu]").forEach(btn=>btn.onclick=closeCalcMenu);
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCalcMenu();});
+
+  document.getElementById("addVarBtn").onclick=()=>addVariable();
+  document.getElementById("unitConvertBtn").onclick=()=>{
+    window.location.href="unit-converter.html";
+  };
+
+  if(!loadPersistedVariables()){
+    addVariable("v0","20","");
+    addVariable("theta","45","");
+    addVariable("g","9.80665","");
+  }
+
+  let executionPlots=[];
+
+  function persistExecutionResults(logLines){
+    workspace.setResults({
+      savedAt:new Date().toISOString(),
+      logs:[...logLines],
+      plots:executionPlots
+    });
+  }
+
+  function executeCode(){
+    const vars=readVariables();
+    executionPlots=[];
+    try{
+      const run=MFDCOEngine.runCode(codeEditor.value,{vars,angleMode,ansHistory});
+      executionPlots=run.plots;
+      results.textContent=run.logs.join("\n");
+      persistExecutionResults(run.logs);
+      codeErrorLine=null;
+      document.getElementById("codePanel").classList.remove("error-state");
+      updateCodeHighlight();
+      status("Execution complete");
+      refreshCandidates();
+    }catch(e){
+      executionPlots=e.plots||[];
+      codeErrorLine=e.codeLine||null;
+      document.getElementById("codePanel").classList.add("error-state");
+      updateCodeHighlight();
+      const errorText="ERROR"+(codeErrorLine?" (line "+codeErrorLine+")":"")+"\n"+e.message;
+      results.textContent=errorText;
+      persistExecutionResults([...(e.logs||[]),errorText]);
+      status("Error");
+    }
+  }
+
+  document.getElementById("runBtn").onclick=executeCode;
+  document.getElementById("clearResultBtn").onclick=()=>{
+    results.textContent="";
+    workspace.clearResults();
+  };
+  document.getElementById("clearCodeBtn").onclick=()=>{
+    codeEditor.value="";
+    editorSelection=null;
+    workspace.setCode("");
+    updateLines();
+    updateCodeHighlight();
+    refreshCandidates();
+  };
+  document.getElementById("copyCodeBtn").onclick=async()=>{
+    await navigator.clipboard.writeText(codeEditor.value);
+    status("コードをコピーしました");
+  };
+  document.getElementById("insertAnsBtn").onclick=()=>{
+    if(ansHistory.length===0){ status("ANS 履歴がありません"); return; }
+    insertCode(`ANS(${ansHistory.length})`);
+    status(`ANS(${ansHistory.length}) をコードへ追加しました`);
+  };
+
+  function updateLines(){
+    const count=codeEditor.value.split("\n").length;
+    lineNumbers.textContent=Array.from({length:count},(_,i)=>i+1).join("\n");
+    updateCodeHighlight();
+  }
+
+  codeEditor.addEventListener("input",()=>{
+    updateLines();
+    updateCodeHighlight();
+    rememberEditorSelection();
+    workspace.setCode(codeEditor.value);
+    refreshCandidates();
+  });
+  codeEditor.addEventListener("click",rememberEditorSelection);
+  codeEditor.addEventListener("keyup",rememberEditorSelection);
+  codeEditor.addEventListener("select",rememberEditorSelection);
+  codeEditor.addEventListener("focus",rememberEditorSelection);
+  codeEditor.addEventListener("scroll",()=>{lineNumbers.scrollTop=codeEditor.scrollTop; updateCodeHighlight();});
+  
+  document.getElementById("undoCodeBtn")?.addEventListener("click",()=>workspace.undo());
+  document.getElementById("redoCodeBtn")?.addEventListener("click",()=>workspace.redo());
+
+codeEditor.addEventListener("keydown",e=>{
+    if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&e.key.toLowerCase()==="z"){e.preventDefault();workspace.undo();return}
+    if(((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="y")||((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==="z")){e.preventDefault();workspace.redo();return}
+    if(e.key==="Tab"){
+      e.preventDefault();
+      const s=codeEditor.selectionStart;
+      const end=codeEditor.selectionEnd;
+      codeEditor.value=codeEditor.value.slice(0,s)+"  "+codeEditor.value.slice(end);
+      codeEditor.selectionStart=codeEditor.selectionEnd=s+2;
+      rememberEditorSelection();
+      updateLines();
+      workspace.setCode(codeEditor.value);
+      refreshCandidates();
+    }
+    if(e.ctrlKey && e.key==="Enter"){
+      e.preventDefault();
+      executeCode();
+    }
+  });
+
+
+  let codeErrorLine = null;
+
+  function updateCodeHighlight(){
+    codeHighlight.innerHTML = MFDCOSyntax.highlight(codeEditor.value) + "\n";
+    codeHighlight.scrollTop = codeEditor.scrollTop;
+    codeHighlight.scrollLeft = codeEditor.scrollLeft;
+  }
+
+  function status(t){statusText.textContent=t;}
+  try{
+    codeEditor.value=workspace.initializeCode(MFDCOWorkspace.DEFAULT_CODE);
+    const savedResults=workspace.getResults();
+    results.textContent=workspace.resultText(savedResults);
+  }catch(_){}
+
+  workspace.subscribe(evt=>{
+    if(evt.type==="code" && codeEditor.value!==String(evt.value??"")){
+      const s=codeEditor.selectionStart,e=codeEditor.selectionEnd;
+      codeEditor.value=String(evt.value??"");
+      updateLines();updateCodeHighlight();refreshCandidates();
+      const p=Math.min(codeEditor.value.length,s);
+      codeEditor.selectionStart=codeEditor.selectionEnd=p;
+      status("共有コードを更新しました");
+    }
+    if(evt.type==="results"){
+      results.textContent=workspace.resultText(evt.value);
+      status("共有結果を更新しました");
+    }
+    if(evt.type==="variables"){
+      const rows=Array.isArray(evt.value)?evt.value:[];
+      variableBody.innerHTML="";
+      varCounter=0;
+      rows.forEach(r=>addVariable(r.name||"",r.value||"",r.unit||"",r.prefix||"",false));
+      refreshCandidates();
+      status("共有変数を更新しました");
+    }
+  });
+  document.getElementById("degBtn").classList.toggle("active",angleMode==="DEG");
+  document.getElementById("radBtn").classList.toggle("active",angleMode==="RAD");
+  renderAnsHistory();
+  updateLines();
+  updateCodeHighlight();
+  refreshCandidates();
+  calcInput.focus();
+})();
+</script>
+
+<script>MFDCOShell.init();</script>
+</body>
+</html>
+
+

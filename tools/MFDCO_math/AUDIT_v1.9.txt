@@ -1,0 +1,62 @@
+MFDCO Tools v1.9 機能監査レポート
+===================================
+
+監査対象:
+- calculator.html
+- code.html
+- results.html
+- unit-converter.html
+- files.html
+- features.html
+
+今回見つけて修正した項目:
+1. code.html に未実装だった関数を calculator.html と同期
+   - asinh / acosh / atanh
+   - work / power / efficiency
+   - hydrostaticP / mach / liftForce
+   - idealGasV
+   - ohmI / ohmR
+   - hookeStress / heatConduction
+
+2. code.html の工学関数候補を実装済み関数すべてに拡張。
+
+3. 関数電卓の ANS 履歴を localStorage に永続化。
+   - code.html から同じ ANS(n) を参照可能。
+   - プロジェクト保存・エクスポート対象にも実データとして含まれる。
+
+4. 関数電卓内コードとコード専用画面のコードを mfdco:code で共有。
+   - 関数電卓側で編集しても保存されるよう修正。
+
+5. 変数パネルを mfdco:variables として保存。
+   - 名前 / 値 / SI接頭語 / 単位を復元。
+   - プロジェクト保存対象にも追加。
+
+6. DEG / RAD を mfdco:angleMode として共有・保存。
+   - code.html にも DEG / RAD 切替ボタンを追加。
+
+7. 「%」ボタンを百分率として実装。
+   - 200*10% → 20
+   - 剰余は mod を使用。
+
+8. 「±」ボタンを式全体の符号反転として実装。
+
+9. ファイル保存対象を拡張。
+   - code / results / customUnits / ansHistory / variables / angleMode
+
+自動静的監査:
+- Wiki記載関数数: 69
+- calculator.html に不足するWiki関数: なし
+- code.html に不足するWiki関数: なし
+- JavaScript構文エラー: 0件
+- ID/クラスベースで未接続と判定された固定ボタン:
+  calculator.html: 0件
+  code.html: 0件
+  results.html: 0件
+  unit-converter.html: 0件
+  files.html: 0件
+  features.html: 0件
+
+注意:
+- この監査は静的な接続確認とJavaScript構文確認を中心にしています。
+- ブラウザ固有の file:// localStorage 制約やダウンロード権限はブラウザ環境依存です。
+- 数値解析関数は近似計算であり、厳密解を保証するものではありません。

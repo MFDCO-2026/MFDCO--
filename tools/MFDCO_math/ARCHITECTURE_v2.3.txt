@@ -1,0 +1,41 @@
+MFDCO Tools v2.3 Architecture
+================================
+
+New in v2.3
+-----------
+mfdco-results.js
+  Shared graph renderer, robust Y-range calculation, graph cards,
+  statistics table generation and PNG canvas export.
+
+mfdco-manifest.js
+  Declares application version, project format, module versions and
+  supported capabilities. Used by diagnostics.
+
+diagnostics.html
+  Browser-visible automated health check for modules, math, numerical
+  analysis, interpreter, ANS, units, calendars, templates, storage and plots.
+
+results.html
+  No longer owns the graph drawing implementation. It is now mostly
+  page state/editor interaction and delegates rendering to mfdco-results.js.
+
+Current module layout
+---------------------
+mfdco-storage.js
+mfdco-functions.js
+mfdco-engine.js
+mfdco-units.js
+mfdco-templates.js
+mfdco-calendar.js
+mfdco-results.js
+mfdco-ui.js
+mfdco-shell.js
+mfdco-manifest.js
+
+Recommended v2.4
+----------------
+1. Move remaining graph editor state into mfdco-results.js.
+2. Move candidate groups to declarative metadata instead of page-local lists.
+3. Split Wiki content data from Wiki presentation.
+4. Add schema validation for .mfdco.json imports.
+5. Add a release test manifest so every public function has at least one test.

@@ -1,0 +1,70 @@
+MFDCO Tools v3.7 Architecture
+================================
+
+1. Symbolic / algebra module
+----------------------------
+New:
+mfdco-symbolic.js
+
+Integer operations:
+- primeFactors
+- factorInteger
+- simplifyFraction
+
+One-variable polynomial CAS:
+- expandPoly
+- collectPoly
+- simplifyPoly
+- factorPoly
+- polyDegree
+- polyCoefficients
+- polyDerivative
+- polyIntegral
+
+Series:
+- taylorCoefficients
+- taylor
+- maclaurin
+
+Taylor/Maclaurin uses truncated power-series arithmetic rather than repeated
+finite-difference derivatives. Supported analytic functions include:
+sin, cos, tan, sinh, cosh, tanh, exp, ln/log, sqrt, pow.
+
+Trigonometric series use radians, matching standard mathematical convention.
+
+2. Quantity-aware engineering functions
+----------------------------------------
+When engineering functions receive quantity values, their outputs preserve
+and combine dimensions.
+
+Examples:
+force(2 kg, 3 m/s^2)       -> 6 N
+kineticEnergy(2 kg, 3 m/s) -> 9 J
+power(100 J, 5 s)          -> 20 W
+ohmV(2 A, 5 ohm)           -> 10 V
+stress(1000 N, 0.01 m^2)   -> 100000 Pa
+
+Plain numeric calls remain backward-compatible.
+
+3. String-valued calculations
+-----------------------------
+The expression engine now permits registered symbolic functions to return
+strings, making this valid:
+
+expanded = expandPoly("(x+1)^3", "x")
+print(expanded)
+
+Limitations
+-----------
+- Symbolic polynomial algebra formally supports one variable at a time.
+- factorPoly primarily uses rational-root factorization and leaves an
+  irreducible remainder in polynomial form.
+- Taylor series are truncated to order 24 for safety.
+
+Recommended v3.8
+----------------
+- symbolic rational-expression simplification
+- equation solving with exact quadratic/cubic helpers
+- complex-number support
+- symbolic matrix entries
+- richer expression-rendering UI

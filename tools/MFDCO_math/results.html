@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MFDCO_math - 結果</title>
+<link rel="stylesheet" href="mfdco-base.css">
+<link rel="stylesheet" href="results.css">
+
+
+</head>
+<body>
+<header class="site-header">
+  <div class="site-brand">
+    <div class="site-logo">M</div>
+    <div><div class="site-title">MFDCO_math</div><div class="small">Scientific / Utility Math</div></div>
+  </div>
+  <nav class="site-nav">
+    <a href="files.html">ファイル</a>
+    <a href="calculator.html">関数電卓</a>
+    <a href="code.html">コード</a>
+    <a href="results.html" class="active">結果</a>
+    <a href="unit-converter.html">単位変換器</a>
+    <a href="features.html">機能一覧</a>
+  </nav>
+</header>
+
+<main>
+  <section class="card">
+    <div class="title-row">
+      <h2>結果 / ログ</h2>
+      <button class="secondary" id="clearAllBtn">結果をクリア</button>
+    </div>
+    <div class="log-box" id="logBox">まだ実行結果がありません。</div>
+  </section>
+
+  <section class="workspace">
+    <div class="card">
+      <div class="title-row"><h2>グラフ</h2><span class="small" id="graphCount"></span></div>
+      <div class="graph-grid" id="graphGrid"></div>
+    </div>
+
+    <aside class="card stats-card">
+      <div class="title-row"><h2>数値特性</h2><span class="small">系列別</span></div>
+      <div class="stats-scroll" id="statsArea"></div>
+    </aside>
+  </section>
+
+  <section class="card editor-card">
+    <div>
+      <div class="title-row"><h2>グラフ編集</h2><span class="small">選択中のグラフに適用</span></div>
+      <div class="edit-controls">
+        <div class="field">
+          <label>対象グラフ</label>
+          <select id="graphSelect"></select>
+        </div>
+        <div class="field">
+          <label>タイトル</label>
+          <input id="titleInput">
+        </div>
+        <div class="field">
+          <label>X軸ラベル</label>
+          <input id="xLabelInput">
+        </div>
+        <div class="field">
+          <label>Y軸ラベル</label>
+          <input id="yLabelInput">
+        </div>
+        <div class="field">
+          <label>X最小</label>
+          <input id="xMinInput" type="number" step="any">
+        </div>
+        <div class="field">
+          <label>X最大</label>
+          <input id="xMaxInput" type="number" step="any">
+        </div>
+        <label class="switch-field"><input type="checkbox" id="gridInput"> グリッド表示</label>
+      </div>
+    </div>
+    <div class="editor-actions">
+      <button class="primary" id="applyBtn">適用</button>
+      <button class="secondary" id="exportSelectedBtn">選択グラフをPNG保存</button>
+    </div>
+  </section>
+
+<section class="card analysis-card">
+  <div class="section-head"><h2>グラフ解析</h2><div class="small">選択中のグラフを数値解析します</div></div>
+  <div class="analysis-grid">
+    <label>系列<select id="analysisSeries"></select></label>
+    <label>比較系列<select id="analysisSeriesB"></select></label>
+    <label>接線 X<input id="tangentX" type="number" step="any" value="0"></label>
+    <label>面積 X min<input id="areaXMin" type="number" step="any"></label>
+    <label>面積 X max<input id="areaXMax" type="number" step="any"></label>
+  </div>
+  <div class="analysis-actions">
+    <button class="secondary" id="rootsBtn">零点</button>
+    <button class="secondary" id="extremaBtn">極値</button>
+    <button class="secondary" id="intersectionBtn">交点</button>
+    <button class="secondary" id="tangentBtn">接線</button>
+    <button class="secondary" id="areaBtn">面積</button>
+    <button class="secondary" id="csvBtn">CSV</button>
+    <button class="secondary" id="svgBtn">SVG</button>
+  </div>
+  <pre class="analysis-output" id="analysisOutput">解析結果がここに表示されます。</pre>
+</section>
+</main>
+
+<script src="mfdco-project-schema.js"></script>
+<script src="mfdco-storage.js"></script>
+<script src="mfdco-workspace.js"></script>
+<script src="mfdco-symbolic.js"></script>
+<script src="mfdco-advanced.js"></script>
+<script src="mfdco-functions.js"></script>
+<script src="mfdco-units.js"></script>
+<script src="mfdco-quantities.js"></script>
+<script src="mfdco-templates.js"></script>
+<script src="mfdco-language.js"></script>
+<script src="mfdco-syntax.js"></script>
+<script src="mfdco-registry-search.js"></script>
+<script src="mfdco-ui.js"></script>
+<script src="mfdco-calendar.js"></script>
+<script src="mfdco-shell.js"></script>
+<script src="mfdco-results.js"></script>
+<script src="mfdco-release-tests.js"></script>
+<script src="mfdco-manifest.js"></script>
+<script src="mfdco-engine.js"></script>
+<script>const resultsController=MFDCOResults.createResultsController();
+resultsController.init();
+
+const analysisSeries=document.getElementById("analysisSeries");
+const analysisSeriesB=document.getElementById("analysisSeriesB");
+const tangentX=document.getElementById("tangentX");
+const areaXMin=document.getElementById("areaXMin");
+const areaXMax=document.getElementById("areaXMax");
+const analysisOutput=document.getElementById("analysisOutput");
+
+function selectedPlot(){return resultsController.payload.plots?.[resultsController.selectedIndex]||null}
+function refreshAnalysisSelectors(){
+  const plot=selectedPlot();
+  analysisSeries.innerHTML="";analysisSeriesB.innerHTML="";
+  (plot?.series||[]).forEach((series,i)=>{
+    const label=series.label||series.expr||`系列 ${i+1}`;
+    analysisSeries.add(new Option(`${i+1}: ${label}`,i));
+    analysisSeriesB.add(new Option(`${i+1}: ${label}`,i));
+  });
+  if(analysisSeriesB.options.length>1)analysisSeriesB.value="1";
+  if(plot){
+    tangentX.value=(Number(plot.xmin)+Number(plot.xmax))/2;
+    areaXMin.value=plot.xmin;areaXMax.value=plot.xmax;
+  }
+}
+refreshAnalysisSelectors();
+document.getElementById("graphSelect")?.addEventListener("change",()=>setTimeout(refreshAnalysisSelectors,0));
+document.getElementById("applyBtn")?.addEventListener("click",()=>setTimeout(refreshAnalysisSelectors,0));
+document.getElementById("clearAllBtn")?.addEventListener("click",()=>setTimeout(refreshAnalysisSelectors,0));
+window.addEventListener("mfdco-results-selection",()=>setTimeout(refreshAnalysisSelectors,0));
+
+document.getElementById("rootsBtn").onclick=()=>{
+  const p=selectedPlot();if(!p)return;
+  const roots=MFDCOResults.findRoots(p,Number(analysisSeries.value||0));
+  analysisOutput.textContent=roots.length?roots.map((x,i)=>`${i+1}. x = ${MFDCOResults.fmt(x)}`).join("\n"):"零点は検出されませんでした。";
+};
+document.getElementById("extremaBtn").onclick=()=>{
+  const p=selectedPlot();if(!p)return;
+  const e=MFDCOResults.findExtrema(p,Number(analysisSeries.value||0));
+  const lines=[...e.max.map(v=>`極大: x=${MFDCOResults.fmt(v.x)}, y=${MFDCOResults.fmt(v.y)}`),...e.min.map(v=>`極小: x=${MFDCOResults.fmt(v.x)}, y=${MFDCOResults.fmt(v.y)}`)];
+  analysisOutput.textContent=lines.length?lines.join("\n"):"極値は検出されませんでした。";
+};
+document.getElementById("intersectionBtn").onclick=()=>{
+  const p=selectedPlot();if(!p)return;
+  const xs=MFDCOResults.findIntersections(p,Number(analysisSeries.value||0),Number(analysisSeriesB.value||1));
+  analysisOutput.textContent=xs.length?xs.map((v,i)=>`${i+1}. x=${MFDCOResults.fmt(v.x)}, y=${MFDCOResults.fmt(v.y)}`).join("\n"):"交点は検出されませんでした。";
+};
+document.getElementById("tangentBtn").onclick=()=>{
+  const p=selectedPlot();if(!p)return;
+  const tg=MFDCOResults.tangentAt(p,Number(tangentX.value),Number(analysisSeries.value||0));
+  analysisOutput.textContent=tg?`接点: (${MFDCOResults.fmt(tg.x)}, ${MFDCOResults.fmt(tg.y)})\n傾き: ${MFDCOResults.fmt(tg.slope)}\n接線: y = ${MFDCOResults.fmt(tg.slope)} x + ${MFDCOResults.fmt(tg.intercept)}`:"接線を計算できませんでした。";
+};
+document.getElementById("areaBtn").onclick=()=>{
+  const p=selectedPlot();if(!p)return;
+  const a=MFDCOResults.areaUnderCurve(p,Number(areaXMin.value),Number(areaXMax.value),Number(analysisSeries.value||0),false);
+  analysisOutput.textContent=`符号付き面積 = ${MFDCOResults.fmt(a)}`;
+};
+document.getElementById("csvBtn").onclick=()=>{const p=selectedPlot();if(p)MFDCOResults.exportCSV(p,`MFDCO_graph_${resultsController.selectedIndex+1}.csv`)};
+document.getElementById("svgBtn").onclick=()=>{const p=selectedPlot();if(p)MFDCOResults.exportSVG(p,`MFDCO_graph_${resultsController.selectedIndex+1}.svg`)};</script>
+
+<script>MFDCOShell.init();</script>
+</body>
+</html>

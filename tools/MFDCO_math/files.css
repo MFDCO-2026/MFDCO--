@@ -1,0 +1,11 @@
+/* MFDCO Tools v2.9 page stylesheet: files.html */
+
+:root{--bg:#f4f7f6;--panel:#fff;--text:#111817;--muted:#6d7775;--main:#173f3c;--line:#d7dfdd}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,"Segoe UI","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text)}
+button{font:inherit;cursor:pointer}.site-header{height:58px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px}
+.site-brand{display:flex;gap:10px;align-items:center}.site-logo{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--main);color:#fff;font-weight:800}.site-title{font-size:14px;font-weight:750}.small{font-size:11px;color:var(--muted)}
+.site-nav{display:flex;gap:5px}.site-nav a{text-decoration:none;color:var(--text);padding:7px 10px;border-radius:8px;font-size:12px}
+main{max-width:1000px;margin:auto;padding:16px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+h1{font-size:20px;margin:0 0 5px}.project-list{margin-top:12px;display:grid;gap:7px}.project-row{border:1px solid var(--line);border-radius:9px;padding:9px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.actions{display:flex;gap:5px}.secondary{border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 8px}.danger{color:#a13737}
+.empty{padding:20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:9px}
+

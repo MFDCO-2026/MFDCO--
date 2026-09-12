@@ -1,0 +1,55 @@
+MFDCO Tools v2.3 Separation Audit
+=================================
+
+New shared modules
+------------------
+- mfdco-results.js
+- mfdco-manifest.js
+
+New page
+--------
+- diagnostics.html
+
+Structural results
+------------------
+- results.html no longer contains drawGraph(), graphClass(), fmt() or nice().
+- Graph rendering/statistics/PNG helpers are shared in mfdco-results.js.
+- File menu exposes the diagnostics page.
+- Wiki links to diagnostics.
+
+Module self-test
+----------------
+PASS manifest
+PASS engine
+PASS plot samples
+PASS plot stats
+PASS results range
+PASS stats html
+PASS calendar
+PASS units
+
+JavaScript validation
+---------------------
+- mfdco-storage.js: syntax OK
+- mfdco-functions.js: syntax OK
+- mfdco-engine.js: syntax OK
+- mfdco-units.js: syntax OK
+- mfdco-templates.js: syntax OK
+- mfdco-ui.js: syntax OK
+- mfdco-calendar.js: syntax OK
+- mfdco-shell.js: syntax OK
+- mfdco-results.js: syntax OK
+- mfdco-manifest.js: syntax OK
+- calculator.html: inline syntax OK
+- code.html: inline syntax OK
+- diagnostics.html: inline syntax OK
+- features.html: inline syntax OK
+- files.html: inline syntax OK
+- index.html: inline syntax OK
+- results.html: inline syntax OK
+- unit-converter.html: inline syntax OK
+
+Next recommended step
+---------------------
+Move remaining page-specific candidate lists and graph-editor state to declarative
+registries, then add import schema validation and per-public-function regression tests.

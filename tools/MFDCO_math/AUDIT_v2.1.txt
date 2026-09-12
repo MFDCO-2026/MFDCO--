@@ -1,0 +1,53 @@
+MFDCO Tools v2.1 Separation Audit
+=================================
+
+New modules
+-----------
+- mfdco-units.js
+- mfdco-templates.js
+- mfdco-ui.js
+
+Validation
+----------
+- mfdco-storage.js: syntax OK
+- mfdco-functions.js: syntax OK
+- mfdco-engine.js: syntax OK
+- mfdco-units.js: syntax OK
+- mfdco-templates.js: syntax OK
+- mfdco-ui.js: syntax OK
+- calculator.html: inline syntax OK
+- code.html: inline syntax OK
+- features.html: inline syntax OK
+- files.html: inline syntax OK
+- index.html: inline syntax OK
+- results.html: inline syntax OK
+- unit-converter.html: inline syntax OK
+- unit-converter.html: embedded unit catalogue removed
+- calculator.html: shared templates connected
+- code.html: shared templates connected
+
+Functional self-test
+--------------------
+PASS m to ft
+PASS C to F
+PASS F to C
+PASS km prefix
+PASS shaku present
+PASS light year present
+PASS ohm present
+PASS TNT present
+PASS template quadratic
+PASS template shared count
+
+Result
+------
+Unit data/conversion logic and code templates are no longer duplicated inside
+their primary HTML pages. The v2.0 shared engine/function/storage separation
+remains intact.
+
+Recommended v2.2
+----------------
+1. Extract calendar/era catalogue and calendar algorithms to mfdco-calendar.js.
+2. Extract the repeated header/file dropdown/toast into mfdco-shell.js.
+3. Add a visible diagnostics/self-test page.
+4. Introduce a manifest/schema so every module reports its version and capabilities.

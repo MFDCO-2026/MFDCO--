@@ -1,0 +1,19 @@
+MFDCO_math 1.0.1
+================
+
+ホームページ接続更新。
+
+追加:
+- 全ページ共通ヘッダーに
+  「MFDCOのツール一覧を見る」
+  ボタンを追加
+- 標準リンク先は ../
+- mfdco-shell.js の MFDCO_TOOLS_LIST_URL で一括変更可能
+
+想定公開構成:
+/
+  index.html
+  MFDCO_math/
+    index.html
+    calculator.html
+    ...

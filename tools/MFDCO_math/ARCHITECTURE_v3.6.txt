@@ -1,0 +1,33 @@
+MFDCO Tools v3.6 Architecture
+================================
+
+New module: mfdco-quantities.js
+
+Supported:
+- 1 km + 500 m
+- 100 m / 5 s
+- 2 N * 3 m
+- 1 kg * 9.80665 m/s^2
+- 100 km/h -> m/s
+
+Dimensional analysis:
+- addition/subtraction require equal dimensions
+- multiplication/division combine dimensions
+- quantity comparisons require equal dimensions
+
+Calculator/Code variables:
+Variable-row units are now passed into the evaluator as quantities.
+
+Example:
+d = 100 m
+t = 5 s
+d/t => 20 m/s
+
+Absolute temperatures:
+degC/degF/degR can be converted, but ambiguous arithmetic is restricted.
+
+Recommended v3.7:
+- quantity-aware engineering function outputs
+- temperature-difference arithmetic
+- unit-aware vectors/matrices
+- unit autocomplete/highlighting

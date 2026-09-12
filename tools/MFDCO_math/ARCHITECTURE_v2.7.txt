@@ -1,0 +1,46 @@
+MFDCO Tools v2.7 Architecture
+================================
+
+New module
+----------
+mfdco-syntax.js
+
+Syntax highlighting now derives its vocabulary from:
+- MFDCOFunctions public function names
+- MFDCOFunctions constants
+- MFDCOLanguage statements, blocks and operators
+
+No function-name list needs to be maintained separately for highlighting.
+
+Wiki
+----
+features.html now generates registry-backed tables for:
+- public functions
+- built-in units
+- formula templates
+- code-language constructs
+
+Storage regression
+------------------
+mfdco-release-tests.js now includes roundtrip checks covering:
+- code
+- result/plot payload
+- custom units
+- ANS history
+- variables
+- DEG/RAD mode
+
+The project schema validates the fixture, migrates it, and every persisted field
+must survive unchanged.
+
+Release invariant
+-----------------
+The visible editor vocabulary and the implemented vocabulary come from the same
+registries. Wiki rows and diagnostics are generated from those same sources.
+
+Recommended v2.8
+----------------
+1. Add real in-memory localStorage roundtrip tests to MFDCOStorage itself.
+2. Move graph-editor form logic into mfdco-results.js.
+3. Add registry search/filter APIs shared by Wiki and candidate palettes.
+4. Start separating common CSS into mfdco-base.css.

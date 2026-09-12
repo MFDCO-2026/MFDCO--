@@ -1,0 +1,27 @@
+MFDCO Tools v3.2.3 Hotfix
+================================
+
+Code visibility
+---------------
+The Code page already contained the shared source, but the visible highlighting
+layer referenced obsolete variables (highlightLayer/codeArea). Because the
+textarea text is transparent, this made the code look blank.
+
+Fixed:
+- codeHighlight renders MFDCOSyntax.highlight(codeEditor.value)
+- scroll position is synchronized with the textarea
+
+Shared execution environment
+----------------------------
+The common workspace now shares:
+- code
+- results/logs/plots
+- calculator variable rows
+
+The Code page executes with the same variable rows as the Calculator.
+
+Therefore variables such as dL, L, E, I and K can be entered once in the
+Calculator variable panel and used when executing from either page.
+
+If a value was never defined in either page, an undefined-variable error is
+still expected.

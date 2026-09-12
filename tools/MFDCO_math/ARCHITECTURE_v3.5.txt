@@ -1,0 +1,22 @@
+MFDCO Tools v3.5 Architecture
+================================
+
+Formula-aware graphs:
+- original formula expressions are stored
+- X-range edits re-sample formulas
+- legacy sampled-only graphs still render
+
+Graph analysis:
+- roots
+- extrema
+- intersections
+- tangent
+- signed area
+
+Export:
+- PNG
+- CSV
+- SVG
+
+Recommended v3.6:
+Unit-aware values and dimensional analysis.

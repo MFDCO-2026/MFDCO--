@@ -1,0 +1,68 @@
+MFDCO Tools v2.9 Audit
+=======================
+
+Coverage
+--------
+Functions: 72/72 (100%)
+Units: 153/153 (100%)
+Templates: 16/16 (100%)
+Language: 15/15 (100%)
+
+CSS architecture
+----------------
+HTML pages with inline <style>: 0
+Page-specific stylesheets: 8
+Common stylesheet: mfdco-base.css
+
+Registry search
+---------------
+- unified registry search module loaded
+- Wiki filtering uses shared matcher
+- calculator function search added
+- calculator template search added
+- code candidate search added
+
+Syntax cleanup
+--------------
+- dead hard-coded highlightLine() removed
+- MFDCOSyntax remains canonical
+
+Regression
+----------
+TOTAL 275
+FAIL 0
+
+Validation
+----------
+- mfdco-project-schema.js: OK
+- mfdco-storage.js: OK
+- mfdco-functions.js: OK
+- mfdco-engine.js: OK
+- mfdco-units.js: OK
+- mfdco-templates.js: OK
+- mfdco-language.js: OK
+- mfdco-syntax.js: OK
+- mfdco-registry-search.js: OK
+- mfdco-ui.js: OK
+- mfdco-calendar.js: OK
+- mfdco-shell.js: OK
+- mfdco-results.js: OK
+- mfdco-release-tests.js: OK
+- mfdco-manifest.js: OK
+- calculator.html: HTML/inline JS OK
+- code.html: HTML/inline JS OK
+- diagnostics.html: HTML/inline JS OK
+- features.html: HTML/inline JS OK
+- files.html: HTML/inline JS OK
+- index.html: HTML/inline JS OK
+- results.html: HTML/inline JS OK
+- unit-converter.html: HTML/inline JS OK
+- calculator.css: CSS braces OK
+- code.css: CSS braces OK
+- diagnostics.css: CSS braces OK
+- features.css: CSS braces OK
+- files.css: CSS braces OK
+- index.css: CSS braces OK
+- mfdco-base.css: CSS braces OK
+- results.css: CSS braces OK
+- unit-converter.css: CSS braces OK

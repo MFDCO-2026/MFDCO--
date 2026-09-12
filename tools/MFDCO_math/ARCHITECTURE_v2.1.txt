@@ -1,0 +1,48 @@
+MFDCO Tools v2.1 Architecture
+================================
+
+v2.1 continues the v2.0 modularization.
+
+Core
+----
+mfdco-functions.js
+  Mathematical / engineering functions, constants, function metadata.
+
+mfdco-engine.js
+  Expression evaluator, ANS, interpreter, plot sampling.
+
+mfdco-storage.js
+  Persistent state and project serialization.
+
+New shared registries in v2.1
+-----------------------------
+mfdco-units.js
+  Prefixes, unit categories, built-in unit catalogue, temperature conversion,
+  compatible-unit lookup and common conversion logic.
+
+mfdco-templates.js
+  Formula/code templates and template metadata.
+  Calculator and dedicated code page now read the same template source.
+
+mfdco-ui.js
+  Small DOM helpers used for candidate/chip rendering and future common UI.
+
+Page responsibility
+-------------------
+calculator.html
+  Calculator/editor UI. Reads shared functions/templates/storage/engine.
+
+code.html
+  Dedicated code editor UI. Reads the same shared functions/templates/engine.
+
+unit-converter.html
+  Unit/date conversion UI. Unit catalogue and scalar unit conversion are no
+  longer defined in the HTML; they come from mfdco-units.js.
+
+features.html
+  Wiki. Function reference is generated from mfdco-functions.js.
+
+Direction
+---------
+Continue moving calendar/era data and shared header/file menu into modules.
+After that, keep HTML files responsible mainly for page structure and events.

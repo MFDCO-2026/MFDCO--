@@ -1,0 +1,36 @@
+MFDCO Tools v2.4 Architecture
+================================
+
+v2.4 makes public functions fully data-driven.
+
+Each entry in mfdco-functions.js now contains:
+- public name/category/syntax/description/example
+- candidateGroups
+- insertion text
+- regression-test metadata
+
+The same metadata drives:
+- calculator function candidate buttons
+- dedicated code-page candidate buttons
+- Wiki function reference
+- diagnostics per-function tests
+- headless release regression tests
+
+mfdco-release-tests.js
+----------------------
+Runs every public-function regression test and reports coverage.
+
+Release invariant
+-----------------
+Every public function must have:
+1. implementation in the shared engine scope
+2. metadata
+3. at least one candidate group
+4. at least one regression test
+
+The v2.4 release audit fails unless test coverage and candidate coverage are both 100%.
+
+Recommended v2.5
+----------------
+Apply the same invariant to templates and units, then add formal schema validation
+and migration testing for .mfdco.json projects.
