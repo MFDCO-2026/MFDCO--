@@ -79,3 +79,8 @@ mfdco-shell.js の先頭付近にある
   const MFDCO_TOOLS_LIST_URL="https://mfdco.net/tools.html";
 
 だけを変更してください。
+
+
+Chrome / 短い画面
+-------------------
+Chromeのブックマークバー等で利用可能な縦幅が小さい場合も、計算コード下の実行ボタンが隠れないよう、右カラムは自動的に縮小・内部スクロールします。

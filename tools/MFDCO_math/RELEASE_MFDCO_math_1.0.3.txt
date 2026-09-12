@@ -1,0 +1,12 @@
+MFDCO_math 1.0.3
+================
+
+Chrome / short viewport compatibility fix.
+
+Fixed:
+- Chromeでブックマークバー等により縦表示領域が短い場合、
+  計算コード下の実行・Undo・Redo・コピー等のボタンが隠れる問題
+- 右カラムの固定 overflow:hidden を解除し、必要時のみ内部スクロール
+- コードエディタの固定最小高さを短い画面では縮小可能に変更
+
+Edge等の縦幅が十分ある環境では従来の大きなコード表示を維持します。

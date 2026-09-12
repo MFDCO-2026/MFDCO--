@@ -1140,3 +1140,61 @@ h1{
   min-height:34px;
   font-size:13px;
 }
+
+/* MFDCO_math 1.0.3 - short viewport / Chrome height compatibility */
+.right{
+  min-height:0 !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  overscroll-behavior:contain;
+  scrollbar-gutter:stable;
+}
+.editor-card{
+  min-height:0 !important;
+}
+.editor-wrap{
+  min-height:220px !important;
+}
+.compact-action-row{
+  flex:0 0 auto !important;
+  position:relative;
+  z-index:2;
+}
+
+/* Chrome with bookmarks bar / shorter laptop viewports */
+@media (max-height:760px) and (min-width:901px){
+  .right{
+    grid-template-rows:minmax(350px,1fr) 150px !important;
+  }
+  .editor-card{
+    min-height:350px !important;
+  }
+  .editor-wrap{
+    min-height:210px !important;
+  }
+  .right > .card:last-child{
+    min-height:145px !important;
+  }
+  .results{
+    min-height:88px !important;
+  }
+}
+
+@media (max-height:680px) and (min-width:901px){
+  .right{
+    grid-template-rows:340px 140px !important;
+  }
+  .editor-card{
+    min-height:340px !important;
+  }
+  .editor-wrap{
+    min-height:195px !important;
+  }
+  .right > .card:last-child{
+    min-height:135px !important;
+  }
+  .action-row button{
+    padding:5px 7px !important;
+    font-size:11px !important;
+  }
+}
