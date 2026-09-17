@@ -21,7 +21,7 @@
 
     margin: 0 auto;
 
-    padding: 150px 0 130px;
+    padding: 120px 0 90px;
 }
 
 
@@ -39,7 +39,7 @@
 ========================================= */
 
 .submit-page-header {
-    margin-bottom: 70px;
+    margin-bottom: 48px;
 }
 
 .submit-page-header h1 {
@@ -69,7 +69,7 @@
 .submit-card {
     margin-bottom: 28px;
 
-    padding: 50px;
+    padding: 42px;
 
     background: #ffffff;
 
@@ -326,6 +326,28 @@
     max-width: none !important;
 
     object-fit: cover;
+    object-position: center;
+}
+
+.minecraft-copyright-notice {
+    margin-top: 22px;
+    padding: 18px 20px;
+    border: 1px solid #d8c18d;
+    border-left: 4px solid #a87813;
+    background: #fffaf0;
+    color: #5f4818;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.minecraft-copyright-notice strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #6b4b08;
+}
+
+.minecraft-copyright-notice p {
+    margin: 0;
 }
 
 .work-image-preview img[hidden] {

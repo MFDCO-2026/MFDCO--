@@ -2,6 +2,7 @@
 <html lang="ja">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -9,47 +10,66 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>作品を提供する | MFDCO</title>
+    <title>
+        作品を提供する | MFDCO
+    </title>
 
     <meta
         name="description"
-        content="MFDCOへ作品を提供するための投稿ページです。"
+        content="MFDCOへの作品提供フォームです。"
     >
 
-    <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/footer.css">
-<link rel="stylesheet" href="css/submit-work.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/header.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/footer.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/submit-work.css"
+    >
+
 </head>
 
 
 <body class="submit-page">
 
 
-    <!-- =====================================
+    <!-- =========================================
          COMMON HEADER
-    ====================================== -->
+    ========================================== -->
 
     <div id="header-container"></div>
 
 
-    <!-- =====================================
+
+    <!-- =========================================
          MAIN
-    ====================================== -->
+    ========================================== -->
 
     <main class="submit-main">
 
         <div class="submit-container">
 
 
-            <!-- =================================
+            <!-- =====================================
                  PAGE HEADER
-            ================================== -->
+            ====================================== -->
 
             <header class="submit-page-header">
 
                 <p class="section-label">
-                    WORK SUBMISSION
+                    PROVIDE YOUR WORK
                 </p>
 
                 <h1>
@@ -57,16 +77,30 @@
                 </h1>
 
                 <p class="submit-page-lead">
-                    MFDCOを通して他の加盟者・利用者へ提供する作品を登録します。
-                    投稿された作品は審査後に公開されます。
+                    MFDCOメンバーが制作した作品を提供できます。<br>
+                    提出された作品は確認後、提供作品一覧へ掲載されます。
                 </p>
 
             </header>
 
 
-            <!-- =================================
-                 LOGIN MESSAGE
-            ================================== -->
+
+            <!-- =====================================
+                 LOADING
+            ====================================== -->
+
+            <div
+                id="submit-loading"
+                class="submit-message"
+            >
+                アカウント情報を確認しています...
+            </div>
+
+
+
+            <!-- =====================================
+                 LOGIN REQUIRED
+            ====================================== -->
 
             <div
                 id="login-required"
@@ -79,7 +113,8 @@
                 </h2>
 
                 <p>
-                    作品を提供するにはMFDCOアカウントへログインしてください。
+                    作品を提供するにはMFDCOメンバーとして
+                    ログインしてください。
                 </p>
 
                 <a
@@ -92,15 +127,59 @@
             </div>
 
 
-            <!-- =================================
+
+            <!-- =====================================
                  FORM
-            ================================== -->
+            ====================================== -->
 
             <form
-                id="submit-work-form"
+                id="work-form"
                 class="work-submit-form"
                 hidden
             >
+
+
+                <!-- =================================
+                     PROVIDER
+                ================================== -->
+
+                <section class="submit-card">
+
+                    <div class="submit-section-header">
+
+                        <p class="submit-section-number">
+                            00
+                        </p>
+
+                        <div>
+
+                            <p class="section-label">
+                                PROVIDER
+                            </p>
+
+                            <h2>
+                                提供者
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="submit-user-info">
+
+                        <p class="submit-user-label">
+                            PROVIDER
+                        </p>
+
+                        <p id="provider-name">
+                            読み込み中...
+                        </p>
+
+                    </div>
+
+                </section>
+
 
 
                 <!-- =================================
@@ -135,11 +214,13 @@
                     <div class="submit-field">
 
                         <label for="work-title">
+
                             作品名
 
                             <span class="required">
                                 必須
                             </span>
+
                         </label>
 
                         <input
@@ -147,8 +228,8 @@
                             id="work-title"
                             name="title"
                             maxlength="120"
+                            placeholder="作品名を入力してください"
                             required
-                            placeholder="例：MFDCO 10式主力戦車"
                         >
 
                     </div>
@@ -159,14 +240,17 @@
                     <div class="submit-field">
 
                         <label for="work-description">
+
                             作品説明
+
                         </label>
 
                         <textarea
                             id="work-description"
                             name="description"
+                            rows="8"
                             maxlength="5000"
-                            placeholder="作品の内容、特徴、使用方法などを記入してください。"
+                            placeholder="作品について説明してください"
                         ></textarea>
 
                     </div>
@@ -176,48 +260,48 @@
 
                     <div class="submit-field">
 
-                        <label for="work-image">
+                        <label for="preview-image">
+
                             プレビュー画像
+
+                            <span class="recommended">
+                                任意・推奨
+                            </span>
+
                         </label>
 
                         <p class="field-help">
-                            任意です。PNG / JPEG / WebP、10MB以下です。
-                            未指定の場合は作品一覧側でNO IMAGE表示になります。
+                            PNG / JPEG / WebP、10MB以下です。
+                            正方形以外の画像も使用できます。表示時は中央を基準に正方形へトリミングされます。
                         </p>
 
-                        <div class="work-image-upload">
 
-                            <div class="work-image-preview">
+                        <div class="work-image-preview">
 
-                                <img
-                                    id="work-image-preview"
-                                    alt="作品プレビュー"
-                                    hidden
-                                >
-
-                            </div>
-
-                            <div class="file-input-area">
-
-                                <input
-                                    type="file"
-                                    id="work-image"
-                                    name="image"
-                                    accept="image/png,image/jpeg,image/webp"
-                                >
-
-                                <button
-                                    type="button"
-                                    id="remove-work-image"
-                                    class="small-text-button"
-                                    hidden
-                                >
-                                    選択を解除
-                                </button>
-
-                            </div>
+                            <img
+                                id="image-preview"
+                                src="assets/noimage.png"
+                                alt="プレビュー画像"
+                            >
 
                         </div>
+
+
+                        <input
+                            type="file"
+                            id="preview-image"
+                            name="image"
+                            accept="image/png,image/jpeg,image/webp"
+                        >
+
+
+                        <button
+                            type="button"
+                            id="remove-image"
+                            class="small-text-button"
+                        >
+                            画像選択を解除
+                        </button>
 
                     </div>
 
@@ -232,6 +316,7 @@
 
                         <p class="field-help">
                             作品に該当するタグを選択してください。
+                            複数選択できます。
                         </p>
 
                         <div
@@ -242,6 +327,7 @@
                     </div>
 
                 </section>
+
 
 
                 <!-- =================================
@@ -271,19 +357,24 @@
                     </div>
 
 
+
                     <!-- SUBMISSION TYPE -->
 
                     <fieldset class="submit-fieldset">
 
                         <legend>
+
                             提出方法
 
                             <span class="required">
                                 必須
                             </span>
+
                         </legend>
 
+
                         <div class="submission-method-grid">
+
 
                             <label class="submission-method-card">
 
@@ -300,12 +391,8 @@
                                         ファイルを直接添付
                                     </strong>
 
-                                    <small>
-                                        推奨
-                                    </small>
-
                                     <span>
-                                        MFDCOのStorageへ作品データを保存します。
+                                        MFDCOのStorageへ保存します。
                                     </span>
 
                                 </span>
@@ -328,16 +415,158 @@
                                     </strong>
 
                                     <span>
-                                        大容量作品やGitHubなど外部管理作品向けです。
+                                        GitHubや外部配布サイトなどを使用します。
                                     </span>
 
                                 </span>
 
                             </label>
 
+
                         </div>
 
                     </fieldset>
+
+
+
+                    <!-- DOWNLOAD ACCESS -->
+
+                    <fieldset class="submit-fieldset">
+
+                        <legend>
+
+                            ダウンロード権限
+
+                            <span class="required">
+                                必須
+                            </span>
+
+                        </legend>
+
+
+                        <p class="field-help">
+                            作品を誰が取得できるか設定します。
+                            利用条件とは別の設定です。
+                        </p>
+
+
+                        <div class="submission-method-grid download-access-grid">
+
+
+                            <label class="submission-method-card">
+
+                                <input
+                                    type="radio"
+                                    name="download_access"
+                                    value="user"
+                                    checked
+                                >
+
+                                <span class="submission-method-content">
+
+                                    <strong>
+                                        🔐 ログインユーザー
+                                    </strong>
+
+                                    <span>
+                                        MFDCOへログインしたユーザーが取得できます。
+                                    </span>
+
+                                </span>
+
+                            </label>
+
+
+                            <label class="submission-method-card">
+
+                                <input
+                                    type="radio"
+                                    name="download_access"
+                                    value="public"
+                                >
+
+                                <span class="submission-method-content">
+
+                                    <strong>
+                                        🌐 ログイン不要
+                                    </strong>
+
+                                    <span>
+                                        ログインしていない人でも取得できます。
+                                    </span>
+
+                                </span>
+
+                            </label>
+
+
+                            <label class="submission-method-card">
+
+                                <input
+                                    type="radio"
+                                    name="download_access"
+                                    value="member"
+                                >
+
+                                <span class="submission-method-content">
+
+                                    <strong>
+                                        🔒 加盟国・許可ユーザー
+                                    </strong>
+
+                                    <span>
+                                        許可されたユーザーのみ取得できます。
+                                    </span>
+
+                                </span>
+
+                            </label>
+
+
+                            <label class="submission-method-card">
+
+                                <input
+                                    type="radio"
+                                    name="download_access"
+                                    value="private"
+                                >
+
+                                <span class="submission-method-content">
+
+                                    <strong>
+                                        非公開
+                                    </strong>
+
+                                    <span>
+                                        作品データをダウンロードできない状態にします。
+                                    </span>
+
+                                </span>
+
+                            </label>
+
+
+                        </div>
+
+
+                        <div
+                            id="download-access-help"
+                            class="download-access-help"
+                        >
+
+                            <strong id="download-access-help-title">
+                                🔐 ログインユーザー
+                            </strong>
+
+                            <p id="download-access-help-text">
+                                MFDCOへログインしているユーザーが
+                                この作品をダウンロードできます。
+                            </p>
+
+                        </div>
+
+                    </fieldset>
+
 
 
                     <!-- DIRECT FILE -->
@@ -350,17 +579,17 @@
                         <div class="submit-field">
 
                             <label for="work-file">
+
                                 作品ファイル
 
                                 <span class="required">
                                     必須
                                 </span>
+
                             </label>
 
                             <p class="field-help">
-                                ZIP、MCWORLD、MCPACK、MCADDON、JAR、
-                                SCHEMATIC、SCHEM、LITEMATIC、BLENDなどを
-                                添付できます。
+                                配布する作品ファイルを選択してください。
                             </p>
 
                             <input
@@ -373,12 +602,13 @@
                                 id="work-file-info"
                                 class="selected-file-info"
                             >
-                                ファイルを選択してください。
+                                ファイルは選択されていません。
                             </div>
 
                         </div>
 
                     </div>
+
 
 
                     <!-- EXTERNAL URL -->
@@ -392,11 +622,13 @@
                         <div class="submit-field">
 
                             <label for="external-url">
+
                                 作品URL
 
                                 <span class="required">
                                     必須
                                 </span>
+
                             </label>
 
                             <input
@@ -407,8 +639,8 @@
                             >
 
                             <p class="field-help">
-                                Google Drive、GitHub、外部配布サイトなど、
-                                利用者が作品へアクセスできるURLを指定してください。
+                                GitHub、外部配布ページ、
+                                YouTubeなどのURLを入力できます。
                             </p>
 
                         </div>
@@ -416,6 +648,7 @@
                     </div>
 
                 </section>
+
 
 
                 <!-- =================================
@@ -444,10 +677,6 @@
 
                     </div>
 
-                    <p class="submit-section-description">
-                        利用者がこの作品をどのように扱えるか指定してください。
-                        「要相談」の場合は、利用前に作者への確認が必要になります。
-                    </p>
 
 
                     <!-- COMMERCIAL -->
@@ -458,10 +687,6 @@
                             商用利用
                         </legend>
 
-                        <p class="condition-description">
-                            YouTube等の収益化動画での利用も含みます。
-                        </p>
-
                         <div class="condition-options">
 
                             <label>
@@ -470,6 +695,7 @@
                                     type="radio"
                                     name="commercial_use"
                                     value="allow"
+                                    checked
                                 >
 
                                 <span class="condition-allow">
@@ -485,7 +711,6 @@
                                     type="radio"
                                     name="commercial_use"
                                     value="consult"
-                                    checked
                                 >
 
                                 <span class="condition-consult">
@@ -512,6 +737,7 @@
                         </div>
 
                     </fieldset>
+
 
 
                     <!-- MODIFICATION -->
@@ -522,10 +748,6 @@
                             形状などの改変・アレンジ
                         </legend>
 
-                        <p class="condition-description">
-                            モデル、建築、兵器形状などへの変更・派生制作を含みます。
-                        </p>
-
                         <div class="condition-options">
 
                             <label>
@@ -534,6 +756,7 @@
                                     type="radio"
                                     name="modification"
                                     value="allow"
+                                    checked
                                 >
 
                                 <span class="condition-allow">
@@ -549,7 +772,6 @@
                                     type="radio"
                                     name="modification"
                                     value="consult"
-                                    checked
                                 >
 
                                 <span class="condition-consult">
@@ -576,6 +798,7 @@
                         </div>
 
                     </fieldset>
+
 
 
                     <!-- SETTING MODIFICATION -->
@@ -586,10 +809,6 @@
                             名称や設定の改変
                         </legend>
 
-                        <p class="condition-description">
-                            作品名、兵器名、所属、世界観、設定などの変更を含みます。
-                        </p>
-
                         <div class="condition-options">
 
                             <label>
@@ -598,6 +817,7 @@
                                     type="radio"
                                     name="setting_modification"
                                     value="allow"
+                                    checked
                                 >
 
                                 <span class="condition-allow">
@@ -613,7 +833,6 @@
                                     type="radio"
                                     name="setting_modification"
                                     value="consult"
-                                    checked
                                 >
 
                                 <span class="condition-consult">
@@ -640,6 +859,7 @@
                         </div>
 
                     </fieldset>
+
 
 
                     <!-- DESTRUCTION -->
@@ -650,10 +870,6 @@
                             使用作品内での破壊描写
                         </legend>
 
-                        <p class="condition-description">
-                            動画・茶番・企画等の中で、この作品が撃破・爆破・破壊される描写を含みます。
-                        </p>
-
                         <div class="condition-options">
 
                             <label>
@@ -662,6 +878,7 @@
                                     type="radio"
                                     name="destruction_depiction"
                                     value="allow"
+                                    checked
                                 >
 
                                 <span class="condition-allow">
@@ -677,7 +894,6 @@
                                     type="radio"
                                     name="destruction_depiction"
                                     value="consult"
-                                    checked
                                 >
 
                                 <span class="condition-consult">
@@ -704,6 +920,7 @@
                         </div>
 
                     </fieldset>
+
 
 
                     <!-- OTHER TERMS -->
@@ -718,12 +935,13 @@
                             id="other-terms"
                             name="other_terms"
                             maxlength="3000"
-                            placeholder="例：国家間企画で使用する場合のみ事前に連絡してください。"
+                            placeholder="上記以外の利用条件がある場合に入力してください"
                         ></textarea>
 
                     </div>
 
                 </section>
+
 
 
                 <!-- =================================
@@ -752,15 +970,9 @@
 
                     </div>
 
-                    <p class="submit-section-description">
-                        この作品を利用する際の作者表記方法を指定します。
-                    </p>
-
 
                     <div class="credit-options">
 
-
-                        <!-- NONE -->
 
                         <label class="credit-option">
 
@@ -768,6 +980,7 @@
                                 type="radio"
                                 name="credit_type"
                                 value="none"
+                                checked
                             >
 
                             <span class="credit-option-content">
@@ -776,16 +989,11 @@
                                     不要
                                 </strong>
 
-                                <span>
-                                    作品利用時のクレジット表記を求めません。
-                                </span>
-
                             </span>
 
                         </label>
 
 
-                        <!-- FREE -->
 
                         <label class="credit-option">
 
@@ -801,16 +1009,11 @@
                                     任意の書式
                                 </strong>
 
-                                <span>
-                                    作者名等を、利用者が適切な書式で表記します。
-                                </span>
-
                             </span>
 
                         </label>
 
 
-                        <!-- PROFILE -->
 
                         <label class="credit-option">
 
@@ -818,7 +1021,6 @@
                                 type="radio"
                                 name="credit_type"
                                 value="profile"
-                                checked
                             >
 
                             <span class="credit-option-content">
@@ -827,20 +1029,16 @@
                                     プロフィールから読み込み
                                 </strong>
 
-                                <span>
-                                    プロフィールに登録されているクレジット書式を使用します。
-                                </span>
-
                             </span>
 
                         </label>
 
 
-                        <!-- PROFILE CREDIT -->
 
                         <div
                             id="profile-credit-area"
                             class="profile-credit-preview"
+                            hidden
                         >
 
                             <p class="profile-credit-label">
@@ -851,13 +1049,12 @@
                                 id="profile-credit-text"
                                 class="profile-credit-value"
                             >
-                                読み込み中...
+                                -
                             </p>
 
                         </div>
 
 
-                        <!-- CUSTOM -->
 
                         <label class="credit-option">
 
@@ -873,13 +1070,10 @@
                                     その他
                                 </strong>
 
-                                <span>
-                                    この作品専用のクレジット表記を指定します。
-                                </span>
-
                             </span>
 
                         </label>
+
 
 
                         <div
@@ -896,18 +1090,20 @@
                                 id="custom-credit-text"
                                 name="custom_credit_text"
                                 maxlength="1000"
-                                placeholder="例：作品制作：○○ / MFDCO"
+                                placeholder="指定するクレジット表記を入力してください"
                             ></textarea>
 
                         </div>
+
 
                     </div>
 
                 </section>
 
 
+
                 <!-- =================================
-                     05 AGREEMENT
+                     05 AGREEMENT / SUBMIT
                 ================================== -->
 
                 <section class="submit-card">
@@ -921,11 +1117,11 @@
                         <div>
 
                             <p class="section-label">
-                                CONFIRMATION
+                                SUBMIT
                             </p>
 
                             <h2>
-                                確認
+                                作品を提出
                             </h2>
 
                         </div>
@@ -933,20 +1129,34 @@
                     </div>
 
 
-                    <label class="submit-agreement">
+                    <div class="submit-field agreement-group">
 
-                        <input
-                            type="checkbox"
-                            id="submit-agreement"
-                            required
-                        >
+                        <label class="agreement-label">
 
-                        <span>
-                            私は、この作品を提供する権利を有しており、
-                            上記で設定した利用条件に基づいてMFDCO上で作品を提供することに同意します。
-                        </span>
+                            <input
+                                type="checkbox"
+                                id="work-agreement"
+                                required
+                            >
 
-                    </label>
+                            <span>
+                                この作品をMFDCOの提供作品として
+                                掲載することに同意します。
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                    <aside class="minecraft-copyright-notice" role="note">
+                        <strong>提出前に必ず確認してください</strong>
+                        <p>
+                            MinecraftおよびMojang Studiosが著作権を持つテクスチャ、画像、音声などを、
+                            配布ファイルへ含めないでください。Minecraft用作品の場合も、公式素材そのものではなく、
+                            ご自身で制作したデータのみを提出してください。
+                        </p>
+                    </aside>
+
 
 
                     <!-- ERROR -->
@@ -958,42 +1168,74 @@
                     ></div>
 
 
+
                     <!-- SUCCESS -->
 
                     <div
                         id="submit-success"
                         class="submit-result submit-result-success"
                         hidden
-                    ></div>
+                    >
+
+                        <h3>
+                            作品を受け付けました
+                        </h3>
+
+                        <p>
+                            管理者による確認後、
+                            提供作品一覧へ掲載されます。
+                        </p>
+
+                    </div>
 
 
-                    <!-- SUBMIT -->
+
+                    <!-- ACTION -->
 
                     <div class="submit-actions">
 
                         <button
                             type="submit"
-                            id="submit-work-button"
+                            id="submit-button"
                             class="submit-main-button"
                         >
-                            作品を提出する
+
+                            <span id="submit-button-text">
+                                作品を提出する
+                            </span>
+
+                            <span>
+                                →
+                            </span>
+
                         </button>
 
                     </div>
+
 
                 </section>
 
 
             </form>
 
+
         </div>
 
     </main>
 
 
-    <!-- =====================================
-         SUPABASE / SCRIPTS
-    ====================================== -->
+
+    <!-- =========================================
+         COMMON FOOTER
+    ========================================== -->
+
+    <div id="footer-container"></div>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1004,6 +1246,7 @@
     <script src="js/tags.js"></script>
 
     <script src="js/submit-work.js"></script>
+
 
 </body>
 

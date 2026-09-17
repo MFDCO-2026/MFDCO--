@@ -10,7 +10,7 @@
 .works-page {
     min-height: 100vh;
 
-    padding: 110px 20px 100px;
+    padding: 100px 20px 80px;
 
     background: #ffffff;
 }
@@ -29,7 +29,7 @@
 ========================================= */
 
 .works-hero {
-    margin-bottom: 55px;
+    margin-bottom: 40px;
 }
 
 
@@ -70,9 +70,9 @@
 ========================================= */
 
 .works-controls {
-    margin-bottom: 35px;
+    margin-bottom: 28px;
 
-    padding: 28px;
+    padding: 24px;
 
     border: 1px solid #dddddd;
     border-radius: 12px;
@@ -88,7 +88,7 @@
 .controls-top {
     display: grid;
 
-    grid-template-columns: 1fr 220px;
+    grid-template-columns: minmax(0, 1fr) 190px 190px;
 
     gap: 20px;
 
@@ -102,6 +102,7 @@
 
 .search-box label,
 .sort-box label,
+.access-box label,
 .filter-heading label {
     display: block;
 
@@ -174,7 +175,8 @@
    並べ替え
 ========================================= */
 
-.sort-box select {
+.sort-box select,
+.access-box select {
     width: 100%;
 
     box-sizing: border-box;
@@ -197,7 +199,8 @@
 }
 
 
-.sort-box select:focus {
+.sort-box select:focus,
+.access-box select:focus {
     border-color: #315c5b;
 }
 
@@ -252,7 +255,8 @@
 }
 
 
-.filter-tag {
+.filter-tag,
+.tag-filter-button {
     padding: 7px 12px;
 
     border: 1px solid #cccccc;
@@ -274,12 +278,14 @@
 }
 
 
-.filter-tag:hover {
+.filter-tag:hover,
+.tag-filter-button:hover {
     border-color: #315c5b;
 }
 
 
-.filter-tag.active {
+.filter-tag.active,
+.tag-filter-button.active {
     border-color: #315c5b;
 
     background: #315c5b;
@@ -324,7 +330,8 @@
 }
 
 
-.active-filter {
+.active-filter,
+.active-filter-item {
     display: inline-flex;
 
     align-items: center;
@@ -594,6 +601,7 @@
     height: 100%;
 
     object-fit: cover;
+    object-position: center;
 
     transition:
         transform 0.4s ease;
@@ -912,4 +920,16 @@
         padding: 20px;
     }
 
+}
+
+.work-card-access {
+    display: inline-flex;
+    width: fit-content;
+    margin: 0 0 12px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #edf4f3;
+    color: #315c5b;
+    font-size: 10px;
+    font-weight: 700;
 }

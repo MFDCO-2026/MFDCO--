@@ -101,11 +101,27 @@
                         <input
                             type="search"
                             id="search"
-                            placeholder="作品名・説明・作者名で検索"
+                            placeholder="作品名・説明・作者名・タグを検索（空白で複数語）"
                             autocomplete="off"
                         >
 
                     </div>
+
+                </div>
+
+                <div class="access-box">
+
+                    <label for="access-filter">
+                        ダウンロード条件
+                    </label>
+
+                    <select id="access-filter">
+                        <option value="all">すべて</option>
+                        <option value="public">ログイン不要</option>
+                        <option value="user">ログインユーザー</option>
+                        <option value="member">MFDCOメンバー</option>
+                        <option value="private">提供者のみ</option>
+                    </select>
 
                 </div>
 

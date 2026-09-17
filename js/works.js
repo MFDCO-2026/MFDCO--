@@ -16,6 +16,9 @@ document.addEventListener(
         const sortSelect =
             document.getElementById("sort");
 
+        const accessFilter =
+            document.getElementById("access-filter");
+
         const tagFilters =
             document.getElementById("tag-filters");
 
@@ -82,15 +85,14 @@ document.addEventListener(
         let currentSort =
             "newest";
 
+        let currentAccess =
+            "all";
+
 
 
         /* =========================================
            TAG FILTER
         ========================================= */
-
-        renderTagFilters();
-
-
 
         /* =========================================
            LOAD
@@ -110,11 +112,24 @@ document.addEventListener(
                 "input",
                 () => {
 
-                    searchKeyword =
+                    searchKeyword = normalizeSearchText(
                         searchInput.value
-                            .trim()
-                            .toLowerCase();
+                    );
 
+                    renderWorks();
+
+                }
+            );
+
+        }
+
+        if (accessFilter) {
+
+            accessFilter.addEventListener(
+                "change",
+                () => {
+
+                    currentAccess = accessFilter.value;
                     renderWorks();
 
                 }
@@ -192,9 +207,9 @@ document.addEventListener(
                         title,
                         description,
                         image_url,
-                        usage_terms,
                         tags,
-                        work_url,
+                        download_access,
+                        submission_type,
                         created_at,
                         user_id
                     `)
@@ -229,7 +244,7 @@ document.addEventListener(
                         data || []
                     );
 
-
+                renderTagFilters();
                 renderWorks();
 
             } catch (error) {
@@ -353,21 +368,19 @@ document.addEventListener(
             tagFilters.innerHTML = "";
 
 
-            if (
-                typeof MFDCO_TAGS ===
-                "undefined"
-            ) {
+            const configuredTags =
+                typeof MFDCO_TAGS !== "undefined" && Array.isArray(MFDCO_TAGS)
+                    ? MFDCO_TAGS
+                    : [];
 
-                console.warn(
-                    "MFDCO_TAGS がありません。"
-                );
+            const usedTags = allWorks.flatMap(
+                work => Array.isArray(work.tags) ? work.tags : []
+            );
 
-                return;
+            const availableTags = [...new Set([...configuredTags, ...usedTags])]
+                .filter(Boolean);
 
-            }
-
-
-            MFDCO_TAGS.forEach(
+            availableTags.forEach(
                 tag => {
 
                     const button =
@@ -572,6 +585,8 @@ document.addEventListener(
 
             if (searchKeyword) {
 
+                const keywords = searchKeyword.split(/\s+/).filter(Boolean);
+
                 works =
                     works.filter(
                         work => {
@@ -590,15 +605,23 @@ document.addEventListener(
                             ]
                                 .filter(Boolean)
                                 .join(" ")
-                                .toLowerCase();
+                                .map(normalizeSearchText)
+                                .join(" ");
 
-
-                            return text.includes(
-                                searchKeyword
+                            return keywords.every(
+                                keyword => text.includes(keyword)
                             );
 
                         }
                     );
+
+            }
+
+            if (currentAccess !== "all") {
+
+                works = works.filter(
+                    work => (work.download_access || "user") === currentAccess
+                );
 
             }
 
@@ -788,7 +811,7 @@ document.addEventListener(
 
 
             imageWrap.className =
-                "work-card-image-wrap";
+                "work-card-image";
 
 
             const image =
@@ -798,7 +821,7 @@ document.addEventListener(
 
 
             image.className =
-                "work-card-image";
+                "work-card-image-element";
 
 
             image.src =
@@ -844,6 +867,11 @@ document.addEventListener(
 
             body.className =
                 "work-card-body";
+
+            const access = document.createElement("span");
+            access.className = "work-card-access";
+            access.textContent = getAccessLabel(work.download_access);
+            body.appendChild(access);
 
 
 
@@ -1001,6 +1029,9 @@ document.addEventListener(
                             item.textContent =
                                 tag;
 
+                            item.className =
+                                "work-card-tag";
+
 
                             tags.appendChild(
                                 item
@@ -1040,12 +1071,6 @@ document.addEventListener(
                 );
 
 
-            body.appendChild(
-                date
-            );
-
-
-
             /* DETAIL */
 
             const detail =
@@ -1061,9 +1086,10 @@ document.addEventListener(
                 "作品を見る →";
 
 
-            body.appendChild(
-                detail
-            );
+            const footer = document.createElement("div");
+            footer.className = "work-card-footer";
+            footer.append(date, detail);
+            body.appendChild(footer);
 
 
 
@@ -1161,6 +1187,29 @@ document.addEventListener(
                 .format(
                     date
                 );
+
+        }
+
+        function normalizeSearchText(value) {
+
+            return String(value || "")
+                .normalize("NFKC")
+                .toLocaleLowerCase("ja-JP")
+                .replace(/\s+/g, " ")
+                .trim();
+
+        }
+
+        function getAccessLabel(value) {
+
+            const labels = {
+                public: "ログイン不要",
+                user: "ログインユーザー",
+                member: "MFDCOメンバー",
+                private: "提供者のみ"
+            };
+
+            return labels[value] || labels.user;
 
         }
 

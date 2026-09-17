@@ -1,23 +1,23 @@
 "use strict";
 
-
 /* =========================================================
-   MFDCO
-   EDIT WORK
-========================================================= */
-
-
-/* =========================================================
-   CONSTANTS
+   MFDCO - EDIT WORK
 ========================================================= */
 
 const MAX_IMAGE_SIZE =
     10 * 1024 * 1024;
 
-
 const MAX_WORK_FILE_SIZE =
     500 * 1024 * 1024;
 
+const WORK_IMAGE_BUCKET =
+    "work-images";
+
+const PRIVATE_WORK_BUCKET =
+    "work-files";
+
+const PUBLIC_WORK_BUCKET =
+    "work-files-public";
 
 
 /* =========================================================
@@ -27,34 +27,28 @@ const MAX_WORK_FILE_SIZE =
 let currentUser =
     null;
 
-
 let currentProfile =
     null;
-
 
 let currentWork =
     null;
 
-
 let currentWorkId =
     null;
-
 
 let selectedPreviewImage =
     null;
 
-
 let selectedWorkFile =
     null;
-
 
 
 /* =========================================================
    ELEMENT CACHE
 ========================================================= */
 
-const elements = {};
-
+const elements =
+    {};
 
 
 /* =========================================================
@@ -63,12 +57,7 @@ const elements = {};
 
 document.addEventListener(
     "DOMContentLoaded",
-    async function () {
-
-        console.log(
-            "MFDCO EDIT WORK: DOMContentLoaded"
-        );
-
+    async () => {
 
         cacheElements();
 
@@ -80,7 +69,6 @@ document.addEventListener(
 
     }
 );
-
 
 
 /* =========================================================
@@ -197,6 +185,24 @@ function cacheElements() {
         );
 
 
+    elements.downloadAccessHelp =
+        document.getElementById(
+            "download-access-help"
+        );
+
+
+    elements.downloadAccessHelpTitle =
+        document.getElementById(
+            "download-access-help-title"
+        );
+
+
+    elements.downloadAccessHelpText =
+        document.getElementById(
+            "download-access-help-text"
+        );
+
+
     elements.otherTerms =
         document.getElementById(
             "other-terms"
@@ -253,7 +259,6 @@ function cacheElements() {
 }
 
 
-
 /* =========================================================
    EVENTS
 ========================================================= */
@@ -272,7 +277,7 @@ function setupEvents() {
             'input[name="submission_type"]'
         )
         .forEach(
-            function (input) {
+            input => {
 
                 input.addEventListener(
                     "change",
@@ -285,10 +290,26 @@ function setupEvents() {
 
     document
         .querySelectorAll(
+            'input[name="download_access"]'
+        )
+        .forEach(
+            input => {
+
+                input.addEventListener(
+                    "change",
+                    updateDownloadAccessHelp
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
             'input[name="credit_type"]'
         )
         .forEach(
-            function (input) {
+            input => {
 
                 input.addEventListener(
                     "change",
@@ -315,7 +336,6 @@ function setupEvents() {
 }
 
 
-
 /* =========================================================
    INITIALIZE
 ========================================================= */
@@ -324,7 +344,9 @@ async function initializeEditPage() {
 
     try {
 
-        if (!window.supabaseClient) {
+        if (
+            !window.supabaseClient
+        ) {
 
             throw new Error(
                 "Supabaseクライアントが初期化されていません。"
@@ -332,10 +354,6 @@ async function initializeEditPage() {
 
         }
 
-
-        /* -----------------------------------------
-           WORK ID
-        ----------------------------------------- */
 
         const params =
             new URLSearchParams(
@@ -349,7 +367,9 @@ async function initializeEditPage() {
             );
 
 
-        if (!currentWorkId) {
+        if (
+            !currentWorkId
+        ) {
 
             showForbidden(
                 "作品IDが指定されていません。"
@@ -360,10 +380,6 @@ async function initializeEditPage() {
         }
 
 
-        /* -----------------------------------------
-           AUTH
-        ----------------------------------------- */
-
         const {
             data,
             error
@@ -373,7 +389,9 @@ async function initializeEditPage() {
                 .getUser();
 
 
-        if (error) {
+        if (
+            error
+        ) {
 
             throw error;
 
@@ -385,7 +403,9 @@ async function initializeEditPage() {
             null;
 
 
-        if (!currentUser) {
+        if (
+            !currentUser
+        ) {
 
             showLoggedOut();
 
@@ -394,23 +414,10 @@ async function initializeEditPage() {
         }
 
 
-        /* -----------------------------------------
-           PROFILE
-        ----------------------------------------- */
-
         await loadCurrentProfile();
-
-
-        /* -----------------------------------------
-           WORK
-        ----------------------------------------- */
 
         await loadCurrentWork();
 
-
-        /* -----------------------------------------
-           OWNER CHECK
-        ----------------------------------------- */
 
         if (
             currentWork.user_id !==
@@ -426,14 +433,12 @@ async function initializeEditPage() {
         }
 
 
-        /* -----------------------------------------
-           RENDER
-        ----------------------------------------- */
-
         populateForm();
 
 
-        if (elements.cancelLink) {
+        if (
+            elements.cancelLink
+        ) {
 
             elements.cancelLink.href =
                 `work.html?id=${encodeURIComponent(currentWorkId)}`;
@@ -447,20 +452,10 @@ async function initializeEditPage() {
 
         showForm();
 
-
-        console.log(
-            "MFDCO EDIT WORK initialized:",
-            {
-                workId:
-                    currentWorkId,
-
-                userId:
-                    currentUser.id
-            }
-        );
-
     }
-    catch (error) {
+    catch (
+        error
+    ) {
 
         console.error(
             "EDIT WORK INIT ERROR:",
@@ -479,9 +474,8 @@ async function initializeEditPage() {
 }
 
 
-
 /* =========================================================
-   PROFILE
+   LOAD PROFILE
 ========================================================= */
 
 async function loadCurrentProfile() {
@@ -490,61 +484,43 @@ async function loadCurrentProfile() {
         null;
 
 
-    if (!currentUser) {
+    const {
+        data,
+        error
+    } =
+        await window.supabaseClient
+            .from(
+                "profiles"
+            )
+            .select(
+                "activity_name"
+            )
+            .eq(
+                "id",
+                currentUser.id
+            )
+            .maybeSingle();
+
+
+    if (
+        error
+    ) {
+
+        console.warn(
+            "PROFILE LOAD ERROR:",
+            error
+        );
 
         return;
 
     }
 
 
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await window.supabaseClient
-                .from(
-                    "profiles"
-                )
-                .select(
-                    "activity_name"
-                )
-                .eq(
-                    "id",
-                    currentUser.id
-                )
-                .maybeSingle();
-
-
-        if (error) {
-
-            console.warn(
-                "EDIT PROFILE LOAD ERROR:",
-                error
-            );
-
-            return;
-
-        }
-
-
-        currentProfile =
-            data ||
-            null;
-
-    }
-    catch (error) {
-
-        console.warn(
-            "EDIT PROFILE LOAD ERROR:",
-            error
-        );
-
-    }
+    currentProfile =
+        data ||
+        null;
 
 }
-
 
 
 /* =========================================================
@@ -577,6 +553,7 @@ async function loadCurrentWork() {
                 original_filename,
                 file_size,
                 file_type,
+                download_access,
 
                 commercial_use,
                 modification,
@@ -594,14 +571,18 @@ async function loadCurrentWork() {
             .maybeSingle();
 
 
-    if (error) {
+    if (
+        error
+    ) {
 
         throw error;
 
     }
 
 
-    if (!data) {
+    if (
+        !data
+    ) {
 
         throw new Error(
             "作品が見つかりません。"
@@ -613,8 +594,17 @@ async function loadCurrentWork() {
     currentWork =
         data;
 
-}
 
+    if (
+        !currentWork.download_access
+    ) {
+
+        currentWork.download_access =
+            "user";
+
+    }
+
+}
 
 
 /* =========================================================
@@ -623,7 +613,9 @@ async function loadCurrentWork() {
 
 function renderTags() {
 
-    if (!elements.tags) {
+    if (
+        !elements.tags
+    ) {
 
         return;
 
@@ -631,12 +623,16 @@ function renderTags() {
 
 
     if (
-        typeof window.renderMfdcoWorkTags !==
+        typeof window.renderMfdcoWorkTags ===
         "function"
     ) {
 
-        console.error(
-            "tags.js の renderMfdcoWorkTags が見つかりません。"
+        window.renderMfdcoWorkTags(
+            elements.tags,
+            {
+                inputName:
+                    "work_tags"
+            }
         );
 
         return;
@@ -644,16 +640,83 @@ function renderTags() {
     }
 
 
-    window.renderMfdcoWorkTags(
-        elements.tags,
-        {
-            inputName:
-                "work_tags"
+    if (
+        typeof window.MFDCO_TAGS !==
+            "undefined" &&
+        Array.isArray(
+            window.MFDCO_TAGS
+        )
+    ) {
+
+        elements.tags.innerHTML =
+            "";
+
+
+        for (
+            const tag
+            of window.MFDCO_TAGS
+        ) {
+
+            const label =
+                document.createElement(
+                    "label"
+                );
+
+
+            label.className =
+                "work-tag-option";
+
+
+            const input =
+                document.createElement(
+                    "input"
+                );
+
+
+            input.type =
+                "checkbox";
+
+            input.name =
+                "work_tags";
+
+            input.value =
+                tag;
+
+
+            const text =
+                document.createElement(
+                    "span"
+                );
+
+
+            text.textContent =
+                tag;
+
+
+            label.append(
+                input,
+                text
+            );
+
+
+            elements.tags
+                .appendChild(
+                    label
+                );
+
         }
+
+
+        return;
+
+    }
+
+
+    console.warn(
+        "タグ描画関数またはMFDCO_TAGSが見つかりません。"
     );
 
 }
-
 
 
 /* =========================================================
@@ -662,14 +725,7 @@ function renderTags() {
 
 function selectExistingTags() {
 
-    if (!elements.tags) {
-
-        return;
-
-    }
-
-
-    const selectedTags =
+    const selected =
         Array.isArray(
             currentWork?.tags
         )
@@ -678,14 +734,14 @@ function selectExistingTags() {
 
 
     elements.tags
-        .querySelectorAll(
+        ?.querySelectorAll(
             'input[type="checkbox"]'
         )
         .forEach(
-            function (input) {
+            input => {
 
                 input.checked =
-                    selectedTags.includes(
+                    selected.includes(
                         input.value
                     );
 
@@ -695,14 +751,15 @@ function selectExistingTags() {
 }
 
 
-
 /* =========================================================
    GET SELECTED TAGS
 ========================================================= */
 
 function getSelectedTags() {
 
-    if (!elements.tags) {
+    if (
+        !elements.tags
+    ) {
 
         return [];
 
@@ -724,22 +781,17 @@ function getSelectedTags() {
 
     return Array.from(
 
-        elements.tags.querySelectorAll(
-            'input[type="checkbox"]:checked'
-        )
+        elements.tags
+            .querySelectorAll(
+                'input[type="checkbox"]:checked'
+            )
 
     ).map(
-
-        function (input) {
-
-            return input.value;
-
-        }
-
+        input =>
+            input.value
     );
 
 }
-
 
 
 /* =========================================================
@@ -747,17 +799,6 @@ function getSelectedTags() {
 ========================================================= */
 
 function populateForm() {
-
-    if (!currentWork) {
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------
-       BASIC
-    ----------------------------------------- */
 
     elements.title.value =
         currentWork.title ||
@@ -769,28 +810,23 @@ function populateForm() {
         "";
 
 
-    /* -----------------------------------------
-       IMAGE
-    ----------------------------------------- */
-
     renderCurrentImage();
 
 
-    /* -----------------------------------------
-       TAGS
-    ----------------------------------------- */
-
     selectExistingTags();
 
-
-    /* -----------------------------------------
-       SUBMISSION TYPE
-    ----------------------------------------- */
 
     setRadioValue(
         "submission_type",
         currentWork.submission_type ||
         "file"
+    );
+
+
+    setRadioValue(
+        "download_access",
+        currentWork.download_access ||
+        "user"
     );
 
 
@@ -801,13 +837,6 @@ function populateForm() {
 
     renderCurrentWorkFile();
 
-
-    updateSubmissionType();
-
-
-    /* -----------------------------------------
-       CONDITIONS
-    ----------------------------------------- */
 
     setRadioValue(
         "commercial_use",
@@ -842,10 +871,6 @@ function populateForm() {
         "";
 
 
-    /* -----------------------------------------
-       CREDIT
-    ----------------------------------------- */
-
     setRadioValue(
         "credit_type",
         currentWork.credit_type ||
@@ -855,20 +880,22 @@ function populateForm() {
 
     elements.customCreditText.value =
         currentWork.credit_type ===
-        "custom"
-            ? (
-                currentWork.credit_text ||
+            "custom"
+            ? currentWork.credit_text ||
                 ""
-            )
             : "";
 
 
     renderProfileCredit();
 
+
+    updateSubmissionType();
+
+    updateDownloadAccessHelp();
+
     updateCreditType();
 
 }
-
 
 
 /* =========================================================
@@ -878,12 +905,17 @@ function populateForm() {
 function renderCurrentImage() {
 
     const url =
-        currentWork?.image_url;
+        currentWork
+            ?.image_url;
 
 
-    if (!url) {
+    if (
+        !url
+    ) {
 
-        if (elements.currentImage) {
+        if (
+            elements.currentImage
+        ) {
 
             elements.currentImage.hidden =
                 true;
@@ -925,7 +957,7 @@ function renderCurrentImage() {
 
 
     elements.currentImage.onerror =
-        function () {
+        () => {
 
             elements.currentImage.hidden =
                 true;
@@ -945,14 +977,15 @@ function renderCurrentImage() {
 }
 
 
-
 /* =========================================================
    CURRENT WORK FILE
 ========================================================= */
 
 function renderCurrentWorkFile() {
 
-    if (!elements.currentWorkFileInfo) {
+    if (
+        !elements.currentWorkFileInfo
+    ) {
 
         return;
 
@@ -991,9 +1024,7 @@ function renderCurrentWorkFile() {
 
     const size =
         formatFileSize(
-            Number(
-                currentWork.file_size
-            )
+            currentWork.file_size
         );
 
 
@@ -1002,180 +1033,16 @@ function renderCurrentWorkFile() {
         "FILE";
 
 
+    const accessLabel =
+        getDownloadAccessLabel(
+            currentWork.download_access
+        );
+
+
     elements.currentWorkFileInfo.textContent =
-        `${name} / ${type} / ${size}`;
+        `${name} / ${type} / ${size} / ${accessLabel}`;
 
 }
-
-
-
-/* =========================================================
-   PROFILE CREDIT
-========================================================= */
-
-function renderProfileCredit() {
-
-    if (!elements.profileCreditText) {
-
-        return;
-
-    }
-
-
-    const activityName =
-        String(
-            currentProfile?.activity_name ||
-            ""
-        ).trim();
-
-
-    elements.profileCreditText.textContent =
-        activityName ||
-        "プロフィールの活動名を取得できません。";
-
-}
-
-
-
-/* =========================================================
-   SUBMISSION TYPE
-========================================================= */
-
-function getSubmissionType() {
-
-    const input =
-        document.querySelector(
-            'input[name="submission_type"]:checked'
-        );
-
-
-    return input
-        ? input.value
-        : "file";
-
-}
-
-
-
-function updateSubmissionType() {
-
-    const type =
-        getSubmissionType();
-
-
-    const isFile =
-        type ===
-        "file";
-
-
-    if (elements.directFileArea) {
-
-        elements.directFileArea.hidden =
-            !isFile;
-
-    }
-
-
-    if (elements.externalUrlArea) {
-
-        elements.externalUrlArea.hidden =
-            isFile;
-
-    }
-
-
-    /*
-        編集画面では、
-        既存ファイルがあれば
-        新しいファイルは必須ではない。
-    */
-
-    if (elements.workFile) {
-
-        elements.workFile.required =
-            false;
-
-    }
-
-
-    if (elements.externalUrl) {
-
-        elements.externalUrl.required =
-            !isFile;
-
-    }
-
-}
-
-
-
-/* =========================================================
-   CREDIT TYPE
-========================================================= */
-
-function getCreditType() {
-
-    const input =
-        document.querySelector(
-            'input[name="credit_type"]:checked'
-        );
-
-
-    return input
-        ? input.value
-        : "profile";
-
-}
-
-
-
-function updateCreditType() {
-
-    const type =
-        getCreditType();
-
-
-    const useProfile =
-        type ===
-        "profile";
-
-
-    const useCustom =
-        type ===
-        "custom";
-
-
-    if (
-        elements.profileCreditArea
-    ) {
-
-        elements.profileCreditArea.hidden =
-            !useProfile;
-
-    }
-
-
-    if (
-        elements.customCreditArea
-    ) {
-
-        elements.customCreditArea.hidden =
-            !useCustom;
-
-    }
-
-
-    if (
-        elements.customCreditText
-    ) {
-
-        elements.customCreditText.required =
-            useCustom;
-
-    }
-
-}
-
 
 
 /* =========================================================
@@ -1194,13 +1061,18 @@ function handleImageSelection(
 
 
     const file =
-        event.target.files?.[0] ||
+        event.target
+            .files?.[0] ||
         null;
 
 
-    if (!file) {
+    if (
+        !file
+    ) {
 
-        if (elements.imagePreview) {
+        if (
+            elements.imagePreview
+        ) {
 
             elements.imagePreview.src =
                 "";
@@ -1210,15 +1082,20 @@ function handleImageSelection(
 
         }
 
+
         return;
 
     }
 
 
     const allowedTypes = [
+
         "image/png",
+
         "image/jpeg",
+
         "image/webp"
+
     ];
 
 
@@ -1235,6 +1112,7 @@ function handleImageSelection(
         showError(
             "プレビュー画像はPNG、JPEG、WebPのみ使用できます。"
         );
+
 
         return;
 
@@ -1254,6 +1132,7 @@ function handleImageSelection(
             "プレビュー画像は10MB以下にしてください。"
         );
 
+
         return;
 
     }
@@ -1268,14 +1147,17 @@ function handleImageSelection(
 
 
     reader.onload =
-        function () {
+        () => {
 
             if (
                 elements.imagePreview
             ) {
 
                 elements.imagePreview.src =
-                    reader.result;
+                    String(
+                        reader.result
+                    );
+
 
                 elements.imagePreview.hidden =
                     false;
@@ -1290,7 +1172,6 @@ function handleImageSelection(
     );
 
 }
-
 
 
 /* =========================================================
@@ -1309,18 +1190,24 @@ function handleWorkFileSelection(
 
 
     const file =
-        event.target.files?.[0] ||
+        event.target
+            .files?.[0] ||
         null;
 
 
-    if (!file) {
+    if (
+        !file
+    ) {
 
-        if (elements.workFileInfo) {
+        if (
+            elements.workFileInfo
+        ) {
 
             elements.workFileInfo.textContent =
                 "新しいファイルは選択されていません。";
 
         }
+
 
         return;
 
@@ -1336,7 +1223,9 @@ function handleWorkFileSelection(
             "";
 
 
-        if (elements.workFileInfo) {
+        if (
+            elements.workFileInfo
+        ) {
 
             elements.workFileInfo.textContent =
                 "新しいファイルは選択されていません。";
@@ -1348,6 +1237,7 @@ function handleWorkFileSelection(
             "作品ファイルは500MB以下にしてください。"
         );
 
+
         return;
 
     }
@@ -1357,17 +1247,344 @@ function handleWorkFileSelection(
         file;
 
 
-    const extension =
-        getFileExtension(
-            file.name
-        );
+    if (
+        elements.workFileInfo
+    ) {
 
+        elements.workFileInfo.textContent =
+            `${file.name} / ${getFileType(file)} / ${formatFileSize(file.size)}`;
 
-    elements.workFileInfo.textContent =
-        `${file.name} / ${extension ? extension.toUpperCase() : "FILE"} / ${formatFileSize(file.size)}`;
+    }
 
 }
 
+
+/* =========================================================
+   SUBMISSION TYPE
+========================================================= */
+
+function getSubmissionType() {
+
+    return (
+        getCheckedValue(
+            "submission_type"
+        ) ||
+        "file"
+    );
+
+}
+
+
+function updateSubmissionType() {
+
+    const isFile =
+        getSubmissionType() ===
+        "file";
+
+
+    if (
+        elements.directFileArea
+    ) {
+
+        elements.directFileArea.hidden =
+            !isFile;
+
+    }
+
+
+    if (
+        elements.externalUrlArea
+    ) {
+
+        elements.externalUrlArea.hidden =
+            isFile;
+
+    }
+
+
+    /*
+     * 編集画面では、
+     * 既存ファイルをそのまま使えるため
+     * 新しいファイル選択は必須にしない。
+     */
+
+    if (
+        elements.workFile
+    ) {
+
+        elements.workFile.required =
+            false;
+
+    }
+
+
+    if (
+        elements.externalUrl
+    ) {
+
+        elements.externalUrl.required =
+            !isFile;
+
+    }
+
+}
+
+
+/* =========================================================
+   DOWNLOAD ACCESS
+========================================================= */
+
+function getDownloadAccess() {
+
+    return (
+        getCheckedValue(
+            "download_access"
+        ) ||
+        "user"
+    );
+
+}
+
+
+function updateDownloadAccessHelp() {
+
+    if (
+        !elements.downloadAccessHelpTitle ||
+        !elements.downloadAccessHelpText
+    ) {
+
+        return;
+
+    }
+
+
+    const access =
+        getDownloadAccess();
+
+
+    const descriptions = {
+
+        public: {
+
+            title:
+                "🌐 ログイン不要",
+
+            text:
+                "MFDCOへログインしていない人でも、この作品を取得できます。"
+
+        },
+
+
+        user: {
+
+            title:
+                "🔐 ログインユーザー",
+
+            text:
+                "MFDCOへログインしているユーザーが、この作品を取得できます。"
+
+        },
+
+
+        member: {
+
+            title:
+                "🔒 加盟国・許可ユーザー",
+
+            text:
+                "MFDCOから許可されたユーザーのみ、この作品を取得できます。"
+
+        },
+
+
+        private: {
+
+            title:
+                "非公開",
+
+            text:
+                "作品ページを公開していても、作品データ自体はダウンロードできません。"
+
+        }
+
+    };
+
+
+    const info =
+        descriptions[
+            access
+        ] ||
+        descriptions.user;
+
+
+    elements.downloadAccessHelpTitle.textContent =
+        info.title;
+
+
+    elements.downloadAccessHelpText.textContent =
+        info.text;
+
+}
+
+
+/* =========================================================
+   DOWNLOAD ACCESS LABEL
+========================================================= */
+
+function getDownloadAccessLabel(
+    access
+) {
+
+    switch (
+        access
+    ) {
+
+        case "public":
+
+            return "ログイン不要";
+
+
+        case "member":
+
+            return "加盟国限定";
+
+
+        case "private":
+
+            return "非公開";
+
+
+        case "user":
+
+        default:
+
+            return "ログイン必須";
+
+    }
+
+}
+
+
+/* =========================================================
+   CREDIT
+========================================================= */
+
+function getCreditType() {
+
+    return (
+        getCheckedValue(
+            "credit_type"
+        ) ||
+        "profile"
+    );
+
+}
+
+
+function updateCreditType() {
+
+    const type =
+        getCreditType();
+
+
+    if (
+        elements.profileCreditArea
+    ) {
+
+        elements.profileCreditArea.hidden =
+            type !==
+            "profile";
+
+    }
+
+
+    if (
+        elements.customCreditArea
+    ) {
+
+        elements.customCreditArea.hidden =
+            type !==
+            "custom";
+
+    }
+
+
+    if (
+        elements.customCreditText
+    ) {
+
+        elements.customCreditText.required =
+            type ===
+            "custom";
+
+    }
+
+}
+
+
+/* =========================================================
+   PROFILE CREDIT
+========================================================= */
+
+function renderProfileCredit() {
+
+    if (
+        !elements.profileCreditText
+    ) {
+
+        return;
+
+    }
+
+
+    elements.profileCreditText.textContent =
+        String(
+            currentProfile
+                ?.activity_name ||
+            ""
+        ).trim() ||
+        "プロフィールの活動名を取得できません。";
+
+}
+
+
+/* =========================================================
+   CREDIT TEXT
+========================================================= */
+
+function getCreditText() {
+
+    switch (
+        getCreditType()
+    ) {
+
+        case "profile":
+
+            return nullableText(
+                currentProfile
+                    ?.activity_name
+            );
+
+
+        case "custom":
+
+            return nullableText(
+                elements.customCreditText
+                    ?.value
+            );
+
+
+        case "none":
+
+        case "free":
+
+        default:
+
+            return null;
+
+    }
+
+}
 
 
 /* =========================================================
@@ -1379,21 +1596,13 @@ function validateForm() {
     clearMessages();
 
 
-    if (!currentUser) {
+    if (
+        !currentUser ||
+        !currentWork
+    ) {
 
         showError(
-            "ログイン情報を確認できません。"
-        );
-
-        return false;
-
-    }
-
-
-    if (!currentWork) {
-
-        showError(
-            "作品情報を確認できません。"
+            "作品情報またはログイン情報を確認できません。"
         );
 
         return false;
@@ -1417,18 +1626,24 @@ function validateForm() {
 
     const title =
         String(
-            elements.title?.value ||
+            elements.title
+                ?.value ||
             ""
         ).trim();
 
 
-    if (!title) {
+    if (
+        !title
+    ) {
 
         showError(
             "作品名を入力してください。"
         );
 
-        elements.title?.focus();
+
+        elements.title
+            ?.focus();
+
 
         return false;
 
@@ -1446,12 +1661,15 @@ function validateForm() {
 
         const url =
             String(
-                elements.externalUrl?.value ||
+                elements.externalUrl
+                    ?.value ||
                 ""
             ).trim();
 
 
-        if (!url) {
+        if (
+            !url
+        ) {
 
             showError(
                 "外部URLを入力してください。"
@@ -1462,7 +1680,11 @@ function validateForm() {
         }
 
 
-        if (!isValidHttpUrl(url)) {
+        if (
+            !isValidHttpUrl(
+                url
+            )
+        ) {
 
             showError(
                 "外部URLには http:// または https:// で始まるURLを入力してください。"
@@ -1480,21 +1702,18 @@ function validateForm() {
         "file"
     ) {
 
-        /*
-            元々URL作品だった場合は、
-            ファイルへ変更するには
-            新規ファイルが必要。
-        */
-
         const hasExistingFile =
+
             currentWork.submission_type ===
                 "file" &&
+
             Boolean(
                 currentWork.file_path
             );
 
 
         const hasNewFile =
+
             Boolean(
                 selectedWorkFile ||
                 elements.workFile
@@ -1519,10 +1738,15 @@ function validateForm() {
 
 
     const requiredTerms = [
+
         "commercial_use",
+
         "modification",
+
         "setting_modification",
+
         "destruction_depiction"
+
     ];
 
 
@@ -1532,8 +1756,8 @@ function validateForm() {
     ) {
 
         if (
-            !document.querySelector(
-                `input[name="${name}"]:checked`
+            !getCheckedValue(
+                name
             )
         ) {
 
@@ -1550,34 +1774,29 @@ function validateForm() {
 
     if (
         getCreditType() ===
-        "custom"
+            "custom" &&
+        !nullableText(
+            elements.customCreditText
+                ?.value
+        )
     ) {
 
-        const text =
-            String(
-                elements.customCreditText
-                    ?.value ||
-                ""
-            ).trim();
+        showError(
+            "クレジット書式を入力してください。"
+        );
 
-
-        if (!text) {
-
-            showError(
-                "クレジット書式を入力してください。"
-            );
-
-            return false;
-
-        }
+        return false;
 
     }
 
 
     if (
         getCreditType() ===
-        "profile" &&
-        !getProfileCreditText()
+            "profile" &&
+        !nullableText(
+            currentProfile
+                ?.activity_name
+        )
     ) {
 
         showError(
@@ -1594,7 +1813,6 @@ function validateForm() {
 }
 
 
-
 /* =========================================================
    SAVE
 ========================================================= */
@@ -1606,7 +1824,9 @@ async function handleSave(
     event.preventDefault();
 
 
-    if (!validateForm()) {
+    if (
+        !validateForm()
+    ) {
 
         return;
 
@@ -1629,6 +1849,14 @@ async function handleSave(
         null;
 
 
+    let newWorkFileBucket =
+        null;
+
+
+    let migratedFile =
+        null;
+
+
     try {
 
         /* -----------------------------------------
@@ -1644,7 +1872,9 @@ async function handleSave(
                 .getUser();
 
 
-        if (userError) {
+        if (
+            userError
+        ) {
 
             throw userError;
 
@@ -1684,7 +1914,9 @@ async function handleSave(
             null;
 
 
-        if (newImage) {
+        if (
+            newImage
+        ) {
 
             const result =
                 await uploadPreviewImage(
@@ -1709,6 +1941,27 @@ async function handleSave(
 
         const submissionType =
             getSubmissionType();
+
+
+        const downloadAccess =
+            getDownloadAccess();
+
+
+        const oldAccess =
+            currentWork.download_access ||
+            "user";
+
+
+        const oldBucket =
+            getWorkBucket(
+                oldAccess
+            );
+
+
+        const targetBucket =
+            getWorkBucket(
+                downloadAccess
+            );
 
 
         let filePath =
@@ -1756,17 +2009,24 @@ async function handleSave(
                 null;
 
 
-            if (newFile) {
+            if (
+                newFile
+            ) {
 
                 const result =
                     await uploadWorkFile(
                         currentWorkId,
-                        newFile
+                        newFile,
+                        targetBucket
                     );
 
 
                 newWorkFilePath =
                     result.path;
+
+
+                newWorkFileBucket =
+                    targetBucket;
 
 
                 filePath =
@@ -1785,6 +2045,54 @@ async function handleSave(
                     getFileType(
                         newFile
                     );
+
+            }
+            else {
+
+                /*
+                 * 新しいファイルを選択せず、
+                 * ダウンロード権限だけ変更した場合。
+                 *
+                 * public ↔ private 側で
+                 * Bucketが変わる場合は、
+                 * 既存ファイルをコピーする。
+                 */
+
+                const hasExistingFile =
+
+                    currentWork.submission_type ===
+                        "file" &&
+
+                    Boolean(
+                        currentWork.file_path
+                    );
+
+
+                if (
+                    hasExistingFile &&
+                    oldBucket !==
+                    targetBucket
+                ) {
+
+                    migratedFile =
+                        await migrateWorkFile({
+
+                            fromBucket:
+                                oldBucket,
+
+                            toBucket:
+                                targetBucket,
+
+                            path:
+                                currentWork.file_path
+
+                        });
+
+
+                    filePath =
+                        migratedFile.path;
+
+                }
 
             }
 
@@ -1839,55 +2147,73 @@ async function handleSave(
                     ""
                 ).trim(),
 
+
             description:
                 nullableText(
                     elements.description
                         ?.value
                 ),
 
+
             image_url:
                 imageUrl,
+
 
             tags:
                 getSelectedTags(),
 
+
             submission_type:
                 submissionType,
+
 
             file_path:
                 filePath,
 
+
             external_url:
                 externalUrl,
+
 
             original_filename:
                 originalFilename,
 
+
             file_size:
                 fileSize,
 
+
             file_type:
                 fileType,
+
+
+            download_access:
+                downloadAccess,
+
 
             commercial_use:
                 getCheckedValue(
                     "commercial_use"
                 ),
 
+
             modification:
                 getCheckedValue(
                     "modification"
                 ),
+
 
             setting_modification:
                 getCheckedValue(
                     "setting_modification"
                 ),
 
+
             destruction_depiction:
                 getCheckedValue(
                     "destruction_depiction"
                 ),
+
 
             other_terms:
                 nullableText(
@@ -1895,8 +2221,10 @@ async function handleSave(
                         ?.value
                 ),
 
+
             credit_type:
                 getCreditType(),
+
 
             credit_text:
                 getCreditText()
@@ -1905,14 +2233,14 @@ async function handleSave(
 
 
         /*
-            IMPORTANT
-
-            id
-            user_id
-            status
-
-            は絶対にUPDATEしない。
-        */
+         * IMPORTANT
+         *
+         * id
+         * user_id
+         * status
+         *
+         * は編集画面から更新しない。
+         */
 
 
         console.log(
@@ -1922,7 +2250,7 @@ async function handleSave(
 
 
         /* -----------------------------------------
-           UPDATE
+           DATABASE UPDATE
         ----------------------------------------- */
 
         const {
@@ -1950,14 +2278,18 @@ async function handleSave(
                 .maybeSingle();
 
 
-        if (updateError) {
+        if (
+            updateError
+        ) {
 
             throw updateError;
 
         }
 
 
-        if (!updatedWork) {
+        if (
+            !updatedWork
+        ) {
 
             throw new Error(
                 "作品を更新できませんでした。権限設定を確認してください。"
@@ -1978,7 +2310,7 @@ async function handleSave(
             const oldImagePath =
                 getStoragePathFromPublicUrl(
                     currentWork.image_url,
-                    "work-images"
+                    WORK_IMAGE_BUCKET
                 );
 
 
@@ -1989,7 +2321,7 @@ async function handleSave(
             ) {
 
                 await removeStorageFile(
-                    "work-images",
+                    WORK_IMAGE_BUCKET,
                     oldImagePath
                 );
 
@@ -2007,25 +2339,70 @@ async function handleSave(
 
 
         if (
-            oldFilePath &&
-            (
-                submissionType ===
-                    "url" ||
-                (
-                    newWorkFilePath &&
-                    newWorkFilePath !==
-                    oldFilePath
-                )
-            )
+            oldFilePath
         ) {
 
-            await removeStorageFile(
-                "work-files",
-                oldFilePath
-            );
+            /*
+             * FILE → URL
+             */
+
+            if (
+                submissionType ===
+                "url"
+            ) {
+
+                await removeStorageFile(
+                    oldBucket,
+                    oldFilePath
+                );
+
+            }
+
+
+            /*
+             * 新しいファイルへ差し替え
+             */
+
+            else if (
+                newWorkFilePath &&
+                (
+                    oldFilePath !==
+                        newWorkFilePath ||
+                    oldBucket !==
+                        newWorkFileBucket
+                )
+            ) {
+
+                await removeStorageFile(
+                    oldBucket,
+                    oldFilePath
+                );
+
+            }
+
+
+            /*
+             * Bucket移動完了後、
+             * 元Bucketから削除
+             */
+
+            else if (
+                migratedFile
+            ) {
+
+                await removeStorageFile(
+                    oldBucket,
+                    oldFilePath
+                );
+
+            }
 
         }
 
+
+        /* -----------------------------------------
+           SUCCESS
+        ----------------------------------------- */
 
         showSuccess(
             "作品情報を更新しました。"
@@ -2033,7 +2410,7 @@ async function handleSave(
 
 
         setTimeout(
-            function () {
+            () => {
 
                 window.location.href =
                     `work.html?id=${encodeURIComponent(currentWorkId)}`;
@@ -2043,7 +2420,9 @@ async function handleSave(
         );
 
     }
-    catch (error) {
+    catch (
+        error
+    ) {
 
         console.error(
             "EDIT WORK SAVE ERROR:",
@@ -2052,25 +2431,47 @@ async function handleSave(
 
 
         /*
-            DB更新に失敗した場合は
-            新しくアップロードしたファイルだけ削除する。
-        */
+         * DB更新前に作成された
+         * 新規ファイルだけロールバック。
+         */
 
-        if (newImagePath) {
+        if (
+            newImagePath
+        ) {
 
             await removeStorageFile(
-                "work-images",
+                WORK_IMAGE_BUCKET,
                 newImagePath
             );
 
         }
 
 
-        if (newWorkFilePath) {
+        if (
+            newWorkFilePath &&
+            newWorkFileBucket
+        ) {
 
             await removeStorageFile(
-                "work-files",
+                newWorkFileBucket,
                 newWorkFilePath
+            );
+
+        }
+
+
+        /*
+         * Bucket移行コピーも
+         * DB更新失敗時は削除。
+         */
+
+        if (
+            migratedFile
+        ) {
+
+            await removeStorageFile(
+                migratedFile.bucket,
+                migratedFile.path
             );
 
         }
@@ -2094,9 +2495,8 @@ async function handleSave(
 }
 
 
-
 /* =========================================================
-   UPLOAD IMAGE
+   UPLOAD PREVIEW IMAGE
 ========================================================= */
 
 async function uploadPreviewImage(
@@ -2110,11 +2510,6 @@ async function uploadPreviewImage(
         );
 
 
-    /*
-        既存画像と衝突しないよう
-        毎回新しいUUIDを付ける。
-    */
-
     const path =
         `${currentUser.id}/${workId}-${createUuid()}.${extension}`;
 
@@ -2125,12 +2520,13 @@ async function uploadPreviewImage(
         await window.supabaseClient
             .storage
             .from(
-                "work-images"
+                WORK_IMAGE_BUCKET
             )
             .upload(
                 path,
                 file,
                 {
+
                     cacheControl:
                         "3600",
 
@@ -2139,11 +2535,14 @@ async function uploadPreviewImage(
 
                     contentType:
                         file.type
+
                 }
             );
 
 
-    if (error) {
+    if (
+        error
+    ) {
 
         throw new Error(
             `プレビュー画像のアップロードに失敗しました: ${error.message}`
@@ -2158,14 +2557,16 @@ async function uploadPreviewImage(
         window.supabaseClient
             .storage
             .from(
-                "work-images"
+                WORK_IMAGE_BUCKET
             )
             .getPublicUrl(
                 path
             );
 
 
-    if (!data?.publicUrl) {
+    if (
+        !data?.publicUrl
+    ) {
 
         throw new Error(
             "プレビュー画像のURLを取得できませんでした。"
@@ -2187,14 +2588,14 @@ async function uploadPreviewImage(
 }
 
 
-
 /* =========================================================
    UPLOAD WORK FILE
 ========================================================= */
 
 async function uploadWorkFile(
     workId,
-    file
+    file,
+    bucket
 ) {
 
     const safeFilename =
@@ -2204,7 +2605,7 @@ async function uploadWorkFile(
 
 
     const path =
-        `${currentUser.id}/${workId}/${safeFilename}`;
+        `${currentUser.id}/${workId}/${createUuid()}-${safeFilename}`;
 
 
     const {
@@ -2213,12 +2614,13 @@ async function uploadWorkFile(
         await window.supabaseClient
             .storage
             .from(
-                "work-files"
+                bucket
             )
             .upload(
                 path,
                 file,
                 {
+
                     cacheControl:
                         "3600",
 
@@ -2228,11 +2630,14 @@ async function uploadWorkFile(
                     contentType:
                         file.type ||
                         "application/octet-stream"
+
                 }
             );
 
 
-    if (error) {
+    if (
+        error
+    ) {
 
         throw new Error(
             `作品ファイルのアップロードに失敗しました: ${error.message}`
@@ -2244,12 +2649,158 @@ async function uploadWorkFile(
     return {
 
         path:
+            path,
+
+        bucket:
+            bucket
+
+    };
+
+}
+
+
+/* =========================================================
+   MIGRATE WORK FILE
+========================================================= */
+
+async function migrateWorkFile({
+    fromBucket,
+    toBucket,
+    path
+}) {
+
+    if (
+        !fromBucket ||
+        !toBucket ||
+        !path
+    ) {
+
+        throw new Error(
+            "作品ファイルの移動情報が不足しています。"
+        );
+
+    }
+
+
+    if (
+        fromBucket ===
+        toBucket
+    ) {
+
+        return {
+
+            bucket:
+                toBucket,
+
+            path:
+                path
+
+        };
+
+    }
+
+
+    /*
+     * 既存BucketからBlobとして取得
+     */
+
+    const {
+        data: blob,
+        error: downloadError
+    } =
+        await window.supabaseClient
+            .storage
+            .from(
+                fromBucket
+            )
+            .download(
+                path
+            );
+
+
+    if (
+        downloadError ||
+        !blob
+    ) {
+
+        throw new Error(
+            `既存作品ファイルを読み込めませんでした: ${downloadError?.message || "download failed"}`
+        );
+
+    }
+
+
+    /*
+     * 新しいBucketへコピー
+     */
+
+    const {
+        error: uploadError
+    } =
+        await window.supabaseClient
+            .storage
+            .from(
+                toBucket
+            )
+            .upload(
+                path,
+                blob,
+                {
+
+                    cacheControl:
+                        "3600",
+
+                    upsert:
+                        false,
+
+                    contentType:
+                        blob.type ||
+                        "application/octet-stream"
+
+                }
+            );
+
+
+    if (
+        uploadError
+    ) {
+
+        throw new Error(
+            `作品ファイルの公開範囲変更に失敗しました: ${uploadError.message}`
+        );
+
+    }
+
+
+    return {
+
+        bucket:
+            toBucket,
+
+        path:
             path
 
     };
 
 }
 
+
+/* =========================================================
+   WORK BUCKET
+========================================================= */
+
+function getWorkBucket(
+    access
+) {
+
+    return (
+        access ===
+        "public"
+    )
+        ? PUBLIC_WORK_BUCKET
+        : PRIVATE_WORK_BUCKET;
+
+}
 
 
 /* =========================================================
@@ -2261,7 +2812,10 @@ async function removeStorageFile(
     path
 ) {
 
-    if (!path) {
+    if (
+        !bucket ||
+        !path
+    ) {
 
         return;
 
@@ -2283,12 +2837,9 @@ async function removeStorageFile(
                 ]);
 
 
-        if (error) {
-
-            /*
-                古いファイル削除失敗は
-                DB更新成功を取り消さない。
-            */
+        if (
+            error
+        ) {
 
             console.warn(
                 `STORAGE REMOVE ERROR (${bucket}):`,
@@ -2298,7 +2849,9 @@ async function removeStorageFile(
         }
 
     }
-    catch (error) {
+    catch (
+        error
+    ) {
 
         console.warn(
             `STORAGE REMOVE ERROR (${bucket}):`,
@@ -2308,7 +2861,6 @@ async function removeStorageFile(
     }
 
 }
-
 
 
 /* =========================================================
@@ -2343,9 +2895,10 @@ function getStoragePathFromPublicUrl(
 
 
         const index =
-            url.pathname.indexOf(
-                marker
-            );
+            url.pathname
+                .indexOf(
+                    marker
+                );
 
 
         if (
@@ -2359,10 +2912,14 @@ function getStoragePathFromPublicUrl(
 
 
         return decodeURIComponent(
+
             url.pathname.slice(
+
                 index +
                 marker.length
+
             )
+
         );
 
     }
@@ -2375,119 +2932,15 @@ function getStoragePathFromPublicUrl(
 }
 
 
-
 /* =========================================================
-   CREDIT
-========================================================= */
-
-function getProfileCreditText() {
-
-    const activityName =
-        String(
-            currentProfile?.activity_name ||
-            ""
-        ).trim();
-
-
-    return activityName ||
-        null;
-
-}
-
-
-
-function getCreditText() {
-
-    const type =
-        getCreditType();
-
-
-    switch (type) {
-
-        case "none":
-
-            return null;
-
-
-        case "free":
-
-            return null;
-
-
-        case "profile":
-
-            return getProfileCreditText();
-
-
-        case "custom":
-
-            return nullableText(
-                elements.customCreditText
-                    ?.value
-            );
-
-
-        default:
-
-            return null;
-
-    }
-
-}
-
-
-
-/* =========================================================
-   RADIO
-========================================================= */
-
-function setRadioValue(
-    name,
-    value
-) {
-
-    const input =
-        document.querySelector(
-            `input[name="${name}"][value="${value}"]`
-        );
-
-
-    if (input) {
-
-        input.checked =
-            true;
-
-    }
-
-}
-
-
-
-function getCheckedValue(
-    name
-) {
-
-    const input =
-        document.querySelector(
-            `input[name="${name}"]:checked`
-        );
-
-
-    return input
-        ? input.value
-        : null;
-
-}
-
-
-
-/* =========================================================
-   UI
+   SHOW FORM
 ========================================================= */
 
 function showForm() {
 
-    if (elements.loading) {
+    if (
+        elements.loading
+    ) {
 
         elements.loading.hidden =
             true;
@@ -2495,7 +2948,9 @@ function showForm() {
     }
 
 
-    if (elements.loginRequired) {
+    if (
+        elements.loginRequired
+    ) {
 
         elements.loginRequired.hidden =
             true;
@@ -2503,7 +2958,9 @@ function showForm() {
     }
 
 
-    if (elements.forbidden) {
+    if (
+        elements.forbidden
+    ) {
 
         elements.forbidden.hidden =
             true;
@@ -2511,7 +2968,9 @@ function showForm() {
     }
 
 
-    if (elements.form) {
+    if (
+        elements.form
+    ) {
 
         elements.form.hidden =
             false;
@@ -2521,10 +2980,15 @@ function showForm() {
 }
 
 
+/* =========================================================
+   SHOW LOGGED OUT
+========================================================= */
 
 function showLoggedOut() {
 
-    if (elements.loading) {
+    if (
+        elements.loading
+    ) {
 
         elements.loading.hidden =
             true;
@@ -2532,7 +2996,9 @@ function showLoggedOut() {
     }
 
 
-    if (elements.form) {
+    if (
+        elements.form
+    ) {
 
         elements.form.hidden =
             true;
@@ -2540,7 +3006,9 @@ function showLoggedOut() {
     }
 
 
-    if (elements.forbidden) {
+    if (
+        elements.forbidden
+    ) {
 
         elements.forbidden.hidden =
             true;
@@ -2548,7 +3016,9 @@ function showLoggedOut() {
     }
 
 
-    if (elements.loginRequired) {
+    if (
+        elements.loginRequired
+    ) {
 
         elements.loginRequired.hidden =
             false;
@@ -2558,12 +3028,17 @@ function showLoggedOut() {
 }
 
 
+/* =========================================================
+   SHOW FORBIDDEN
+========================================================= */
 
 function showForbidden(
     message
 ) {
 
-    if (elements.loading) {
+    if (
+        elements.loading
+    ) {
 
         elements.loading.hidden =
             true;
@@ -2571,7 +3046,9 @@ function showForbidden(
     }
 
 
-    if (elements.form) {
+    if (
+        elements.form
+    ) {
 
         elements.form.hidden =
             true;
@@ -2579,7 +3056,9 @@ function showForbidden(
     }
 
 
-    if (elements.loginRequired) {
+    if (
+        elements.loginRequired
+    ) {
 
         elements.loginRequired.hidden =
             true;
@@ -2587,7 +3066,9 @@ function showForbidden(
     }
 
 
-    if (elements.forbiddenText) {
+    if (
+        elements.forbiddenText
+    ) {
 
         elements.forbiddenText.textContent =
             message;
@@ -2595,7 +3076,9 @@ function showForbidden(
     }
 
 
-    if (elements.forbidden) {
+    if (
+        elements.forbidden
+    ) {
 
         elements.forbidden.hidden =
             false;
@@ -2603,7 +3086,6 @@ function showForbidden(
     }
 
 }
-
 
 
 /* =========================================================
@@ -2614,7 +3096,9 @@ function setSubmitting(
     value
 ) {
 
-    if (!elements.submitButton) {
+    if (
+        !elements.submitButton
+    ) {
 
         return;
 
@@ -2633,17 +3117,19 @@ function setSubmitting(
 }
 
 
-
 /* =========================================================
    MESSAGES
 ========================================================= */
 
 function clearMessages() {
 
-    if (elements.error) {
+    if (
+        elements.error
+    ) {
 
         elements.error.hidden =
             true;
+
 
         elements.error.textContent =
             "";
@@ -2651,10 +3137,13 @@ function clearMessages() {
     }
 
 
-    if (elements.success) {
+    if (
+        elements.success
+    ) {
 
         elements.success.hidden =
             true;
+
 
         elements.success.textContent =
             "";
@@ -2664,12 +3153,13 @@ function clearMessages() {
 }
 
 
-
 function showError(
     message
 ) {
 
-    if (!elements.error) {
+    if (
+        !elements.error
+    ) {
 
         console.error(
             message
@@ -2688,7 +3178,9 @@ function showError(
         false;
 
 
-    if (elements.success) {
+    if (
+        elements.success
+    ) {
 
         elements.success.hidden =
             true;
@@ -2698,12 +3190,13 @@ function showError(
 }
 
 
-
 function showSuccess(
     message
 ) {
 
-    if (!elements.success) {
+    if (
+        !elements.success
+    ) {
 
         return;
 
@@ -2718,7 +3211,9 @@ function showSuccess(
         false;
 
 
-    if (elements.error) {
+    if (
+        elements.error
+    ) {
 
         elements.error.hidden =
             true;
@@ -2727,6 +3222,70 @@ function showSuccess(
 
 }
 
+
+/* =========================================================
+   RADIO HELPERS
+========================================================= */
+
+function setRadioValue(
+    name,
+    value
+) {
+
+    const input =
+        document.querySelector(
+            `input[name="${name}"][value="${value}"]`
+        );
+
+
+    if (
+        input
+    ) {
+
+        input.checked =
+            true;
+
+    }
+
+}
+
+
+function getCheckedValue(
+    name
+) {
+
+    return (
+        document.querySelector(
+            `input[name="${name}"]:checked`
+        )
+            ?.value ||
+        null
+    );
+
+}
+
+
+/* =========================================================
+   TEXT HELPER
+========================================================= */
+
+function nullableText(
+    value
+) {
+
+    const text =
+        String(
+            value ??
+            ""
+        ).trim();
+
+
+    return (
+        text ||
+        null
+    );
+
+}
 
 
 /* =========================================================
@@ -2762,48 +3321,9 @@ function isValidHttpUrl(
 }
 
 
-
 /* =========================================================
-   FILE HELPERS
+   IMAGE EXTENSION
 ========================================================= */
-
-function getFileExtension(
-    filename
-) {
-
-    if (!filename) {
-
-        return "";
-
-    }
-
-
-    const index =
-        filename.lastIndexOf(
-            "."
-        );
-
-
-    if (
-        index <= 0 ||
-        index ===
-            filename.length - 1
-    ) {
-
-        return "";
-
-    }
-
-
-    return filename
-        .slice(
-            index + 1
-        )
-        .toLowerCase();
-
-}
-
-
 
 function getImageExtension(
     file
@@ -2821,15 +3341,18 @@ function getImageExtension(
             "jpg",
             "jpeg",
             "webp"
-        ].includes(
-            extension
-        )
+        ]
+            .includes(
+                extension
+            )
     ) {
 
-        return extension ===
+        return (
+            extension ===
             "jpeg"
-                ? "jpg"
-                : extension;
+        )
+            ? "jpg"
+            : extension;
 
     }
 
@@ -2838,9 +3361,9 @@ function getImageExtension(
         file.type
     ) {
 
-        case "image/png":
+        case "image/jpeg":
 
-            return "png";
+            return "jpg";
 
 
         case "image/webp":
@@ -2850,13 +3373,46 @@ function getImageExtension(
 
         default:
 
-            return "jpg";
+            return "png";
 
     }
 
 }
 
 
+/* =========================================================
+   FILE EXTENSION
+========================================================= */
+
+function getFileExtension(
+    filename
+) {
+
+    const parts =
+        String(
+            filename ||
+            ""
+        )
+            .split(
+                "."
+            );
+
+
+    return (
+        parts.length >
+        1
+    )
+        ? String(
+            parts.pop()
+        ).toLowerCase()
+        : "";
+
+}
+
+
+/* =========================================================
+   FILE TYPE
+========================================================= */
 
 function getFileType(
     file
@@ -2864,51 +3420,69 @@ function getFileType(
 
     const extension =
         getFileExtension(
-            file.name
+            file?.name
         );
 
 
-    return extension ||
-        file.type ||
-        "unknown";
+    return (
+        extension
+    )
+        ? extension
+            .toUpperCase()
+        : file?.type ||
+            "FILE";
 
 }
 
 
+/* =========================================================
+   SAFE STORAGE FILENAME
+========================================================= */
 
 function getSafeStorageFilename(
     file
 ) {
 
-    const extension =
-        getFileExtension(
+    const original =
+        String(
             file?.name ||
-            ""
-        )
-            .replace(
-                /[^a-z0-9]/gi,
-                ""
+            "file"
+        );
+
+
+    const normalized =
+        original
+            .normalize(
+                "NFKC"
             )
-            .slice(
-                0,
-                20
+            .replace(
+                /[\\/:*?"<>|#%{}[\]`~&+]/g,
+                "_"
+            )
+            .replace(
+                /\s+/g,
+                "_"
+            )
+            .replace(
+                /_+/g,
+                "_"
+            )
+            .replace(
+                /^_+|_+$/g,
+                ""
             );
 
 
-    const id =
-        createUuid();
-
-
-    return extension
-        ? `${id}.${extension}`
-        : id;
+    return (
+        normalized ||
+        "file"
+    );
 
 }
 
 
-
 /* =========================================================
-   FILE SIZE
+   FORMAT FILE SIZE
 ========================================================= */
 
 function formatFileSize(
@@ -2925,7 +3499,8 @@ function formatFileSize(
         !Number.isFinite(
             value
         ) ||
-        value < 0
+        value <
+        0
     ) {
 
         return "-";
@@ -2934,74 +3509,61 @@ function formatFileSize(
 
 
     if (
-        value <
-        1024
+        value ===
+        0
     ) {
 
-        return `${value} B`;
+        return "0 B";
 
     }
 
 
-    const kb =
+    const units = [
+
+        "B",
+
+        "KB",
+
+        "MB",
+
+        "GB",
+
+        "TB"
+
+    ];
+
+
+    const index =
+        Math.min(
+
+            Math.floor(
+                Math.log(
+                    value
+                ) /
+                Math.log(
+                    1024
+                )
+            ),
+
+            units.length -
+            1
+
+        );
+
+
+    const size =
         value /
-        1024;
+        Math.pow(
+            1024,
+            index
+        );
 
 
-    if (
-        kb <
-        1024
-    ) {
-
-        return `${kb.toFixed(1)} KB`;
-
-    }
-
-
-    const mb =
-        kb /
-        1024;
-
-
-    if (
-        mb <
-        1024
-    ) {
-
-        return `${mb.toFixed(1)} MB`;
-
-    }
-
-
-    return `${(
-        mb /
-        1024
-    ).toFixed(2)} GB`;
+    return (
+        `${size.toFixed(index === 0 ? 0 : 2)} ${units[index]}`
+    );
 
 }
-
-
-
-/* =========================================================
-   NULLABLE
-========================================================= */
-
-function nullableText(
-    value
-) {
-
-    const text =
-        String(
-            value ??
-            ""
-        ).trim();
-
-
-    return text ||
-        null;
-
-}
-
 
 
 /* =========================================================
@@ -3011,12 +3573,11 @@ function nullableText(
 function createUuid() {
 
     if (
-        window.crypto &&
-        typeof window.crypto.randomUUID ===
-        "function"
+        crypto
+            ?.randomUUID
     ) {
 
-        return window.crypto
+        return crypto
             .randomUUID();
 
     }
@@ -3024,8 +3585,10 @@ function createUuid() {
 
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
         .replace(
+
             /[xy]/g,
-            function (character) {
+
+            char => {
 
                 const random =
                     Math.random() *
@@ -3034,7 +3597,7 @@ function createUuid() {
 
 
                 const value =
-                    character ===
+                    char ===
                     "x"
                         ? random
                         : (
@@ -3050,10 +3613,10 @@ function createUuid() {
                     );
 
             }
+
         );
 
 }
-
 
 
 /* =========================================================
@@ -3064,49 +3627,34 @@ function getErrorMessage(
     error
 ) {
 
-    const message =
-        String(
-            error?.message ||
-            error?.details ||
-            ""
-        ).trim();
+    if (
+        !error
+    ) {
 
-
-    if (!message) {
-
-        return "作品の編集処理中にエラーが発生しました。";
+        return "不明なエラーが発生しました。";
 
     }
 
 
     if (
-        message.includes(
-            "row-level security"
-        )
+        typeof error ===
+        "string"
     ) {
 
-        return "Supabaseのアクセス権限により編集が拒否されました。worksまたはStorageのRLSポリシーを確認してください。";
+        return error;
 
     }
 
 
-    if (
-        message.includes(
-            "Bucket not found"
-        )
-    ) {
-
-        return "必要なStorageバケットが見つかりません。";
-
-    }
-
-
-    return message;
+    return (
+        error.message ||
+        error.error_description ||
+        "処理中にエラーが発生しました。"
+    );
 
 }
 
 
-
 console.log(
-    "MFDCO edit-work.js loaded successfully."
+    "MFDCO edit-work.js loaded."
 );

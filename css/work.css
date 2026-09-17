@@ -2,27 +2,56 @@
    MFDCO WORK DETAIL
 ========================================= */
 
+
 .work-detail-page {
+
     background: #ffffff;
+
+    color: #111111;
+
 }
 
 
+/* =========================================
+   MAIN
+========================================= */
+
+
 .work-detail-main {
+
     min-height: 100vh;
+
 }
 
 
 .work-detail-container {
-    width: min(1200px, calc(100% - 40px));
 
-    margin: 0 auto;
+    width:
+        min(
+            1200px,
+            calc(100% - 40px)
+        );
 
-    padding: 125px 0 120px;
+    margin:
+        0 auto;
+
+    padding:
+        110px
+        0
+        90px;
+
 }
 
 
+/* =========================================
+   HIDDEN
+========================================= */
+
+
 .work-detail-page [hidden] {
+
     display: none !important;
+
 }
 
 
@@ -30,23 +59,31 @@
    BACK
 ========================================= */
 
+
 .work-back {
+
     margin-bottom: 35px;
+
 }
 
 
 .work-back a {
+
     color: #164b4b;
 
     font-size: 12px;
+
     font-weight: 600;
 
     text-decoration: none;
+
 }
 
 
 .work-back a:hover {
+
     text-decoration: underline;
+
 }
 
 
@@ -54,22 +91,31 @@
    HERO
 ========================================= */
 
+
 .work-hero {
+
     display: grid;
 
     grid-template-columns:
         minmax(0, 1.1fr)
         minmax(360px, 0.9fr);
 
-    gap: 60px;
+    gap: 48px;
 
     align-items: center;
 
-    margin-bottom: 95px;
+    margin-bottom: 65px;
+
 }
 
 
+/* =========================================
+   MAIN IMAGE
+========================================= */
+
+
 .work-main-image {
+
     position: relative;
 
     width: 100%;
@@ -79,50 +125,68 @@
     overflow: hidden;
 
     background: #eeeeee;
+
 }
 
 
 .work-main-image img {
+
     display: block;
 
     width: 100% !important;
+
     height: 100% !important;
 
     object-fit: cover;
+
 }
 
 
 .work-image-placeholder {
+
     display: flex;
 
     width: 100%;
+
     height: 100%;
 
     align-items: center;
+
     justify-content: center;
 
     color: #999999;
 
     font-size: 11px;
+
     font-weight: 600;
 
     letter-spacing: 0.15em;
+
 }
 
 
+/* =========================================
+   HERO TEXT
+========================================= */
+
+
 .work-eyebrow {
+
     margin: 0 0 15px;
 
     color: #164b4b;
 
     font-size: 11px;
+
     font-weight: 700;
 
     letter-spacing: 0.16em;
+
 }
 
 
 .work-hero-content h1 {
+
     margin: 0 0 32px;
 
     color: #111111;
@@ -139,6 +203,7 @@
     line-height: 1.25;
 
     word-break: break-word;
+
 }
 
 
@@ -146,7 +211,9 @@
    AUTHOR
 ========================================= */
 
+
 .work-author {
+
     display: flex;
 
     align-items: center;
@@ -154,32 +221,42 @@
     gap: 12px;
 
     margin-bottom: 30px;
+
 }
 
 
 .work-author-icon {
+
     display: block;
 
     width: 44px !important;
+
     height: 44px !important;
 
     min-width: 44px;
+
     max-width: 44px;
 
     min-height: 44px;
+
     max-height: 44px;
 
-    flex: 0 0 44px;
+    flex:
+        0
+        0
+        44px;
 
     border-radius: 50%;
 
     object-fit: cover;
 
     background: #eeeeee;
+
 }
 
 
 .work-author-label {
+
     display: block;
 
     margin-bottom: 3px;
@@ -191,13 +268,16 @@
     font-weight: 700;
 
     letter-spacing: 0.14em;
+
 }
 
 
 .work-author strong {
+
     color: #164b4b;
 
     font-size: 14px;
+
 }
 
 
@@ -205,32 +285,50 @@
    META
 ========================================= */
 
+
 .work-meta {
+
     display: grid;
 
     grid-template-columns:
-        repeat(2, 1fr);
+        repeat(
+            2,
+            1fr
+        );
 
     margin-bottom: 25px;
 
-    border-top: 1px solid #dddddd;
-    border-bottom: 1px solid #dddddd;
+    border-top:
+        1px solid
+        #dddddd;
+
+    border-bottom:
+        1px solid
+        #dddddd;
+
 }
 
 
 .work-meta > div {
+
     padding: 17px 0;
+
 }
 
 
 .work-meta > div + div {
+
     padding-left: 25px;
 
-    border-left: 1px solid #dddddd;
+    border-left:
+        1px solid
+        #dddddd;
+
 }
 
 
 .work-meta span {
+
     display: block;
 
     margin-bottom: 5px;
@@ -238,15 +336,120 @@
     color: #999999;
 
     font-size: 9px;
+
 }
 
 
 .work-meta strong {
+
     color: #333333;
 
     font-size: 12px;
 
     font-weight: 600;
+
+}
+
+
+/* =========================================
+   ACCESS
+========================================= */
+
+
+.work-access {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 7px;
+
+    margin-bottom: 22px;
+
+}
+
+
+.work-access-badge {
+
+    display: inline-flex;
+
+    min-height: 31px;
+
+    padding:
+        6px
+        11px;
+
+    align-items: center;
+
+    box-sizing: border-box;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.03em;
+
+}
+
+
+.work-access-text {
+
+    color: #666666;
+
+    font-size: 10px;
+
+    line-height: 1.7;
+
+}
+
+
+/* PUBLIC */
+
+
+.work-access-public {
+
+    background: #e7f4f1;
+
+    color: #164b4b;
+
+}
+
+
+/* USER */
+
+
+.work-access-user {
+
+    background: #eeeeee;
+
+    color: #333333;
+
+}
+
+
+/* MEMBER */
+
+
+.work-access-member {
+
+    background: #f0ebdc;
+
+    color: #5e4d1e;
+
+}
+
+
+/* PRIVATE */
+
+
+.work-access-private {
+
+    background: #f3e6e6;
+
+    color: #742e2e;
+
 }
 
 
@@ -254,21 +457,27 @@
    TAGS
 ========================================= */
 
+
 .work-tags {
+
     display: flex;
 
     flex-wrap: wrap;
 
     gap: 7px;
+
 }
 
 
 .work-tag {
+
     display: inline-flex;
 
     min-height: 31px;
 
-    padding: 5px 10px;
+    padding:
+        5px
+        10px;
 
     align-items: center;
 
@@ -281,6 +490,45 @@
     font-size: 10px;
 
     font-weight: 700;
+
+}
+
+
+/* =========================================
+   OWNER ACTIONS
+========================================= */
+
+
+.work-owner-actions {
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+
+}
+
+.work-danger-button {
+    appearance: none;
+    padding: 13px 22px;
+    border: 1px solid #a52b2b;
+    background: #a52b2b;
+    color: #ffffff;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.work-danger-button:hover {
+    background: #842020;
+}
+
+.work-danger-button:disabled {
+    cursor: wait;
+    opacity: 0.6;
 }
 
 
@@ -288,45 +536,64 @@
    SECTION
 ========================================= */
 
-.work-section {
-    padding: 65px 0;
 
-    border-top: 1px solid #dddddd;
+.work-section {
+
+    padding:
+        50px
+        0;
+
+    border-top:
+        1px solid
+        #dddddd;
+
 }
 
 
 .work-section-header {
+
     display: grid;
 
-    grid-template-columns: 220px 1fr;
+    grid-template-columns:
+        220px
+        1fr;
 
     gap: 30px;
 
     margin-bottom: 35px;
+
 }
 
 
 .work-section-header p {
-    margin: 5px 0 0;
+
+    margin:
+        5px
+        0
+        0;
 
     color: #164b4b;
 
     font-size: 12px;
 
     font-weight: 700;
+
 }
 
 
 .work-section-header p span {
+
     margin-left: 10px;
 
     font-size: 9px;
 
     letter-spacing: 0.12em;
+
 }
 
 
 .work-section-header h2 {
+
     margin: 0;
 
     color: #111111;
@@ -339,6 +606,7 @@
         );
 
     font-weight: 500;
+
 }
 
 
@@ -346,7 +614,9 @@
    DESCRIPTION
 ========================================= */
 
+
 .work-description {
+
     max-width: 820px;
 
     margin:
@@ -364,6 +634,7 @@
     white-space: pre-wrap;
 
     word-break: break-word;
+
 }
 
 
@@ -371,19 +642,26 @@
    CONDITIONS
 ========================================= */
 
+
 .condition-grid {
+
     display: grid;
 
     grid-template-columns:
-        repeat(2, 1fr);
+        repeat(
+            2,
+            1fr
+        );
 
     gap: 12px;
 
     margin-left: 250px;
+
 }
 
 
 .condition-item {
+
     display: flex;
 
     min-height: 80px;
@@ -398,27 +676,40 @@
 
     box-sizing: border-box;
 
-    border: 1px solid #dddddd;
+    border:
+        1px solid
+        #dddddd;
 
     background: #fafafa;
+
 }
 
 
 .condition-item span {
+
     color: #666666;
 
     font-size: 11px;
+
 }
 
 
 .condition-item strong {
+
     color: #164b4b;
 
     font-size: 13px;
+
 }
 
 
+/* =========================================
+   OTHER TERMS
+========================================= */
+
+
 .other-terms {
+
     margin:
         25px
         0
@@ -428,19 +719,23 @@
     padding: 25px;
 
     background: #f7f7f7;
+
 }
 
 
 .other-terms h3 {
+
     margin: 0 0 10px;
 
     color: #222222;
 
     font-size: 12px;
+
 }
 
 
 .other-terms p {
+
     margin: 0;
 
     color: #555555;
@@ -450,6 +745,7 @@
     line-height: 1.9;
 
     white-space: pre-wrap;
+
 }
 
 
@@ -457,23 +753,31 @@
    CREDIT
 ========================================= */
 
+
 .credit-box {
+
     margin-left: 250px;
 
     padding: 30px;
 
-    border-left: 4px solid #164b4b;
+    border-left:
+        4px solid
+        #164b4b;
 
     background: #f5f8f8;
+
 }
 
 
 .credit-box > div {
+
     margin-bottom: 18px;
+
 }
 
 
 .credit-label {
+
     display: block;
 
     margin-bottom: 5px;
@@ -485,17 +789,21 @@
     font-weight: 700;
 
     letter-spacing: 0.12em;
+
 }
 
 
 .credit-box strong {
+
     color: #164b4b;
 
     font-size: 14px;
+
 }
 
 
 .credit-box p {
+
     margin: 0;
 
     color: #333333;
@@ -505,19 +813,29 @@
     line-height: 1.8;
 
     white-space: pre-wrap;
+
 }
 
 
 /* =========================================
-   DOWNLOAD
+   DOWNLOAD SECTION
 ========================================= */
 
+
 .work-download-section {
+
     padding-bottom: 0;
+
 }
 
 
+/* =========================================
+   DOWNLOAD PANEL
+========================================= */
+
+
 .download-panel {
+
     display: grid;
 
     grid-template-columns:
@@ -533,31 +851,50 @@
     background: #164b4b;
 
     color: #ffffff;
+
 }
 
 
+/* =========================================
+   DOWNLOAD INFORMATION
+========================================= */
+
+
 .download-information dl {
+
     margin: 0;
+
 }
 
 
 .download-information dl > div {
+
     display: grid;
 
     grid-template-columns:
-        130px 1fr;
+        130px
+        1fr;
 
     gap: 20px;
 
-    padding: 12px 0;
+    padding:
+        12px
+        0;
 
     border-bottom:
         1px solid
-        rgba(255, 255, 255, 0.18);
+        rgba(
+            255,
+            255,
+            255,
+            0.18
+        );
+
 }
 
 
 .download-information dt {
+
     color:
         rgba(
             255,
@@ -567,10 +904,12 @@
         );
 
     font-size: 10px;
+
 }
 
 
 .download-information dd {
+
     margin: 0;
 
     color: #ffffff;
@@ -578,11 +917,86 @@
     font-size: 12px;
 
     word-break: break-word;
+
 }
 
 
+/* =========================================
+   DOWNLOAD ACCESS MESSAGE
+========================================= */
+
+
+.download-access-message {
+
+    margin-top: 25px;
+
+    padding:
+        18px
+        20px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.22
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+}
+
+
+.download-access-message strong {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+}
+
+
+.download-access-message p {
+
+    margin: 0;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.75
+        );
+
+    font-size: 10px;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================
+   DOWNLOAD NOTICE
+========================================= */
+
+
 .download-notice {
-    margin: 25px 0 0;
+
+    margin:
+        25px
+        0
+        0;
 
     color:
         rgba(
@@ -595,6 +1009,114 @@
     font-size: 10px;
 
     line-height: 1.9;
+
+}
+
+
+/* =========================================
+   DOWNLOAD ACTION
+========================================= */
+
+
+.download-action {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 14px;
+
+}
+
+
+/* =========================================
+   TERMS CONFIRMATION
+========================================= */
+
+
+.download-confirmation {
+
+    display: flex;
+
+    gap: 12px;
+
+    padding: 16px;
+
+    box-sizing: border-box;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.1
+        );
+
+    color: #ffffff;
+
+    cursor: pointer;
+
+}
+
+
+.download-confirmation input {
+
+    width: 18px;
+
+    height: 18px;
+
+    min-width: 18px;
+
+    margin:
+        2px
+        0
+        0;
+
+    accent-color: #ffffff;
+
+    cursor: pointer;
+
+}
+
+
+.download-confirmation > span {
+
+    display: block;
+
+}
+
+
+.download-confirmation strong {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+}
+
+
+.download-confirmation small {
+
+    display: block;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.68
+        );
+
+    font-size: 9px;
+
+    line-height: 1.7;
+
 }
 
 
@@ -602,21 +1124,18 @@
    DOWNLOAD BUTTON
 ========================================= */
 
-.download-action {
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-}
-
 
 .download-button {
+
     display: grid;
 
-    grid-template-columns: 1fr auto;
+    grid-template-columns:
+        1fr
+        auto;
 
-    gap: 5px 15px;
+    gap:
+        5px
+        15px;
 
     width: 100%;
 
@@ -643,48 +1162,157 @@
     cursor: pointer;
 
     transition:
-        transform 0.18s ease,
-        opacity 0.18s ease;
+        transform
+        0.18s
+        ease,
+
+        opacity
+        0.18s
+        ease,
+
+        background
+        0.18s
+        ease;
+
 }
 
 
 .download-button:hover {
-    transform: translateY(-2px);
+
+    transform:
+        translateY(
+            -2px
+        );
+
+}
+
+
+.download-button:focus-visible {
+
+    outline:
+        3px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    outline-offset: 3px;
+
 }
 
 
 .download-button:disabled {
-    opacity: 0.6;
 
-    cursor: wait;
+    opacity: 0.45;
+
+    cursor: not-allowed;
 
     transform: none;
+
 }
 
 
 .download-button-small {
-    grid-column: 1 / -1;
+
+    grid-column:
+        1
+        /
+        -1;
 
     font-size: 8px;
 
     font-weight: 700;
 
     letter-spacing: 0.14em;
+
 }
 
 
 .download-button strong {
+
     font-size: 14px;
+
 }
 
 
 .download-button > span:last-child {
+
     font-size: 22px;
+
 }
 
 
+/* =========================================
+   LOGIN BUTTON
+========================================= */
+
+
+.download-login-button {
+
+    display: flex;
+
+    width: 100%;
+
+    min-height: 54px;
+
+    padding:
+        12px
+        18px;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        background
+        0.18s
+        ease,
+
+        color
+        0.18s
+        ease;
+
+}
+
+
+.download-login-button:hover {
+
+    background: #ffffff;
+
+    color: #164b4b;
+
+}
+
+
+/* =========================================
+   DOWNLOAD ERROR
+========================================= */
+
+
 .download-error {
-    margin-top: 12px;
 
     padding: 12px;
 
@@ -701,6 +1329,33 @@
     font-size: 11px;
 
     line-height: 1.7;
+
+}
+
+
+/* =========================================
+   DOWNLOAD STATUS
+========================================= */
+
+
+.download-status {
+
+    min-height: 18px;
+
+    margin: 0;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+    font-size: 10px;
+
+    line-height: 1.7;
+
 }
 
 
@@ -708,48 +1363,74 @@
    MESSAGE
 ========================================= */
 
-.work-message {
-    padding: 70px 25px;
 
-    border: 1px solid #dddddd;
+.work-message {
+
+    padding:
+        70px
+        25px;
+
+    border:
+        1px solid
+        #dddddd;
 
     background: #fafafa;
 
     text-align: center;
 
     color: #666666;
+
 }
 
 
 .work-message h1 {
+
     margin: 0 0 15px;
 
     color: #222222;
 
     font-size: 28px;
+
 }
 
 
 .work-message p {
-    margin: 0 0 25px;
+
+    margin:
+        0
+        0
+        25px;
 
     font-size: 13px;
 
     line-height: 1.8;
+
 }
 
 
 .work-message-error {
-    border-left: 4px solid #9b3939;
+
+    border-left:
+        4px solid
+        #9b3939;
+
 }
 
 
+/* =========================================
+   PRIMARY BUTTON
+========================================= */
+
+
 .work-primary-button {
+
     display: inline-flex;
 
     min-height: 44px;
 
-    padding: 10px 22px;
+    padding:
+        10px
+        22px;
 
     align-items: center;
 
@@ -766,6 +1447,7 @@
     font-weight: 600;
 
     text-decoration: none;
+
 }
 
 
@@ -773,22 +1455,32 @@
    TABLET
 ========================================= */
 
-@media (max-width: 900px) {
+
+@media (
+    max-width: 900px
+) {
+
 
     .work-detail-container {
+
         padding-top: 110px;
+
     }
 
 
     .work-hero {
+
         grid-template-columns: 1fr;
 
         gap: 35px;
+
     }
 
 
     .work-main-image {
+
         max-width: 650px;
+
     }
 
 
@@ -797,18 +1489,27 @@
     .other-terms,
     .credit-box,
     .download-panel {
+
         margin-left: 0;
+
     }
 
 
     .work-section-header {
-        grid-template-columns: 160px 1fr;
+
+        grid-template-columns:
+            160px
+            1fr;
+
     }
 
 
     .download-panel {
+
         grid-template-columns: 1fr;
+
     }
+
 
 }
 
@@ -817,60 +1518,107 @@
    MOBILE
 ========================================= */
 
-@media (max-width: 600px) {
+
+@media (
+    max-width: 600px
+) {
+
 
     .work-detail-container {
-        width: calc(100% - 24px);
 
-        padding: 95px 0 70px;
+        width:
+            calc(
+                100% - 24px
+            );
+
+        padding:
+            95px
+            0
+            70px;
+
     }
 
 
     .work-hero {
+
         margin-bottom: 60px;
+
     }
 
 
     .work-meta {
+
         grid-template-columns: 1fr;
+
     }
 
 
     .work-meta > div + div {
+
         padding-left: 0;
 
         border-left: 0;
-        border-top: 1px solid #dddddd;
+
+        border-top:
+            1px solid
+            #dddddd;
+
     }
 
 
     .work-section {
-        padding: 45px 0;
+
+        padding:
+            45px
+            0;
+
     }
 
 
     .work-section-header {
+
         display: block;
+
     }
 
 
     .work-section-header p {
+
         margin-bottom: 10px;
+
     }
 
 
     .condition-grid {
+
         grid-template-columns: 1fr;
+
     }
 
 
     .download-panel {
-        padding: 25px 20px;
+
+        padding:
+            25px
+            20px;
+
     }
 
 
     .download-information dl > div {
-        grid-template-columns: 100px 1fr;
+
+        grid-template-columns:
+            100px
+            1fr;
+
     }
+
+
+    .download-confirmation {
+
+        padding: 14px;
+
+    }
+
 
 }

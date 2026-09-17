@@ -17,16 +17,18 @@
     >
 
     <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/footer.css">
-<link rel="stylesheet" href="css/work.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/work.css">
 </head>
 
 
 <body class="work-detail-page">
 
 
-    <!-- COMMON HEADER -->
+    <!-- =========================================
+         COMMON HEADER
+    ========================================== -->
 
     <div id="header-container"></div>
 
@@ -36,7 +38,9 @@
         <div class="work-detail-container">
 
 
-            <!-- BACK -->
+            <!-- =========================================
+                 BACK
+            ========================================== -->
 
             <div class="work-back">
 
@@ -47,7 +51,9 @@
             </div>
 
 
-            <!-- LOADING -->
+            <!-- =========================================
+                 LOADING
+            ========================================== -->
 
             <div
                 id="work-loading"
@@ -57,7 +63,9 @@
             </div>
 
 
-            <!-- ERROR -->
+            <!-- =========================================
+                 ERROR
+            ========================================== -->
 
             <div
                 id="work-error"
@@ -83,7 +91,9 @@
             </div>
 
 
-            <!-- CONTENT -->
+            <!-- =========================================
+                 CONTENT
+            ========================================== -->
 
             <div
                 id="work-content"
@@ -182,30 +192,74 @@
                         </div>
 
 
+                        <!-- =================================
+                             DOWNLOAD ACCESS
+                        ================================== -->
+
+                        <div
+                            id="work-access"
+                            class="work-access"
+                            hidden
+                        >
+
+                            <span
+                                id="work-access-badge"
+                                class="work-access-badge"
+                            >
+                                -
+                            </span>
+
+                            <span
+                                id="work-access-text"
+                                class="work-access-text"
+                            >
+                                -
+                            </span>
+
+                        </div>
+
+
+                        <!-- =================================
+                             TAGS
+                        ================================== -->
+
                         <div
                             id="work-tags"
                             class="work-tags"
                         ></div>
 
-                        <!-- OWNER ACTIONS -->
 
-<div
-    id="work-owner-actions"
-    class="work-owner-actions"
-    hidden
->
+                        <!-- =================================
+                             OWNER ACTIONS
+                        ================================== -->
 
-    <a
-        id="edit-work-button"
-        href="#"
-        class="work-primary-button"
-    >
-        作品を編集する
-    </a>
+                        <div
+                            id="work-owner-actions"
+                            class="work-owner-actions"
+                            hidden
+                        >
 
-</div>
+                            <a
+                                id="edit-work-button"
+                                href="#"
+                                class="work-primary-button"
+                            >
+                                作品を編集する
+                            </a>
+
+                            <button
+                                type="button"
+                                id="delete-work-button"
+                                class="work-danger-button"
+                            >
+                                作品を削除する
+                            </button>
+
+                        </div>
+
 
                     </div>
+
 
                 </section>
 
@@ -217,10 +271,12 @@
 
                 <section class="work-section">
 
+
                     <header class="work-section-header">
 
                         <p>
                             01
+
                             <span>
                                 DESCRIPTION
                             </span>
@@ -240,6 +296,7 @@
                         -
                     </p>
 
+
                 </section>
 
 
@@ -250,10 +307,12 @@
 
                 <section class="work-section">
 
+
                     <header class="work-section-header">
 
                         <p>
                             02
+
                             <span>
                                 USAGE CONDITIONS
                             </span>
@@ -336,6 +395,7 @@
 
                     </div>
 
+
                 </section>
 
 
@@ -346,10 +406,12 @@
 
                 <section class="work-section">
 
+
                     <header class="work-section-header">
 
                         <p>
                             03
+
                             <span>
                                 CREDIT
                             </span>
@@ -363,6 +425,7 @@
 
 
                     <div class="credit-box">
+
 
                         <div>
 
@@ -381,7 +444,9 @@
                             -
                         </p>
 
+
                     </div>
+
 
                 </section>
 
@@ -393,10 +458,12 @@
 
                 <section class="work-section work-download-section">
 
+
                     <header class="work-section-header">
 
                         <p>
                             04
+
                             <span>
                                 DOWNLOAD
                             </span>
@@ -412,10 +479,15 @@
                     <div class="download-panel">
 
 
+                        <!-- =================================
+                             DOWNLOAD INFORMATION
+                        ================================== -->
+
                         <div class="download-information">
 
 
                             <dl>
+
 
                                 <div>
 
@@ -424,6 +496,19 @@
                                     </dt>
 
                                     <dd id="download-type">
+                                        -
+                                    </dd>
+
+                                </div>
+
+
+                                <div>
+
+                                    <dt>
+                                        ダウンロード権限
+                                    </dt>
+
+                                    <dd id="download-access">
                                         -
                                     </dd>
 
@@ -474,8 +559,38 @@
 
                                 </div>
 
+
                             </dl>
 
+
+                            <!-- =================================
+                                 ACCESS MESSAGE
+                            ================================== -->
+
+                            <div
+                                id="download-access-message"
+                                class="download-access-message"
+                                hidden
+                            >
+
+                                <strong
+                                    id="download-access-title"
+                                >
+                                    -
+                                </strong>
+
+                                <p
+                                    id="download-access-description"
+                                >
+                                    -
+                                </p>
+
+                            </div>
+
+
+                            <!-- =================================
+                                 NOTICE
+                            ================================== -->
 
                             <p class="download-notice">
 
@@ -485,11 +600,53 @@
 
                             </p>
 
+
                         </div>
 
 
+
+                        <!-- =================================
+                             DOWNLOAD ACTION
+                        ================================== -->
+
                         <div class="download-action">
 
+
+                            <!-- =================================
+                                 TERMS CONFIRMATION
+                            ================================== -->
+
+                            <label
+                                id="download-confirmation"
+                                class="download-confirmation"
+                                hidden
+                            >
+
+                                <input
+                                    type="checkbox"
+                                    id="download-terms-confirm"
+                                >
+
+                                <span>
+
+                                    <strong>
+                                        利用条件を確認しました
+                                    </strong>
+
+                                    <small>
+                                        このページに記載されている利用条件と
+                                        クレジット条件に従って利用します。
+                                    </small>
+
+                                </span>
+
+                            </label>
+
+
+
+                            <!-- =================================
+                                 DIRECT DOWNLOAD BUTTON
+                            ================================== -->
 
                             <button
                                 type="button"
@@ -502,7 +659,9 @@
                                     DOWNLOAD
                                 </span>
 
-                                <strong>
+                                <strong
+                                    id="download-button-text"
+                                >
                                     作品をダウンロード
                                 </strong>
 
@@ -512,6 +671,11 @@
 
                             </button>
 
+
+
+                            <!-- =================================
+                                 EXTERNAL LINK
+                            ================================== -->
 
                             <a
                                 id="external-button"
@@ -537,31 +701,76 @@
                             </a>
 
 
+
+                            <!-- =================================
+                                 LOGIN BUTTON
+                            ================================== -->
+
+                            <a
+                                id="login-button"
+                                class="download-login-button"
+                                href="login.html"
+                                hidden
+                            >
+                                ログインしてダウンロード
+                            </a>
+
+
+
+                            <!-- =================================
+                                 DOWNLOAD ERROR
+                            ================================== -->
+
                             <div
                                 id="download-error"
                                 class="download-error"
+                                role="alert"
                                 hidden
                             ></div>
+
+
+
+                            <!-- =================================
+                                 DOWNLOAD STATUS
+                            ================================== -->
+
+                            <p
+                                id="download-status"
+                                class="download-status"
+                                aria-live="polite"
+                            ></p>
+
 
                         </div>
 
 
                     </div>
 
+
                 </section>
 
 
             </div>
 
+
         </div>
+
 
     </main>
 
 
 
+    <!-- =========================================
+         COMMON FOOTER
+    ========================================== -->
+
     <div id="footer-container"></div>
 
 
+
+    <!-- =========================================
+         SCRIPTS
+    ========================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
