@@ -4,2015 +4,821 @@
    MFDCO - EDIT WORK
 ========================================================= */
 
-const MAX_IMAGE_SIZE =
-    10 * 1024 * 1024;
+const MAX_IMAGE_SIZE = 10 * 1024 * 1024;
+const MAX_WORK_FILE_SIZE = 500 * 1024 * 1024;
 
-const MAX_WORK_FILE_SIZE =
-    500 * 1024 * 1024;
+const WORK_IMAGE_BUCKET = "work-images";
+const PRIVATE_WORK_BUCKET = "work-files";
+const PUBLIC_WORK_BUCKET = "work-files-public";
+const DOWNLOAD_ACCESS_VALUES = new Set([
+    "public",
+    "user",
+    "member",
+    "private"
+]);
 
-const WORK_IMAGE_BUCKET =
-    "work-images";
+let currentUser = null;
+let currentProfile = null;
+let currentWork = null;
+let currentWorkId = null;
 
-const PRIVATE_WORK_BUCKET =
-    "work-files";
+let selectedPreviewImage = null;
+let selectedWorkFile = null;
 
-const PUBLIC_WORK_BUCKET =
-    "work-files-public";
+const elements = {};
 
-
-/* =========================================================
-   STATE
-========================================================= */
-
-let currentUser =
-    null;
-
-let currentProfile =
-    null;
-
-let currentWork =
-    null;
-
-let currentWorkId =
-    null;
-
-let selectedPreviewImage =
-    null;
-
-let selectedWorkFile =
-    null;
-
-
-/* =========================================================
-   ELEMENT CACHE
-========================================================= */
-
-const elements =
-    {};
-
-
-/* =========================================================
-   DOM READY
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    async () => {
-
-        cacheElements();
-
-        setupEvents();
-
-        renderTags();
-
-        await initializeEditPage();
-
-    }
-);
-
-
-/* =========================================================
-   CACHE ELEMENTS
-========================================================= */
+document.addEventListener("DOMContentLoaded", async () => {
+    cacheElements();
+    setupEvents();
+    renderTags();
+    await initializeEditPage();
+});
 
 function cacheElements() {
+    elements.loading = document.getElementById("edit-loading");
+    elements.loginRequired = document.getElementById("login-required");
+    elements.forbidden = document.getElementById("edit-forbidden");
+    elements.forbiddenText = document.getElementById("edit-forbidden-text");
 
-    elements.loading =
-        document.getElementById(
-            "edit-loading"
-        );
+    elements.form = document.getElementById("edit-work-form");
 
+    elements.title = document.getElementById("work-title");
+    elements.description = document.getElementById("work-description");
 
-    elements.loginRequired =
-        document.getElementById(
-            "login-required"
-        );
-
-
-    elements.forbidden =
-        document.getElementById(
-            "edit-forbidden"
-        );
-
-
-    elements.forbiddenText =
-        document.getElementById(
-            "edit-forbidden-text"
-        );
-
-
-    elements.form =
-        document.getElementById(
-            "edit-work-form"
-        );
-
-
-    elements.title =
-        document.getElementById(
-            "work-title"
-        );
-
-
-    elements.description =
-        document.getElementById(
-            "work-description"
-        );
-
-
-    elements.currentImage =
-        document.getElementById(
-            "current-work-image"
-        );
-
-
+    elements.currentImage = document.getElementById("current-work-image");
     elements.currentImagePlaceholder =
-        document.getElementById(
-            "current-work-image-placeholder"
-        );
+        document.getElementById("current-work-image-placeholder");
+    elements.imageInput = document.getElementById("work-image");
+    elements.imagePreview = document.getElementById("work-image-preview");
 
+    elements.tags = document.getElementById("work-tags");
 
-    elements.imageInput =
-        document.getElementById(
-            "work-image"
-        );
-
-
-    elements.imagePreview =
-        document.getElementById(
-            "work-image-preview"
-        );
-
-
-    elements.tags =
-        document.getElementById(
-            "work-tags"
-        );
-
-
-    elements.directFileArea =
-        document.getElementById(
-            "direct-file-area"
-        );
-
-
-    elements.externalUrlArea =
-        document.getElementById(
-            "external-url-area"
-        );
-
+    elements.directFileArea = document.getElementById("direct-file-area");
+    elements.externalUrlArea = document.getElementById("external-url-area");
 
     elements.currentWorkFileInfo =
-        document.getElementById(
-            "current-work-file-info"
-        );
+        document.getElementById("current-work-file-info");
+    elements.workFile = document.getElementById("work-file");
+    elements.workFileInfo = document.getElementById("work-file-info");
+    elements.externalUrl = document.getElementById("external-url");
 
-
-    elements.workFile =
-        document.getElementById(
-            "work-file"
-        );
-
-
-    elements.workFileInfo =
-        document.getElementById(
-            "work-file-info"
-        );
-
-
-    elements.externalUrl =
-        document.getElementById(
-            "external-url"
-        );
-
-
-    elements.downloadAccessHelp =
-        document.getElementById(
-            "download-access-help"
-        );
-
-
+    elements.downloadAccessHelp = document.getElementById("download-access-help");
     elements.downloadAccessHelpTitle =
-        document.getElementById(
-            "download-access-help-title"
-        );
-
-
+        document.getElementById("download-access-help-title");
     elements.downloadAccessHelpText =
-        document.getElementById(
-            "download-access-help-text"
-        );
+        document.getElementById("download-access-help-text");
 
+    elements.otherTerms = document.getElementById("other-terms");
 
-    elements.otherTerms =
-        document.getElementById(
-            "other-terms"
-        );
+    elements.profileCreditArea = document.getElementById("profile-credit-area");
+    elements.profileCreditText = document.getElementById("profile-credit-text");
+    elements.customCreditArea = document.getElementById("custom-credit-area");
+    elements.customCreditText = document.getElementById("custom-credit-text");
 
-
-    elements.profileCreditArea =
-        document.getElementById(
-            "profile-credit-area"
-        );
-
-
-    elements.profileCreditText =
-        document.getElementById(
-            "profile-credit-text"
-        );
-
-
-    elements.customCreditArea =
-        document.getElementById(
-            "custom-credit-area"
-        );
-
-
-    elements.customCreditText =
-        document.getElementById(
-            "custom-credit-text"
-        );
-
-
-    elements.error =
-        document.getElementById(
-            "submit-error"
-        );
-
-
-    elements.success =
-        document.getElementById(
-            "submit-success"
-        );
-
-
-    elements.submitButton =
-        document.getElementById(
-            "edit-work-button"
-        );
-
-
-    elements.cancelLink =
-        document.getElementById(
-            "cancel-edit-link"
-        );
-
+    elements.error = document.getElementById("submit-error");
+    elements.success = document.getElementById("submit-success");
+    elements.submitButton = document.getElementById("edit-work-button");
+    elements.cancelLink = document.getElementById("cancel-edit-link");
 }
-
-
-/* =========================================================
-   EVENTS
-========================================================= */
 
 function setupEvents() {
-
-    elements.form
-        ?.addEventListener(
-            "submit",
-            handleSave
-        );
-
+    elements.form?.addEventListener("submit", handleSave);
 
     document
-        .querySelectorAll(
-            'input[name="submission_type"]'
-        )
-        .forEach(
-            input => {
-
-                input.addEventListener(
-                    "change",
-                    updateSubmissionType
-                );
-
-            }
-        );
-
+        .querySelectorAll('input[name="submission_type"]')
+        .forEach(input => input.addEventListener("change", updateSubmissionType));
 
     document
-        .querySelectorAll(
-            'input[name="download_access"]'
-        )
-        .forEach(
-            input => {
-
-                input.addEventListener(
-                    "change",
-                    updateDownloadAccessHelp
-                );
-
-            }
-        );
-
+        .querySelectorAll('input[name="download_access"]')
+        .forEach(input => input.addEventListener("change", updateDownloadAccessHelp));
 
     document
-        .querySelectorAll(
-            'input[name="credit_type"]'
-        )
-        .forEach(
-            input => {
+        .querySelectorAll('input[name="credit_type"]')
+        .forEach(input => input.addEventListener("change", updateCreditType));
 
-                input.addEventListener(
-                    "change",
-                    updateCreditType
-                );
-
-            }
-        );
-
-
-    elements.imageInput
-        ?.addEventListener(
-            "change",
-            handleImageSelection
-        );
-
-
-    elements.workFile
-        ?.addEventListener(
-            "change",
-            handleWorkFileSelection
-        );
-
+    elements.imageInput?.addEventListener("change", handleImageSelection);
+    elements.workFile?.addEventListener("change", handleWorkFileSelection);
 }
 
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
 async function initializeEditPage() {
-
     try {
-
-        if (
-            !window.supabaseClient
-        ) {
-
-            throw new Error(
-                "Supabaseクライアントが初期化されていません。"
-            );
-
+        if (!window.supabaseClient) {
+            throw new Error("Supabaseクライアントが初期化されていません。");
         }
 
+        const params = new URLSearchParams(window.location.search);
+        currentWorkId = params.get("id");
 
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
-
-
-        currentWorkId =
-            params.get(
-                "id"
-            );
-
-
-        if (
-            !currentWorkId
-        ) {
-
-            showForbidden(
-                "作品IDが指定されていません。"
-            );
-
+        if (!currentWorkId) {
+            showForbidden("作品IDが指定されていません。");
             return;
-
         }
 
+        const { data, error } =
+            await window.supabaseClient.auth.getUser();
 
-        const {
-            data,
-            error
-        } =
-            await window.supabaseClient
-                .auth
-                .getUser();
+        if (error) throw error;
 
+        currentUser = data?.user || null;
 
-        if (
-            error
-        ) {
-
-            throw error;
-
-        }
-
-
-        currentUser =
-            data?.user ||
-            null;
-
-
-        if (
-            !currentUser
-        ) {
-
+        if (!currentUser) {
             showLoggedOut();
-
             return;
-
         }
-
 
         await loadCurrentProfile();
-
         await loadCurrentWork();
 
-
-        if (
-            currentWork.user_id !==
-            currentUser.id
-        ) {
-
-            showForbidden(
-                "この作品は投稿者本人のみ編集できます。"
-            );
-
+        if (currentWork.user_id !== currentUser.id) {
+            showForbidden("この作品は投稿者本人のみ編集できます。");
             return;
-
         }
-
 
         populateForm();
 
-
-        if (
-            elements.cancelLink
-        ) {
-
+        if (elements.cancelLink) {
             elements.cancelLink.href =
                 `work.html?id=${encodeURIComponent(currentWorkId)}`;
-
         }
-
 
         document.title =
             `${currentWork.title || "作品"}を編集 | MFDCO`;
 
-
         showForm();
-
+    } catch (error) {
+        console.error("EDIT WORK INIT ERROR:", error);
+        showForbidden(getErrorMessage(error));
     }
-    catch (
-        error
-    ) {
-
-        console.error(
-            "EDIT WORK INIT ERROR:",
-            error
-        );
-
-
-        showForbidden(
-            getErrorMessage(
-                error
-            )
-        );
-
-    }
-
 }
-
-
-/* =========================================================
-   LOAD PROFILE
-========================================================= */
 
 async function loadCurrentProfile() {
+    currentProfile = null;
 
-    currentProfile =
-        null;
+    const { data, error } = await window.supabaseClient
+        .from("profiles")
+        .select("activity_name")
+        .eq("id", currentUser.id)
+        .maybeSingle();
 
-
-    const {
-        data,
-        error
-    } =
-        await window.supabaseClient
-            .from(
-                "profiles"
-            )
-            .select(
-                "activity_name"
-            )
-            .eq(
-                "id",
-                currentUser.id
-            )
-            .maybeSingle();
-
-
-    if (
-        error
-    ) {
-
-        console.warn(
-            "PROFILE LOAD ERROR:",
-            error
-        );
-
+    if (error) {
+        console.warn("PROFILE LOAD ERROR:", error);
         return;
-
     }
 
-
-    currentProfile =
-        data ||
-        null;
-
+    currentProfile = data || null;
 }
-
-
-/* =========================================================
-   LOAD WORK
-========================================================= */
 
 async function loadCurrentWork() {
+    const { data, error } = await window.supabaseClient
+        .from("works")
+        .select(`
+            id,
+            user_id,
+            title,
+            description,
+            image_url,
+            tags,
+            status,
+            created_at,
 
-    const {
-        data,
-        error
-    } =
-        await window.supabaseClient
-            .from(
-                "works"
-            )
-            .select(`
-                id,
-                user_id,
-                title,
-                description,
-                image_url,
-                tags,
-                status,
-                created_at,
+            submission_type,
+            file_path,
+            external_url,
+            original_filename,
+            file_size,
+            file_type,
+            download_access,
 
-                submission_type,
-                file_path,
-                external_url,
-                original_filename,
-                file_size,
-                file_type,
-                download_access,
+            commercial_use,
+            modification,
+            setting_modification,
+            destruction_depiction,
+            other_terms,
 
-                commercial_use,
-                modification,
-                setting_modification,
-                destruction_depiction,
-                other_terms,
+            credit_type,
+            credit_text
+        `)
+        .eq("id", currentWorkId)
+        .maybeSingle();
 
-                credit_type,
-                credit_text
-            `)
-            .eq(
-                "id",
-                currentWorkId
-            )
-            .maybeSingle();
+    if (error) throw error;
 
-
-    if (
-        error
-    ) {
-
-        throw error;
-
+    if (!data) {
+        throw new Error("作品が見つかりません。");
     }
 
+    currentWork = data;
 
-    if (
-        !data
-    ) {
-
-        throw new Error(
-            "作品が見つかりません。"
-        );
-
+    if (currentWork.download_access == null) {
+        // download_access導入前の作品だけを旧既定値へ補完する。
+        currentWork.download_access = "user";
     }
 
-
-    currentWork =
-        data;
-
-
-    if (
-        !currentWork.download_access
-    ) {
-
-        currentWork.download_access =
-            "user";
-
+    if (!DOWNLOAD_ACCESS_VALUES.has(currentWork.download_access)) {
+        throw new Error("作品のダウンロード公開範囲が不正です。管理者へ連絡してください。");
     }
-
 }
-
-
-/* =========================================================
-   TAGS
-========================================================= */
 
 function renderTags() {
+    if (!elements.tags) return;
 
-    if (
-        !elements.tags
-    ) {
-
+    if (typeof window.renderMfdcoWorkTags === "function") {
+        window.renderMfdcoWorkTags(elements.tags, {
+            inputName: "work_tags"
+        });
         return;
-
     }
 
+    if (typeof window.MFDCO_TAGS !== "undefined" && Array.isArray(window.MFDCO_TAGS)) {
+        elements.tags.innerHTML = "";
 
-    if (
-        typeof window.renderMfdcoWorkTags ===
-        "function"
-    ) {
+        for (const tag of window.MFDCO_TAGS) {
+            const label = document.createElement("label");
+            label.className = "work-tag-option";
 
-        window.renderMfdcoWorkTags(
-            elements.tags,
-            {
-                inputName:
-                    "work_tags"
-            }
-        );
+            const input = document.createElement("input");
+            input.type = "checkbox";
+            input.name = "work_tags";
+            input.value = tag;
 
-        return;
+            const text = document.createElement("span");
+            text.textContent = tag;
 
-    }
-
-
-    if (
-        typeof window.MFDCO_TAGS !==
-            "undefined" &&
-        Array.isArray(
-            window.MFDCO_TAGS
-        )
-    ) {
-
-        elements.tags.innerHTML =
-            "";
-
-
-        for (
-            const tag
-            of window.MFDCO_TAGS
-        ) {
-
-            const label =
-                document.createElement(
-                    "label"
-                );
-
-
-            label.className =
-                "work-tag-option";
-
-
-            const input =
-                document.createElement(
-                    "input"
-                );
-
-
-            input.type =
-                "checkbox";
-
-            input.name =
-                "work_tags";
-
-            input.value =
-                tag;
-
-
-            const text =
-                document.createElement(
-                    "span"
-                );
-
-
-            text.textContent =
-                tag;
-
-
-            label.append(
-                input,
-                text
-            );
-
-
-            elements.tags
-                .appendChild(
-                    label
-                );
-
+            label.append(input, text);
+            elements.tags.appendChild(label);
         }
 
-
         return;
-
     }
 
-
-    console.warn(
-        "タグ描画関数またはMFDCO_TAGSが見つかりません。"
-    );
-
+    console.warn("タグ描画関数またはMFDCO_TAGSが見つかりません。");
 }
 
-
-/* =========================================================
-   SELECT EXISTING TAGS
-========================================================= */
-
 function selectExistingTags() {
-
     const selected =
-        Array.isArray(
-            currentWork?.tags
-        )
+        Array.isArray(currentWork?.tags)
             ? currentWork.tags
             : [];
 
-
     elements.tags
-        ?.querySelectorAll(
-            'input[type="checkbox"]'
-        )
-        .forEach(
-            input => {
-
-                input.checked =
-                    selected.includes(
-                        input.value
-                    );
-
-            }
-        );
-
+        ?.querySelectorAll('input[type="checkbox"]')
+        .forEach(input => {
+            input.checked = selected.includes(input.value);
+        });
 }
-
-
-/* =========================================================
-   GET SELECTED TAGS
-========================================================= */
 
 function getSelectedTags() {
+    if (!elements.tags) return [];
 
-    if (
-        !elements.tags
-    ) {
-
-        return [];
-
+    if (typeof window.getSelectedMfdcoWorkTags === "function") {
+        return window.getSelectedMfdcoWorkTags(elements.tags);
     }
-
-
-    if (
-        typeof window.getSelectedMfdcoWorkTags ===
-        "function"
-    ) {
-
-        return window
-            .getSelectedMfdcoWorkTags(
-                elements.tags
-            );
-
-    }
-
 
     return Array.from(
-
-        elements.tags
-            .querySelectorAll(
-                'input[type="checkbox"]:checked'
-            )
-
-    ).map(
-        input =>
-            input.value
-    );
-
+        elements.tags.querySelectorAll('input[type="checkbox"]:checked')
+    ).map(input => input.value);
 }
 
-
-/* =========================================================
-   POPULATE FORM
-========================================================= */
-
 function populateForm() {
-
-    elements.title.value =
-        currentWork.title ||
-        "";
-
-
-    elements.description.value =
-        currentWork.description ||
-        "";
-
+    elements.title.value = currentWork.title || "";
+    elements.description.value = currentWork.description || "";
 
     renderCurrentImage();
-
-
     selectExistingTags();
-
 
     setRadioValue(
         "submission_type",
-        currentWork.submission_type ||
-        "file"
+        currentWork.submission_type || "file"
     );
 
-
-    setRadioValue(
+    const accessInputFound = setRadioValue(
         "download_access",
-        currentWork.download_access ||
-        "user"
+        currentWork.download_access
     );
 
+    if (!accessInputFound) {
+        throw new Error(
+            "編集画面に現在のダウンロード公開範囲の選択肢がありません。"
+        );
+    }
 
     elements.externalUrl.value =
-        currentWork.external_url ||
-        "";
-
+        currentWork.external_url || "";
 
     renderCurrentWorkFile();
 
-
     setRadioValue(
         "commercial_use",
-        currentWork.commercial_use ||
-        "consult"
+        currentWork.commercial_use || "consult"
     );
-
 
     setRadioValue(
         "modification",
-        currentWork.modification ||
-        "consult"
+        currentWork.modification || "consult"
     );
-
 
     setRadioValue(
         "setting_modification",
-        currentWork.setting_modification ||
-        "consult"
+        currentWork.setting_modification || "consult"
     );
-
 
     setRadioValue(
         "destruction_depiction",
-        currentWork.destruction_depiction ||
-        "consult"
+        currentWork.destruction_depiction || "consult"
     );
 
-
     elements.otherTerms.value =
-        currentWork.other_terms ||
-        "";
-
+        currentWork.other_terms || "";
 
     setRadioValue(
         "credit_type",
-        currentWork.credit_type ||
-        "profile"
+        currentWork.credit_type || "profile"
     );
 
-
     elements.customCreditText.value =
-        currentWork.credit_type ===
-            "custom"
-            ? currentWork.credit_text ||
-                ""
+        currentWork.credit_type === "custom"
+            ? currentWork.credit_text || ""
             : "";
-
 
     renderProfileCredit();
 
-
     updateSubmissionType();
-
     updateDownloadAccessHelp();
-
     updateCreditType();
-
 }
-
-
-/* =========================================================
-   CURRENT IMAGE
-========================================================= */
 
 function renderCurrentImage() {
+    const url = currentWork?.image_url;
 
-    const url =
-        currentWork
-            ?.image_url;
-
-
-    if (
-        !url
-    ) {
-
-        if (
-            elements.currentImage
-        ) {
-
-            elements.currentImage.hidden =
-                true;
-
+    if (!url) {
+        if (elements.currentImage) {
+            elements.currentImage.hidden = true;
         }
 
-
-        if (
-            elements.currentImagePlaceholder
-        ) {
-
-            elements.currentImagePlaceholder.hidden =
-                false;
-
+        if (elements.currentImagePlaceholder) {
+            elements.currentImagePlaceholder.hidden = false;
         }
-
 
         return;
-
     }
 
+    elements.currentImage.src = url;
+    elements.currentImage.hidden = false;
 
-    elements.currentImage.src =
-        url;
-
-
-    elements.currentImage.hidden =
-        false;
-
-
-    if (
-        elements.currentImagePlaceholder
-    ) {
-
-        elements.currentImagePlaceholder.hidden =
-            true;
-
+    if (elements.currentImagePlaceholder) {
+        elements.currentImagePlaceholder.hidden = true;
     }
 
+    elements.currentImage.onerror = () => {
+        elements.currentImage.hidden = true;
 
-    elements.currentImage.onerror =
-        () => {
-
-            elements.currentImage.hidden =
-                true;
-
-
-            if (
-                elements.currentImagePlaceholder
-            ) {
-
-                elements.currentImagePlaceholder.hidden =
-                    false;
-
-            }
-
-        };
-
+        if (elements.currentImagePlaceholder) {
+            elements.currentImagePlaceholder.hidden = false;
+        }
+    };
 }
 
-
-/* =========================================================
-   CURRENT WORK FILE
-========================================================= */
-
 function renderCurrentWorkFile() {
+    if (!elements.currentWorkFileInfo) return;
 
-    if (
-        !elements.currentWorkFileInfo
-    ) {
-
-        return;
-
-    }
-
-
-    if (
-        currentWork.submission_type ===
-        "url"
-    ) {
-
+    if (currentWork.submission_type === "url") {
         elements.currentWorkFileInfo.textContent =
             "現在は外部URLで提供されています。";
-
         return;
-
     }
 
-
-    if (
-        !currentWork.file_path
-    ) {
-
+    if (!currentWork.file_path) {
         elements.currentWorkFileInfo.textContent =
             "現在の作品ファイル情報がありません。";
-
         return;
-
     }
-
 
     const name =
         currentWork.original_filename ||
         "作品ファイル";
 
-
     const size =
-        formatFileSize(
-            currentWork.file_size
-        );
-
+        formatFileSize(currentWork.file_size);
 
     const type =
         currentWork.file_type ||
         "FILE";
-
 
     const accessLabel =
         getDownloadAccessLabel(
             currentWork.download_access
         );
 
-
     elements.currentWorkFileInfo.textContent =
         `${name} / ${type} / ${size} / ${accessLabel}`;
-
 }
 
-
-/* =========================================================
-   IMAGE SELECTION
-========================================================= */
-
-function handleImageSelection(
-    event
-) {
-
+function handleImageSelection(event) {
     clearMessages();
+    selectedPreviewImage = null;
 
+    const file = event.target.files?.[0] || null;
 
-    selectedPreviewImage =
-        null;
-
-
-    const file =
-        event.target
-            .files?.[0] ||
-        null;
-
-
-    if (
-        !file
-    ) {
-
-        if (
-            elements.imagePreview
-        ) {
-
-            elements.imagePreview.src =
-                "";
-
-            elements.imagePreview.hidden =
-                true;
-
+    if (!file) {
+        if (elements.imagePreview) {
+            elements.imagePreview.src = "";
+            elements.imagePreview.hidden = true;
         }
-
-
         return;
-
     }
-
 
     const allowedTypes = [
-
         "image/png",
-
         "image/jpeg",
-
         "image/webp"
-
     ];
 
-
-    if (
-        !allowedTypes.includes(
-            file.type
-        )
-    ) {
-
-        event.target.value =
-            "";
-
-
-        showError(
-            "プレビュー画像はPNG、JPEG、WebPのみ使用できます。"
-        );
-
-
+    if (!allowedTypes.includes(file.type)) {
+        event.target.value = "";
+        showError("プレビュー画像はPNG、JPEG、WebPのみ使用できます。");
         return;
-
     }
 
-
-    if (
-        file.size >
-        MAX_IMAGE_SIZE
-    ) {
-
-        event.target.value =
-            "";
-
-
-        showError(
-            "プレビュー画像は10MB以下にしてください。"
-        );
-
-
+    if (file.size > MAX_IMAGE_SIZE) {
+        event.target.value = "";
+        showError("プレビュー画像は10MB以下にしてください。");
         return;
-
     }
 
+    selectedPreviewImage = file;
 
-    selectedPreviewImage =
-        file;
+    const reader = new FileReader();
 
-
-    const reader =
-        new FileReader();
-
-
-    reader.onload =
-        () => {
-
-            if (
-                elements.imagePreview
-            ) {
-
-                elements.imagePreview.src =
-                    String(
-                        reader.result
-                    );
-
-
-                elements.imagePreview.hidden =
-                    false;
-
-            }
-
-        };
-
-
-    reader.readAsDataURL(
-        file
-    );
-
-}
-
-
-/* =========================================================
-   WORK FILE SELECTION
-========================================================= */
-
-function handleWorkFileSelection(
-    event
-) {
-
-    clearMessages();
-
-
-    selectedWorkFile =
-        null;
-
-
-    const file =
-        event.target
-            .files?.[0] ||
-        null;
-
-
-    if (
-        !file
-    ) {
-
-        if (
-            elements.workFileInfo
-        ) {
-
-            elements.workFileInfo.textContent =
-                "新しいファイルは選択されていません。";
-
+    reader.onload = () => {
+        if (elements.imagePreview) {
+            elements.imagePreview.src = String(reader.result);
+            elements.imagePreview.hidden = false;
         }
-
-
-        return;
-
-    }
-
-
-    if (
-        file.size >
-        MAX_WORK_FILE_SIZE
-    ) {
-
-        event.target.value =
-            "";
-
-
-        if (
-            elements.workFileInfo
-        ) {
-
-            elements.workFileInfo.textContent =
-                "新しいファイルは選択されていません。";
-
-        }
-
-
-        showError(
-            "作品ファイルは500MB以下にしてください。"
-        );
-
-
-        return;
-
-    }
-
-
-    selectedWorkFile =
-        file;
-
-
-    if (
-        elements.workFileInfo
-    ) {
-
-        elements.workFileInfo.textContent =
-            `${file.name} / ${getFileType(file)} / ${formatFileSize(file.size)}`;
-
-    }
-
-}
-
-
-/* =========================================================
-   SUBMISSION TYPE
-========================================================= */
-
-function getSubmissionType() {
-
-    return (
-        getCheckedValue(
-            "submission_type"
-        ) ||
-        "file"
-    );
-
-}
-
-
-function updateSubmissionType() {
-
-    const isFile =
-        getSubmissionType() ===
-        "file";
-
-
-    if (
-        elements.directFileArea
-    ) {
-
-        elements.directFileArea.hidden =
-            !isFile;
-
-    }
-
-
-    if (
-        elements.externalUrlArea
-    ) {
-
-        elements.externalUrlArea.hidden =
-            isFile;
-
-    }
-
-
-    /*
-     * 編集画面では、
-     * 既存ファイルをそのまま使えるため
-     * 新しいファイル選択は必須にしない。
-     */
-
-    if (
-        elements.workFile
-    ) {
-
-        elements.workFile.required =
-            false;
-
-    }
-
-
-    if (
-        elements.externalUrl
-    ) {
-
-        elements.externalUrl.required =
-            !isFile;
-
-    }
-
-}
-
-
-/* =========================================================
-   DOWNLOAD ACCESS
-========================================================= */
-
-function getDownloadAccess() {
-
-    return (
-        getCheckedValue(
-            "download_access"
-        ) ||
-        "user"
-    );
-
-}
-
-
-function updateDownloadAccessHelp() {
-
-    if (
-        !elements.downloadAccessHelpTitle ||
-        !elements.downloadAccessHelpText
-    ) {
-
-        return;
-
-    }
-
-
-    const access =
-        getDownloadAccess();
-
-
-    const descriptions = {
-
-        public: {
-
-            title:
-                "🌐 ログイン不要",
-
-            text:
-                "MFDCOへログインしていない人でも、この作品を取得できます。"
-
-        },
-
-
-        user: {
-
-            title:
-                "🔐 ログインユーザー",
-
-            text:
-                "MFDCOへログインしているユーザーが、この作品を取得できます。"
-
-        },
-
-
-        member: {
-
-            title:
-                "🔒 加盟国・許可ユーザー",
-
-            text:
-                "MFDCOから許可されたユーザーのみ、この作品を取得できます。"
-
-        },
-
-
-        private: {
-
-            title:
-                "非公開",
-
-            text:
-                "作品ページを公開していても、作品データ自体はダウンロードできません。"
-
-        }
-
     };
 
-
-    const info =
-        descriptions[
-            access
-        ] ||
-        descriptions.user;
-
-
-    elements.downloadAccessHelpTitle.textContent =
-        info.title;
-
-
-    elements.downloadAccessHelpText.textContent =
-        info.text;
-
+    reader.readAsDataURL(file);
 }
 
+function handleWorkFileSelection(event) {
+    clearMessages();
+    selectedWorkFile = null;
 
-/* =========================================================
-   DOWNLOAD ACCESS LABEL
-========================================================= */
+    const file = event.target.files?.[0] || null;
 
-function getDownloadAccessLabel(
-    access
-) {
+    if (!file) {
+        if (elements.workFileInfo) {
+            elements.workFileInfo.textContent =
+                "新しいファイルは選択されていません。";
+        }
 
-    switch (
-        access
-    ) {
-
-        case "public":
-
-            return "ログイン不要";
-
-
-        case "member":
-
-            return "加盟国限定";
-
-
-        case "private":
-
-            return "非公開";
-
-
-        case "user":
-
-        default:
-
-            return "ログイン必須";
-
+        return;
     }
 
+    if (file.size > MAX_WORK_FILE_SIZE) {
+        event.target.value = "";
+
+        if (elements.workFileInfo) {
+            elements.workFileInfo.textContent =
+                "新しいファイルは選択されていません。";
+        }
+
+        showError("作品ファイルは500MB以下にしてください。");
+        return;
+    }
+
+    selectedWorkFile = file;
+
+    if (elements.workFileInfo) {
+        elements.workFileInfo.textContent =
+            `${file.name} / ${getFileType(file)} / ${formatFileSize(file.size)}`;
+    }
 }
 
+function getSubmissionType() {
+    return getCheckedValue("submission_type") || "file";
+}
 
-/* =========================================================
-   CREDIT
-========================================================= */
+function updateSubmissionType() {
+    const isFile =
+        getSubmissionType() === "file";
+
+    if (elements.directFileArea) {
+        elements.directFileArea.hidden = !isFile;
+    }
+
+    if (elements.externalUrlArea) {
+        elements.externalUrlArea.hidden = isFile;
+    }
+
+    /*
+     * 編集画面では既存ファイルを再利用できるため、
+     * work-fileは常にrequired=false。
+     */
+    if (elements.workFile) {
+        elements.workFile.required = false;
+    }
+
+    if (elements.externalUrl) {
+        elements.externalUrl.required = !isFile;
+    }
+}
+
+function getDownloadAccess() {
+    const access = getCheckedValue("download_access");
+
+    return DOWNLOAD_ACCESS_VALUES.has(access)
+        ? access
+        : null;
+}
+
+function updateDownloadAccessHelp() {
+    if (!elements.downloadAccessHelpTitle || !elements.downloadAccessHelpText) {
+        return;
+    }
+
+    const access =
+        getDownloadAccess() ||
+        (DOWNLOAD_ACCESS_VALUES.has(currentWork?.download_access)
+            ? currentWork.download_access
+            : null);
+
+    if (!access) {
+        elements.downloadAccessHelpTitle.textContent =
+            "公開範囲を選択してください";
+        elements.downloadAccessHelpText.textContent =
+            "未選択のまま保存することはできません。";
+        return;
+    }
+
+    const descriptions = {
+        public: {
+            title: "🌐 ログイン不要",
+            text: "MFDCOへログインしていない人でも、この作品を取得できます。"
+        },
+        user: {
+            title: "🔐 ログインユーザー",
+            text: "MFDCOへログインしているユーザーが、この作品を取得できます。"
+        },
+        member: {
+            title: "🔒 加盟国・許可ユーザー",
+            text: "MFDCOから許可されたユーザーのみ、この作品を取得できます。"
+        },
+        private: {
+            title: "非公開",
+            text: "作品ページを公開していても、作品データ自体はダウンロードできません。"
+        }
+    };
+
+    const info = descriptions[access];
+
+    elements.downloadAccessHelpTitle.textContent = info.title;
+    elements.downloadAccessHelpText.textContent = info.text;
+}
+
+function getDownloadAccessLabel(access) {
+    switch (access) {
+        case "public":
+            return "ログイン不要";
+        case "member":
+            return "加盟国限定";
+        case "private":
+            return "非公開";
+        case "user":
+        default:
+            return "ログイン必須";
+    }
+}
 
 function getCreditType() {
-
-    return (
-        getCheckedValue(
-            "credit_type"
-        ) ||
-        "profile"
-    );
-
+    return getCheckedValue("credit_type") || "profile";
 }
-
 
 function updateCreditType() {
+    const type = getCreditType();
 
-    const type =
-        getCreditType();
-
-
-    if (
-        elements.profileCreditArea
-    ) {
-
+    if (elements.profileCreditArea) {
         elements.profileCreditArea.hidden =
-            type !==
-            "profile";
-
+            type !== "profile";
     }
 
-
-    if (
-        elements.customCreditArea
-    ) {
-
+    if (elements.customCreditArea) {
         elements.customCreditArea.hidden =
-            type !==
-            "custom";
-
+            type !== "custom";
     }
 
-
-    if (
-        elements.customCreditText
-    ) {
-
+    if (elements.customCreditText) {
         elements.customCreditText.required =
-            type ===
-            "custom";
-
+            type === "custom";
     }
-
 }
-
-
-/* =========================================================
-   PROFILE CREDIT
-========================================================= */
 
 function renderProfileCredit() {
-
-    if (
-        !elements.profileCreditText
-    ) {
-
-        return;
-
-    }
-
+    if (!elements.profileCreditText) return;
 
     elements.profileCreditText.textContent =
-        String(
-            currentProfile
-                ?.activity_name ||
-            ""
-        ).trim() ||
+        String(currentProfile?.activity_name || "").trim() ||
         "プロフィールの活動名を取得できません。";
-
 }
-
-
-/* =========================================================
-   CREDIT TEXT
-========================================================= */
 
 function getCreditText() {
-
-    switch (
-        getCreditType()
-    ) {
-
+    switch (getCreditType()) {
         case "profile":
-
-            return nullableText(
-                currentProfile
-                    ?.activity_name
-            );
-
+            return nullableText(currentProfile?.activity_name);
 
         case "custom":
-
-            return nullableText(
-                elements.customCreditText
-                    ?.value
-            );
-
+            return nullableText(elements.customCreditText?.value);
 
         case "none":
-
         case "free":
-
         default:
-
             return null;
-
     }
-
 }
-
-
-/* =========================================================
-   VALIDATE
-========================================================= */
 
 function validateForm() {
-
     clearMessages();
 
-
-    if (
-        !currentUser ||
-        !currentWork
-    ) {
-
-        showError(
-            "作品情報またはログイン情報を確認できません。"
-        );
-
+    if (!currentUser || !currentWork) {
+        showError("作品情報またはログイン情報を確認できません。");
         return false;
-
     }
 
-
-    if (
-        currentWork.user_id !==
-        currentUser.id
-    ) {
-
-        showError(
-            "この作品を編集する権限がありません。"
-        );
-
+    if (currentWork.user_id !== currentUser.id) {
+        showError("この作品を編集する権限がありません。");
         return false;
-
     }
 
+    const title = String(elements.title?.value || "").trim();
 
-    const title =
-        String(
-            elements.title
-                ?.value ||
-            ""
-        ).trim();
-
-
-    if (
-        !title
-    ) {
-
-        showError(
-            "作品名を入力してください。"
-        );
-
-
-        elements.title
-            ?.focus();
-
-
+    if (!title) {
+        showError("作品名を入力してください。");
+        elements.title?.focus();
         return false;
-
     }
 
+    const submissionType = getSubmissionType();
 
-    const submissionType =
-        getSubmissionType();
+    if (submissionType === "url") {
+        const url = String(elements.externalUrl?.value || "").trim();
 
-
-    if (
-        submissionType ===
-        "url"
-    ) {
-
-        const url =
-            String(
-                elements.externalUrl
-                    ?.value ||
-                ""
-            ).trim();
-
-
-        if (
-            !url
-        ) {
-
-            showError(
-                "外部URLを入力してください。"
-            );
-
+        if (!url) {
+            showError("外部URLを入力してください。");
             return false;
-
         }
 
-
-        if (
-            !isValidHttpUrl(
-                url
-            )
-        ) {
-
-            showError(
-                "外部URLには http:// または https:// で始まるURLを入力してください。"
-            );
-
+        if (!isValidHttpUrl(url)) {
+            showError("外部URLには http:// または https:// で始まるURLを入力してください。");
             return false;
-
         }
-
     }
 
-
-    if (
-        submissionType ===
-        "file"
-    ) {
-
+    if (submissionType === "file") {
         const hasExistingFile =
-
-            currentWork.submission_type ===
-                "file" &&
-
-            Boolean(
-                currentWork.file_path
-            );
-
+            currentWork.submission_type === "file" &&
+            Boolean(currentWork.file_path);
 
         const hasNewFile =
-
             Boolean(
                 selectedWorkFile ||
-                elements.workFile
-                    ?.files?.[0]
+                elements.workFile?.files?.[0]
             );
 
-
-        if (
-            !hasExistingFile &&
-            !hasNewFile
-        ) {
-
-            showError(
-                "ファイル提供へ変更する場合は作品ファイルを選択してください。"
-            );
-
+        if (!hasExistingFile && !hasNewFile) {
+            showError("ファイル提供へ変更する場合は作品ファイルを選択してください。");
             return false;
-
         }
-
     }
 
+    if (!getDownloadAccess()) {
+        showError("ダウンロードできるユーザーを選択してください。");
+        document
+            .querySelector('input[name="download_access"]')
+            ?.focus();
+        return false;
+    }
 
-    const requiredTerms = [
-
+    for (const name of [
         "commercial_use",
-
         "modification",
-
         "setting_modification",
-
         "destruction_depiction"
-
-    ];
-
-
-    for (
-        const name
-        of requiredTerms
-    ) {
-
-        if (
-            !getCheckedValue(
-                name
-            )
-        ) {
-
-            showError(
-                "すべての利用条件を選択してください。"
-            );
-
+    ]) {
+        if (!getCheckedValue(name)) {
+            showError("すべての利用条件を選択してください。");
             return false;
-
         }
-
     }
 
-
-    if (
-        getCreditType() ===
-            "custom" &&
-        !nullableText(
-            elements.customCreditText
-                ?.value
-        )
-    ) {
-
-        showError(
-            "クレジット書式を入力してください。"
-        );
-
+    if (getCreditType() === "custom" &&
+        !nullableText(elements.customCreditText?.value)) {
+        showError("クレジット書式を入力してください。");
         return false;
-
     }
 
-
-    if (
-        getCreditType() ===
-            "profile" &&
-        !nullableText(
-            currentProfile
-                ?.activity_name
-        )
-    ) {
-
-        showError(
-            "プロフィールの活動名を取得できません。別のクレジット設定を選択してください。"
-        );
-
+    if (getCreditType() === "profile" &&
+        !nullableText(currentProfile?.activity_name)) {
+        showError("プロフィールの活動名を取得できません。別のクレジット設定を選択してください。");
         return false;
-
     }
-
 
     return true;
-
 }
 
-
-/* =========================================================
-   SAVE
-========================================================= */
-
-async function handleSave(
-    event
-) {
-
+async function handleSave(event) {
     event.preventDefault();
 
-
-    if (
-        !validateForm()
-    ) {
-
+    if (!validateForm()) {
         return;
-
     }
 
-
-    setSubmitting(
-        true
-    );
-
-
+    setSubmitting(true);
     clearMessages();
 
+    let newImagePath = null;
+    let newWorkFilePath = null;
+    let newWorkFileBucket = null;
 
-    let newImagePath =
-        null;
-
-
-    let newWorkFilePath =
-        null;
-
-
-    let newWorkFileBucket =
-        null;
-
-
-    let migratedFile =
-        null;
-
+    let migratedFile = null;
 
     try {
+        const { data, error: userError } =
+            await window.supabaseClient.auth.getUser();
 
-        /* -----------------------------------------
-           AUTH RECHECK
-        ----------------------------------------- */
+        if (userError) throw userError;
 
-        const {
-            data,
-            error: userError
-        } =
-            await window.supabaseClient
-                .auth
-                .getUser();
+        const user = data?.user;
 
-
-        if (
-            userError
-        ) {
-
-            throw userError;
-
+        if (!user || user.id !== currentWork.user_id) {
+            throw new Error("作品を編集する権限を確認できません。");
         }
 
-
-        const user =
-            data?.user;
-
-
-        if (
-            !user ||
-            user.id !==
-            currentWork.user_id
-        ) {
-
-            throw new Error(
-                "作品を編集する権限を確認できません。"
-            );
-
-        }
-
-
-        /* -----------------------------------------
-           IMAGE
-        ----------------------------------------- */
+        /*
+         * IMAGE
+         */
 
         let imageUrl =
-            currentWork.image_url ||
-            null;
-
+            currentWork.image_url || null;
 
         const newImage =
             selectedPreviewImage ||
-            elements.imageInput
-                ?.files?.[0] ||
+            elements.imageInput?.files?.[0] ||
             null;
 
-
-        if (
-            newImage
-        ) {
-
+        if (newImage) {
             const result =
-                await uploadPreviewImage(
-                    currentWorkId,
-                    newImage
-                );
+                await uploadPreviewImage(currentWorkId, newImage);
 
-
-            newImagePath =
-                result.path;
-
-
-            imageUrl =
-                result.url;
-
+            newImagePath = result.path;
+            imageUrl = result.url;
         }
 
-
-        /* -----------------------------------------
-           WORK DATA
-        ----------------------------------------- */
+        /*
+         * WORK DATA
+         */
 
         const submissionType =
             getSubmissionType();
 
-
         const downloadAccess =
             getDownloadAccess();
 
-
         const oldAccess =
-            currentWork.download_access ||
-            "user";
-
+            currentWork.download_access;
 
         const oldBucket =
-            getWorkBucket(
-                oldAccess
-            );
-
+            getWorkBucket(oldAccess);
 
         const targetBucket =
-            getWorkBucket(
-                downloadAccess
-            );
-
+            getWorkBucket(downloadAccess);
 
         let filePath =
-            currentWork.file_path ||
-            null;
-
+            currentWork.file_path || null;
 
         let externalUrl =
-            currentWork.external_url ||
-            null;
-
+            currentWork.external_url || null;
 
         let originalFilename =
-            currentWork.original_filename ||
-            null;
-
+            currentWork.original_filename || null;
 
         let fileSize =
-            currentWork.file_size ??
-            null;
-
+            currentWork.file_size ?? null;
 
         let fileType =
-            currentWork.file_type ||
-            null;
+            currentWork.file_type || null;
 
+        /*
+         * FILE
+         */
 
-        /* -----------------------------------------
-           FILE
-        ----------------------------------------- */
-
-        if (
-            submissionType ===
-            "file"
-        ) {
-
-            externalUrl =
-                null;
-
+        if (submissionType === "file") {
+            externalUrl = null;
 
             const newFile =
                 selectedWorkFile ||
-                elements.workFile
-                    ?.files?.[0] ||
+                elements.workFile?.files?.[0] ||
                 null;
 
-
-            if (
-                newFile
-            ) {
-
+            if (newFile) {
                 const result =
                     await uploadWorkFile(
                         currentWorkId,
@@ -2020,1641 +826,595 @@ async function handleSave(
                         targetBucket
                     );
 
+                newWorkFilePath = result.path;
+                newWorkFileBucket = targetBucket;
 
-                newWorkFilePath =
-                    result.path;
-
-
-                newWorkFileBucket =
-                    targetBucket;
-
-
-                filePath =
-                    result.path;
-
-
-                originalFilename =
-                    newFile.name;
-
-
-                fileSize =
-                    newFile.size;
-
-
-                fileType =
-                    getFileType(
-                        newFile
-                    );
-
-            }
-            else {
-
+                filePath = result.path;
+                originalFilename = newFile.name;
+                fileSize = newFile.size;
+                fileType = getFileType(newFile);
+            } else {
                 /*
-                 * 新しいファイルを選択せず、
-                 * ダウンロード権限だけ変更した場合。
-                 *
-                 * public ↔ private 側で
-                 * Bucketが変わる場合は、
-                 * 既存ファイルをコピーする。
+                 * 同じ既存ファイルを使い続けるが、
+                 * public <-> private が変わった場合は
+                 * Bucket間を移動する。
                  */
-
                 const hasExistingFile =
+                    currentWork.submission_type === "file" &&
+                    Boolean(currentWork.file_path);
 
-                    currentWork.submission_type ===
-                        "file" &&
-
-                    Boolean(
-                        currentWork.file_path
-                    );
-
-
-                if (
-                    hasExistingFile &&
-                    oldBucket !==
-                    targetBucket
-                ) {
-
+                if (hasExistingFile && oldBucket !== targetBucket) {
                     migratedFile =
                         await migrateWorkFile({
-
-                            fromBucket:
-                                oldBucket,
-
-                            toBucket:
-                                targetBucket,
-
-                            path:
-                                currentWork.file_path
-
+                            fromBucket: oldBucket,
+                            toBucket: targetBucket,
+                            path: currentWork.file_path
                         });
 
-
-                    filePath =
-                        migratedFile.path;
-
+                    filePath = migratedFile.path;
                 }
-
             }
-
         }
 
+        /*
+         * URL
+         */
 
-        /* -----------------------------------------
-           URL
-        ----------------------------------------- */
-
-        if (
-            submissionType ===
-            "url"
-        ) {
-
+        if (submissionType === "url") {
             externalUrl =
-                String(
-                    elements.externalUrl
-                        ?.value ||
-                    ""
-                ).trim();
+                String(elements.externalUrl?.value || "").trim();
 
-
-            filePath =
-                null;
-
-
-            originalFilename =
-                null;
-
-
-            fileSize =
-                null;
-
-
-            fileType =
-                "external";
-
+            filePath = null;
+            originalFilename = null;
+            fileSize = null;
+            fileType = "external";
         }
 
-
-        /* -----------------------------------------
-           PAYLOAD
-        ----------------------------------------- */
+        /*
+         * PAYLOAD
+         */
 
         const payload = {
-
             title:
-                String(
-                    elements.title
-                        ?.value ||
-                    ""
-                ).trim(),
-
+                String(elements.title?.value || "").trim(),
 
             description:
-                nullableText(
-                    elements.description
-                        ?.value
-                ),
-
+                nullableText(elements.description?.value),
 
             image_url:
                 imageUrl,
 
-
             tags:
                 getSelectedTags(),
-
 
             submission_type:
                 submissionType,
 
-
             file_path:
                 filePath,
-
 
             external_url:
                 externalUrl,
 
-
             original_filename:
                 originalFilename,
-
 
             file_size:
                 fileSize,
 
-
             file_type:
                 fileType,
-
 
             download_access:
                 downloadAccess,
 
-
             commercial_use:
-                getCheckedValue(
-                    "commercial_use"
-                ),
-
+                getCheckedValue("commercial_use"),
 
             modification:
-                getCheckedValue(
-                    "modification"
-                ),
-
+                getCheckedValue("modification"),
 
             setting_modification:
-                getCheckedValue(
-                    "setting_modification"
-                ),
-
+                getCheckedValue("setting_modification"),
 
             destruction_depiction:
-                getCheckedValue(
-                    "destruction_depiction"
-                ),
-
+                getCheckedValue("destruction_depiction"),
 
             other_terms:
-                nullableText(
-                    elements.otherTerms
-                        ?.value
-                ),
-
+                nullableText(elements.otherTerms?.value),
 
             credit_type:
                 getCreditType(),
 
-
             credit_text:
-                getCreditText()
+                getCreditText(),
 
+            // 編集された作品は再審査に戻す。
+            status:
+                "pending"
         };
 
-
         /*
-         * IMPORTANT
-         *
-         * id
-         * user_id
-         * status
-         *
-         * は編集画面から更新しない。
+         * id / user_id は更新しない。
          */
-
-
-        console.log(
-            "MFDCO EDIT PAYLOAD:",
-            payload
-        );
-
-
-        /* -----------------------------------------
-           DATABASE UPDATE
-        ----------------------------------------- */
 
         const {
             data: updatedWork,
             error: updateError
-        } =
-            await window.supabaseClient
-                .from(
-                    "works"
-                )
-                .update(
-                    payload
-                )
-                .eq(
-                    "id",
-                    currentWorkId
-                )
-                .eq(
-                    "user_id",
-                    user.id
-                )
-                .select(
-                    "id"
-                )
-                .maybeSingle();
+        } = await window.supabaseClient
+            .from("works")
+            .update(payload)
+            .eq("id", currentWorkId)
+            .eq("user_id", user.id)
+            .select("id")
+            .maybeSingle();
 
+        if (updateError) throw updateError;
 
-        if (
-            updateError
-        ) {
-
-            throw updateError;
-
+        if (!updatedWork) {
+            throw new Error("作品を更新できませんでした。権限設定を確認してください。");
         }
 
+        /*
+         * OLD IMAGE CLEANUP
+         */
 
-        if (
-            !updatedWork
-        ) {
-
-            throw new Error(
-                "作品を更新できませんでした。権限設定を確認してください。"
-            );
-
-        }
-
-
-        /* -----------------------------------------
-           OLD IMAGE CLEANUP
-        ----------------------------------------- */
-
-        if (
-            newImagePath &&
-            currentWork.image_url
-        ) {
-
+        if (newImagePath && currentWork.image_url) {
             const oldImagePath =
                 getStoragePathFromPublicUrl(
                     currentWork.image_url,
                     WORK_IMAGE_BUCKET
                 );
 
-
-            if (
-                oldImagePath &&
-                oldImagePath !==
-                newImagePath
-            ) {
-
+            if (oldImagePath && oldImagePath !== newImagePath) {
                 await removeStorageFile(
                     WORK_IMAGE_BUCKET,
                     oldImagePath
                 );
-
             }
-
         }
 
-
-        /* -----------------------------------------
-           OLD WORK FILE CLEANUP
-        ----------------------------------------- */
+        /*
+         * OLD WORK FILE CLEANUP
+         */
 
         const oldFilePath =
             currentWork.file_path;
 
-
-        if (
-            oldFilePath
-        ) {
-
-            /*
-             * FILE → URL
-             */
-
-            if (
-                submissionType ===
-                "url"
-            ) {
-
+        if (oldFilePath) {
+            if (submissionType === "url") {
                 await removeStorageFile(
                     oldBucket,
                     oldFilePath
                 );
-
-            }
-
-
-            /*
-             * 新しいファイルへ差し替え
-             */
-
-            else if (
-                newWorkFilePath &&
-                (
-                    oldFilePath !==
-                        newWorkFilePath ||
-                    oldBucket !==
-                        newWorkFileBucket
-                )
-            ) {
-
+            } else if (newWorkFilePath &&
+                       (
+                           oldFilePath !== newWorkFilePath ||
+                           oldBucket !== newWorkFileBucket
+                       )) {
                 await removeStorageFile(
                     oldBucket,
                     oldFilePath
                 );
-
-            }
-
-
-            /*
-             * Bucket移動完了後、
-             * 元Bucketから削除
-             */
-
-            else if (
-                migratedFile
-            ) {
-
+            } else if (migratedFile) {
                 await removeStorageFile(
                     oldBucket,
                     oldFilePath
                 );
-
             }
-
         }
 
+        showSuccess("作品情報を更新しました。");
 
-        /* -----------------------------------------
-           SUCCESS
-        ----------------------------------------- */
+        setTimeout(() => {
+            window.location.href =
+                `work.html?id=${encodeURIComponent(currentWorkId)}`;
+        }, 700);
 
-        showSuccess(
-            "作品情報を更新しました。"
-        );
+    } catch (error) {
+        console.error("EDIT WORK SAVE ERROR:", error);
 
-
-        setTimeout(
-            () => {
-
-                window.location.href =
-                    `work.html?id=${encodeURIComponent(currentWorkId)}`;
-
-            },
-            700
-        );
-
-    }
-    catch (
-        error
-    ) {
-
-        console.error(
-            "EDIT WORK SAVE ERROR:",
-            error
-        );
-
-
-        /*
-         * DB更新前に作成された
-         * 新規ファイルだけロールバック。
-         */
-
-        if (
-            newImagePath
-        ) {
-
+        if (newImagePath) {
             await removeStorageFile(
                 WORK_IMAGE_BUCKET,
                 newImagePath
             );
-
         }
 
-
-        if (
-            newWorkFilePath &&
-            newWorkFileBucket
-        ) {
-
+        if (newWorkFilePath && newWorkFileBucket) {
             await removeStorageFile(
                 newWorkFileBucket,
                 newWorkFilePath
             );
-
         }
 
-
-        /*
-         * Bucket移行コピーも
-         * DB更新失敗時は削除。
-         */
-
-        if (
-            migratedFile
-        ) {
-
+        if (migratedFile) {
             await removeStorageFile(
                 migratedFile.bucket,
                 migratedFile.path
             );
-
         }
 
-
-        showError(
-            getErrorMessage(
-                error
-            )
-        );
-
+        showError(getErrorMessage(error));
+    } finally {
+        setSubmitting(false);
     }
-    finally {
-
-        setSubmitting(
-            false
-        );
-
-    }
-
 }
 
-
-/* =========================================================
-   UPLOAD PREVIEW IMAGE
-========================================================= */
-
-async function uploadPreviewImage(
-    workId,
-    file
-) {
-
-    const extension =
-        getImageExtension(
-            file
-        );
-
+async function uploadPreviewImage(workId, file) {
+    const extension = getImageExtension(file);
 
     const path =
         `${currentUser.id}/${workId}-${createUuid()}.${extension}`;
 
+    const { error } = await window.supabaseClient
+        .storage
+        .from(WORK_IMAGE_BUCKET)
+        .upload(path, file, {
+            cacheControl: "3600",
+            upsert: false,
+            contentType: file.type
+        });
 
-    const {
-        error
-    } =
-        await window.supabaseClient
-            .storage
-            .from(
-                WORK_IMAGE_BUCKET
-            )
-            .upload(
-                path,
-                file,
-                {
-
-                    cacheControl:
-                        "3600",
-
-                    upsert:
-                        false,
-
-                    contentType:
-                        file.type
-
-                }
-            );
-
-
-    if (
-        error
-    ) {
-
-        throw new Error(
-            `プレビュー画像のアップロードに失敗しました: ${error.message}`
-        );
-
+    if (error) {
+        throw new Error(`プレビュー画像のアップロードに失敗しました: ${error.message}`);
     }
 
+    const { data } = window.supabaseClient
+        .storage
+        .from(WORK_IMAGE_BUCKET)
+        .getPublicUrl(path);
 
-    const {
-        data
-    } =
-        window.supabaseClient
-            .storage
-            .from(
-                WORK_IMAGE_BUCKET
-            )
-            .getPublicUrl(
-                path
-            );
-
-
-    if (
-        !data?.publicUrl
-    ) {
-
-        throw new Error(
-            "プレビュー画像のURLを取得できませんでした。"
-        );
-
+    if (!data?.publicUrl) {
+        throw new Error("プレビュー画像のURLを取得できませんでした。");
     }
-
 
     return {
-
-        path:
-            path,
-
-        url:
-            data.publicUrl
-
+        path,
+        url: data.publicUrl
     };
-
 }
 
-
-/* =========================================================
-   UPLOAD WORK FILE
-========================================================= */
-
-async function uploadWorkFile(
-    workId,
-    file,
-    bucket
-) {
-
+async function uploadWorkFile(workId, file, bucket) {
     const safeFilename =
-        getSafeStorageFilename(
-            file
-        );
-
+        getSafeStorageFilename(file);
 
     const path =
         `${currentUser.id}/${workId}/${createUuid()}-${safeFilename}`;
 
+    const { error } = await window.supabaseClient
+        .storage
+        .from(bucket)
+        .upload(path, file, {
+            cacheControl: "3600",
+            upsert: false,
+            contentType: file.type || "application/octet-stream"
+        });
 
-    const {
-        error
-    } =
-        await window.supabaseClient
-            .storage
-            .from(
-                bucket
-            )
-            .upload(
-                path,
-                file,
-                {
-
-                    cacheControl:
-                        "3600",
-
-                    upsert:
-                        false,
-
-                    contentType:
-                        file.type ||
-                        "application/octet-stream"
-
-                }
-            );
-
-
-    if (
-        error
-    ) {
-
-        throw new Error(
-            `作品ファイルのアップロードに失敗しました: ${error.message}`
-        );
-
+    if (error) {
+        throw new Error(`作品ファイルのアップロードに失敗しました: ${error.message}`);
     }
 
-
     return {
-
-        path:
-            path,
-
-        bucket:
-            bucket
-
+        path,
+        bucket
     };
-
 }
-
-
-/* =========================================================
-   MIGRATE WORK FILE
-========================================================= */
 
 async function migrateWorkFile({
     fromBucket,
     toBucket,
     path
 }) {
-
-    if (
-        !fromBucket ||
-        !toBucket ||
-        !path
-    ) {
-
-        throw new Error(
-            "作品ファイルの移動情報が不足しています。"
-        );
-
+    if (!fromBucket || !toBucket || !path) {
+        throw new Error("作品ファイルの移動情報が不足しています。");
     }
 
-
-    if (
-        fromBucket ===
-        toBucket
-    ) {
-
+    if (fromBucket === toBucket) {
         return {
-
-            bucket:
-                toBucket,
-
-            path:
-                path
-
+            bucket: toBucket,
+            path
         };
-
     }
 
-
-    /*
-     * 既存BucketからBlobとして取得
-     */
-
-    const {
-        data: blob,
-        error: downloadError
-    } =
+    const { data: blob, error: downloadError } =
         await window.supabaseClient
             .storage
-            .from(
-                fromBucket
-            )
-            .download(
-                path
-            );
+            .from(fromBucket)
+            .download(path);
 
-
-    if (
-        downloadError ||
-        !blob
-    ) {
-
+    if (downloadError || !blob) {
         throw new Error(
             `既存作品ファイルを読み込めませんでした: ${downloadError?.message || "download failed"}`
         );
-
     }
 
-
-    /*
-     * 新しいBucketへコピー
-     */
-
-    const {
-        error: uploadError
-    } =
+    const { error: uploadError } =
         await window.supabaseClient
             .storage
-            .from(
-                toBucket
-            )
-            .upload(
-                path,
-                blob,
-                {
+            .from(toBucket)
+            .upload(path, blob, {
+                cacheControl: "3600",
+                upsert: false,
+                contentType:
+                    blob.type ||
+                    "application/octet-stream"
+            });
 
-                    cacheControl:
-                        "3600",
-
-                    upsert:
-                        false,
-
-                    contentType:
-                        blob.type ||
-                        "application/octet-stream"
-
-                }
-            );
-
-
-    if (
-        uploadError
-    ) {
-
+    if (uploadError) {
         throw new Error(
             `作品ファイルの公開範囲変更に失敗しました: ${uploadError.message}`
         );
-
     }
-
 
     return {
-
-        bucket:
-            toBucket,
-
-        path:
-            path
-
+        bucket: toBucket,
+        path
     };
-
 }
 
-
-/* =========================================================
-   WORK BUCKET
-========================================================= */
-
-function getWorkBucket(
-    access
-) {
-
-    return (
-        access ===
-        "public"
-    )
+function getWorkBucket(access) {
+    return access === "public"
         ? PUBLIC_WORK_BUCKET
         : PRIVATE_WORK_BUCKET;
-
 }
 
-
-/* =========================================================
-   REMOVE STORAGE FILE
-========================================================= */
-
-async function removeStorageFile(
-    bucket,
-    path
-) {
-
-    if (
-        !bucket ||
-        !path
-    ) {
-
-        return;
-
-    }
-
+async function removeStorageFile(bucket, path) {
+    if (!bucket || !path) return;
 
     try {
+        const { error } = await window.supabaseClient
+            .storage
+            .from(bucket)
+            .remove([path]);
 
-        const {
-            error
-        } =
-            await window.supabaseClient
-                .storage
-                .from(
-                    bucket
-                )
-                .remove([
-                    path
-                ]);
-
-
-        if (
-            error
-        ) {
-
-            console.warn(
-                `STORAGE REMOVE ERROR (${bucket}):`,
-                error
-            );
-
+        if (error) {
+            console.warn(`STORAGE REMOVE ERROR (${bucket}):`, error);
         }
-
+    } catch (error) {
+        console.warn(`STORAGE REMOVE ERROR (${bucket}):`, error);
     }
-    catch (
-        error
-    ) {
-
-        console.warn(
-            `STORAGE REMOVE ERROR (${bucket}):`,
-            error
-        );
-
-    }
-
 }
 
-
-/* =========================================================
-   STORAGE PATH FROM PUBLIC URL
-========================================================= */
-
-function getStoragePathFromPublicUrl(
-    publicUrl,
-    bucket
-) {
-
-    if (
-        !publicUrl ||
-        !bucket
-    ) {
-
-        return null;
-
-    }
-
+function getStoragePathFromPublicUrl(publicUrl, bucket) {
+    if (!publicUrl || !bucket) return null;
 
     try {
-
-        const url =
-            new URL(
-                publicUrl
-            );
-
-
+        const url = new URL(publicUrl);
         const marker =
             `/storage/v1/object/public/${bucket}/`;
 
-
         const index =
-            url.pathname
-                .indexOf(
-                    marker
-                );
+            url.pathname.indexOf(marker);
 
-
-        if (
-            index ===
-            -1
-        ) {
-
+        if (index === -1) {
             return null;
-
         }
 
-
         return decodeURIComponent(
-
             url.pathname.slice(
-
-                index +
-                marker.length
-
+                index + marker.length
             )
-
         );
-
-    }
-    catch {
-
+    } catch {
         return null;
-
     }
-
 }
-
-
-/* =========================================================
-   SHOW FORM
-========================================================= */
 
 function showForm() {
-
-    if (
-        elements.loading
-    ) {
-
-        elements.loading.hidden =
-            true;
-
-    }
-
-
-    if (
-        elements.loginRequired
-    ) {
-
-        elements.loginRequired.hidden =
-            true;
-
-    }
-
-
-    if (
-        elements.forbidden
-    ) {
-
-        elements.forbidden.hidden =
-            true;
-
-    }
-
-
-    if (
-        elements.form
-    ) {
-
-        elements.form.hidden =
-            false;
-
-    }
-
+    if (elements.loading) elements.loading.hidden = true;
+    if (elements.loginRequired) elements.loginRequired.hidden = true;
+    if (elements.forbidden) elements.forbidden.hidden = true;
+    if (elements.form) elements.form.hidden = false;
 }
-
-
-/* =========================================================
-   SHOW LOGGED OUT
-========================================================= */
 
 function showLoggedOut() {
-
-    if (
-        elements.loading
-    ) {
-
-        elements.loading.hidden =
-            true;
-
-    }
-
-
-    if (
-        elements.form
-    ) {
-
-        elements.form.hidden =
-            true;
-
-    }
-
-
-    if (
-        elements.forbidden
-    ) {
-
-        elements.forbidden.hidden =
-            true;
-
-    }
-
-
-    if (
-        elements.loginRequired
-    ) {
-
-        elements.loginRequired.hidden =
-            false;
-
-    }
-
+    if (elements.loading) elements.loading.hidden = true;
+    if (elements.form) elements.form.hidden = true;
+    if (elements.forbidden) elements.forbidden.hidden = true;
+    if (elements.loginRequired) elements.loginRequired.hidden = false;
 }
 
+function showForbidden(message) {
+    if (elements.loading) elements.loading.hidden = true;
+    if (elements.form) elements.form.hidden = true;
+    if (elements.loginRequired) elements.loginRequired.hidden = true;
 
-/* =========================================================
-   SHOW FORBIDDEN
-========================================================= */
-
-function showForbidden(
-    message
-) {
-
-    if (
-        elements.loading
-    ) {
-
-        elements.loading.hidden =
-            true;
-
+    if (elements.forbiddenText) {
+        elements.forbiddenText.textContent = message;
     }
 
-
-    if (
-        elements.form
-    ) {
-
-        elements.form.hidden =
-            true;
-
+    if (elements.forbidden) {
+        elements.forbidden.hidden = false;
     }
-
-
-    if (
-        elements.loginRequired
-    ) {
-
-        elements.loginRequired.hidden =
-            true;
-
-    }
-
-
-    if (
-        elements.forbiddenText
-    ) {
-
-        elements.forbiddenText.textContent =
-            message;
-
-    }
-
-
-    if (
-        elements.forbidden
-    ) {
-
-        elements.forbidden.hidden =
-            false;
-
-    }
-
 }
 
+function setSubmitting(value) {
+    if (!elements.submitButton) return;
 
-/* =========================================================
-   SUBMIT STATE
-========================================================= */
-
-function setSubmitting(
-    value
-) {
-
-    if (
-        !elements.submitButton
-    ) {
-
-        return;
-
-    }
-
-
-    elements.submitButton.disabled =
-        value;
-
-
+    elements.submitButton.disabled = value;
     elements.submitButton.textContent =
         value
             ? "保存しています..."
             : "変更を保存する";
-
 }
-
-
-/* =========================================================
-   MESSAGES
-========================================================= */
 
 function clearMessages() {
-
-    if (
-        elements.error
-    ) {
-
-        elements.error.hidden =
-            true;
-
-
-        elements.error.textContent =
-            "";
-
+    if (elements.error) {
+        elements.error.hidden = true;
+        elements.error.textContent = "";
     }
 
-
-    if (
-        elements.success
-    ) {
-
-        elements.success.hidden =
-            true;
-
-
-        elements.success.textContent =
-            "";
-
+    if (elements.success) {
+        elements.success.hidden = true;
+        elements.success.textContent = "";
     }
-
 }
 
-
-function showError(
-    message
-) {
-
-    if (
-        !elements.error
-    ) {
-
-        console.error(
-            message
-        );
-
+function showError(message) {
+    if (!elements.error) {
+        console.error(message);
         return;
-
     }
 
+    elements.error.textContent = message;
+    elements.error.hidden = false;
 
-    elements.error.textContent =
-        message;
-
-
-    elements.error.hidden =
-        false;
-
-
-    if (
-        elements.success
-    ) {
-
-        elements.success.hidden =
-            true;
-
+    if (elements.success) {
+        elements.success.hidden = true;
     }
-
 }
 
+function showSuccess(message) {
+    if (!elements.success) return;
 
-function showSuccess(
-    message
-) {
+    elements.success.textContent = message;
+    elements.success.hidden = false;
 
-    if (
-        !elements.success
-    ) {
-
-        return;
-
+    if (elements.error) {
+        elements.error.hidden = true;
     }
-
-
-    elements.success.textContent =
-        message;
-
-
-    elements.success.hidden =
-        false;
-
-
-    if (
-        elements.error
-    ) {
-
-        elements.error.hidden =
-            true;
-
-    }
-
 }
 
-
-/* =========================================================
-   RADIO HELPERS
-========================================================= */
-
-function setRadioValue(
-    name,
-    value
-) {
-
-    const input =
-        document.querySelector(
-            `input[name="${name}"][value="${value}"]`
-        );
-
-
-    if (
-        input
-    ) {
-
-        input.checked =
-            true;
-
-    }
-
-}
-
-
-function getCheckedValue(
-    name
-) {
-
-    return (
-        document.querySelector(
-            `input[name="${name}"]:checked`
-        )
-            ?.value ||
-        null
+function setRadioValue(name, value) {
+    const input = document.querySelector(
+        `input[name="${name}"][value="${value}"]`
     );
 
+    if (input) {
+        input.checked = true;
+        return true;
+    }
+
+    return false;
 }
 
-
-/* =========================================================
-   TEXT HELPER
-========================================================= */
-
-function nullableText(
-    value
-) {
-
-    const text =
-        String(
-            value ??
-            ""
-        ).trim();
-
-
-    return (
-        text ||
-        null
-    );
-
+function getCheckedValue(name) {
+    return document.querySelector(
+        `input[name="${name}"]:checked`
+    )?.value || null;
 }
 
+function nullableText(value) {
+    const text = String(value ?? "").trim();
+    return text || null;
+}
 
-/* =========================================================
-   URL VALIDATION
-========================================================= */
-
-function isValidHttpUrl(
-    value
-) {
-
+function isValidHttpUrl(value) {
     try {
-
-        const url =
-            new URL(
-                value
-            );
-
-
-        return (
-            url.protocol ===
-                "http:" ||
-            url.protocol ===
-                "https:"
-        );
-
-    }
-    catch {
-
+        const url = new URL(value);
+        return url.protocol === "http:" || url.protocol === "https:";
+    } catch {
         return false;
-
     }
-
 }
 
+function getImageExtension(file) {
+    const extension = getFileExtension(file.name);
 
-/* =========================================================
-   IMAGE EXTENSION
-========================================================= */
-
-function getImageExtension(
-    file
-) {
-
-    const extension =
-        getFileExtension(
-            file.name
-        );
-
-
-    if (
-        [
-            "png",
-            "jpg",
-            "jpeg",
-            "webp"
-        ]
-            .includes(
-                extension
-            )
-    ) {
-
-        return (
-            extension ===
-            "jpeg"
-        )
-            ? "jpg"
-            : extension;
-
+    if (["png", "jpg", "jpeg", "webp"].includes(extension)) {
+        return extension === "jpeg" ? "jpg" : extension;
     }
 
-
-    switch (
-        file.type
-    ) {
-
+    switch (file.type) {
         case "image/jpeg":
-
             return "jpg";
-
-
         case "image/webp":
-
             return "webp";
-
-
         default:
-
             return "png";
-
     }
-
 }
 
-
-/* =========================================================
-   FILE EXTENSION
-========================================================= */
-
-function getFileExtension(
-    filename
-) {
-
+function getFileExtension(filename) {
     const parts =
-        String(
-            filename ||
-            ""
-        )
-            .split(
-                "."
-            );
+        String(filename || "").split(".");
 
-
-    return (
-        parts.length >
-        1
-    )
-        ? String(
-            parts.pop()
-        ).toLowerCase()
+    return parts.length > 1
+        ? String(parts.pop()).toLowerCase()
         : "";
-
 }
 
-
-/* =========================================================
-   FILE TYPE
-========================================================= */
-
-function getFileType(
-    file
-) {
-
+function getFileType(file) {
     const extension =
-        getFileExtension(
-            file?.name
-        );
+        getFileExtension(file?.name);
 
-
-    return (
-        extension
-    )
-        ? extension
-            .toUpperCase()
-        : file?.type ||
-            "FILE";
-
+    return extension
+        ? extension.toUpperCase()
+        : file?.type || "FILE";
 }
 
-
-/* =========================================================
-   SAFE STORAGE FILENAME
-========================================================= */
-
-function getSafeStorageFilename(
-    file
-) {
-
+function getSafeStorageFilename(file) {
     const original =
-        String(
-            file?.name ||
-            "file"
-        );
+        String(file?.name || "file");
 
+    const normalized = original
+        .normalize("NFKC")
+        .replace(/[\\/:*?"<>|#%{}[\]`~&+]/g, "_")
+        .replace(/\s+/g, "_")
+        .replace(/_+/g, "_")
+        .replace(/^_+|_+$/g, "");
 
-    const normalized =
-        original
-            .normalize(
-                "NFKC"
-            )
-            .replace(
-                /[\\/:*?"<>|#%{}[\]`~&+]/g,
-                "_"
-            )
-            .replace(
-                /\s+/g,
-                "_"
-            )
-            .replace(
-                /_+/g,
-                "_"
-            )
-            .replace(
-                /^_+|_+$/g,
-                ""
-            );
-
-
-    return (
-        normalized ||
-        "file"
-    );
-
+    return normalized || "file";
 }
 
+function formatFileSize(bytes) {
+    const value = Number(bytes);
 
-/* =========================================================
-   FORMAT FILE SIZE
-========================================================= */
-
-function formatFileSize(
-    bytes
-) {
-
-    const value =
-        Number(
-            bytes
-        );
-
-
-    if (
-        !Number.isFinite(
-            value
-        ) ||
-        value <
-        0
-    ) {
-
+    if (!Number.isFinite(value) || value < 0) {
         return "-";
-
     }
 
-
-    if (
-        value ===
-        0
-    ) {
-
+    if (value === 0) {
         return "0 B";
-
     }
 
+    const units = ["B", "KB", "MB", "GB", "TB"];
 
-    const units = [
-
-        "B",
-
-        "KB",
-
-        "MB",
-
-        "GB",
-
-        "TB"
-
-    ];
-
-
-    const index =
-        Math.min(
-
-            Math.floor(
-                Math.log(
-                    value
-                ) /
-                Math.log(
-                    1024
-                )
-            ),
-
-            units.length -
-            1
-
-        );
-
+    const index = Math.min(
+        Math.floor(Math.log(value) / Math.log(1024)),
+        units.length - 1
+    );
 
     const size =
-        value /
-        Math.pow(
-            1024,
-            index
-        );
+        value / Math.pow(1024, index);
 
-
-    return (
-        `${size.toFixed(index === 0 ? 0 : 2)} ${units[index]}`
-    );
-
+    return `${size.toFixed(index === 0 ? 0 : 2)} ${units[index]}`;
 }
-
-
-/* =========================================================
-   UUID
-========================================================= */
 
 function createUuid() {
-
-    if (
-        crypto
-            ?.randomUUID
-    ) {
-
-        return crypto
-            .randomUUID();
-
+    if (crypto?.randomUUID) {
+        return crypto.randomUUID();
     }
 
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        char => {
+            const random =
+                Math.random() * 16 | 0;
 
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
-        .replace(
+            const value =
+                char === "x"
+                    ? random
+                    : (random & 0x3 | 0x8);
 
-            /[xy]/g,
-
-            char => {
-
-                const random =
-                    Math.random() *
-                    16 |
-                    0;
-
-
-                const value =
-                    char ===
-                    "x"
-                        ? random
-                        : (
-                            random &
-                            0x3 |
-                            0x8
-                        );
-
-
-                return value
-                    .toString(
-                        16
-                    );
-
-            }
-
-        );
-
-}
-
-
-/* =========================================================
-   ERROR MESSAGE
-========================================================= */
-
-function getErrorMessage(
-    error
-) {
-
-    if (
-        !error
-    ) {
-
-        return "不明なエラーが発生しました。";
-
-    }
-
-
-    if (
-        typeof error ===
-        "string"
-    ) {
-
-        return error;
-
-    }
-
-
-    return (
-        error.message ||
-        error.error_description ||
-        "処理中にエラーが発生しました。"
+            return value.toString(16);
+        }
     );
-
 }
 
+function getErrorMessage(error) {
+    if (!error) {
+        return "不明なエラーが発生しました。";
+    }
 
-console.log(
-    "MFDCO edit-work.js loaded."
-);
+    if (typeof error === "string") {
+        return error;
+    }
+
+    return error.message ||
+        error.error_description ||
+        "処理中にエラーが発生しました。";
+}
+
+console.log("MFDCO edit-work.js loaded.");

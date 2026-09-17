@@ -1,0 +1,29 @@
+<!-- edit-work.html の edit-work-form 内に配置してください。 -->
+<fieldset class="form-section" aria-describedby="download-access-help">
+    <legend>ダウンロードできるユーザー</legend>
+
+    <label>
+        <input type="radio" name="download_access" value="public" required>
+        ログイン不要
+    </label>
+
+    <label>
+        <input type="radio" name="download_access" value="user" required>
+        ログインユーザー
+    </label>
+
+    <label>
+        <input type="radio" name="download_access" value="member" required>
+        加盟国・許可ユーザー
+    </label>
+
+    <label>
+        <input type="radio" name="download_access" value="private" required>
+        非公開
+    </label>
+
+    <div id="download-access-help" aria-live="polite">
+        <strong id="download-access-help-title"></strong>
+        <p id="download-access-help-text"></p>
+    </div>
+</fieldset>
