@@ -1189,6 +1189,11 @@ async function loadMembers() {
                     status,
                     created_at
                 `)
+
+                .neq(
+                    "activity_name",
+                    ""
+                )
                 
                 .order(
                     "permanent_member",
@@ -1219,7 +1224,15 @@ async function loadMembers() {
             Array.isArray(
                 profiles
             )
-                ? profiles
+                ? profiles.filter(
+                    profile =>
+                        Boolean(
+                            String(
+                                profile.activity_name ||
+                                ""
+                            ).trim()
+                        )
+                )
                 : [];
 
 

@@ -75,6 +75,23 @@ function isSupabaseReady() {
 
 
 /* =========================================
+   PROFILE COMPLETION CHECK
+========================================= */
+
+function isJoinProfileComplete(profile) {
+
+    return Boolean(
+        profile &&
+        String(
+            profile.activity_name ||
+            ""
+        ).trim()
+    );
+
+}
+
+
+/* =========================================
    LOGIN / REGISTER SWITCH
    ========================================= */
 
@@ -625,9 +642,14 @@ if (loginForm) {
                         .from(
                             "profiles"
                         )
-                        .select(
-                            "id, status"
-                        )
+                        .select(`
+                            id,
+                            activity_name,
+                            agreement,
+                            agreement_at,
+                            status,
+                            membership_status
+                        `)
                         .eq(
                             "id",
                             data.user.id
@@ -654,7 +676,11 @@ if (loginForm) {
                  * プロフィールが未登録の場合。
                  */
 
-                if (!profile) {
+                if (
+                    !isJoinProfileComplete(
+                        profile
+                    )
+                ) {
 
                     window.location.href =
                         "profile-setup.html";

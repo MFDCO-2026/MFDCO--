@@ -1409,7 +1409,10 @@ async function loadMyPage() {
                     credit_text,
                     tags,
                     bio,
+                    agreement,
+                    agreement_at,
                     status,
+                    membership_status,
                     permanent_member,
                     created_at
                 `)
@@ -1436,6 +1439,27 @@ async function loadMyPage() {
             throw new Error(
                 "プロフィール情報が見つかりません。"
             );
+
+        }
+
+
+        /* =====================================
+           INCOMPLETE OWN PROFILE
+        ====================================== */
+
+        if (
+            isOwnProfile &&
+            !String(
+                profileData.activity_name ||
+                ""
+            ).trim()
+        ) {
+
+            window.location.replace(
+                "profile-setup.html"
+            );
+
+            return;
 
         }
 

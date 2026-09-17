@@ -550,6 +550,37 @@ async function getAuthenticatedUser() {
 
 
 /* =========================================
+   PROFILE COMPLETION CHECK
+========================================= */
+
+function isProfileSetupComplete(profile) {
+
+    if (!profile) {
+
+        return false;
+
+    }
+
+
+    /*
+     * profiles行はAuth登録時のDBトリガーで
+     * 空の状態でも作成される場合がある。
+     * そのため、idの存在だけでは設定完了と判定しない。
+     */
+
+    const activityName =
+        String(
+            profile.activity_name ||
+            ""
+        ).trim();
+
+
+    return activityName.length > 0;
+
+}
+
+
+/* =========================================
    INITIALIZE
    ========================================= */
 
@@ -592,8 +623,9 @@ async function initializeProfileSetup() {
 
 
         /*
-         * 既にプロフィールが存在する場合は
-         * 二重登録を防止してマイページへ。
+         * DBトリガーによって空プロフィールが
+         * 先に作成される場合がある。
+         * idだけでなく、活動名が登録済みか確認する。
          */
 
         const {
@@ -604,9 +636,14 @@ async function initializeProfileSetup() {
                 .from(
                     "profiles"
                 )
-                .select(
-                    "id"
-                )
+                .select(`
+                    id,
+                    activity_name,
+                    agreement,
+                    agreement_at,
+                    status,
+                    membership_status
+                `)
                 .eq(
                     "id",
                     currentUser.id
@@ -621,7 +658,11 @@ async function initializeProfileSetup() {
         }
 
 
-        if (existingProfile) {
+        if (
+            isProfileSetupComplete(
+                existingProfile
+            )
+        ) {
 
             window.location.href =
                 "mypage.html";
@@ -1049,7 +1090,7 @@ if (profileForm) {
 
 
                 window.location.href =
-                    "mypage.html";
+                    "join-complete.html";
 
 
             } catch (error) {
