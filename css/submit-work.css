@@ -854,6 +854,109 @@ small {
 
 
 /* =========================================
+   DOWNLOAD ACCESS
+========================================= */
+
+.download-access-fieldset {
+    margin-top: 38px;
+    margin-bottom: 0;
+    padding-top: 32px;
+    border-top: 1px solid #eeeeee;
+}
+
+.download-access-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.download-access-card {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.download-access-card > input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+}
+
+.download-access-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 96px;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 2px solid #d8d8d8;
+    background: #ffffff;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.download-access-content strong {
+    margin-bottom: 6px;
+    color: #222222;
+    font-size: 14px;
+}
+
+.download-access-content > span {
+    color: #777777;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.download-access-card:hover .download-access-content {
+    border-color: var(--main-color, #164b4b);
+    transform: translateY(-2px);
+}
+
+.download-access-card > input[type="radio"]:checked + .download-access-content {
+    border-color: var(--main-color, #164b4b);
+    background: var(--main-color, #164b4b);
+    color: #ffffff;
+}
+
+.download-access-card > input[type="radio"]:checked + .download-access-content strong,
+.download-access-card > input[type="radio"]:checked + .download-access-content > span {
+    color: #ffffff;
+}
+
+.download-access-card > input[type="radio"]:focus-visible + .download-access-content {
+    outline: 3px solid rgba(22, 75, 75, 0.2);
+    outline-offset: 3px;
+}
+
+.download-access-help {
+    margin-top: 15px;
+    padding: 16px 18px;
+    border-left: 3px solid var(--main-color, #164b4b);
+    background: #f0f5f4;
+}
+
+.download-access-help strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--main-color, #164b4b);
+    font-size: 13px;
+}
+
+.download-access-help p {
+    margin: 0;
+    color: #555555;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+
+/* =========================================
    CONDITIONS
 ========================================= */
 
@@ -1416,6 +1519,15 @@ input[type="radio"]:focus-visible
 
     .submission-area {
         padding: 18px;
+    }
+
+    .download-access-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .download-access-content {
+        min-height: 86px;
+        padding: 17px;
     }
 
 
