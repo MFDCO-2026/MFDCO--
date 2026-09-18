@@ -927,15 +927,11 @@ async function handleSave(event) {
                 getCreditType(),
 
             credit_text:
-                getCreditText(),
-
-            // 編集された作品は再審査に戻す。
-            status:
-                "pending"
+                getCreditText()
         };
 
         /*
-         * id / user_id は更新しない。
+         * id / user_id / status は更新しない。
          */
 
         const {
