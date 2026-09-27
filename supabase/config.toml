@@ -1,0 +1,9 @@
+[functions.like-work]
+verify_jwt = false
+
+[functions.report-content]
+verify_jwt = false
+
+[functions.download-work]
+verify_jwt = false
+
