@@ -1,0 +1,25 @@
+MFDCO 日本全域・主要都市テンプレート 1.0.0 (JAPAN-24)
+
+海岸線・都市位置: Made with Natural Earth (1:10 million cartographic data).
+Natural Earth data are in the public domain.
+https://www.naturalearthdata.com/about/terms-of-use/
+https://github.com/nvkelso/natural-earth-vector
+
+標高・海底地形: Mapzen / Terrain Tiles, zoom 6 Terrarium.
+Global GMTED2010 and SRTM terrain data courtesy of the U.S. Geological Survey.
+Global ETOPO1 terrain data: U.S. National Oceanic and Atmospheric Administration.
+https://registry.opendata.aws/terrain-tiles/
+https://github.com/tilezen/joerd/blob/master/docs/attribution.md
+
+加工: 日本の海岸線を1024×1200セルにラスタライズ。DEMをセル中心で標本化し
+整数mに丸め、海岸線との不整合を海0m以下・陸0m以上に補正。植生・地形種は
+標高からの仮分類であり、実測土地利用データではありません。都市は点記号と
+簡略市街地で表現。都市座標・人口データはNatural Earth収録時点のものです。
+標準緯線35°Nの正距円筒図法相当。地図内の距離計算は一律縮尺による近似です。
+範囲: 東経122–147°、北緯23–47°。沖縄・小笠原を含み、南鳥島など範囲外の
+離島は含みません。小さい島・湖沼・山頂標高は解像度と原データにより省略・平滑化。
+国境・行政界の法的な表現ではありません。測量・航海用の地図ではありません。
+
+更新: scripts/build-japan.py。入力URLとSHA256はjapan-v1.jsonに保存。
+テンプレートの更新はボタンで明示的に再読込。ユーザーの編集は自動上書きしません。
+地図・プロジェクトJSONおよびSVGのmetadataにも出典を保持します。

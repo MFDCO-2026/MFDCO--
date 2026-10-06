@@ -1,0 +1,29 @@
+MFDCO v0.29 historical layout scope and sources
+
+3 editable placement packs (23 labels, 48 facilities):
+- midway1942: USMC official history Vol.I, Chapter4, Map10, transcribed by HyperWar.
+  https://www.ibiblio.org/hyperwar/USMC/I/USMC-I-V-4.html
+  Map inspected: https://www.ibiblio.org/hyperwar/USMC/I/maps/USMC-I-10.gif
+  NPS The Battle of Midway:
+  https://www.nps.gov/articles/the-battle-of-midway-turning-the-tide-in-the-pacific-teaching-with-historic-places.htm
+- pearl1941: US Navy Mooring & Berthing Plan, via HyperWar.
+  https://www.ibiblio.org/hyperwar/USN/fac/PH/index.html
+  Map inspected: https://www.ibiblio.org/hyperwar/USN/fac/PH/img/Mooring.jpg
+  Exact publication date not established. Geometry is not a certified 1941 reconstruction.
+  NPS CPO Bungalows and Battleship Row:
+  https://www.nps.gov/articles/000/ford-island-cpo-bungalows-neighborhood-and-battleship-row-975011.htm
+  NPS Battlefield Oahu: https://www.nps.gov/perl/learn/historyculture/oahu.htm
+- normandy1944: Memorial Pegasus and Ranville municipal history:
+  https://musee.memorial-pegasus.com/en/pegasus-bridge/
+  https://www.ranville.fr/decouvrir-ranville/histoire/le-d-day/
+  IWM Caen bridge view: https://www.iwm.org.uk/collections/item/object/12549
+
+No reference images are redistributed. Labels and facility records are original structured data.
+Geographic anchors, road alignments, rectangular footprints and urban pattern extents are
+manual approximations for editing, NOT surveyed historic geometry or individual house layouts.
+Historic existence and geographical precision are separate: every record says approximate.
+The underlying modern DEM/coastline is unchanged. Terrain is not affected by visual waterways.
+No Ford Island modern bridge/memorial or post-battle Sand Island runway is added.
+All facilities have neutral teams and zero added defense/damage/support effects by default.
+Each pack has stable IDs, a dated source list, and version 1.0.0 for later corrections.
+Movement timelines are a future stage; no historical force movement is claimed here.

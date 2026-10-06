@@ -1,0 +1,32 @@
+MFDCO 地域参考図 v1 / MAP-27
+
+真珠湾・ノルマンディー・スターリングラード・硫黄島・ソロモン諸島。
+追加: 沖縄本島・対馬海峡・シンガポール周辺・マルタ島・ジブラルタル海峡・
+バターン/マニラ湾・グアム・ダーダネルス海峡。
+現代の標高データを128列（ソロモンのみ256列）へ標本化した概略図です。
+標高0mから推定した海岸線は測量精度ではありません。スターリングラードの
+ヴォルガ川は手作業で簡略化した帯、地名は位置の目安です。植生は標高による
+仮分類です。戦時の建物・道路・海岸線や部隊配置を復元したものではありません。
+
+Mapzen / Terrain Tiles:
+https://registry.opendata.aws/terrain-tiles/
+https://github.com/tilezen/joerd/blob/master/docs/attribution.md
+SRTM / GMTED2010: U.S. Geological Survey.
+ETOPO1: U.S. National Oceanic and Atmospheric Administration.
+Europe terrain data produced using Copernicus data and information funded by the
+European Union - EU-DEM layers.
+各地域のjsonに入力URLとSHA256を保存。生成方法: scripts/build-battlefields.py。
+
+歴史的な地域名の参考（地形データ出典とは別）:
+https://www.nps.gov/perl/
+https://www.abmc.gov/cemeteries-memorials/about-normandy-american-cemetery/
+https://www.nps.gov/gwmp/learn/historyculture/usmcwarmemorial.htm
+
+MAP-27追加: ミッドウェー、マジノ線周辺、ベルリン、レニングラード周辺、
+モスクワ、キエフ（キーウ）、ナイル川下流域、台湾周辺、旅順要塞周辺、関ケ原、
+盧溝橋周辺、アルデンヌ、クルスク、ヴェルダン、ワーテルロー、エル・アラメイン。
+台湾は256列、その他追加分は128列。内陸のDEM負標高は海へ変換しない。
+ナイル・モスクワ川・ドニプロ川・永定河は手動で簡略化した河川の帯を重ねた。
+ナイルは下流・デルタの一部のみ。河川幅はセル解像度の都合で強調される。
+ベルリンなどの湖・河川や市街地輪郭は未収録。地名が示す要塞群・戦線・街区の
+史実配置を復元したものではなく、その周辺地形を編集の出発点として提供する。

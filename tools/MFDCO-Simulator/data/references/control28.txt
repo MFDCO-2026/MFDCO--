@@ -1,0 +1,18 @@
+MFDCO v0.28 references and scope
+
+Historical district names:
+Berlin (September 1, 1945), German History in Documents and Images.
+Original cartography: IEG-MAPS, A. Kunz (2004); revision Gabriel Moss (2021).
+https://germanhistorydocs.org/en/occupation-and-the-emergence-of-two-states-1945-1961/berlin-september-1-1945
+Only 20 district names and approximate center placements are included as editable labels.
+No source map image is redistributed. Coordinates are approximate modern anchors,
+not surveyed historical boundaries, streets, buildings, or urban extents.
+
+Weapon glyph reference context:
+NHHC NH 123897: streamlined naval gun mount.
+https://www.history.navy.mil/content/history/nhhc/our-collections/photography/numerical-list-of-images/nhhc-series/nh-series/NH-123000/NH-123897.html
+Australian War Memorial 302662: external gun mounts and torpedo tubes, USS Mahan.
+https://www.awm.gov.au/collection/302662
+All UI glyphs are independently drawn generic SVG forms. No source photos are bundled.
+Modern VLS, CIWS, missile, and laser graphics are schematic, not model-accurate replicas.
+All simulation values are fictional; no real weapon performance data is provided.
