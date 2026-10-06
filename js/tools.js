@@ -46,6 +46,23 @@ const MFDCO_TOOLS = [
             "available"
     }
     ,
+
+    {
+        id: "mfdco-cv",
+
+        title: "レーダー・地図シミュレーター(ver-8.10.11)",
+
+        description:
+            "レーダーや地図上で部隊の移動を再現できる高性能ツールです．茶番の説明やCIC表示などにご活用ください",
+
+        href:
+            "tools/MFDCO-Simulator/index.html",
+
+        status:
+            "available"
+    }
+      ,
+
     {
         id: "mfdco-cv",
 
