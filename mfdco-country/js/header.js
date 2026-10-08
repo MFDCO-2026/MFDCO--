@@ -19,133 +19,34 @@ const MFDCO_DISCORD_INVITE_URL =
 ========================================= */
 
 const MFDCO_HEADER_MENU = [
-
-    {
-        type: "link",
-        label: "ホーム",
-        href: "index.html"
-    },
-
-
-    {
-        type: "group",
-        title: "知る",
-
-        items: [
-
-            {
-                label: "MFDCOとは",
-                href: "about.html"
-            },
-
-            {
-                label: "映像作品",
-                href: "movies.html"
-            },
-
-            {
-                label: "お知らせ",
-                href: "news.html"
-            },
-
-            {
-                label: "規約",
-                href: "site.html"
-            },
-
-            {
-                label: "プライバシーポリシー",
-                href: "privacy.html"
-            }
-
-        ]
-    },
-
-
-    {
-        type: "group",
-        title: "利用する",
-
-        items: [
-
-            {
-                label: "提供作品",
-                href: "works.html"
-            },
-
-            {
-                label: "ツールを利用",
-                href: "tools.html"
-            }
-
-        ]
-    },
-
-
-    {
-        type: "group",
-        title: "参加する",
-
-        items: [
-
-            {
-                label: "作品を提供",
-                href: "submit-work.html",
-                authOnly: true
-            },
-
-            {
-                label: "加盟国一覧",
-                href: "members.html"
-            },
-
-            {
-                label: "独自テクスチャ",
-                disabled: true,
-                note: "追加予定"
-            },
-
-            {
-                label: "制作依頼",
-                href: "requests.html"
-            },
-
-            {
-                label: "国家運営",
-                href: "mfdco-country/countries.html"
-            },
-
-            {
-                label: "Discord",
-                href: MFDCO_DISCORD_INVITE_URL,
-                external: true,
-                authOnly: true
-            }
-
-        ]
-    },
-
-
-    {
-        type: "account",
-        title: "アカウント"
-    },
-
-
-    {
-        type: "group",
-        title: "サポート",
-
-        items: [
-
-            {
-                label: "フィードバック",
-                href:"https://docs.google.com/forms/d/e/1FAIpQLSc3i4fw7V8rzvM-3MIezqTwIczndj76Id6fs8Iu0p4IwFWgwA/viewform?usp=header"
-            }
-
-        ]
-    }
-
+    { type:"link", label:"戻る", href:"https://mfdco.net" },
+    { type:"group", title:"MFDCO", items:[
+        {label:"MFDCOとは",href:"about.html"},
+        {label:"お知らせ",href:"news.html"},
+        {label:"映像紹介",href:"movies.html"}
+    ]},
+    { type:"group", title:"作品・ツール", items:[
+        {label:"提供作品",href:"works.html"},
+        {label:"作品を提供",href:"submit-work.html",authOnly:true},
+        {label:"ツール",href:"tools.html"},
+        {label:"制作依頼",href:"requests.html"}
+    ]},
+    { type:"group", title:"コミュニティ", items:[
+        {label:"加盟国一覧",href:"members.html"},
+        {label:"国家運営",href:"countries.html"},
+        {label:"国家ニュース",href:"country-feed.html"},
+        {label:"国家比較",href:"country-compare.html"},
+        {label:"世界経済",href:"country-market.html"},
+        {label:"国際機関・条約",href:"country-organizations.html"},
+        {label:"Discord",href:MFDCO_DISCORD_INVITE_URL,external:true,authOnly:true}
+    ]},
+    { type:"account", title:"アカウント" },
+    { type:"group", title:"規約・サポート", items:[
+        {label:"規約",href:"site.html"},
+        {label:"プライバシーポリシー",href:"privacy.html"},
+        {label:"サイト検索",href:"search.html"},
+        {label:"フィードバック",href:"https://docs.google.com/forms/d/e/1FAIpQLSc3i4fw7V8rzvM-3MIezqTwIczndj76Id6fs8Iu0p4IwFWgwA/viewform?usp=header",external:true}
+    ]}
 ];
 
 
@@ -1842,3 +1743,10 @@ else {
 console.log(
     "MFDCO header.js stable navigation version loaded."
 );
+
+
+async function loadHeaderActiveCountry(){
+ const box=document.getElementById("header-active-country"),img=document.getElementById("header-active-country-flag"),name=document.getElementById("header-active-country-name");if(!box||!window.supabaseClient)return;
+ try{const ud=await window.supabaseClient.auth.getUser(),u=ud.data?.user;if(!u)return;const pr=await window.supabaseClient.from("country_user_preferences").select("main_country_id,active_country_id").eq("user_id",u.id).maybeSingle();const id=pr.data?.active_country_id||pr.data?.main_country_id;if(!id)return;const cq=await window.supabaseClient.from("countries").select("id,name,flag_key").eq("id",id).maybeSingle();if(!cq.data)return;name.textContent=cq.data.name||"アクティブ国家";box.href=`country.html?id=${encodeURIComponent(id)}`;if(cq.data.flag_key?.startsWith("storage:")){const su=await window.supabaseClient.storage.from("country-media").createSignedUrl(cq.data.flag_key.slice(8),1800);if(su.data?.signedUrl){img.src=su.data.signedUrl;img.hidden=false}}box.hidden=false}catch(e){console.warn("HEADER ACTIVE COUNTRY",e)}
+}
+document.addEventListener("DOMContentLoaded",()=>{setTimeout(loadHeaderActiveCountry,0);document.addEventListener("toggle",e=>{const d=e.target;if(!(d instanceof HTMLDetailsElement)||!d.open)return;const scope=d.parentElement;if(scope)scope.querySelectorAll("details[open]").forEach(o=>{if(o!==d)o.open=false})},true)});

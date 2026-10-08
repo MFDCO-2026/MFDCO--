@@ -112,7 +112,15 @@ const MFDCO_HEADER_MENU = [
 
             {
                 label: "国家運営",
-                href: "mfdco-country/countries.html"
+                href: "countries.html"
+            },
+            {
+                label: "国家ニュース",
+                href: "country-feed.html"
+            },
+            {
+                label: "国家比較",
+                href: "country-compare.html"
             },
 
             {
@@ -137,6 +145,8 @@ const MFDCO_HEADER_MENU = [
         title: "サポート",
 
         items: [
+
+            { label: "サイト検索", href: "search.html" },
 
             {
                 label: "フィードバック",

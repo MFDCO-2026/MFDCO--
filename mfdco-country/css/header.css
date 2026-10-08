@@ -1,0 +1,1067 @@
+/* =========================================
+   MFDCO HEADER
+========================================= */
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.site-header {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 10000;
+
+    background:
+        rgba(255, 255, 255, 0.97);
+
+    border-bottom:
+        1px solid
+        rgba(0, 0, 0, 0.08);
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
+    transition:
+        box-shadow 0.25s ease,
+        background-color 0.25s ease;
+}
+
+
+.site-header.scrolled {
+    background:
+        rgba(255, 255, 255, 0.99);
+
+    box-shadow:
+        0 5px 24px
+        rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================
+   INNER
+========================================= */
+
+.site-header .header-inner {
+    width: 100%;
+
+    height: 76px;
+
+    padding:
+        0 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.site-header .site-brand {
+    min-width: 0;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    flex-shrink: 0;
+
+    color: #111111;
+
+    text-decoration: none;
+}
+
+
+.site-header .site-logo {
+    display: block;
+
+    width: 94px;
+
+    max-width: 94px;
+
+    height: auto;
+
+    object-fit: contain;
+}
+
+
+.site-header .site-title {
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    letter-spacing: 0.04em;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   PRIMARY NAVIGATION
+========================================= */
+
+.site-header .header-primary-nav {
+    min-width: 0;
+
+    margin-left: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 4px;
+}
+
+
+.site-header .header-primary-nav a {
+    position: relative;
+
+    height: 48px;
+
+    padding:
+        0 13px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #222222;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.03em;
+
+    white-space: nowrap;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.site-header .header-primary-nav a:hover {
+    color: #164b4b;
+
+    background:
+        #f5f7f7;
+}
+
+
+.site-header .header-primary-nav a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 13px;
+    right: 13px;
+    bottom: 6px;
+
+    height: 2px;
+
+    background: #164b4b;
+
+    transform: scaleX(0);
+
+    transform-origin: center;
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.site-header .header-primary-nav a:hover::after,
+.site-header .header-primary-nav a.active::after {
+    transform: scaleX(1);
+}
+
+
+.site-header .header-primary-nav a.active {
+    color: #164b4b;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   RIGHT
+========================================= */
+
+.site-header .header-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================
+   ACCOUNT
+========================================= */
+
+.site-header .header-account-button {
+    height: 48px;
+
+    max-width: 180px;
+
+    padding:
+        0 13px 0 6px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    border:
+        1px solid #dddddd;
+
+    background:
+        #ffffff;
+
+    color:
+        #111111;
+
+    text-decoration: none;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.site-header .header-account-button:hover {
+    border-color:
+        #164b4b;
+
+    background:
+        #f7f9f9;
+}
+
+
+.site-header .header-account-icon-wrap {
+    flex:
+        0 0 auto;
+}
+
+
+.site-header
+.header-account-icon-wrap[hidden] {
+    display: none !important;
+}
+
+
+.site-header .header-account-icon {
+    display: block;
+
+    width: 34px;
+
+    height: 34px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    background: #eeeeee;
+}
+
+
+.site-header .header-account-name {
+    max-width: 110px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================
+   MENU BUTTON
+========================================= */
+
+.site-header .header-menu-button {
+    width: 48px;
+
+    height: 48px;
+
+    flex:
+        0 0 48px;
+
+    padding: 0;
+
+    display: inline-flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    border:
+        1px solid #dddddd;
+
+    background:
+        #ffffff;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.site-header
+.header-menu-button:hover {
+    border-color:
+        #164b4b;
+
+    background:
+        #f5f7f7;
+}
+
+
+.site-header
+.header-menu-button span {
+    display: block;
+
+    width: 22px;
+
+    height: 2px;
+
+    background:
+        #111111;
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+}
+
+
+.site-header
+.header-menu-button.active
+span:nth-child(1) {
+    transform:
+        translateY(7px)
+        rotate(45deg);
+}
+
+
+.site-header
+.header-menu-button.active
+span:nth-child(2) {
+    opacity: 0;
+}
+
+
+.site-header
+.header-menu-button.active
+span:nth-child(3) {
+    transform:
+        translateY(-7px)
+        rotate(-45deg);
+}
+
+
+/* =========================================
+   BODY LOCK
+========================================= */
+
+body.header-menu-open {
+    overflow: hidden;
+}
+
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.site-header .header-menu-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 10001;
+
+    width: 100vw;
+
+    height: 100vh;
+
+    background:
+        rgba(0, 0, 0, 0.38);
+
+    opacity: 0;
+
+    transition:
+        opacity 0.28s ease;
+}
+
+
+.site-header
+.header-menu-overlay[hidden] {
+    display: none !important;
+}
+
+
+.site-header
+.header-menu-overlay.is-visible {
+    opacity: 1;
+}
+
+
+/* =========================================
+   SIDE MENU
+========================================= */
+
+.site-header .header-side-menu {
+    position: fixed;
+
+    top: 0;
+    right: 0;
+
+    width:
+        min(410px, 92vw);
+
+    height:
+        100vh;
+
+    z-index: 10002;
+
+    background:
+        #ffffff;
+
+    border-left:
+        1px solid #dddddd;
+
+    box-shadow:
+        -15px 0 40px
+        rgba(0, 0, 0, 0.14);
+
+    transform:
+        translateX(100%);
+
+    transition:
+        transform 0.28s ease;
+
+    overflow: hidden;
+}
+
+
+.site-header
+.header-side-menu.is-open {
+    transform:
+        translateX(0);
+}
+
+
+/* =========================================
+   SIDE INNER
+========================================= */
+
+.site-header
+.header-side-menu-inner {
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+/* =========================================
+   SIDE HEADER
+========================================= */
+
+.site-header
+.header-side-menu-header {
+    min-height: 90px;
+
+    padding:
+        20px 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    border-bottom:
+        1px solid #e5e5e5;
+}
+
+
+.site-header
+.header-side-menu-label {
+    margin:
+        0 0 3px;
+
+    color:
+        #164b4b;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+}
+
+
+.site-header
+.header-side-menu-title {
+    margin: 0;
+
+    color: #111111;
+
+    font-size: 22px;
+
+    font-weight: 600;
+
+    line-height: 1.2;
+
+    letter-spacing: 0.04em;
+}
+
+
+/* =========================================
+   CLOSE
+========================================= */
+
+.site-header .header-menu-close {
+    width: 44px;
+
+    height: 44px;
+
+    flex:
+        0 0 44px;
+
+    padding: 0;
+
+    border:
+        1px solid #dddddd;
+
+    background:
+        #ffffff;
+
+    color:
+        #111111;
+
+    font-size: 28px;
+
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+
+.site-header
+.header-menu-close:hover {
+    border-color:
+        #164b4b;
+
+    background:
+        #f5f7f7;
+}
+
+
+/* =========================================
+   MENU CONTENT
+========================================= */
+
+.site-header
+.header-menu-content {
+    flex: 1;
+
+    width: 100%;
+
+    padding:
+        10px 24px 40px;
+
+    overflow-y: auto;
+
+    overscroll-behavior:
+        contain;
+}
+
+
+/* =========================================
+   SECTION
+========================================= */
+
+.site-header
+.header-menu-section {
+    width: 100%;
+
+    padding:
+        23px 0;
+
+    border-bottom:
+        1px solid #e7e7e7;
+}
+
+
+.site-header
+.header-menu-section:last-child {
+    border-bottom: 0;
+}
+
+
+.site-header
+.header-menu-home-section {
+    padding-top: 14px;
+}
+
+
+.site-header
+.header-menu-section-title {
+    margin:
+        0 0 8px;
+
+    color:
+        #164b4b;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    letter-spacing: 0.12em;
+}
+
+
+/* =========================================
+   MENU ITEM
+========================================= */
+
+.site-header
+.header-menu-item {
+    width: 100%;
+}
+
+
+.site-header
+.header-menu-link {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 46px;
+
+    padding:
+        0 4px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 14px;
+
+    color:
+        #111111;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    line-height: 1.4;
+
+    letter-spacing: 0.03em;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        padding-left 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.site-header
+a.header-menu-link::after {
+    content: "→";
+
+    flex:
+        0 0 auto;
+
+    color:
+        #999999;
+
+    font-size: 13px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.site-header
+a.header-menu-link:hover {
+    padding-left: 10px;
+
+    color:
+        #164b4b;
+}
+
+
+.site-header
+a.header-menu-link:hover::after {
+    color:
+        #164b4b;
+
+    transform:
+        translateX(3px);
+}
+
+
+/* =========================================
+   ACTIVE
+========================================= */
+
+.site-header
+.header-menu-link.active {
+    color:
+        #164b4b;
+
+    font-weight: 700;
+}
+
+
+.site-header
+.header-menu-link.active::before {
+    content: "";
+
+    position: absolute;
+
+    left: -24px;
+
+    top: 50%;
+
+    width: 3px;
+
+    height: 22px;
+
+    background:
+        #164b4b;
+
+    transform:
+        translateY(-50%);
+}
+
+
+/* =========================================
+   DISABLED
+========================================= */
+
+.site-header
+.header-menu-item.is-disabled {
+    opacity: 0.5;
+}
+
+
+.site-header
+.header-menu-link-disabled {
+    cursor: default;
+
+    color: #777777;
+}
+
+
+.site-header
+.header-menu-link-disabled:hover {
+    padding-left: 4px;
+
+    color: #777777;
+}
+
+
+/* =========================================
+   NOTE
+========================================= */
+
+.site-header
+.header-menu-note {
+    margin-left: auto;
+
+    padding:
+        3px 7px;
+
+    border:
+        1px solid #cccccc;
+
+    color:
+        #666666;
+
+    font-size: 9px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   MENU ACCOUNT
+========================================= */
+
+.site-header
+.header-menu-account-link {
+    justify-content:
+        flex-start;
+}
+
+
+.site-header
+.header-menu-account-link::after {
+    margin-left: auto;
+}
+
+
+.site-header
+.header-menu-account-icon {
+    display: block;
+
+    width: 36px;
+
+    height: 36px;
+
+    flex:
+        0 0 36px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    background:
+        #eeeeee;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1150px) {
+
+    .site-header .header-inner {
+        padding:
+            0 20px;
+
+        gap: 16px;
+    }
+
+
+    .site-header .site-logo {
+        width: 82px;
+    }
+
+
+    .site-header .site-title {
+        display: none;
+    }
+
+
+    .site-header
+    .header-primary-nav a {
+        padding:
+            0 10px;
+
+        font-size: 11px;
+    }
+
+
+    .site-header
+    .header-account-button {
+        max-width: 150px;
+    }
+
+
+    .site-header
+    .header-account-name {
+        max-width: 80px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE NAVIGATION
+========================================= */
+
+@media (max-width: 800px) {
+
+    /*
+     * スマホでは主要リンクを畳む。
+     * アカウントと≡は常時表示。
+     */
+
+    .site-header
+    .header-primary-nav {
+        display: none;
+    }
+
+
+    .site-header .header-inner {
+        height: 65px;
+
+        padding:
+            0 14px;
+
+        gap: 10px;
+    }
+
+
+    .site-header .site-brand {
+        margin-right: auto;
+    }
+
+
+    .site-header .site-logo {
+        width: 82px;
+    }
+
+
+    .site-header
+    .header-account-button {
+        height: 44px;
+
+        max-width: 145px;
+
+        padding:
+            0 9px 0 5px;
+    }
+
+
+    .site-header
+    .header-account-icon {
+        width: 30px;
+
+        height: 30px;
+    }
+
+
+    .site-header
+    .header-account-name {
+        max-width: 85px;
+
+        font-size: 11px;
+    }
+
+
+    .site-header
+    .header-menu-button {
+        width: 44px;
+
+        height: 44px;
+
+        flex-basis: 44px;
+    }
+
+
+    .site-header
+    .header-side-menu {
+        width:
+            min(390px, 94vw);
+    }
+
+
+    .site-header
+    .header-side-menu-header {
+        min-height: 78px;
+
+        padding:
+            16px 18px;
+    }
+
+
+    .site-header
+    .header-menu-content {
+        padding:
+            8px 18px 32px;
+    }
+
+
+    .site-header
+    .header-menu-link.active::before {
+        left: -18px;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 430px) {
+
+    .site-header .header-inner {
+        padding:
+            0 10px;
+    }
+
+
+    .site-header .site-logo {
+        width: 74px;
+    }
+
+
+    .site-header
+    .header-account-button {
+        max-width: 125px;
+    }
+
+
+    .site-header
+    .header-account-name {
+        max-width: 66px;
+    }
+
+
+    .site-header
+    .header-side-menu {
+        width: 100%;
+    }
+
+}
+/* v15 active country in global header */
+.header-active-country{display:inline-flex;align-items:center;gap:6px;max-width:190px;padding:5px 8px;border:1px solid #d8e4e2;border-radius:999px;color:#164b4b;text-decoration:none;background:#fff}.header-active-country[hidden]{display:none!important}.header-active-country img{width:28px;height:19px;object-fit:cover;border-radius:2px;background:#eee}.header-active-country span{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.header-active-country:hover{background:#eef5f4;text-decoration:none}
+@media(max-width:900px){.header-active-country{max-width:120px}.header-active-country span{max-width:72px}}

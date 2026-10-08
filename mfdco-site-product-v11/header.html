@@ -1,0 +1,183 @@
+<header class="site-header">
+
+    <div class="header-inner">
+
+        <!-- =====================================
+             BRAND
+        ====================================== -->
+
+        <a
+            href="index.html"
+            class="site-brand"
+            aria-label="MFDCO ホーム"
+        >
+            <img
+                src="assets/logo.png"
+                alt="MFDCO"
+                class="site-logo"
+            >
+
+            <span class="site-title">
+                マイクラ軍事茶番開発協力機構
+            </span>
+        </a>
+
+
+        <!-- =====================================
+             DESKTOP NAVIGATION
+        ====================================== -->
+
+        <nav
+            class="header-primary-nav"
+            aria-label="主要メニュー"
+        >
+            <a href="about.html">
+                MFDCOとは
+            </a>
+
+            <a href="works.html">
+                提供作品
+            </a>
+
+            <a href="members.html">
+                加盟国一覧
+            </a>
+
+            <a href="tools.html">
+                ツール
+            </a>
+
+            <a href="country/index.html">
+                国家運営
+            </a>
+
+            <a href="movies.html">
+                映像紹介
+            </a>
+
+            <a href="news.html">
+                お知らせ
+            </a>
+
+            <a href="search.html">
+                検索
+            </a>
+        </nav>
+
+
+        <!-- =====================================
+             RIGHT AREA
+        ====================================== -->
+
+        <div class="header-right">
+
+            <!-- ACCOUNT -->
+
+            <a
+                href="join.html"
+                id="header-account-button"
+                class="header-account-button"
+            >
+                <span
+                    id="header-account-icon-wrap"
+                    class="header-account-icon-wrap"
+                    hidden
+                >
+                    <img
+                        id="header-account-icon"
+                        class="header-account-icon"
+                        alt=""
+                    >
+                </span>
+
+                <span
+                    id="header-account-name"
+                    class="header-account-name"
+                >
+                    ログイン
+                </span>
+            </a>
+
+
+            <!-- MENU -->
+
+            <button
+                id="header-menu-button"
+                class="header-menu-button"
+                type="button"
+                aria-label="メニューを開く"
+                aria-expanded="false"
+                aria-controls="header-side-menu"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         OVERLAY
+    ====================================== -->
+
+    <div
+        id="header-menu-overlay"
+        class="header-menu-overlay"
+        hidden
+    ></div>
+
+
+    <!-- =====================================
+         SIDE MENU
+    ====================================== -->
+
+    <aside
+        id="header-side-menu"
+        class="header-side-menu"
+        aria-label="サイトメニュー"
+        aria-hidden="true"
+    >
+
+        <div class="header-side-menu-inner">
+
+            <div class="header-side-menu-header">
+
+                <div>
+                    <p class="header-side-menu-label">
+                        MFDCO
+                    </p>
+
+                    <p class="header-side-menu-title">
+                        MENU
+                    </p>
+                </div>
+
+
+                <button
+                    id="header-menu-close"
+                    class="header-menu-close"
+                    type="button"
+                    aria-label="メニューを閉じる"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <!-- JSで生成 -->
+
+            <nav
+                id="header-menu-content"
+                class="header-menu-content"
+                aria-label="MFDCO メニュー"
+            ></nav>
+
+        </div>
+
+    </aside>
+
+</header>

@@ -1,0 +1,3915 @@
+{
+  "id": "31834ec7-f542-4522-b3f8-f84a6b1bd68a",
+  "slug": "daieito-empire",
+  "name": "大永都帝國",
+  "shortName": "永都帝國、永都、NKT、NK",
+  "englishName": "Daieito Empire",
+  "code": "NKT",
+  "summary": "大陸東方の島嶼部を中心に発展した立憲君主制国家。約2700年前に建国され、始祖帝の血統を継ぐ帝家が皇位を継承する。重工業・情報技術・軍需産業を中核とする技術大国で、海上交通路の確保を国家戦略の中心に置く。",
+  "isPublic": true,
+  "tags": [
+    "2686年",
+    "王朝",
+    "一億総監視社会",
+    "軍国主義",
+    "技術大国",
+    "島国",
+    "工業国家"
+  ],
+  "schemaVersion": 11,
+  "createdAt": "2026-10-06T22:00:12.138Z",
+  "updatedAt": "2026-10-06T22:00:12.138Z",
+  "media": {
+    "flagKey": "assets/daieito/p2_img2.png",
+    "emblemKey": "assets/daieito/p2_img1.png",
+    "coverKey": "",
+    "mapKey": "assets/daieito/p8_img2.png",
+    "anthemKey": "",
+    "capitalImageKey": ""
+  },
+  "nationalSymbols": {
+    "flagName": "六永旗",
+    "emblemName": "六永章",
+    "anthemName": "我が帝國",
+    "motto": ""
+  },
+  "foundation": {
+    "label": "帝紀元年（約2700年前）",
+    "gregorianYear": -659,
+    "notes": "帝紀2686年＝西暦2026年として換算。"
+  },
+  "identity": {
+    "demonym": "",
+    "officialScript": "",
+    "largestCity": "",
+    "callingCode": "",
+    "internetTld": "",
+    "drivingSide": "left",
+    "dateFormat": "",
+    "countryNumber": ""
+  },
+  "capital": {
+    "name": "永京府 永京市",
+    "summary": "帝都。永京府は行政区表で人口1,582万人、基本情報では首都圏人口約1,300万人とされる。",
+    "population": 13000000,
+    "imageKey": ""
+  },
+  "sovereignty": {
+    "status": "主権国家",
+    "recognizedBy": "資料上の承認国数は未記載",
+    "territorialWatersKm": 0,
+    "eezArea": 6200000
+  },
+  "population": 90000000,
+  "populationYear": "帝紀2686年",
+  "populationGroups": {
+    "children": 0,
+    "working": 0,
+    "elderly": 0
+  },
+  "demographics": {
+    "density": 145,
+    "urbanizationPct": 82,
+    "fertilityRate": 1.44,
+    "populationGrowthPct": 0,
+    "lifeExpectancyMale": 80.9,
+    "lifeExpectancyFemale": 87.1
+  },
+  "area": 620000,
+  "territory": {
+    "area": 620000,
+    "landArea": 0,
+    "waterArea": 0,
+    "eezArea": 6200000,
+    "coastlineKm": 0
+  },
+  "timekeeping": {
+    "referenceCity": "中海藩",
+    "latitude": null,
+    "longitude": null,
+    "standardMeridian": null,
+    "utcMode": "manual",
+    "utcOffset": null,
+    "timezoneName": "",
+    "notes": "行政区表で中海藩が『住宅地・標準時』とされる。標準時子午線・UTC差・緯度経度・標準時名称は本資料では未記載のため未設定。"
+  },
+  "government": {
+    "system": "立憲君主制",
+    "headOfState": "皇帝",
+    "headOfGovernment": "内閣（首相名は資料未記載）",
+    "legislature": "帝國議会（士族院・臣民院）",
+    "judiciary": "律令省等を含む法制度（司法機構の詳細は資料未記載）",
+    "rulingParties": [
+      "立憲君主党"
+    ]
+  },
+  "economy": {
+    "gdp": 4000000000000,
+    "gdpYear": "帝紀2686年・約4兆USD",
+    "gdpPerCapita": 44000,
+    "currencyName": "帝永通宝",
+    "currencyCode": "Yei / 永",
+    "currencyMode": "independent",
+    "currencyRate": 0,
+    "currencyBase": "USD",
+    "growthRate": 0,
+    "unemploymentRate": 0,
+    "inflationRate": 0,
+    "debt": 0
+  },
+  "taxation": {
+    "summary": "",
+    "taxes": []
+  },
+  "budget": {
+    "year": "帝紀2686年",
+    "revenue": [
+      {
+        "id": "914f6cf0-c20c-4962-aad9-551343bf2e00",
+        "name": "一般税",
+        "value": 98000000000000
+      },
+      {
+        "id": "839e31fa-5bd7-4383-99db-d9254f1f2a48",
+        "name": "貿易等",
+        "value": 56000000000000
+      },
+      {
+        "id": "8f307072-6aa2-40e1-95e8-bb4b1e18ed4d",
+        "name": "国債",
+        "value": 30000000000000
+      },
+      {
+        "id": "37b4f213-f7f1-4156-863b-8b2aa8b85f33",
+        "name": "その他",
+        "value": 16000000000000
+      }
+    ],
+    "expenditure": [
+      {
+        "id": "5b0751f5-1873-4ea1-8e44-7f9382110080",
+        "name": "国防",
+        "value": 66000000000000
+      },
+      {
+        "id": "3d626259-62b9-4cdd-beca-33f72351f7fe",
+        "name": "社会保障",
+        "value": 30000000000000
+      },
+      {
+        "id": "4d4fd272-63a0-497f-85d4-47d72e3a250f",
+        "name": "教育・研究",
+        "value": 16000000000000
+      },
+      {
+        "id": "1cd17360-020e-4377-a579-3dca99a42725",
+        "name": "公共事業・インフラ",
+        "value": 28000000000000
+      },
+      {
+        "id": "7dbc496a-81b4-4ad1-a61d-4769c37e0b08",
+        "name": "地方交付",
+        "value": 10000000000000
+      },
+      {
+        "id": "0eac0578-9b19-484e-96bf-60a385cfd75c",
+        "name": "行政",
+        "value": 10000000000000
+      },
+      {
+        "id": "364aa1c0-4ea2-49c8-8295-95c1eec7ae67",
+        "name": "外交",
+        "value": 4000000000000
+      },
+      {
+        "id": "d2cb1f6b-9cde-443b-818a-30bc9a05b3fa",
+        "name": "国債費",
+        "value": 22000000000000
+      },
+      {
+        "id": "9fe62a9b-8162-4850-af05-fe9fa009f12c",
+        "name": "予備費",
+        "value": 14000000000000
+      }
+    ]
+  },
+  "industries": [
+    {
+      "name": "重工業",
+      "share": 25
+    },
+    {
+      "name": "AI・IT",
+      "share": 18
+    },
+    {
+      "name": "軍需",
+      "share": 17
+    },
+    {
+      "name": "サービス",
+      "share": 20
+    },
+    {
+      "name": "金融",
+      "share": 8
+    },
+    {
+      "name": "建設",
+      "share": 5
+    },
+    {
+      "name": "農林水産",
+      "share": 4
+    },
+    {
+      "name": "その他",
+      "share": 3
+    }
+  ],
+  "products": [
+    "軍艦・兵器・原子炉",
+    "特殊鋼・レアメタル",
+    "半導体・AI・量子計算",
+    "航空機・エンジン・UAV",
+    "宇宙・通信・衛星・量子通信",
+    "商船・LNG船・海洋構造物",
+    "水産物"
+  ],
+  "resources": [
+    "水産物",
+    "木材",
+    "水",
+    "原子力燃料",
+    "石炭",
+    "石油",
+    "天然ガス",
+    "ウラン",
+    "鉄鉱石",
+    "銅",
+    "アルミ原料",
+    "ニッケル",
+    "クロム",
+    "マンガン",
+    "チタン",
+    "タングステン",
+    "モリブデン",
+    "レアアース",
+    "シリコン",
+    "リチウム",
+    "コバルト",
+    "ガリウム",
+    "ゲルマニウム"
+  ],
+  "trade": {
+    "exports": [],
+    "imports": []
+  },
+  "food": {
+    "year": "帝紀2686年",
+    "selfSufficiencyCaloriePct": 72,
+    "selfSufficiencyProductionValuePct": 94,
+    "selfSufficiencyIntakePct": 0,
+    "targetPct": 0,
+    "arableLandPct": 0,
+    "strategicReserveDays": 0,
+    "stapleFoods": [
+      "穀物",
+      "米",
+      "野菜",
+      "水産物"
+    ],
+    "notes": "北州・南州の穀倉地帯と広大なEEZの漁業が食料供給を支える。水産物自給率は285%。"
+  },
+  "energy": {
+    "year": "帝紀2686年",
+    "selfSufficiencyPct": 0,
+    "renewablePct": 0,
+    "notes": "電力は国内発電で100%賄うが需要限界に近い。原子力燃料・石油・天然ガス・ウランは輸入依存が大きく、AI需要増大による電力不足が社会課題。",
+    "sources": []
+  },
+  "climate": {
+    "zones": [],
+    "avgTemp": "",
+    "rainfall": "河川・降水量が豊富",
+    "notes": "本資料には気候帯の正式分類・平均気温の数値は記載されていない。行政区設定には寒冷地農業・酪農などの地域特性があり、森林率は約70%とされる。",
+    "monthlyTemps": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "monthlyRainfall": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  "culture": {
+    "languages": [
+      "永都語"
+    ],
+    "religions": [
+      "永道（多神教）"
+    ],
+    "ethnicGroups": [],
+    "holidays": [],
+    "food": [],
+    "arts": [],
+    "sports": [],
+    "notes": "国教『永道』では万物に神が宿るとされる。始祖帝は神の遣いとして降り立ったとされ、皇帝は政治的元首以上に宗教的象徴として重要な地位を持つ。"
+  },
+  "infrastructure": {
+    "railKm": 0,
+    "roadKm": 0,
+    "ports": 0,
+    "airports": 0,
+    "internetPct": 0,
+    "electricityTwh": 0,
+    "renewablePct": 0
+  },
+  "welfare": {
+    "literacyPct": 0,
+    "lifeExpectancy": 0,
+    "healthcare": "",
+    "education": "",
+    "happinessIndex": null,
+    "happinessRank": 58,
+    "democracyIndex": 68,
+    "pressFreedomRank": 145,
+    "corruptionIndex": 24,
+    "equalityIndex": 161,
+    "hdi": null
+  },
+  "security": {
+    "police": "",
+    "intelligence": "",
+    "emergency": ""
+  },
+  "science": {
+    "level": 50,
+    "rndGdpPct": 0,
+    "space": "",
+    "nuclear": ""
+  },
+  "advanced": {
+    "civilization": {
+      "yearEquivalent": null,
+      "notes": ""
+    },
+    "constitution": {
+      "name": "帝國憲制",
+      "enacted": "",
+      "effective": "",
+      "preamble": "",
+      "amendmentRule": "",
+      "emergencyPowers": "安全保障・戦争の最終意思決定には皇帝直属の大本営が関与。",
+      "humanRightsSummary": "身分制度により権利差が存在。士族・華族に政治・武器所持・教育等の特権がある。",
+      "notes": ""
+    },
+    "governance": {
+      "corruptionScore": null,
+      "pressFreedomScore": null,
+      "electionSystem": "士族院は推薦制、臣民院は公選制。臣民院選挙権は第一次徴兵または志願兵役修了者のみ。",
+      "votingAge": null,
+      "turnoutPct": null,
+      "judicialIndependence": null,
+      "ruleOfLaw": null,
+      "governmentEffectiveness": null,
+      "notes": ""
+    },
+    "territorialControl": {
+      "controlledPct": null,
+      "description": ""
+    },
+    "fiscal": {
+      "taxRevenueGdpPct": null,
+      "deficitGdpPct": null,
+      "debtGdpPct": null,
+      "debtAmount": null,
+      "interestExpensePct": null,
+      "notes": ""
+    },
+    "education": {
+      "spendingGdpPct": null,
+      "spendingBudgetPct": null,
+      "literacyPct": null,
+      "primaryEnrollmentPct": null,
+      "secondaryEnrollmentPct": null,
+      "tertiaryAttainmentPct": null,
+      "researchersPerMillion": null,
+      "brainDrainIndex": null,
+      "notes": ""
+    },
+    "social": {
+      "socialSpendingGdpPct": null,
+      "povertyPct": null,
+      "gini": null,
+      "hospitalBedsPer1000": null,
+      "doctorsPer1000": null,
+      "crimeRatePer100k": null,
+      "homicideRatePer100k": null,
+      "peaceIndex": null,
+      "trustGovernmentPct": null,
+      "trustPolicePct": null,
+      "trustMilitaryPct": null,
+      "civilDefenseCoveragePct": null,
+      "shelterCoveragePct": null,
+      "notes": ""
+    },
+    "finance": {
+      "centralBank": "",
+      "centralBankIndependence": null,
+      "policyRatePct": null,
+      "inflationTargetPct": null,
+      "fxRegime": "",
+      "baseFxPerUsd": null,
+      "stockIndexName": "",
+      "baseStockIndex": null,
+      "autoMarketEnabled": false,
+      "averageDailyMovePct": 0.25,
+      "maxDailyMovePct": 1.5,
+      "marketCoefficient": 1,
+      "anchorDate": "",
+      "fdiInUsd": null,
+      "fdiOutUsd": null,
+      "investmentGdpPct": null,
+      "capitalControls": "",
+      "notes": ""
+    },
+    "labor": {
+      "participationPct": null,
+      "employmentPct": null,
+      "unemploymentPct": null,
+      "minimumWageUsd": null,
+      "averageWageUsd": null,
+      "averageHoursWeek": null,
+      "notes": ""
+    },
+    "resources": {
+      "waterSecurityPct": null,
+      "fishSelfSufficiencyPct": null,
+      "fisheriesOutput": null,
+      "strategicOilDays": null,
+      "strategicGasDays": null,
+      "strategicCoalDays": null,
+      "powerReserveMarginPct": null,
+      "outageHoursYear": null,
+      "outageCountYear": null,
+      "notes": ""
+    },
+    "environment": {
+      "ghgMtCo2e": null,
+      "co2PerCapita": null,
+      "netZeroYear": null,
+      "ndcTarget": "",
+      "pm25": null,
+      "forestPct": null,
+      "recyclingPct": null,
+      "wastePerCapitaKg": null,
+      "waterPollutionIndex": null,
+      "notes": ""
+    },
+    "infrastructure": {
+      "roadKm": null,
+      "expresswayKm": null,
+      "railKm": null,
+      "railElectrificationPct": null,
+      "highSpeedRailKm": null,
+      "logisticsIndex": null,
+      "waterCoveragePct": null,
+      "sewerageCoveragePct": null,
+      "notes": ""
+    },
+    "migration": {
+      "immigrantsAnnual": null,
+      "emigrantsAnnual": null,
+      "refugeesAnnual": null,
+      "touristsAnnual": null,
+      "tourismRevenueUsd": null,
+      "notes": "年間移民・観光客数は資料未記載。"
+    },
+    "technology": {
+      "aiIndustryScore": null,
+      "roboticsIndustryScore": null,
+      "semiconductorScore": null,
+      "supercomputerScore": null,
+      "spaceCapabilityScore": null,
+      "notes": "AI産業世界2位、スパコン演算性能世界1位という順位設定。絶対スコアは資料未記載。"
+    },
+    "information": {
+      "informationWarfareScore": null,
+      "counterIntelligenceScore": null,
+      "assassinationDefenseScore": null,
+      "cyberDefenseScore": null,
+      "propagandaScore": null,
+      "notes": "官営SNS『電記』を政府と倫理AIが監視。国外SNS閲覧は士族階級以上に限定。"
+    }
+  },
+  "administration": {
+    "summary": "6州・2府・52藩・3直属島。行政区表は2府52藩の計54区画を掲載し、直属島3のうち表で確認できるのは天神島藩・南永藩の2件。",
+    "ministries": [
+      {
+        "id": "d410442c-594f-4b24-ac9c-1c5bab3ad257",
+        "name": "労働省",
+        "head": "",
+        "summary": "帝國行政組織図に掲載。"
+      },
+      {
+        "id": "4d00e2dc-26d5-4e75-875e-6d01cd81001c",
+        "name": "経済省",
+        "head": "",
+        "summary": "帝國行政組織図に掲載。"
+      },
+      {
+        "id": "14f8734a-8705-4b6b-861d-0d141c52d23a",
+        "name": "外交省",
+        "head": "",
+        "summary": "帝國行政組織図に掲載。"
+      },
+      {
+        "id": "a90c5ca3-df5c-41e8-8b60-aa81a3a72f01",
+        "name": "交通省",
+        "head": "",
+        "summary": "帝國行政組織図に掲載。"
+      },
+      {
+        "id": "d88232e4-c327-45fe-981c-7ad3e26ae0d7",
+        "name": "情報省",
+        "head": "",
+        "summary": "帝國行政組織図に掲載。"
+      },
+      {
+        "id": "4e3d4951-4202-4940-adcd-d84cfb26aece",
+        "name": "律令省",
+        "head": "",
+        "summary": "帝國行政組織図に掲載。"
+      },
+      {
+        "id": "4ad37583-6d3e-4724-9004-98153b6b9b9b",
+        "name": "文部省",
+        "head": "",
+        "summary": "帝國行政組織図に掲載。"
+      },
+      {
+        "id": "396a09cd-b12e-4126-917e-f78ad84cc9dc",
+        "name": "産業省",
+        "head": "",
+        "summary": "帝國行政組織図に掲載。"
+      },
+      {
+        "id": "df93a1da-f8e0-4d9d-a3b2-0900b3f4f869",
+        "name": "財政省",
+        "head": "",
+        "summary": "帝國行政組織図に掲載。"
+      },
+      {
+        "id": "1adad799-ab01-491f-a5ff-68e391c5f3b7",
+        "name": "総督府",
+        "head": "",
+        "summary": "帝國行政組織図に掲載。"
+      }
+    ],
+    "laws": [
+      {
+        "id": "1d984dfc-f36f-416e-a577-955f2588a245",
+        "name": "帝國憲制（立憲君主制）",
+        "year": "",
+        "status": "現行",
+        "summary": "皇帝を国家元首とし、帝國議会と内閣が平時の政治を運営。安全保障・戦争の最終意思決定には大本営が助言する。"
+      },
+      {
+        "id": "941184a8-dde5-41a9-85e4-d5bb6654898c",
+        "name": "臣民院選挙資格",
+        "year": "",
+        "status": "現行",
+        "summary": "第一次徴兵または志願兵役を修了した臣民に臣民院の選挙権を付与。"
+      }
+    ],
+    "regions": [
+      {
+        "id": "2ad9c35f-28a0-41ed-a7f6-a158b763b865",
+        "state": "南夷州",
+        "name": "宗谷藩",
+        "capital": "",
+        "population": 480000,
+        "area": 0,
+        "summary": "最北端・海軍基地・漁業",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "漁業",
+          "海軍基地"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "369b4738-8317-4e6b-a32b-1e41af0a9e64",
+        "state": "南夷州",
+        "name": "氷川藩",
+        "capital": "",
+        "population": 400000,
+        "area": 0,
+        "summary": "寒冷地農業・酪農",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "農業",
+          "酪農"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "2354cc1a-1504-478b-8374-e9fcab045856",
+        "state": "南夷州",
+        "name": "白嶺藩",
+        "capital": "",
+        "population": 620000,
+        "area": 0,
+        "summary": "観光。連邦風の建造物が多数点在",
+        "specialties": [],
+        "culture": "",
+        "heritage": [
+          "連邦風建造物群"
+        ],
+        "industries": [
+          "観光"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "7ddc4533-60b8-4126-b9c1-94d465e08a67",
+        "state": "南夷州",
+        "name": "天塩藩",
+        "capital": "",
+        "population": 870000,
+        "area": 0,
+        "summary": "穀倉地帯",
+        "specialties": [
+          "穀物"
+        ],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "農業"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "ae0cc779-cce1-410c-9708-40f834468a73",
+        "state": "南夷州",
+        "name": "北浜藩",
+        "capital": "",
+        "population": 1540000,
+        "area": 0,
+        "summary": "港湾・造船",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "港湾",
+          "造船"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "30130992-61c2-468f-92f0-6904467c98bf",
+        "state": "南夷州",
+        "name": "北都藩",
+        "capital": "",
+        "population": 2980000,
+        "area": 0,
+        "summary": "政令指定都市。近代の都市計画により発展。大規模なローム層",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "都市サービス"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "0a432b06-827d-4d76-9ff4-c44fe58c3984",
+        "state": "南夷州",
+        "name": "郭内藩",
+        "capital": "",
+        "population": 2530000,
+        "area": 0,
+        "summary": "世界自然遺産で北族の首都だった北稜郭を中心に発展",
+        "specialties": [],
+        "culture": "",
+        "heritage": [
+          "北稜郭",
+          "世界自然遺産"
+        ],
+        "industries": [],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "6e5a9794-99a0-4423-adf5-3440dd6cd557",
+        "state": "北州",
+        "name": "青野藩",
+        "capital": "",
+        "population": 620000,
+        "area": 0,
+        "summary": "野菜やコメの産地で面積が最大",
+        "specialties": [
+          "野菜",
+          "米"
+        ],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "農業"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "e798825a-3ac0-47c7-b027-106417fc5c59",
+        "state": "北州",
+        "name": "瑞穂藩",
+        "capital": "",
+        "population": 830000,
+        "area": 0,
+        "summary": "米どころ",
+        "specialties": [
+          "米"
+        ],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "農業"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "87dff7d0-b000-499d-89d4-8fa7bbfac72a",
+        "state": "北州",
+        "name": "玄潮藩",
+        "capital": "",
+        "population": 4300000,
+        "area": 0,
+        "summary": "北方最大都市",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "都市サービス"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "974072a9-f419-4509-878d-677d995f27f6",
+        "state": "北州",
+        "name": "猛熊藩",
+        "capital": "",
+        "population": 380000,
+        "area": 0,
+        "summary": "9割が森林。果実の名産地",
+        "specialties": [
+          "果実",
+          "木材"
+        ],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "林業"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "0b03f742-b2e3-4d3e-ae8b-63328e6aee58",
+        "state": "北州",
+        "name": "旭野藩",
+        "capital": "",
+        "population": 920000,
+        "area": 0,
+        "summary": "研究都市。大学や研究機関などが密集",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "研究",
+          "教育"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "dcb75121-a6fc-4c6b-b6ed-6e3077b59cfc",
+        "state": "北州",
+        "name": "北央藩",
+        "capital": "",
+        "population": 1100000,
+        "area": 0,
+        "summary": "交通の要衝",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "交通",
+          "物流"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "4accf979-b9f2-4d6e-a66d-cc3379acd954",
+        "state": "北州",
+        "name": "古町藩",
+        "capital": "",
+        "population": 1210000,
+        "area": 0,
+        "summary": "平野。古代からの名残で複雑な都市構造",
+        "specialties": [],
+        "culture": "",
+        "heritage": [
+          "古代都市構造"
+        ],
+        "industries": [],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "1b52c4fa-8947-4d18-b041-d4974440596c",
+        "state": "北州",
+        "name": "豊浜藩",
+        "capital": "",
+        "population": 490000,
+        "area": 0,
+        "summary": "漁港",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "漁業",
+          "港湾"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "08e76941-461c-41c6-bb41-6627039a61ff",
+        "state": "北州",
+        "name": "雲井藩",
+        "capital": "",
+        "population": 550000,
+        "area": 0,
+        "summary": "最多の原子力発電所数。以北の電力の60%を供給",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "原子力発電"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "47027ee0-6f21-403a-85fb-7adfb47a79c4",
+        "state": "伍州",
+        "name": "金嶺藩",
+        "capital": "",
+        "population": 320000,
+        "area": 0,
+        "summary": "砂金の産地。三大財閥の一つがここで誕生",
+        "specialties": [
+          "砂金"
+        ],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "鉱業"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "e90507df-d0f4-48fa-b434-985c7f458c43",
+        "state": "伍州",
+        "name": "銀嶺藩",
+        "capital": "",
+        "population": 530000,
+        "area": 0,
+        "summary": "鉱山（銀・石炭・鉄鋼）。現在でも少量採掘",
+        "specialties": [
+          "銀",
+          "石炭",
+          "鉄"
+        ],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "鉱業"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "fa18024b-3e4c-47a5-bd32-f35433f3afc0",
+        "state": "伍州",
+        "name": "緋月藩",
+        "capital": "",
+        "population": 790000,
+        "area": 0,
+        "summary": "最古の軍需工場として有名。石炭の産地。大規模な城郭が残る",
+        "specialties": [
+          "石炭"
+        ],
+        "culture": "",
+        "heritage": [
+          "大規模城郭"
+        ],
+        "industries": [
+          "軍需",
+          "鉱業"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "e5505197-578f-49e9-9077-7f77c3600865",
+        "state": "伍州",
+        "name": "虎城藩",
+        "capital": "",
+        "population": 1140000,
+        "area": 0,
+        "summary": "虎城（有力豪族の本拠）の城下町として発展。商業都市",
+        "specialties": [],
+        "culture": "",
+        "heritage": [
+          "虎城"
+        ],
+        "industries": [
+          "商業"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "6edf2f39-d813-4218-aa9b-f9febd0dab91",
+        "state": "伍州",
+        "name": "千峰藩",
+        "capital": "",
+        "population": 400000,
+        "area": 0,
+        "summary": "狭く険しい山岳。修行の地として有名",
+        "specialties": [],
+        "culture": "修行文化",
+        "heritage": [],
+        "industries": [],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "62fb3618-2431-4e17-8757-00c5ebd20a29",
+        "state": "伍州",
+        "name": "清流藩",
+        "capital": "",
+        "population": 630000,
+        "area": 0,
+        "summary": "最長河川の上流。ダムなどが乱立",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "水力・治水"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "68953498-85cc-4c60-8ff4-b5319983efa9",
+        "state": "伍州",
+        "name": "翠樹藩",
+        "capital": "",
+        "population": 640000,
+        "area": 0,
+        "summary": "森林",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "林業"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "6b54a864-dce7-467e-9045-88151b8d7db8",
+        "state": "伍州",
+        "name": "黒崎藩",
+        "capital": "",
+        "population": 1230000,
+        "area": 0,
+        "summary": "工業港",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "工業",
+          "港湾"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "7c16baa5-a333-4690-a7a3-1d8de91c6001",
+        "state": "伍州",
+        "name": "岸藩",
+        "capital": "",
+        "population": 780000,
+        "area": 0,
+        "summary": "プレート境界。大規模断層とリアス式海岸。観光地。震源地となることが多く、少数部族の拠点がある",
+        "specialties": [],
+        "culture": "少数部族の拠点",
+        "heritage": [],
+        "industries": [
+          "観光"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "093d5b7e-850c-4e40-97f0-765244665d46",
+        "state": "伍州",
+        "name": "高龗藩",
+        "capital": "",
+        "population": 1530000,
+        "area": 0,
+        "summary": "水力・地熱発電所が多く温泉が点在。硫黄の名産地",
+        "specialties": [
+          "硫黄",
+          "温泉"
+        ],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "水力発電",
+          "地熱発電",
+          "観光"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "a1bb55c5-4994-490f-9af7-da623302aeb3",
+        "state": "府州",
+        "name": "永京府",
+        "capital": "",
+        "population": 15820000,
+        "area": 0,
+        "summary": "帝都。世界最大都市",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "行政",
+          "金融",
+          "商業"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "4de47ab2-a455-4d9e-9837-b872582a76df",
+        "state": "府州",
+        "name": "西海藩",
+        "capital": "",
+        "population": 1160000,
+        "area": 0,
+        "summary": "西の貿易港",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "貿易",
+          "港湾"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "6a920807-e671-471b-b3be-aac961af9291",
+        "state": "府州",
+        "name": "中海藩",
+        "capital": "",
+        "population": 910000,
+        "area": 0,
+        "summary": "住宅地・標準時",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "住宅"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "c96f8188-8d6a-4be4-9f81-93387120a1b3",
+        "state": "府州",
+        "name": "流桜藩",
+        "capital": "",
+        "population": 3250000,
+        "area": 0,
+        "summary": "帝都近郊住宅地",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "住宅"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "cf597449-a96d-4693-b793-cd8df41ab653",
+        "state": "府州",
+        "name": "鳳城藩",
+        "capital": "",
+        "population": 3190000,
+        "area": 0,
+        "summary": "交通拠点・近郊農業・陸軍基地",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "交通",
+          "農業",
+          "軍事"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "6443c808-0a8c-46ec-b54d-9cbc25d729ab",
+        "state": "府州",
+        "name": "原藩",
+        "capital": "",
+        "population": 300000,
+        "area": 0,
+        "summary": "平原。データセンタの建造計画地",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "データセンター計画"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "82af1d6d-ed43-495f-a43c-e05b3678dc55",
+        "state": "府州",
+        "name": "紫野藩",
+        "capital": "",
+        "population": 600000,
+        "area": 0,
+        "summary": "観光地。大陸風の建築と世界遺産",
+        "specialties": [],
+        "culture": "",
+        "heritage": [
+          "大陸風建築",
+          "世界遺産"
+        ],
+        "industries": [
+          "観光"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "80b67cbe-eafb-4191-be8b-7660ef0f7246",
+        "state": "府州",
+        "name": "永山藩",
+        "capital": "",
+        "population": 590000,
+        "area": 0,
+        "summary": "山地・永都最高の永山がある",
+        "specialties": [],
+        "culture": "",
+        "heritage": [
+          "永山"
+        ],
+        "industries": [],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "e43c946f-a8b4-4f85-bb3c-b83bcb2729f9",
+        "state": "中州",
+        "name": "旧京府",
+        "capital": "",
+        "population": 6230000,
+        "area": 0,
+        "summary": "第二都市圏",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "都市サービス"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "4a1fecd1-d191-4c96-bf66-b74d2b93d702",
+        "state": "中州",
+        "name": "大港藩",
+        "capital": "",
+        "population": 5120000,
+        "area": 0,
+        "summary": "国内海運の拠点",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "海運",
+          "港湾"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "8195e13f-64a1-4dfc-b65e-ed8997b396b6",
+        "state": "中州",
+        "name": "緋田藩",
+        "capital": "",
+        "population": 4320000,
+        "area": 0,
+        "summary": "工業地帯",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "工業"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "606ee075-935c-4be4-a58c-a400e9ab3676",
+        "state": "中州",
+        "name": "玉鋼藩",
+        "capital": "",
+        "population": 1260000,
+        "area": 0,
+        "summary": "最大の製鉄所を持つ",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "製鉄"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "ec4cc432-48e5-426f-a0f1-bfc37a1b99e3",
+        "state": "中州",
+        "name": "翠浜藩",
+        "capital": "",
+        "population": 900000,
+        "area": 0,
+        "summary": "空母工廠",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "軍需",
+          "造船"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "4ba4f357-1e21-415d-872c-37a049c6e3c1",
+        "state": "中州",
+        "name": "出帝藩",
+        "capital": "",
+        "population": 500000,
+        "area": 0,
+        "summary": "永道始まりの地",
+        "specialties": [],
+        "culture": "永道発祥地",
+        "heritage": [
+          "永道発祥地"
+        ],
+        "industries": [],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "1932ecbc-115d-4920-8297-f368ef50ba40",
+        "state": "中州",
+        "name": "高浜藩",
+        "capital": "",
+        "population": 1140000,
+        "area": 0,
+        "summary": "北西の貿易港",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "貿易",
+          "港湾"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "6b684986-879e-4e3f-8421-77dce90ee88e",
+        "state": "中州",
+        "name": "青葉藩",
+        "capital": "",
+        "population": 2760000,
+        "area": 0,
+        "summary": "住宅",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "住宅"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "71c6998c-77b0-4462-b0db-edd32d42c611",
+        "state": "中州",
+        "name": "蒼河藩",
+        "capital": "",
+        "population": 970000,
+        "area": 0,
+        "summary": "大規模な農地と多数の川がある",
+        "specialties": [
+          "農産物"
+        ],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "農業"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "1f8ff350-2bf6-49b0-9d3e-459799acaa7c",
+        "state": "中州",
+        "name": "光陵藩",
+        "capital": "",
+        "population": 980000,
+        "area": 0,
+        "summary": "データセンタ・先端技術の試験都市",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "データセンター",
+          "先端技術"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "5fd109ed-211e-45bb-83c7-939c43a0c7a6",
+        "state": "中州",
+        "name": "赭蛟藩",
+        "capital": "",
+        "population": 1230000,
+        "area": 0,
+        "summary": "陸軍都市",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "軍事"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "7336981a-0cb4-41a9-8a6c-c3e3325ca0ce",
+        "state": "南州",
+        "name": "南都藩",
+        "capital": "",
+        "population": 4130000,
+        "area": 0,
+        "summary": "南方最大都市",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "都市サービス"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "69301b0b-81ba-4da1-ae4c-d857d71147f1",
+        "state": "南州",
+        "name": "鳳城藩",
+        "capital": "",
+        "population": 1740000,
+        "area": 0,
+        "summary": "海軍都市",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "海軍",
+          "軍事"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "a44c60e2-0f9a-4de1-9409-a7916fcc3ea9",
+        "state": "南州",
+        "name": "鳥羽藩",
+        "capital": "",
+        "population": 2100000,
+        "area": 0,
+        "summary": "港・外交の窓口",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "港湾",
+          "外交"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "1211339d-5854-4281-892f-633ad6145fae",
+        "state": "南州",
+        "name": "瀬礁藩",
+        "capital": "",
+        "population": 150000,
+        "area": 0,
+        "summary": "諸島",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "7b15d40d-0cdc-45df-a35c-16996b33d921",
+        "state": "南州",
+        "name": "潮崎藩",
+        "capital": "",
+        "population": 390000,
+        "area": 0,
+        "summary": "航空・宇宙開発",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "航空",
+          "宇宙"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "506fa3c8-68d9-44b3-a359-41db0ff9bb2c",
+        "state": "南州",
+        "name": "陽ノ浦藩",
+        "capital": "",
+        "population": 1430000,
+        "area": 0,
+        "summary": "造船業",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "造船"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "9c6d913e-d76d-4b58-a0e6-f341f1f9b3ae",
+        "state": "南州",
+        "name": "朝凪藩",
+        "capital": "",
+        "population": 1150000,
+        "area": 0,
+        "summary": "南方艦隊",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "海軍"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "3663b14f-bee3-487d-8d5c-1e450a8f51a6",
+        "state": "離島",
+        "name": "天神島藩",
+        "capital": "",
+        "population": 30000,
+        "area": 0,
+        "summary": "宇宙開発",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [
+          "宇宙"
+        ],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      },
+      {
+        "id": "e499c1d8-1eab-4cbf-b438-e1ba49e46009",
+        "state": "離島",
+        "name": "南永藩",
+        "capital": "",
+        "population": 50000,
+        "area": 0,
+        "summary": "諸島",
+        "specialties": [],
+        "culture": "",
+        "heritage": [],
+        "industries": [],
+        "climate": "",
+        "latitude": null,
+        "longitude": null,
+        "imageKey": ""
+      }
+    ]
+  },
+  "cities": [
+    {
+      "id": "3c1b2819-6561-40b4-8ad1-c9ed8845f259",
+      "name": "永京市",
+      "type": "首都・帝都",
+      "regionId": "a1bb55c5-4994-490f-9af7-da623302aeb3",
+      "population": 13000000,
+      "latitude": null,
+      "longitude": null,
+      "summary": "永京府内の首都。首都圏人口は約1,300万人とされる。",
+      "imageKey": ""
+    },
+    {
+      "id": "cd26ac32-7e50-4b2b-8df2-f5c1c9bc5e40",
+      "name": "北都",
+      "type": "政令指定都市",
+      "regionId": "30130992-61c2-468f-92f0-6904467c98bf",
+      "population": 0,
+      "latitude": null,
+      "longitude": null,
+      "summary": "近代都市計画により発展した北部都市。",
+      "imageKey": ""
+    },
+    {
+      "id": "73cbbe1d-08b9-4e7d-b07f-370ae68b36f9",
+      "name": "玄潮",
+      "type": "北方最大都市",
+      "regionId": "87dff7d0-b000-499d-89d4-8fa7bbfac72a",
+      "population": 0,
+      "latitude": null,
+      "longitude": null,
+      "summary": "北方最大都市。",
+      "imageKey": ""
+    },
+    {
+      "id": "53b50684-3cc6-4d39-b997-89334e73ff22",
+      "name": "南都",
+      "type": "南方最大都市",
+      "regionId": "7336981a-0cb4-41a9-8a6c-c3e3325ca0ce",
+      "population": 0,
+      "latitude": null,
+      "longitude": null,
+      "summary": "南方最大都市。",
+      "imageKey": ""
+    }
+  ],
+  "companies": [
+    {
+      "id": "e5cf2706-eb31-473d-97e1-00f6a66e3b0b",
+      "name": "三永重工",
+      "type": "軍需・重工",
+      "summary": "軍艦・兵器・原子炉。総資産95兆永、年間売上42兆永、営業利益7.2兆永、時価総額78兆永、従業員42万人。",
+      "assetsTrillion": 95,
+      "salesTrillion": 42,
+      "profitTrillion": 7.2,
+      "marketCapTrillion": 78,
+      "revenue": 42,
+      "operatingProfit": 7.2,
+      "marketCap": 78,
+      "financialUnit": "兆永",
+      "employees": 420000,
+      "employeesMan": 42,
+      "productionTags": "軍需, 造船, 原子炉, 防衛",
+      "dependencyTags": "鉄鋼, レアメタル",
+      "logoKey": ""
+    },
+    {
+      "id": "f5ab8326-9d52-4456-86e4-3bcaf49d63db",
+      "name": "官営製鉄",
+      "type": "国有・製鉄",
+      "summary": "製鉄・特殊鋼・レアメタル。総資産88兆永、年間売上36兆永、営業利益5.4兆永、国有、従業員36万人。",
+      "assetsTrillion": 88,
+      "salesTrillion": 36,
+      "profitTrillion": 5.4,
+      "marketCapTrillion": null,
+      "revenue": 36,
+      "operatingProfit": 5.4,
+      "marketCap": 0,
+      "financialUnit": "兆永",
+      "employees": 360000,
+      "employeesMan": 36,
+      "productionTags": "製鉄, 特殊鋼, レアメタル",
+      "dependencyTags": "鉄鉱石, 石炭",
+      "logoKey": ""
+    },
+    {
+      "id": "82263c88-56d2-4e59-9123-da6a5a6eacbd",
+      "name": "三下電子",
+      "type": "半導体・AI",
+      "summary": "半導体・AI・量子計算。総資産74兆永、年間売上33兆永、営業利益8.6兆永、時価総額96兆永、従業員31万人。",
+      "assetsTrillion": 74,
+      "salesTrillion": 33,
+      "profitTrillion": 8.6,
+      "marketCapTrillion": 96,
+      "revenue": 33,
+      "operatingProfit": 8.6,
+      "marketCap": 96,
+      "financialUnit": "兆永",
+      "employees": 310000,
+      "employeesMan": 31,
+      "productionTags": "半導体, AI, 量子計算, 電子",
+      "dependencyTags": "シリコン, コバルト, 電力",
+      "logoKey": ""
+    },
+    {
+      "id": "9f8290f7-4d91-41f5-8c62-6d704b7152a4",
+      "name": "天鳳航空",
+      "type": "航空宇宙",
+      "summary": "航空機・エンジン・UAV。総資産63兆永、年間売上25兆永、営業利益4.8兆永、時価総額55兆永、従業員27万人。",
+      "assetsTrillion": 63,
+      "salesTrillion": 25,
+      "profitTrillion": 4.8,
+      "marketCapTrillion": 55,
+      "revenue": 25,
+      "operatingProfit": 4.8,
+      "marketCap": 55,
+      "financialUnit": "兆永",
+      "employees": 270000,
+      "employeesMan": 27,
+      "productionTags": "航空, UAV, 軍需",
+      "dependencyTags": "石油, チタン, 半導体",
+      "logoKey": ""
+    },
+    {
+      "id": "65f6e976-e0bc-4244-9cbc-e201c84cd4d1",
+      "name": "光糸財閥",
+      "type": "宇宙・通信",
+      "summary": "宇宙・通信・衛星・量子通信。総資産56兆永、年間売上19兆永、営業利益3.7兆永、時価総額62兆永、従業員18万人。",
+      "assetsTrillion": 56,
+      "salesTrillion": 19,
+      "profitTrillion": 3.7,
+      "marketCapTrillion": 62,
+      "revenue": 19,
+      "operatingProfit": 3.7,
+      "marketCap": 62,
+      "financialUnit": "兆永",
+      "employees": 180000,
+      "employeesMan": 18,
+      "productionTags": "宇宙, 通信, 衛星, 量子通信",
+      "dependencyTags": "半導体, レアメタル",
+      "logoKey": ""
+    },
+    {
+      "id": "3254c713-4b49-4ca7-83c3-374a906d27e8",
+      "name": "三二造船",
+      "type": "造船",
+      "summary": "商船・LNG船・海洋構造物。総資産41兆永、年間売上18兆永、営業利益2.8兆永、時価総額35兆永、従業員22万人。",
+      "assetsTrillion": 41,
+      "salesTrillion": 18,
+      "profitTrillion": 2.8,
+      "marketCapTrillion": 35,
+      "revenue": 18,
+      "operatingProfit": 2.8,
+      "marketCap": 35,
+      "financialUnit": "兆永",
+      "employees": 220000,
+      "employeesMan": 22,
+      "productionTags": "造船, 海運, LNG, 船舶",
+      "dependencyTags": "鉄鋼, 石油, 天然ガス",
+      "logoKey": ""
+    }
+  ],
+  "parties": [
+    {
+      "id": "44872e8e-f273-4c5c-aac4-8f11c2ae5fd7",
+      "name": "立憲君主党",
+      "type": "与党",
+      "summary": "与党。立憲君主制を支持。",
+      "logoKey": ""
+    },
+    {
+      "id": "9eaa587a-1c8f-48f0-94d6-4928cf25219c",
+      "name": "帝國労働党",
+      "type": "右派・タカ派",
+      "summary": "軍部の後ろ盾もあり優勢。",
+      "logoKey": ""
+    },
+    {
+      "id": "567f4dd0-e306-42ec-a616-922e607060ac",
+      "name": "臣民政友会",
+      "type": "中道・旧与党",
+      "summary": "旧与党。支持率は低下傾向。",
+      "logoKey": ""
+    },
+    {
+      "id": "4c1f38c1-4c40-44f8-9cb0-10851dee8d3c",
+      "name": "国家社会党",
+      "type": "リベラル派",
+      "summary": "資料ではリベラル派の一つとして記載。支持率低下傾向。",
+      "logoKey": ""
+    },
+    {
+      "id": "2aa19864-339f-409d-980e-12f0d5b7497a",
+      "name": "臣民平等党",
+      "type": "リベラル派",
+      "summary": "平等を掲げる政党。支持率低下傾向。",
+      "logoKey": ""
+    }
+  ],
+  "indicators": [
+    {
+      "id": "486e0f90-78c7-4ed4-b2f2-2777fcc59599",
+      "category": "国際順位",
+      "name": "GDP",
+      "value": 5,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "b64c86f2-09a9-49bd-ae5d-be765541da7b",
+      "category": "国際順位",
+      "name": "人口",
+      "value": 18,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "5a689c50-b167-4ea7-8a79-a94e92eceec7",
+      "category": "国際順位",
+      "name": "面積",
+      "value": 24,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "f8b928b4-9598-4452-8475-00b9bb83a361",
+      "category": "国際順位",
+      "name": "EEZ",
+      "value": 5,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "254af8c5-a52f-4ad7-9611-32d0db6dd378",
+      "category": "国際順位",
+      "name": "海軍力",
+      "value": 3,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "1044d841-ee6a-4cc5-9759-2881a8eed5bd",
+      "category": "国際順位",
+      "name": "陸軍力",
+      "value": 8,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "68496643-2232-4b14-920d-1a86c77b3b94",
+      "category": "国際順位",
+      "name": "軍事費",
+      "value": 4,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "02998517-cd44-42da-9d77-72dffeaa879b",
+      "category": "国際順位",
+      "name": "AI産業",
+      "value": 2,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "caf2e141-21e1-46f5-a349-b9ca970bf016",
+      "category": "国際順位",
+      "name": "スパコン演算性能",
+      "value": 1,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "312f1477-0830-4285-aebd-e753018b17bf",
+      "category": "国際順位",
+      "name": "インフラ",
+      "value": 2,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "d22e0116-950c-45c2-85ad-0f2d70f716db",
+      "category": "国際順位",
+      "name": "造船業",
+      "value": 2,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "7bfb8501-cb75-4677-87fb-0a87e926a0a2",
+      "category": "国際順位",
+      "name": "平均寿命",
+      "value": 7,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "ff34900c-f336-4505-bf3b-3be5f235e958",
+      "category": "国際順位",
+      "name": "教育水準",
+      "value": 6,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "1c5425d5-c785-4574-b05b-c2e6708c10a0",
+      "category": "国際順位",
+      "name": "幸福度",
+      "value": 58,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "e120ab49-6a0e-4a8f-83b8-65e1482bf36c",
+      "category": "国際順位",
+      "name": "報道の自由",
+      "value": 145,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "bdcc8446-d9bf-4c22-b9cc-c152303a0cd4",
+      "category": "国際順位",
+      "name": "民主主義指数",
+      "value": 68,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "8f5ca44a-f063-4390-b181-ef1729e2d8bc",
+      "category": "国際順位",
+      "name": "汚職指数",
+      "value": 24,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "b57f7401-5a5e-445c-8c06-9306481312f6",
+      "category": "国際順位",
+      "name": "出生率",
+      "value": 160,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "9cf4dde5-a8eb-4209-bd8b-0f7f243d87f2",
+      "category": "国際順位",
+      "name": "男女平等指数",
+      "value": 147,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "c05e68b4-6a92-41a0-a8ea-a48b80fd6c26",
+      "category": "国際順位",
+      "name": "総合平等指数",
+      "value": 161,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "73919ee9-3727-4975-ae75-8c50473512c7",
+      "category": "資源自給率",
+      "name": "食料（カロリーベース）",
+      "value": 72,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "北州・南州の穀倉地帯とEEZの漁業"
+    },
+    {
+      "id": "962b0a7c-44dc-4d6c-9212-68ebdfb3878b",
+      "category": "資源自給率",
+      "name": "食料（生産額）",
+      "value": 94,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "高付加価値農業・畜産が強い"
+    },
+    {
+      "id": "efdc8591-57f1-4ce4-a0ad-438e6bf89ab6",
+      "category": "資源自給率",
+      "name": "水産物",
+      "value": 285,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "世界有数の漁業国・輸出産業"
+    },
+    {
+      "id": "0fa92de9-b598-4d5a-99b7-1438e5da7d42",
+      "category": "資源自給率",
+      "name": "木材",
+      "value": 89,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "森林率約70%"
+    },
+    {
+      "id": "f9ecc994-514e-47ce-a1d9-08e9e16fcc7d",
+      "category": "資源自給率",
+      "name": "水",
+      "value": 100,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "河川・降水量が豊富"
+    },
+    {
+      "id": "4d270c08-c763-4a41-85f3-9f082f78f1f5",
+      "category": "資源自給率",
+      "name": "電力",
+      "value": 100,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "国内発電で賄うが限界が近い"
+    },
+    {
+      "id": "37b7b04a-8b46-42a3-8e85-5ec583c73817",
+      "category": "資源自給率",
+      "name": "原子力燃料",
+      "value": 18,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "2fcd9471-ae0b-48d0-9399-7528477cb5b9",
+      "category": "資源自給率",
+      "name": "石炭",
+      "value": 58,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "北夷州・伍州"
+    },
+    {
+      "id": "7a58d6cb-87e6-4daf-aa7e-8b1c783aea6c",
+      "category": "資源自給率",
+      "name": "石油",
+      "value": 9,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "深刻な問題"
+    },
+    {
+      "id": "def9897c-ce7e-4e61-b1a4-b6ce30882286",
+      "category": "資源自給率",
+      "name": "天然ガス",
+      "value": 14,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "EEZ海底ガス田"
+    },
+    {
+      "id": "2a00f7bc-9d33-4609-95ed-bfc620153880",
+      "category": "資源自給率",
+      "name": "ウラン",
+      "value": 12,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "c7365e2d-edc1-4ed4-a4dc-1f1f5c4eca90",
+      "category": "資源自給率",
+      "name": "再生可能エネルギー",
+      "value": 100,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "国内資源"
+    },
+    {
+      "id": "49f8e181-b4d8-4cd7-a401-2617f90966e5",
+      "category": "資源自給率",
+      "name": "鉄鉱石",
+      "value": 24,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "品質は低い"
+    },
+    {
+      "id": "5ed78e41-d9bb-4e49-b9f2-4abe1c76a318",
+      "category": "資源自給率",
+      "name": "銅",
+      "value": 55,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "c5df69ec-4f31-4bb9-97e3-12709aae571b",
+      "category": "資源自給率",
+      "name": "アルミ原料",
+      "value": 18,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "輸入依存"
+    },
+    {
+      "id": "b78b6ac0-510b-431b-9526-d1b5e8a36ac5",
+      "category": "資源自給率",
+      "name": "ニッケル",
+      "value": 10,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "輸入"
+    },
+    {
+      "id": "0fee6409-f474-4677-b42e-11d0893fe3e7",
+      "category": "資源自給率",
+      "name": "クロム",
+      "value": 5,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "輸入"
+    },
+    {
+      "id": "8aaa5fb6-bbbe-48e5-8b5a-89766aab6c48",
+      "category": "資源自給率",
+      "name": "マンガン",
+      "value": 9,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "輸入"
+    },
+    {
+      "id": "1ce3d49c-929e-404d-90d6-ae4951e19ad8",
+      "category": "資源自給率",
+      "name": "チタン",
+      "value": 82,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "砂鉄・チタン鉱床"
+    },
+    {
+      "id": "51ab0f26-d6e4-4808-a000-5d0a628a2bc4",
+      "category": "資源自給率",
+      "name": "タングステン",
+      "value": 67,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "軍需向け重要資源"
+    },
+    {
+      "id": "00d55c46-23ea-412d-94a9-7641e84b559f",
+      "category": "資源自給率",
+      "name": "モリブデン",
+      "value": 43,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "eb6312dd-c48b-48a5-8b8e-60e1ce020453",
+      "category": "資源自給率",
+      "name": "レアアース",
+      "value": 38,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "EEZ海底資源"
+    },
+    {
+      "id": "31aa7f1d-fb40-4a93-a27a-d5c3d1b70c4b",
+      "category": "資源自給率",
+      "name": "シリコン",
+      "value": 46,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "半導体産業"
+    },
+    {
+      "id": "51ca9d03-be2e-4de7-8eb9-efb93c207ee9",
+      "category": "資源自給率",
+      "name": "リチウム",
+      "value": 28,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "傀儡国にも鉱山"
+    },
+    {
+      "id": "d1092921-c4b1-41ad-bf0f-8ac07bf11273",
+      "category": "資源自給率",
+      "name": "コバルト",
+      "value": 4,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "輸入依存"
+    },
+    {
+      "id": "99c782fc-1205-4eec-be15-7ab926891e19",
+      "category": "資源自給率",
+      "name": "ガリウム",
+      "value": 76,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "精製技術が高い"
+    },
+    {
+      "id": "68b16f46-7c2a-44dc-bb92-c0912ba0a4d4",
+      "category": "資源自給率",
+      "name": "ゲルマニウム",
+      "value": 61,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "副産物として回収"
+    },
+    {
+      "id": "85865664-84eb-4093-98ba-c48733fdbd74",
+      "category": "資源自給率",
+      "name": "火薬",
+      "value": 100,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "4e85dfe4-7dde-49a7-8f50-d325c3269679",
+      "category": "資源自給率",
+      "name": "ミサイル",
+      "value": 100,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "2babda4b-912b-4010-9e30-86af134cd781",
+      "category": "資源自給率",
+      "name": "弾薬",
+      "value": 100,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "74073d7e-e40e-4ef0-8930-01c9678a525c",
+      "category": "資源自給率",
+      "name": "艦艇",
+      "value": 100,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "cecc5208-d253-4d00-807b-1f97e0a00ffc",
+      "category": "資源自給率",
+      "name": "航空機",
+      "value": 95,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "423a7fca-c014-433e-a125-ead9d87c099c",
+      "category": "資源自給率",
+      "name": "ドローン",
+      "value": 100,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "ad472859-da28-4947-ae47-c9683cd5d1f0",
+      "category": "資源自給率",
+      "name": "核燃料加工",
+      "value": 90,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "629bd582-77f5-4d37-a407-ad861ee7b672",
+      "category": "基本",
+      "name": "国号の呼称（南西方面）",
+      "value": "なかと",
+      "unit": "",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "621720a5-2b52-432f-ac99-ade5fa015d28",
+      "category": "基本",
+      "name": "国号の呼称（北東方面）",
+      "value": "ながと",
+      "unit": "",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "9bf824ac-08d2-4995-904a-b58cc5bab27d",
+      "category": "経済",
+      "name": "巨大財閥・AI産業の経済活動占有率",
+      "value": 60,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "eda992d4-0131-49d2-adaf-b18d99a9f76f",
+      "category": "国際順位",
+      "name": "帝永通宝の流通額",
+      "value": 5,
+      "unit": "位",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "16b1369e-9dab-4b94-932b-8b2a9c4df23e",
+      "category": "地理",
+      "name": "森林率",
+      "value": 70,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": "資料では約70%"
+    },
+    {
+      "id": "f4856e69-5429-4866-b5e9-ecb8a3008039",
+      "category": "地理",
+      "name": "領海・EEZ",
+      "value": 620,
+      "unit": "万km²",
+      "year": "帝紀2686年",
+      "notes": "資料の基本情報表では領海・EEZを合わせて約620万km²と記載"
+    },
+    {
+      "id": "2435d103-078c-4fea-9ce1-f04990980dda",
+      "category": "社会",
+      "name": "官営SNS『電記』普及率",
+      "value": 79,
+      "unit": "%",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "0ee7a12d-9860-4a40-b8db-5a98c0c9e4fa",
+      "category": "社会",
+      "name": "華族人口",
+      "value": 4,
+      "unit": "万人",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "6cc153ad-fb72-47c7-9bc7-edb58e3af1ea",
+      "category": "社会",
+      "name": "士族人口",
+      "value": 360,
+      "unit": "万人",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "3f8bcff2-5fb5-4815-8943-f64a8f63f3f6",
+      "category": "社会",
+      "name": "臣民人口",
+      "value": 8370,
+      "unit": "万人",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "7f5d08c9-e65f-4fb7-8519-e1cb8a52122a",
+      "category": "社会",
+      "name": "行政区表人口合計",
+      "value": 9021,
+      "unit": "万人",
+      "year": "帝紀2686年",
+      "notes": "概数9000万人との丸め差がある"
+    },
+    {
+      "id": "ea88044e-f9fb-4f0b-b18c-a5156fbcc1e0",
+      "category": "財政",
+      "name": "歳入総額",
+      "value": 200,
+      "unit": "兆永",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "9bde2120-0bb5-4081-bb32-7f49d019d148",
+      "category": "財政",
+      "name": "歳出総額",
+      "value": 200,
+      "unit": "兆永",
+      "year": "帝紀2686年",
+      "notes": ""
+    },
+    {
+      "id": "5de3d872-682f-4ad8-aa10-63f2e9a3e0c4",
+      "category": "軍事",
+      "name": "海軍予算",
+      "value": 34,
+      "unit": "兆永",
+      "year": "帝紀2686年",
+      "notes": "国家歳出の17%"
+    },
+    {
+      "id": "8bf09282-abed-472d-bb9b-28d7a523742a",
+      "category": "軍事",
+      "name": "陸軍予算",
+      "value": 14,
+      "unit": "兆永",
+      "year": "帝紀2686年",
+      "notes": "国家歳出の7%"
+    },
+    {
+      "id": "08f1f0b9-3a00-49f0-88fc-8590913fe628",
+      "category": "軍事",
+      "name": "宙軍予算",
+      "value": 10,
+      "unit": "兆永",
+      "year": "帝紀2686年",
+      "notes": "国家歳出の5%"
+    },
+    {
+      "id": "1075686e-b460-4524-9833-17cdbe0963fe",
+      "category": "軍事",
+      "name": "その他国防",
+      "value": 8,
+      "unit": "兆永",
+      "year": "帝紀2686年",
+      "notes": "国家歳出の4%"
+    }
+  ],
+  "socialIssues": [
+    {
+      "id": "7817b760-07a9-4032-8523-b88b396fbd0b",
+      "name": "少子化による人口減少",
+      "category": "人口",
+      "severity": "重大",
+      "summary": "戦争による人口減少に加え、低出生率による人口減少が進行。"
+    },
+    {
+      "id": "a4f1f1ae-e478-4129-a423-c3b40d8c1cdb",
+      "name": "AI需要過多による電力・半導体不足",
+      "category": "産業・エネルギー",
+      "severity": "重大",
+      "summary": "生成AI需要増大で電力とデータセンター用半導体が不足。"
+    },
+    {
+      "id": "eafd2f13-755f-4388-9e49-a959ed0adf76",
+      "name": "石油不足",
+      "category": "資源",
+      "severity": "重大",
+      "summary": "禁輸と海上封鎖、脱石油政策の失敗が重なり石油資源が不足。"
+    },
+    {
+      "id": "4219db18-c25c-4685-913c-64a9d45a9e20",
+      "name": "北伐軍の暴走",
+      "category": "軍事・政治",
+      "severity": "高",
+      "summary": "大陸駐在部隊の独自行動と軍閥との衝突が問題化。"
+    },
+    {
+      "id": "3d407fcb-949d-4bd6-8fbd-f52c0d2f562e",
+      "name": "衛星不足",
+      "category": "宇宙・軍事",
+      "severity": "重大",
+      "summary": "開戦後のサイバー・衛星攻撃で2300機以上を喪失し、補充資源も不足。"
+    },
+    {
+      "id": "e87aa460-eae4-47c5-bbe7-f6dd09c7b25e",
+      "name": "身分制度の限界",
+      "category": "社会",
+      "severity": "高",
+      "summary": "血統による士族・臣民制度への不満と平等化要求が拡大。"
+    }
+  ],
+  "chronology": {
+    "currentGregorian": 2026,
+    "calendars": [
+      {
+        "id": "448e6dc3-d806-4b17-9c7d-1b8369f36e3c",
+        "name": "帝紀",
+        "startYear": -659,
+        "endYear": null,
+        "prefix": "帝紀",
+        "suffix": "年"
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "2903f6e9-e4db-4bad-99f6-525cfe07fc4d",
+      "name": "建国・古代",
+      "startYear": -659,
+      "endYear": 1125
+    },
+    {
+      "id": "ee18474e-3aff-422b-bc30-f78ef2aa42e1",
+      "name": "武家政権期",
+      "startYear": 1126,
+      "endYear": 1875
+    },
+    {
+      "id": "50ff7900-999b-452f-9998-62788b11b755",
+      "name": "立憲・工業化期",
+      "startYear": 1876,
+      "endYear": 1995
+    },
+    {
+      "id": "a67758d2-ba85-495e-aeee-7875ba04990d",
+      "name": "北伐後の繁栄",
+      "startYear": 1996,
+      "endYear": 2015
+    },
+    {
+      "id": "94e83464-00e0-4506-9768-e746ec4cdd44",
+      "name": "統制強化・世界大戦期",
+      "startYear": 2016,
+      "endYear": null
+    }
+  ],
+  "timeline": [
+    {
+      "id": "5003ff60-1d21-4883-b013-23d340129a50",
+      "date": "帝紀元年",
+      "year": -659,
+      "era": "建国・古代",
+      "title": "始祖帝即位・建国",
+      "summary": "始祖帝が即位し、永道の教えとともに国家の基礎を築く。",
+      "body": "各地の豪族を統率し、帝家を中心とする国家形成が始まった。",
+      "imageKey": ""
+    },
+    {
+      "id": "7a466a11-0d5a-4ddb-914d-940a11e87128",
+      "date": "約900年前",
+      "year": 1126,
+      "era": "武家政権期",
+      "title": "武家政権成立",
+      "summary": "貴族政治を経て武家政権が成立。",
+      "body": "",
+      "imageKey": ""
+    },
+    {
+      "id": "949121d1-8a17-4489-8cc3-10ca473c41ce",
+      "date": "約150年前",
+      "year": 1876,
+      "era": "立憲・工業化期",
+      "title": "倒幕・立憲君主制へ移行",
+      "summary": "武家政権を倒し、立憲君主制へ移行。急速な工業化と海軍増強を進める。",
+      "body": "",
+      "imageKey": ""
+    },
+    {
+      "id": "6f7e0ca6-b8a9-49a7-97eb-9381049e7f31",
+      "date": "帝紀2650年前後",
+      "year": 1990,
+      "era": "立憲・工業化期",
+      "title": "戦争による人口減少",
+      "summary": "戦争により人口が減少。",
+      "body": "人口推移資料で帝紀2650年前後の人口減少が示される。",
+      "imageKey": ""
+    },
+    {
+      "id": "ca6cfda4-77a2-4088-960c-28cbb30c56d4",
+      "date": "約30年前",
+      "year": 1996,
+      "era": "北伐後の繁栄",
+      "title": "北伐",
+      "summary": "連邦との戦争に勝利し、賠償金による大規模インフラ整備と繁栄へ。",
+      "body": "北伐軍の名称は、この戦争で連邦陸軍と交戦し勝利した12個師団規模の英雄的部隊に由来する。",
+      "imageKey": ""
+    },
+    {
+      "id": "d1e56af2-99b0-429a-afb0-c0210c22ff7a",
+      "date": "約10年前",
+      "year": 2016,
+      "era": "統制強化・世界大戦期",
+      "title": "恐慌",
+      "summary": "景気が悪化し、資源不足・人口減少とともに重要課題となる。統制体制を強化。",
+      "body": "",
+      "imageKey": ""
+    },
+    {
+      "id": "0b10802c-41c6-4f59-82c7-5d836435d3c4",
+      "date": "帝紀2685年",
+      "year": 2025,
+      "era": "統制強化・世界大戦期",
+      "title": "世界大戦による人口減少・衛星損失",
+      "summary": "戦争による人口減少と衛星攻撃・サイバー攻撃が深刻化。",
+      "body": "開戦以降、人工衛星2300機以上が撃墜されたとされる。",
+      "imageKey": ""
+    },
+    {
+      "id": "8f37a681-d363-47a7-9869-1c794a16c15e",
+      "date": "帝紀2686年",
+      "year": 2026,
+      "era": "統制強化・世界大戦期",
+      "title": "長期戦継続",
+      "summary": "資源確保と海上交通路維持を目的とした長期戦を継続。",
+      "body": "西方陣営などと戦闘状態。",
+      "imageKey": ""
+    }
+  ],
+  "posts": [],
+  "military": {
+    "budget": 66000000000000,
+    "budgetYear": "帝紀2686年・66兆永（国家歳出200兆永の33%）",
+    "budgetCurrency": "Yei",
+    "budgetUsdEquivalent": 0,
+    "personnel": 0,
+    "reservePersonnel": 0,
+    "paramilitaryPersonnel": 0,
+    "conscription": "第一次徴兵（18～25歳・1～3年）、第二次徴兵（戦時特例）",
+    "nuclearWarheads": 400,
+    "headquarters": "大本営",
+    "doctrine": "海軍を中核とし、資源輸入国として『海上交通路の確保』と『敵補給路の遮断』を重視。空母打撃群は制空・上陸支援を主任務とし、敵空母の排除は潜水艦隊・駆逐艦隊・長距離打撃部隊による低リスク攻撃を優先。AI・UXVを早期から本格運用して少人数で高い戦闘能力を発揮する。",
+    "commanderInChief": "皇帝（統帥権）",
+    "branches": [
+      {
+        "id": "b2cae026-8469-4a1d-9d36-8abac9d62bcb",
+        "name": "帝國海軍",
+        "type": "海軍",
+        "personnel": 0,
+        "budget": 34000000000000,
+        "commander": "",
+        "authority": "皇帝の統帥権・大本営の助言",
+        "description": "世界第3位の海軍戦力。海上交通路確保を最優先。"
+      },
+      {
+        "id": "8f2aaff3-bcb9-4f6c-b9c9-15f7ac70d997",
+        "name": "帝國陸軍",
+        "type": "陸軍",
+        "personnel": 0,
+        "budget": 14000000000000,
+        "commander": "",
+        "authority": "皇帝の統帥権・大本営の助言",
+        "description": "世界第8位の陸軍戦力。"
+      },
+      {
+        "id": "488873c1-5c46-48eb-90b8-e19ecc4e77bc",
+        "name": "帝國宙軍",
+        "type": "宇宙軍",
+        "personnel": 0,
+        "budget": 10000000000000,
+        "commander": "",
+        "authority": "皇帝の統帥権・大本営の助言",
+        "description": "衛星・宇宙領域を担当。"
+      }
+    ],
+    "units": [
+      {
+        "id": "29d49017-2e20-4fe1-9f6c-1b93db935217",
+        "name": "北伐軍",
+        "branchId": "",
+        "type": "陸軍部隊群",
+        "base": "大陸の傀儡国",
+        "personnel": 0,
+        "status": "活動中",
+        "summary": "北方警備部隊名目で総督軍から独立し、鉄道利権をめぐる武力衝突を起こすなど暴走傾向。名称は30年前の北伐で活躍した12個師団規模の部隊に由来。"
+      }
+    ],
+    "equipment": [
+      {
+        "id": "19802c53-da7b-44e6-a9e8-1fd34f8f4e2c",
+        "name": "核弾頭",
+        "type": "核兵器",
+        "count": 400,
+        "notes": "少なくとも400発以上。鯨型原子力潜水艦、陸上、航空、一部水上艦艇、大陸間弾道ミサイルで運用可能。"
+      }
+    ],
+    "namingRules": [],
+    "serviceTypes": [
+      {
+        "id": "8e9ab6fc-b650-4b74-9dc0-00a158c19e81",
+        "name": "陸海宙軍学校卒（宙軍兵含む）",
+        "details": "幹部育成を目的とした学校。士族のみ。"
+      },
+      {
+        "id": "ee40dc4e-2e24-49f1-a717-55a8f280c000",
+        "name": "志願兵（宙軍兵含む）",
+        "details": "身分・性別を問わず、志願し受理された者。"
+      },
+      {
+        "id": "04e69c74-a59a-40f6-9e0e-e673d7ad5275",
+        "name": "第一次徴兵（陸海軍のみ）",
+        "details": "満18～25歳のうちに1～3年。特例を除き全男子対象。"
+      },
+      {
+        "id": "562c3be1-52ad-463a-a414-9916cba95a3a",
+        "name": "第二次徴兵（戦時特例）",
+        "details": "第一次徴兵終了後、政府選定の対象者のみ。戦時下による特例。"
+      }
+    ]
+  },
+  "usagePolicy": {
+    "appearance": "anyone",
+    "creditMode": "optional",
+    "creditFormat": "",
+    "creditExample": "大永都帝國（MFDCO / NAUKAT設定）",
+    "commercialUse": "allow",
+    "commercialNotes": "",
+    "settingModification": "minor",
+    "settingModificationNotes": "",
+    "defeatDestruction": "allow",
+    "defeatNotes": "",
+    "flagUse": "allow",
+    "anthemUse": "allow",
+    "attributionName": "大永都帝國",
+    "requestUrl": "",
+    "otherConditions": "利用条件は運営者が別途設定してください。資料そのものから利用許諾条件は読み取れないため、初期値は仮設定です。",
+    "legalNote": "この利用条件は資料記載ではなく、システム初期値です。公開前に必ず確認してください。"
+  },
+  "wikiPages": [
+    {
+      "id": "07d841f3-0c36-4477-b3a8-cacede4c1218",
+      "type": "地理",
+      "title": "領域・EEZ",
+      "summary": "大陸東端の島国。6州と多数の離島からなり、大陸側には傀儡政権や租借地を持つ。",
+      "imageKey": "assets/daieito/p8_img2.png",
+      "facts": [
+        {
+          "key": "国土面積",
+          "value": "約62万km²"
+        },
+        {
+          "key": "EEZ",
+          "value": "約620万km²"
+        },
+        {
+          "key": "EEZ順位",
+          "value": "世界5位"
+        }
+      ],
+      "sections": [
+        {
+          "title": "概要",
+          "body": "EEZは非常に広大で、EEZを含む国家領域は世界第6位規模と記述される。"
+        }
+      ],
+      "tags": [
+        "地理",
+        "EEZ"
+      ],
+      "related": []
+    },
+    {
+      "id": "6b0d75c1-327a-4c4b-a374-f3e085e50ebb",
+      "type": "政治",
+      "title": "帝國行政組織",
+      "summary": "皇帝・内閣・大本営・帝國議会を中核とする行政組織。",
+      "imageKey": "assets/daieito/p4_img1.png",
+      "facts": [
+        {
+          "key": "国家元首",
+          "value": "皇帝"
+        },
+        {
+          "key": "立法府",
+          "value": "帝國議会"
+        },
+        {
+          "key": "上院",
+          "value": "士族院"
+        },
+        {
+          "key": "下院",
+          "value": "臣民院"
+        }
+      ],
+      "sections": [
+        {
+          "title": "概要",
+          "body": "平時は帝國議会と内閣が政治を運営。安全保障・戦争では皇帝直属の大本営が助言する。"
+        }
+      ],
+      "tags": [
+        "政治",
+        "行政"
+      ],
+      "related": []
+    },
+    {
+      "id": "197208b0-d229-49c1-b105-8df5299234b4",
+      "type": "軍事",
+      "title": "帝國海軍艦隊編成",
+      "summary": "海軍を中核とする艦隊編成図。",
+      "imageKey": "assets/daieito/p11_img1.png",
+      "facts": [
+        {
+          "key": "海軍力",
+          "value": "世界第3位"
+        }
+      ],
+      "sections": [
+        {
+          "title": "運用思想",
+          "body": "本土防衛・敵空母攻撃、海上封鎖、上陸作戦・島嶼防衛、補給、多方面展開を組み合わせる。"
+        }
+      ],
+      "tags": [
+        "海軍",
+        "艦隊"
+      ],
+      "related": []
+    },
+    {
+      "id": "a31ccc73-9d5a-4a02-b197-8532bb6a6100",
+      "type": "軍事",
+      "title": "帝國海軍の艦隊運用",
+      "summary": "敵補給路遮断・本土攻撃・島嶼防衛・多方面展開を組み合わせる運用図。",
+      "imageKey": "assets/daieito/p11_img2.png",
+      "facts": [],
+      "sections": [
+        {
+          "title": "運用",
+          "body": "空母打撃群は制空・上陸支援、敵空母排除は潜水艦隊・駆逐艦隊・長距離打撃部隊を優先。"
+        }
+      ],
+      "tags": [
+        "海軍",
+        "ドクトリン"
+      ],
+      "related": []
+    },
+    {
+      "id": "c2151b81-4833-48d4-b5f4-2ce30b3dc339",
+      "type": "人口",
+      "title": "人口推移・人口ピラミッド",
+      "summary": "帝紀2686年前後の人口推移と人口ピラミッド。",
+      "imageKey": "assets/daieito/p13_img1.png",
+      "facts": [
+        {
+          "key": "総人口",
+          "value": "約9000万人"
+        },
+        {
+          "key": "出生率",
+          "value": "1.44"
+        }
+      ],
+      "sections": [
+        {
+          "title": "課題",
+          "body": "戦争と少子化の双方による人口減少が進行。60年代には合計特殊出生率1.18を記録したとされる。"
+        }
+      ],
+      "tags": [
+        "人口",
+        "少子化"
+      ],
+      "related": []
+    },
+    {
+      "id": "21034a5d-cbbd-4529-8715-e4611ac1df14",
+      "type": "社会課題",
+      "title": "AI需要による電力・半導体不足",
+      "summary": "生成AI需要の急増により電力とデータセンター用半導体が不足。",
+      "imageKey": "",
+      "facts": [],
+      "sections": [
+        {
+          "title": "現状",
+          "body": "核融合発電の実用化による解消が期待されるが、戦時下で建設が進んでいない。貿易停止でAI関連産業も停滞。"
+        }
+      ],
+      "tags": [
+        "AI",
+        "電力"
+      ],
+      "related": []
+    },
+    {
+      "id": "c9602105-4c53-42a4-9507-63b8d3802383",
+      "type": "社会課題",
+      "title": "石油不足",
+      "summary": "禁輸と海上封鎖により石油資源が不足。",
+      "imageKey": "",
+      "facts": [
+        {
+          "key": "石油自給率",
+          "value": "9%"
+        }
+      ],
+      "sections": [
+        {
+          "title": "背景",
+          "body": "帝紀2680年までを期限とした脱石油政策の失敗も重なり、深刻な課題となっている。"
+        }
+      ],
+      "tags": [
+        "資源",
+        "石油"
+      ],
+      "related": []
+    },
+    {
+      "id": "90371474-e4ed-4fd5-868c-89a9c315b1ca",
+      "type": "社会課題",
+      "title": "北伐軍の暴走",
+      "summary": "大陸の傀儡国に駐在する北伐軍が鉄道利権をめぐり連邦系軍閥と衝突。",
+      "imageKey": "",
+      "facts": [],
+      "sections": [
+        {
+          "title": "背景",
+          "body": "北伐論を唱える陸軍右派が北方警備部隊名目で総督軍から独立し、暴走傾向にある。"
+        }
+      ],
+      "tags": [
+        "軍事",
+        "政治"
+      ],
+      "related": []
+    },
+    {
+      "id": "c6907df1-ec9a-4cd2-98cd-2e1a22cd69f2",
+      "type": "社会課題",
+      "title": "衛星不足",
+      "summary": "開戦後のサイバー攻撃・衛星攻撃で2300機以上の人工衛星を喪失。",
+      "imageKey": "",
+      "facts": [],
+      "sections": [
+        {
+          "title": "見通し",
+          "body": "宙軍は6か月以内に現在状態を維持できなくなる可能性が極めて高いと試算。"
+        }
+      ],
+      "tags": [
+        "宇宙",
+        "軍事"
+      ],
+      "related": []
+    },
+    {
+      "id": "673e8efd-0ba4-4512-9570-86aae42d865b",
+      "type": "社会課題",
+      "title": "身分制度の限界",
+      "summary": "先進国で唯一、臣民に明確な身分制度が残る。",
+      "imageKey": "",
+      "facts": [
+        {
+          "key": "華族",
+          "value": "4万人"
+        },
+        {
+          "key": "士族",
+          "value": "360万人"
+        },
+        {
+          "key": "臣民",
+          "value": "8370万人"
+        }
+      ],
+      "sections": [
+        {
+          "title": "課題",
+          "body": "士族の若者を含め身分制廃止を求める声が強まり、『一億平等』への関心が高まっている。政府は國家貢献度を基準にした昇格枠を発表したが反対派の反発も強い。"
+        },
+        {
+          "title": "資料上の注意",
+          "body": "華族・士族・臣民の人数合計は総人口約9000万人と一致しないため、原資料の値をそのまま保持する。"
+        }
+      ],
+      "tags": [
+        "社会",
+        "身分制度"
+      ],
+      "related": []
+    },
+    {
+      "id": "3c0ed0cd-4f41-40b4-9fba-b15b7e7d2c26",
+      "type": "財政",
+      "title": "帝紀2686年 国家歳入",
+      "summary": "歳入総額200兆永。一般税、資金等、国債等で構成される。",
+      "imageKey": "assets/daieito/p6_img1.png",
+      "facts": [
+        {
+          "key": "歳入総額",
+          "value": "200兆永"
+        },
+        {
+          "key": "一般税",
+          "value": "98兆永（49%）"
+        },
+        {
+          "key": "資金等",
+          "value": "56兆永（28%）"
+        },
+        {
+          "key": "国債",
+          "value": "30兆永（15%）"
+        },
+        {
+          "key": "その他・特殊税等",
+          "value": "16兆永（8%）"
+        }
+      ],
+      "sections": [
+        {
+          "title": "内訳",
+          "body": "原資料の二重円グラフを画像として保持し、構造化データでは大分類を登録している。"
+        }
+      ],
+      "tags": [
+        "財政",
+        "歳入"
+      ],
+      "related": []
+    },
+    {
+      "id": "ed16dc82-499d-4a9e-8f28-847b27ff79e0",
+      "type": "財政",
+      "title": "帝紀2686年 国家歳出",
+      "summary": "歳出総額200兆永。国防33%を最大項目とする。",
+      "imageKey": "assets/daieito/p6_img2.png",
+      "facts": [
+        {
+          "key": "歳出総額",
+          "value": "200兆永"
+        },
+        {
+          "key": "国防",
+          "value": "66兆永（33%）"
+        },
+        {
+          "key": "社会保障",
+          "value": "30兆永（15%）"
+        },
+        {
+          "key": "公共事業・インフラ",
+          "value": "28兆永（14%）"
+        },
+        {
+          "key": "国債費",
+          "value": "22兆永（11%）"
+        }
+      ],
+      "sections": [
+        {
+          "title": "国防内訳",
+          "body": "海軍17%、陸軍7%、宙軍5%、その他4%。"
+        },
+        {
+          "title": "資料",
+          "body": "その他の詳細項目は原資料の二重円グラフを画像として保持している。"
+        }
+      ],
+      "tags": [
+        "財政",
+        "歳出"
+      ],
+      "related": []
+    }
+  ],
+  "statistics": [
+    {
+      "id": "54a13335-8207-4a1a-a704-3db3e8f56ab4",
+      "title": "GDP産業構成",
+      "category": "経済",
+      "type": "pie",
+      "unit": "%",
+      "featured": true,
+      "labels": [
+        "重工業",
+        "AI・IT",
+        "軍需",
+        "サービス",
+        "金融",
+        "建設",
+        "農林水産",
+        "その他"
+      ],
+      "series": [
+        {
+          "name": "構成比",
+          "values": [
+            25,
+            18,
+            17,
+            20,
+            8,
+            5,
+            4,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "id": "58daa2ae-4927-4ce6-b32e-66dca975302e",
+      "title": "帝紀2686年 歳入",
+      "category": "財政",
+      "type": "pie",
+      "unit": "兆永",
+      "featured": true,
+      "labels": [
+        "一般税",
+        "貿易等",
+        "国債",
+        "その他"
+      ],
+      "series": [
+        {
+          "name": "歳入",
+          "values": [
+            98,
+            56,
+            30,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "id": "700449d1-94b5-44a8-85d6-3a49d1319d59",
+      "title": "帝紀2686年 歳出",
+      "category": "財政",
+      "type": "pie",
+      "unit": "兆永",
+      "featured": true,
+      "labels": [
+        "国防",
+        "社会保障",
+        "教育・研究",
+        "公共事業・インフラ",
+        "地方交付",
+        "行政",
+        "外交",
+        "国債費",
+        "予備費"
+      ],
+      "series": [
+        {
+          "name": "歳出",
+          "values": [
+            66,
+            30,
+            16,
+            28,
+            10,
+            10,
+            4,
+            22,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "532ee64d-8829-4728-8ee6-b9b12978bb70",
+      "title": "主要資源自給率",
+      "category": "資源",
+      "type": "bar",
+      "unit": "%",
+      "featured": true,
+      "labels": [
+        "食料",
+        "水産物",
+        "木材",
+        "石炭",
+        "石油",
+        "天然ガス",
+        "鉄鉱石",
+        "レアアース",
+        "シリコン",
+        "ガリウム"
+      ],
+      "series": [
+        {
+          "name": "自給率",
+          "values": [
+            72,
+            285,
+            89,
+            58,
+            9,
+            14,
+            24,
+            38,
+            46,
+            76
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1e03c2a1-9d50-4676-8c8b-04695ea7ff5e",
+      "title": "行政区人口",
+      "category": "行政",
+      "type": "bar",
+      "unit": "万人",
+      "featured": false,
+      "labels": [
+        "南夷州/宗谷藩",
+        "南夷州/氷川藩",
+        "南夷州/白嶺藩",
+        "南夷州/天塩藩",
+        "南夷州/北浜藩",
+        "南夷州/北都藩",
+        "南夷州/郭内藩",
+        "北州/青野藩",
+        "北州/瑞穂藩",
+        "北州/玄潮藩",
+        "北州/猛熊藩",
+        "北州/旭野藩",
+        "北州/北央藩",
+        "北州/古町藩",
+        "北州/豊浜藩",
+        "北州/雲井藩",
+        "伍州/金嶺藩",
+        "伍州/銀嶺藩",
+        "伍州/緋月藩",
+        "伍州/虎城藩",
+        "伍州/千峰藩",
+        "伍州/清流藩",
+        "伍州/翠樹藩",
+        "伍州/黒崎藩",
+        "伍州/岸藩",
+        "伍州/高龗藩",
+        "府州/永京府",
+        "府州/西海藩",
+        "府州/中海藩",
+        "府州/流桜藩",
+        "府州/鳳城藩",
+        "府州/原藩",
+        "府州/紫野藩",
+        "府州/永山藩",
+        "中州/旧京府",
+        "中州/大港藩",
+        "中州/緋田藩",
+        "中州/玉鋼藩",
+        "中州/翠浜藩",
+        "中州/出帝藩",
+        "中州/高浜藩",
+        "中州/青葉藩",
+        "中州/蒼河藩",
+        "中州/光陵藩",
+        "中州/赭蛟藩",
+        "南州/南都藩",
+        "南州/鳳城藩",
+        "南州/鳥羽藩",
+        "南州/瀬礁藩",
+        "南州/潮崎藩",
+        "南州/陽ノ浦藩",
+        "南州/朝凪藩",
+        "離島/天神島藩",
+        "離島/南永藩"
+      ],
+      "series": [
+        {
+          "name": "人口",
+          "values": [
+            48,
+            40,
+            62,
+            87,
+            154,
+            298,
+            253,
+            62,
+            83,
+            430,
+            38,
+            92,
+            110,
+            121,
+            49,
+            55,
+            32,
+            53,
+            79,
+            114,
+            40,
+            63,
+            64,
+            123,
+            78,
+            153,
+            1582,
+            116,
+            91,
+            325,
+            319,
+            30,
+            60,
+            59,
+            623,
+            512,
+            432,
+            126,
+            90,
+            50,
+            114,
+            276,
+            97,
+            98,
+            123,
+            413,
+            174,
+            210,
+            15,
+            39,
+            143,
+            115,
+            3,
+            5
+          ]
+        }
+      ]
+    }
+  ],
+  "mapPoints": [],
+  "systems": [
+    {
+      "id": "fbf05ce9-91ab-47cb-a4dc-113f576e7287",
+      "name": "臣民証 / 國民証",
+      "type": "行政・ID",
+      "summary": "全国民に交付され、身分証明・旅券・行政サービスを一元管理。基本情報表では『國民証』、社会制度本文では『臣民証』と表記される。",
+      "body": "近年はスマートフォン連携が進められ、行政手続きの効率化が進展。"
+    },
+    {
+      "id": "cf6f1d74-a502-4511-9146-6afa16df536d",
+      "name": "國家貢献度",
+      "type": "社会評価・行政",
+      "summary": "徴兵成績、公共奉仕、自主納税などを数値化。",
+      "body": "各種行政サービスや補助制度の基礎資料として試験導入。"
+    },
+    {
+      "id": "9cff1c4b-50ab-41d1-a54d-e8717d1a910f",
+      "name": "官営SNS『電記』",
+      "type": "通信・SNS",
+      "summary": "政府運営の独自SNS。普及率79%。",
+      "body": "国外SNSを閲覧できるのは士族階級以上。投稿は政府と倫理AIにより監視され、AI判定の電力消費が大きいため日ごとの投稿数制限がある。"
+    },
+    {
+      "id": "e0482779-60ff-43a2-9550-89986ca0e84d",
+      "name": "身分制度",
+      "type": "社会制度",
+      "summary": "帝家・華族・士族・臣民の身分制度。",
+      "body": "華族約4万人、士族約360万人、臣民約8370万人。血統継承が原則。華族・士族には政治・税・武器所持・教育・住宅・AI利用などの特権がある一方、士族校の厳しい教育や長い兵役など義務も大きい。"
+    },
+    {
+      "id": "a3fdc942-714d-4f8f-922b-db9abb9e199f",
+      "name": "二院制帝國議会",
+      "type": "政治",
+      "summary": "推薦制の上院『士族院』と公選制の下院『臣民院』。",
+      "body": "臣民院選挙権は第一次徴兵または志願兵役修了者に限られる。"
+    },
+    {
+      "id": "7c6bb34c-9a46-4f89-9b80-5cec6c594467",
+      "name": "大本営",
+      "type": "安全保障",
+      "summary": "皇帝直属。安全保障や戦争に関する最終意思決定へ助言。",
+      "body": "海軍・陸軍・宙軍が皇帝の統帥権のもとに置かれる。"
+    },
+    {
+      "id": "15a788f2-4000-4de8-87da-9806d6e82fe4",
+      "name": "第一次・第二次徴兵",
+      "type": "徴兵・動員",
+      "summary": "平時の第一次徴兵と戦時特例の第二次徴兵。",
+      "body": "第一次徴兵は満18～25歳の特例を除く全男子が対象で1～3年。第二次徴兵は第一次徴兵修了後の政府選定対象者。"
+    },
+    {
+      "id": "fc03c9fe-5840-4f07-9186-12a2fafa89b7",
+      "name": "華族・士族特権",
+      "type": "社会制度",
+      "summary": "華族・士族に政治・税・武器所持・官位・教育・住宅・AI利用等の特権を付与。",
+      "body": "華族には士族院選挙の推薦権、消費免税、官位、大本営への被推薦権、士族権のすべてが与えられる。士族には士族院立候補、銃の所持と携帯、官位授受資格、士族学校入学、専用システムアクセス、優先住宅取得、AI無制限利用、臣民権のすべてが与えられる。"
+    }
+  ],
+  "organizations": [],
+  "officialEquipment": [],
+  "relations": [],
+  "sources": [
+    {
+      "id": "af4de67e-67f7-49e6-b95f-404079efd9bf",
+      "title": "大永都帝國とは",
+      "type": "PDF",
+      "pages": 16,
+      "author": "NAUKAT",
+      "notes": "帝紀2686年の国家設定資料。v8取り込み元。資料内の概数・表・本文に差異がある箇所（総人口約9000万人と行政区合計9021万人、首都圏約1300万人と永京府1582万人、國民証/臣民証、直属島3に対して行政区表で確認できる離島藩2件等）は原資料を優先して併記する。"
+    }
+  ],
+  "territories": [],
+  "disputes": [],
+  "borders": [],
+  "overseasBases": [],
+  "universities": [],
+  "researchInstitutions": [],
+  "welfarePrograms": [],
+  "policies": [],
+  "opinionPolls": [],
+  "protests": [],
+  "trustMetrics": [],
+  "equalityMetrics": [],
+  "policeOrganizations": [],
+  "criminalOrganizations": [],
+  "ideologies": [],
+  "securityPrograms": [],
+  "banks": [],
+  "conglomerates": [],
+  "resourceReserves": [
+    {
+      "id": "a186d3be-b025-44be-ae58-c0f2c641d61f",
+      "name": "食料（カロリーベース）",
+      "selfSufficiencyPct": 72,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "北州・南州の穀倉地帯とEEZの漁業"
+    },
+    {
+      "id": "1ab233b3-5663-410d-ba36-6952258c17da",
+      "name": "食料（生産額）",
+      "selfSufficiencyPct": 94,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "高付加価値農業・畜産が強い"
+    },
+    {
+      "id": "2adde8fd-3c6e-48ef-aa9e-11051d11d48f",
+      "name": "水産物",
+      "selfSufficiencyPct": 285,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "世界有数の漁業国・輸出産業"
+    },
+    {
+      "id": "61c7086d-6f7f-49fa-bfab-58df78e82aeb",
+      "name": "木材",
+      "selfSufficiencyPct": 89,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "森林率約70%"
+    },
+    {
+      "id": "de32f1cd-3c30-4115-9fe6-0b422941b7e6",
+      "name": "水",
+      "selfSufficiencyPct": 100,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "河川・降水量が豊富"
+    },
+    {
+      "id": "1b943dfa-22ff-4a20-bf64-e45864cc7c80",
+      "name": "電力",
+      "selfSufficiencyPct": 100,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "国内発電で賄うが限界が近い"
+    },
+    {
+      "id": "145f0d58-65b8-4e85-b17d-a81d85ae1e03",
+      "name": "原子力燃料",
+      "selfSufficiencyPct": 18,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": ""
+    },
+    {
+      "id": "6b5b4461-46ba-4a82-8c74-d19a4bef6155",
+      "name": "石炭",
+      "selfSufficiencyPct": 58,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "北夷州・伍州"
+    },
+    {
+      "id": "0fd970cf-f53f-4e90-ae25-3af1b2861c60",
+      "name": "石油",
+      "selfSufficiencyPct": 9,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "深刻な問題"
+    },
+    {
+      "id": "1af1c04a-6ec8-4581-b82c-74c9cd375981",
+      "name": "天然ガス",
+      "selfSufficiencyPct": 14,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "EEZ海底ガス田"
+    },
+    {
+      "id": "f0e26659-ce3c-4400-86aa-09b6f777b8b6",
+      "name": "ウラン",
+      "selfSufficiencyPct": 12,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": ""
+    },
+    {
+      "id": "b3dd31ff-b09c-40ee-869a-c96d32a12045",
+      "name": "再生可能エネルギー",
+      "selfSufficiencyPct": 100,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "国内資源"
+    },
+    {
+      "id": "d33135e3-632a-48ae-9c82-0e92ea3ee32a",
+      "name": "鉄鉱石",
+      "selfSufficiencyPct": 24,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "品質は低い"
+    },
+    {
+      "id": "aaa1b28d-96f1-4aa2-8bf0-b24aea796e44",
+      "name": "銅",
+      "selfSufficiencyPct": 55,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": ""
+    },
+    {
+      "id": "b2f3146e-1a0c-4e8d-a7ed-7ee42e2733ae",
+      "name": "アルミ原料",
+      "selfSufficiencyPct": 18,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "輸入依存"
+    },
+    {
+      "id": "5a576d1a-6ace-4def-b68d-224076b36a12",
+      "name": "ニッケル",
+      "selfSufficiencyPct": 10,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "輸入"
+    },
+    {
+      "id": "6b3738de-d43f-4b75-aacd-acbc9b29742e",
+      "name": "クロム",
+      "selfSufficiencyPct": 5,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "輸入"
+    },
+    {
+      "id": "620dd7f6-63ce-48ea-9a6d-a9e41dfd9452",
+      "name": "マンガン",
+      "selfSufficiencyPct": 9,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "輸入"
+    },
+    {
+      "id": "e682451d-3f0a-4e3b-ae49-8c590d9dd67c",
+      "name": "チタン",
+      "selfSufficiencyPct": 82,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "砂鉄・チタン鉱床"
+    },
+    {
+      "id": "8e92ba69-0cf1-403e-b611-48a18d56c1c6",
+      "name": "タングステン",
+      "selfSufficiencyPct": 67,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "軍需向け重要資源"
+    },
+    {
+      "id": "aa9ed3f3-9cb8-40ce-bf28-0d55972f3d20",
+      "name": "モリブデン",
+      "selfSufficiencyPct": 43,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": ""
+    },
+    {
+      "id": "983c3a61-7d65-44b6-ba80-c0984d1b987a",
+      "name": "レアアース",
+      "selfSufficiencyPct": 38,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "EEZ海底資源"
+    },
+    {
+      "id": "a1a08b7c-5ed0-4f18-a551-dcab9ded786f",
+      "name": "シリコン",
+      "selfSufficiencyPct": 46,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "半導体産業"
+    },
+    {
+      "id": "31738756-bb85-46b5-8372-0339b8e5789f",
+      "name": "リチウム",
+      "selfSufficiencyPct": 28,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "傀儡国にも鉱山"
+    },
+    {
+      "id": "64c8bdbd-9143-40fa-a24b-e7360aa27927",
+      "name": "コバルト",
+      "selfSufficiencyPct": 4,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "輸入依存"
+    },
+    {
+      "id": "e9373796-21a5-439f-902b-b00e9e53c8f0",
+      "name": "ガリウム",
+      "selfSufficiencyPct": 76,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "精製技術が高い"
+    },
+    {
+      "id": "1e8f77d8-d367-4cd1-9dcc-b7714f2f8a67",
+      "name": "ゲルマニウム",
+      "selfSufficiencyPct": 61,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": "副産物として回収"
+    },
+    {
+      "id": "012a21c2-bab6-4d3c-b038-f20bd48ce00c",
+      "name": "火薬",
+      "selfSufficiencyPct": 100,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": ""
+    },
+    {
+      "id": "d26f3b2a-82ce-4b76-80ee-28655a25e414",
+      "name": "ミサイル",
+      "selfSufficiencyPct": 100,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": ""
+    },
+    {
+      "id": "a485e98b-9135-4be7-a1a3-6017c8c5c446",
+      "name": "弾薬",
+      "selfSufficiencyPct": 100,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": ""
+    },
+    {
+      "id": "fd2dd9c5-818a-419b-a1c0-9f3fbad3dfaa",
+      "name": "艦艇",
+      "selfSufficiencyPct": 100,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": ""
+    },
+    {
+      "id": "68db00e2-ade7-41d5-84d3-a84ca8753ef0",
+      "name": "航空機",
+      "selfSufficiencyPct": 95,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": ""
+    },
+    {
+      "id": "9ebefb06-7f49-4d4f-9833-7898537bdc57",
+      "name": "ドローン",
+      "selfSufficiencyPct": 100,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": ""
+    },
+    {
+      "id": "956997d9-4a32-47bf-8052-7a554882dcdc",
+      "name": "核燃料加工",
+      "selfSufficiencyPct": 90,
+      "reserves": 0,
+      "unit": "",
+      "annualOutput": 0,
+      "yearsRemaining": 0,
+      "description": ""
+    }
+  ],
+  "environmentalIssues": [],
+  "sdgGoals": [],
+  "ports": [],
+  "airports": [],
+  "heritageSites": [],
+  "socialPlatforms": [
+    {
+      "id": "c89c748e-bbbd-459c-b136-bc928a4d9472",
+      "name": "電記",
+      "type": "官営SNS",
+      "penetrationPct": 79,
+      "censorship": "政府と倫理AIによる監視。国外SNS閲覧は士族階級以上に限定。",
+      "dailyLimit": "AI判定の電力消費増大のため日ごとの投稿数制限あり。",
+      "description": "政府アカウントを除く著名アカウントは前首相・歌手・英雄的軍人・スポーツ選手など。"
+    }
+  ],
+  "marketDependencies": [
+    {
+      "id": "466abaa2-4ac1-48f7-9de4-58e382e5f6e6",
+      "name": "石油",
+      "tags": "石油, 燃料",
+      "dependencyPct": 91,
+      "productionPct": 9,
+      "notes": "自給率9%。禁輸・海上封鎖の影響が大きい。"
+    },
+    {
+      "id": "96901d0a-5a85-48f6-9fdb-de6d02b6aaec",
+      "name": "天然ガス",
+      "tags": "天然ガス, LNG",
+      "dependencyPct": 86,
+      "productionPct": 14,
+      "notes": "EEZ海底ガス田を保有。"
+    },
+    {
+      "id": "8e66416d-0e60-4f47-93d0-6870566e212b",
+      "name": "半導体材料",
+      "tags": "半導体, AI, 電子",
+      "dependencyPct": 54,
+      "productionPct": 46,
+      "notes": "シリコン自給率46%。AI需要による不足が社会課題。"
+    },
+    {
+      "id": "08b211a7-9e7d-4e04-921f-c96fdadfa809",
+      "name": "レアアース",
+      "tags": "レアアース, レアメタル",
+      "dependencyPct": 62,
+      "productionPct": 38,
+      "notes": "EEZ海底資源。"
+    },
+    {
+      "id": "36f85869-a2ef-4e06-b237-c0c26cfb2aa3",
+      "name": "水産物",
+      "tags": "食料, 水産",
+      "dependencyPct": 0,
+      "productionPct": 100,
+      "notes": "自給率285%で輸出産業。"
+    }
+  ],
+  "autofill": {
+    "lastRun": "",
+    "fields": [],
+    "notes": []
+  },
+  "strength": {
+    "manual": {
+      "technology": 0,
+      "industry": 0,
+      "resources": 0,
+      "administration": 0,
+      "diplomacy": 0,
+      "logistics": 0,
+      "foodSecurity": 0,
+      "energySecurity": 0
+    },
+    "last": null
+  },
+  "_index": {
+    "strength": 188.3,
+    "completeness": 51
+  }
+}

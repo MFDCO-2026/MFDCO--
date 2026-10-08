@@ -1,0 +1,67 @@
+"use strict";
+document.addEventListener("DOMContentLoaded",async()=>{
+ const C=MFDCOCountry,V=MFDCOCountryV6,Cloud=MFDCOCountryCloud,root=document.getElementById("org-app"),c=await V.load(),user=await Cloud.user(),role=await Cloud.role(c.id),canManageCountry=["owner","admin"].includes(role)||!Cloud.ready();
+ let orgs=[],members=[],treaties=[],parties=[],countryNames={};
+ const joinLabel={open:"自由参加",approval:"承認制",closed:"参加不可"};
+ const safeUrl=v=>{try{const u=new URL(v);return ["http:","https:"].includes(u.protocol)?u.href:""}catch{return ""}};
+ const memberStatus={active:"加盟中",invited:"承認待ち",suspended:"停止",left:"脱退"};
+ async function load(){
+  if(!Cloud.ready()){
+   orgs=C.arr(c.organizations).map(o=>({...o,join_mode:o.joinMode||"approval",created_by:"local"}));members=orgs.flatMap(o=>C.arr(o.members).map(m=>({organization_id:o.id,country_id:m.countryId||c.id,role:m.role||"member",status:m.status||"active"})));treaties=orgs.flatMap(o=>C.arr(o.treaties).map(t=>({...t,organization_id:o.id})));parties=[];countryNames=Object.fromEntries(C.load().map(x=>[x.id,x.name]));return;
+  }
+  const oq=await window.supabaseClient.from("international_organizations").select("*").order("created_at",{ascending:false});if(oq.error){V.toast(oq.error.message,"danger");return}orgs=oq.data||[];
+  const ids=orgs.map(x=>x.id);if(ids.length){
+   const [mq,tq]=await Promise.all([
+    window.supabaseClient.from("international_organization_members").select("*").in("organization_id",ids),
+    window.supabaseClient.from("international_organization_treaties").select("*").in("organization_id",ids).order("created_at",{ascending:false})
+   ]);members=mq.data||[];treaties=tq.data||[];
+   const tids=treaties.map(x=>x.id);if(tids.length){const pq=await window.supabaseClient.from("international_treaty_parties").select("*").in("treaty_id",tids);parties=pq.data||[]}
+  }
+  const cids=[...new Set(members.map(x=>x.country_id).concat(parties.map(x=>x.country_id),[c.id]).filter(Boolean))];if(cids.length){const nq=await window.supabaseClient.from("countries").select("id,name,code").in("id",cids);for(const x of nq.data||[])countryNames[x.id]=x.name}
+ }
+ function orgMembers(id,status=null){return members.filter(x=>x.organization_id===id&&(!status||x.status===status))}
+ function orgTreaties(id){return treaties.filter(x=>x.organization_id===id)}
+ function currentMembership(id){return members.find(x=>x.organization_id===id&&x.country_id===c.id)}
+ function signed(tid){return parties.find(x=>x.treaty_id===tid&&x.country_id===c.id&&x.status==="signed")}
+ function treatyBlock(o){const list=orgTreaties(o.id);if(!list.length)return '<div class="empty">条約はまだありません。</div>';return `<div class="org-treaty-list">${list.map(t=>{const ps=parties.filter(x=>x.treaty_id===t.id&&x.status==="signed");return `<article class="org-treaty"><div><span class="pill gray">${C.esc(t.treaty_type||"条約")}</span> <span class="pill ${t.status==="active"?"ok":"gray"}">${C.esc(t.status)}</span></div><h4>${C.esc(t.title)}</h4><p>${C.esc(t.summary||"")}</p><div class="fine">発効: ${C.esc(t.effective_date||"未設定")} / 署名国: ${ps.length}</div>${ps.length?`<div class="tag-list">${ps.map(p=>`<span class="pill gray">${C.esc(countryNames[p.country_id]||p.country_id)}</span>`).join("")}</div>`:""}${canManageCountry&&currentMembership(o.id)?.status==="active"&&t.status==="active"?`<button class="btn ${signed(t.id)?"ghost":"secondary"} small treaty-action" data-id="${t.id}" data-action="${signed(t.id)?"withdraw":"sign"}">${signed(t.id)?"条約から離脱":"条約に署名"}</button>`:""}</article>`}).join("")}</div>`}
+ function render(){
+  root.innerHTML=`<div class="toolbar"><button id="new-org" class="btn" ${canManageCountry?"":"disabled"}>＋ 国際機関・共同体を作成</button><span class="fine">現在の国家: ${C.esc(c.name||"未選択")}</span></div><div class="org-grid">${orgs.map(o=>{const active=orgMembers(o.id,"active"),pending=orgMembers(o.id,"invited"),mine=currentMembership(o.id),owner=Cloud.ready()?user?.id===o.created_by:true;return `<article class="card org-card"><div class="org-card-head"><div><div class="eyebrow">${C.esc(o.org_type||"ORGANIZATION")}</div><h2>${C.esc(o.name)}</h2><p>${C.esc(o.summary||"")}</p></div><span class="pill ${o.join_mode==="open"?"ok":o.join_mode==="closed"?"warn":"gray"}">${C.esc(joinLabel[o.join_mode]||"承認制")}</span></div>${o.headquarters||o.founded?`<div class="fine">${o.headquarters?`本部: ${C.esc(o.headquarters)}`:""}${o.founded?` / 設立: ${C.esc(o.founded)}`:""}</div>`:""}${o.charter?`<details class="compact-details"><summary><span>憲章・規約</span></summary><div class="compact-details-body"><p>${C.esc(o.charter)}</p></div></details>`:""}<h3>加盟国 <span class="badge">${active.length}</span></h3><div class="tag-list">${active.map(m=>`<span class="pill gray">${C.esc(countryNames[m.country_id]||m.country_id)}${m.role&&m.role!=="member"?` / ${C.esc(m.role)}`:""}</span>`).join("")||'<span class="fine">加盟国なし</span>'}</div><div class="toolbar">${canManageCountry&&(!mine||mine.status==="left")&&o.join_mode!=="closed"?`<button class="btn secondary small org-join" data-id="${o.id}">${o.join_mode==="open"?"加盟する":"加盟申請"}</button>`:""}${canManageCountry&&mine?.status==="active"?`<button class="btn danger small org-leave" data-id="${o.id}" data-last="${active.length===1?"1":"0"}">${active.length===1?"脱退して機関を削除":"脱退"}</button>`:""}${mine?.status==="invited"?'<span class="pill warn">加盟承認待ち</span>':""}${safeUrl(o.website)?`<a class="btn ghost small" target="_blank" rel="noopener noreferrer" href="${C.esc(safeUrl(o.website))}">外部サイト</a>`:""}</div>${owner&&pending.length?`<div class="org-pending"><h3>加盟申請</h3>${pending.map(m=>`<div class="relation-line"><strong>${C.esc(countryNames[m.country_id]||m.country_id)}</strong><div class="toolbar"><button class="btn small org-decide" data-org="${o.id}" data-country="${m.country_id}" data-ok="1">承認</button><button class="btn danger small org-decide" data-org="${o.id}" data-country="${m.country_id}" data-ok="0">拒否</button></div></div>`).join("")}</div>`:""}<h3>共同体条約</h3>${treatyBlock(o)}${owner?`<button class="btn ghost small new-treaty" data-id="${o.id}">＋ 条約を作成</button>`:""}</article>`}).join("")||'<div class="empty">国際機関はまだありません。</div>'}</div><div id="org-form"></div>`;
+  bind();
+ }
+ function formOrg(){document.getElementById("org-form").innerHTML=`<section class="card section-card"><h2>国際機関・共同体を作成</h2><div class="form-grid three"><div class="field"><label>名称</label><input id="on" class="input"></div><div class="field"><label>種類</label><select id="ot" class="select"><option>軍事同盟</option><option>経済共同体</option><option>通商機構</option><option>国際会議</option><option>文化機構</option><option>研究機構</option><option>地域共同体</option><option>その他</option></select></div><div class="field"><label>加盟方式</label><select id="oj" class="select"><option value="open">自由参加</option><option value="approval" selected>承認制</option><option value="closed">参加不可</option></select></div><div class="field"><label>本部</label><input id="oh" class="input"></div><div class="field"><label>設立年</label><input id="of" class="input"></div><div class="field"><label>外部URL</label><input id="ow" class="input" type="url"></div><div class="field full"><label>概要</label><textarea id="os" class="textarea"></textarea></div><div class="field full"><label>憲章・規約</label><textarea id="oc" class="textarea"></textarea></div></div><div class="toolbar"><button id="osave" class="btn">作成</button><button id="ocancel" class="btn ghost">閉じる</button></div></section>`;document.getElementById("ocancel").onclick=()=>document.getElementById("org-form").innerHTML="";document.getElementById("osave").onclick=createOrg}
+ async function createOrg(){const o={id:C.uid(),name:document.getElementById("on").value.trim(),org_type:document.getElementById("ot").value,join_mode:document.getElementById("oj").value,headquarters:document.getElementById("oh").value.trim(),founded:document.getElementById("of").value.trim(),website:document.getElementById("ow").value.trim(),summary:document.getElementById("os").value.trim(),charter:document.getElementById("oc").value.trim(),founder_country_id:c.id};if(!o.name)return V.toast("名称を入力してください","warn");if(Cloud.ready()){const r=await window.supabaseClient.from("international_organizations").insert({...o,created_by:user.id}).select().single();if(r.error)return V.toast(r.error.message,"danger");const m=await window.supabaseClient.from("international_organization_members").insert({organization_id:r.data.id,country_id:c.id,role:"founder",status:"active"});if(m.error)return V.toast(m.error.message,"danger")}else{c.organizations.push({...o,type:o.org_type,joinMode:o.join_mode,members:[{countryId:c.id,countryName:c.name,role:"founder",status:"active"}],treaties:[]});await V.save(c)}await reload()}
+ function formTreaty(orgId){const o=orgs.find(x=>x.id===orgId),host=document.getElementById("org-form");if(!host)return;host.innerHTML=`<section class="card section-card"><h2>${C.esc(o?.name||"")} / 条約作成</h2><div class="form-grid"><div class="field"><label>条約名</label><input id="tt" class="input"></div><div class="field"><label>種類</label><select id="ty" class="select"><option>基本条約</option><option>相互防衛</option><option>自由貿易</option><option>関税同盟</option><option>共同研究</option><option>環境</option><option>人権</option><option>停戦</option><option>その他</option></select></div><div class="field"><label>発効日</label><input id="te" type="date" class="input"></div><div class="field full"><label>概要</label><textarea id="ts" class="textarea"></textarea></div><div class="field full"><label>条文・詳細</label><textarea id="tb" class="textarea"></textarea></div></div><div class="toolbar"><button id="t-save" type="button" class="btn">条約を作成</button><button id="t-cancel" type="button" class="btn ghost">閉じる</button></div><div id="t-error" class="fine"></div></section>`;host.scrollIntoView({behavior:"smooth",block:"start"});document.getElementById("t-cancel").onclick=()=>host.innerHTML="";document.getElementById("t-save").onclick=async()=>{const btn=document.getElementById("t-save"),title=document.getElementById("tt").value.trim();if(!title)return V.toast("条約名を入力してください","warn");btn.disabled=true;btn.textContent="作成中...";try{const base={id:C.uid(),organization_id:orgId,title,treaty_type:document.getElementById("ty").value,effective_date:document.getElementById("te").value||null,summary:document.getElementById("ts").value.trim(),body:document.getElementById("tb").value.trim(),status:"active"};if(Cloud.ready()){if(!user)throw new Error("条約作成にはログインが必要です");const q=await window.supabaseClient.from("international_organization_treaties").insert({...base,id:undefined,created_by:user.id}).select().single();if(q.error)throw q.error}else{const org=C.arr(c.organizations).find(x=>x.id===orgId);if(!org)throw new Error("共同体が見つかりません");org.treaties=C.arr(org.treaties);org.treaties.push(base);await V.save(c)}V.toast("条約を作成しました");await reload()}catch(e){document.getElementById("t-error").textContent=e.message||String(e);V.toast(e.message||String(e),"danger");btn.disabled=false;btn.textContent="条約を作成"}}}
+ async function leaveOrganization(orgId,lastMember){
+  const message=lastMember?"この国が最後の加盟国です。脱退すると国際機関そのものが削除されます。続けますか？":"この共同体から脱退しますか？";
+  if(!confirm(message))return;
+  if(Cloud.ready()){
+   const q=await window.supabaseClient.rpc("mfdco_leave_international_organization",{p_organization_id:orgId,p_country_id:c.id});
+   if(q.error)return V.toast(q.error.message,"danger");
+   V.toast(q.data==="deleted"?"最後の加盟国が脱退したため機関を削除しました":"共同体から脱退しました");
+  }else{
+   const org=C.arr(c.organizations).find(x=>x.id===orgId);if(!org)return;
+   org.members=C.arr(org.members);
+   const mine=org.members.find(x=>(x.countryId||x.country_id)===c.id);
+   if(mine)mine.status="left";
+   const active=org.members.filter(x=>x.status==="active");
+   if(!active.length){c.organizations=C.arr(c.organizations).filter(x=>x.id!==orgId);V.toast("最後の加盟国が脱退したため機関を削除しました")}
+   else if(mine?.role==="founder"){active[0].role="founder";V.toast("脱退しました。創設者権限は別の加盟国へ移りました")}
+   await V.save(c);
+  }
+  await reload();
+ }
+ function bind(){
+  document.getElementById("new-org")?.addEventListener("click",formOrg);
+  root.querySelectorAll(".org-join").forEach(b=>b.onclick=async()=>{
+   if(!Cloud.ready())return V.toast("ローカルモードではこの国家データ内の機関を直接編集してください","warn");
+   const q=await window.supabaseClient.rpc("mfdco_join_international_organization",{p_organization_id:b.dataset.id,p_country_id:c.id});
+   if(q.error)return V.toast(q.error.message,"danger");V.toast(q.data==="active"?"加盟しました":"加盟申請を送信しました");await reload()
+  });
+  root.querySelectorAll(".org-leave").forEach(b=>b.onclick=()=>leaveOrganization(b.dataset.id,b.dataset.last==="1"));
+  root.querySelectorAll(".org-decide").forEach(b=>b.onclick=async()=>{const q=await window.supabaseClient.rpc("mfdco_respond_international_org_member",{p_organization_id:b.dataset.org,p_country_id:b.dataset.country,p_accept:b.dataset.ok==="1"});if(q.error)return V.toast(q.error.message,"danger");await reload()});
+  root.querySelectorAll(".new-treaty").forEach(b=>b.onclick=()=>formTreaty(b.dataset.id));
+  root.querySelectorAll(".treaty-action").forEach(b=>b.onclick=async()=>{const fn=b.dataset.action==="sign"?"mfdco_sign_international_treaty":"mfdco_withdraw_international_treaty",q=await window.supabaseClient.rpc(fn,{p_treaty_id:b.dataset.id,p_country_id:c.id});if(q.error)return V.toast(q.error.message,"danger");await reload()})
+ }
+ async function reload(){await load();render()}
+ await load();render();
+});

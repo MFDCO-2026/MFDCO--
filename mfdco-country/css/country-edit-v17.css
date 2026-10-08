@@ -1,0 +1,101 @@
+/* MFDCO Country Editor v17.1 */
+
+.country-edit-v17 .editor-layout-v17{
+  display:grid;
+  grid-template-columns:190px minmax(0,1fr);
+  gap:14px;
+  align-items:start;
+}
+
+.country-edit-v17 .editor-sidebar-v17{
+  position:relative;
+  min-width:0;
+}
+
+.country-edit-v17 .editor-nav-v17{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  padding:8px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+}
+
+.country-edit-v17 .editor-nav-button{
+  appearance:none;
+  -webkit-appearance:none;
+  display:block;
+  width:100%;
+  margin:0;
+  padding:7px 9px;
+  border:0;
+  border-radius:6px;
+  background:transparent;
+  color:#475467;
+  font:inherit;
+  font-size:10.5px;
+  line-height:1.3;
+  text-align:left;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+
+.country-edit-v17 .editor-nav-button:hover{
+  background:#eef5f4;
+  color:var(--brand);
+}
+
+.country-edit-v17 .editor-nav-button.active,
+.country-edit-v17 .editor-nav-button[aria-selected="true"]{
+  background:#164b4b;
+  color:#fff;
+  font-weight:800;
+}
+
+.country-edit-v17 .editor-nav-button:focus-visible{
+  outline:3px solid rgba(22,75,75,.18);
+  outline-offset:2px;
+}
+
+.country-edit-v17 .editor-main-v17{
+  min-width:0;
+}
+
+.country-edit-v17 .editor-main-v17 > .v11-category{
+  display:block;
+  margin:0;
+}
+
+.country-edit-v17 .editor-status-card{
+  min-height:140px;
+}
+
+.country-edit-v17 .editor-error-detail{
+  max-height:260px;
+  overflow:auto;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+@media(max-width:900px){
+  .country-edit-v17 .editor-layout-v17{
+    grid-template-columns:160px minmax(0,1fr);
+  }
+}
+
+@media(max-width:760px){
+  .country-edit-v17 .editor-layout-v17{
+    grid-template-columns:1fr;
+  }
+
+  .country-edit-v17 .editor-nav-v17{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:4px;
+  }
+
+  .country-edit-v17 .editor-nav-button{
+    min-height:38px;
+  }
+}

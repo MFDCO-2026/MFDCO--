@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>設定資料編集 | MFDCO</title>
+  <link rel="stylesheet" href="css/country.css?v=20.0">
+  <link rel="stylesheet" href="css/country-edit-v17.css?v=17.2">
+</head>
+<body class="country-edit-v17">
+  <div class="country-shell">
+    <div id="country-topbar"></div>
+
+    <main class="country-page">
+      <div class="page-kicker">COUNTRY DOCUMENT EDITOR</div>
+      <h1 class="page-title">設定資料を編集</h1>
+      <p class="page-lead">
+        左のカテゴリを選択すると、右側だけをそのカテゴリへ入れ替えます。
+      </p>
+
+      <div class="toolbar" id="country-editor-toolbar">
+        <a id="preview-link" class="btn secondary" href="country.html">公開プレビュー</a>
+        <a id="stats-link" class="btn ghost" href="country-stats.html">資料図表</a>
+        <a id="wiki-link" class="btn ghost" href="country-wiki.html">Wikiサブページ</a>
+        <a id="operations-link" class="btn ghost" href="country-operations.html">国家運営・計画</a>
+        <span id="save-state" class="save-state">保存済み</span>
+      </div>
+
+      <div class="editor-layout editor-layout-v17">
+        <aside class="editor-sidebar-v17" aria-label="国家編集カテゴリ">
+          <nav
+            id="editor-nav"
+            class="editor-nav-v17"
+            role="tablist"
+            aria-orientation="vertical"
+          >
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="overview"
+            role="tab"
+            aria-selected="true"
+            tabindex="0"
+          >基本・百科事典</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="territory"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >領土・地理</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="population"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >人口・移民</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="politics"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >政治・法</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="finance"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >財政・金融</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="industry"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >産業・企業</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="education"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >教育・研究</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="society"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >社会・福祉・社会問題</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="security"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >治安・情報</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="resources"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >資源・環境</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="infra"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >交通・インフラ</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="culture"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >文化・遺産</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="history"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >歴史・軍事・外交</button>
+          <button
+            type="button"
+            class="editor-nav-button"
+            data-category="publishing"
+            role="tab"
+            aria-selected="false"
+            tabindex="-1"
+          >ニュース・分析</button>
+          </nav>
+        </aside>
+
+        <section
+          id="editor-main"
+          class="editor-main-v17"
+          role="tabpanel"
+          aria-live="polite"
+        >
+          <section class="card section-card editor-status-card">
+            <p class="muted">国家データを読み込んでいます…</p>
+          </section>
+        </section>
+      </div>
+
+      <div class="savebar">
+        <span class="save-state" id="bottom-state">
+          変更は自動では保存されません
+        </span>
+        <div class="toolbar" style="margin:0">
+          <a id="bottom-preview" class="btn ghost" href="country.html">
+            プレビュー
+          </a>
+          <button id="bottom-save" class="btn" type="button">保存</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/country-local-db.js?v=20.0"></script><script src="js/country-core.js?v=20.0"></script>
+  <script src="js/country-cloud.js?v=20.0"></script><script src="js/country-v20-data.js?v=20.0"></script>
+  <script src="js/country-v6.js"></script>
+  <script src="js/country-v11.js?v=17.3"></script>
+  <script src="js/country-edit-v17.js?v=20.0"></script>
+</body>
+</html>

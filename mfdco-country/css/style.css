@@ -1,0 +1,838 @@
+/* =========================================
+   MFDCO WEBSITE
+   COMMON STYLE
+
+   全ページ共通スタイルのみを管理します。
+
+   ページ固有スタイルは以下へ分離します。
+
+   header.css
+   footer.css
+   home.css
+   works.css
+   work.css
+   join.css
+   mypage.css
+   profile-edit.css
+========================================= */
+
+
+/* =========================================
+   01. VARIABLES
+========================================= */
+
+:root {
+
+    /* =====================================
+       COLORS
+    ====================================== */
+
+    --background: #ffffff;
+
+    --text: #111111;
+
+    --text-muted: #666666;
+
+    --line: #dddddd;
+
+    --main-color: #164b4b;
+
+    --main-color-dark: #0e3838;
+
+    --white: #ffffff;
+
+    --surface: #f5f7f7;
+
+    --surface-light: #fafafa;
+
+    --danger: #b00020;
+
+
+    /* =====================================
+       SIZE
+    ====================================== */
+
+    --max-width: 1400px;
+
+}
+
+
+/* =========================================
+   02. RESET
+========================================= */
+
+*,
+*::before,
+*::after {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =========================================
+   HTML
+========================================= */
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body {
+
+    margin: 0;
+
+    background:
+        var(--background);
+
+    color:
+        var(--text);
+
+    font-family:
+        "Noto Sans JP",
+        "Yu Gothic",
+        "YuGothic",
+        Arial,
+        sans-serif;
+
+    line-height: 1.7;
+
+    -webkit-font-smoothing:
+        antialiased;
+
+}
+
+
+/* =========================================
+   LINK
+========================================= */
+
+a {
+
+    color:
+        inherit;
+
+    text-decoration:
+        none;
+
+}
+
+
+/* =========================================
+   FORM ELEMENT
+========================================= */
+
+button,
+input,
+textarea,
+select {
+
+    font:
+        inherit;
+
+}
+
+
+button {
+
+    color:
+        inherit;
+
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+img {
+
+    display: block;
+
+    max-width: 100%;
+
+    height: auto;
+
+}
+
+
+/* =========================================
+   03. COMMON SECTION
+========================================= */
+
+.section {
+
+    width: 100%;
+
+    max-width:
+        var(--max-width);
+
+    margin:
+        0 auto;
+
+    padding:
+        120px 50px;
+
+}
+
+
+/* =========================================
+   SECTION HEADER
+========================================= */
+
+.section-header {
+
+    display: flex;
+
+    align-items:
+        flex-start;
+
+    gap:
+        25px;
+
+    margin-bottom:
+        60px;
+
+}
+
+
+/* =========================================
+   SECTION NUMBER
+========================================= */
+
+.section-number {
+
+    padding-top:
+        5px;
+
+    color:
+        var(--main-color);
+
+    font-size:
+        12px;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        0.1em;
+
+}
+
+
+/* =========================================
+   SECTION LABEL
+========================================= */
+
+.section-label {
+
+    color:
+        var(--main-color);
+
+    font-size:
+        11px;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        0.18em;
+
+}
+
+
+/* =========================================
+   SECTION TITLE
+========================================= */
+
+.section-header h2 {
+
+    margin-top:
+        5px;
+
+    font-size:
+        34px;
+
+    font-weight:
+        500;
+
+    letter-spacing:
+        0.06em;
+
+}
+
+
+/* =========================================
+   04. COMMON TEXT
+========================================= */
+
+.text-muted {
+
+    color:
+        var(--text-muted);
+
+}
+
+
+/* =========================================
+   05. TEXT LINK
+========================================= */
+
+.text-link {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        15px;
+
+    margin-top:
+        10px;
+
+    padding-bottom:
+        5px;
+
+    border-bottom:
+        1px solid
+        var(--main-color);
+
+    color:
+        var(--main-color);
+
+    font-size:
+        13px;
+
+    font-weight:
+        500;
+
+    transition:
+        gap 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+
+}
+
+
+.text-link:hover {
+
+    gap:
+        22px;
+
+}
+
+
+/* =========================================
+   06. OUTLINE BUTTON
+========================================= */
+
+.outline-button {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        25px;
+
+    padding:
+        13px 25px;
+
+    border:
+        1px solid
+        var(--main-color);
+
+    background:
+        transparent;
+
+    color:
+        var(--main-color);
+
+    font-size:
+        12px;
+
+    cursor:
+        pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+
+}
+
+
+.outline-button:hover {
+
+    background:
+        var(--main-color);
+
+    color:
+        #ffffff;
+
+}
+
+
+/* =========================================
+   07. PRIMARY BUTTON
+========================================= */
+
+.primary-button {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        15px;
+
+    min-height:
+        48px;
+
+    padding:
+        12px 25px;
+
+    border:
+        1px solid
+        var(--main-color);
+
+    background:
+        var(--main-color);
+
+    color:
+        #ffffff;
+
+    font-size:
+        13px;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        opacity 0.25s ease;
+
+}
+
+
+.primary-button:hover {
+
+    background:
+        var(--main-color-dark);
+
+    border-color:
+        var(--main-color-dark);
+
+}
+
+
+/* =========================================
+   DISABLED BUTTON
+========================================= */
+
+button:disabled,
+.primary-button:disabled,
+.outline-button:disabled {
+
+    opacity:
+        0.55;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+/* =========================================
+   08. COMMON FORM
+========================================= */
+
+.form-group {
+
+    margin-bottom:
+        28px;
+
+}
+
+
+.form-group label {
+
+    display:
+        block;
+
+    margin-bottom:
+        9px;
+
+    color:
+        var(--text);
+
+    font-size:
+        13px;
+
+    font-weight:
+        500;
+
+}
+
+
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="text"],
+.form-group input[type="url"],
+.form-group textarea,
+.form-group select {
+
+    width:
+        100%;
+
+    padding:
+        14px 16px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        #ffffff;
+
+    color:
+        var(--text);
+
+    font-family:
+        inherit;
+
+    font-size:
+        14px;
+
+    outline:
+        none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="text"]:focus,
+.form-group input[type="url"]:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+
+    border-color:
+        var(--main-color);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(
+            22,
+            75,
+            75,
+            0.08
+        );
+
+}
+
+
+.form-group textarea {
+
+    min-height:
+        140px;
+
+    resize:
+        vertical;
+
+}
+
+
+/* =========================================
+   FORM HELP
+========================================= */
+
+.form-note,
+.form-help {
+
+    margin-top:
+        8px;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        11px;
+
+    line-height:
+        1.7;
+
+}
+
+
+/* =========================================
+   FORM ERROR
+========================================= */
+
+.form-error {
+
+    margin-top:
+        8px;
+
+    color:
+        var(--danger);
+
+    font-size:
+        12px;
+
+}
+
+
+/* =========================================
+   09. COMMON MESSAGE
+========================================= */
+
+.common-message {
+
+    width: 100%;
+
+    padding:
+        30px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        var(--surface-light);
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        13px;
+
+    line-height:
+        1.8;
+
+}
+
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+.common-message.error {
+
+    border-color:
+        #e1bbbb;
+
+    background:
+        #fff7f7;
+
+    color:
+        var(--danger);
+
+}
+
+
+/* =========================================
+   SUCCESS MESSAGE
+========================================= */
+
+.common-message.success {
+
+    border-color:
+        #b8d2cf;
+
+    background:
+        #f2f8f7;
+
+    color:
+        var(--main-color);
+
+}
+
+
+/* =========================================
+   10. UTILITY
+========================================= */
+
+.hidden {
+
+    display:
+        none !important;
+
+}
+
+
+/* =========================================
+   VISUALLY HIDDEN
+========================================= */
+
+.visually-hidden {
+
+    position:
+        absolute !important;
+
+    width:
+        1px !important;
+
+    height:
+        1px !important;
+
+    padding:
+        0 !important;
+
+    margin:
+        -1px !important;
+
+    overflow:
+        hidden !important;
+
+    clip:
+        rect(
+            0,
+            0,
+            0,
+            0
+        ) !important;
+
+    white-space:
+        nowrap !important;
+
+    border:
+        0 !important;
+
+}
+
+
+/* =========================================
+   WORD BREAK
+========================================= */
+
+.break-word {
+
+    overflow-wrap:
+        anywhere;
+
+    word-break:
+        break-word;
+
+}
+
+
+/* =========================================
+   90. TABLET
+========================================= */
+
+@media (
+    max-width: 900px
+) {
+
+    .section {
+
+        padding:
+            90px 30px;
+
+    }
+
+}
+
+
+/* =========================================
+   91. MOBILE
+========================================= */
+
+@media (
+    max-width: 800px
+) {
+
+    .section {
+
+        padding:
+            85px 25px;
+
+    }
+
+
+    .section-header {
+
+        margin-bottom:
+            45px;
+
+    }
+
+
+    .section-header h2 {
+
+        font-size:
+            27px;
+
+    }
+
+}
+
+
+/* =========================================
+   92. SMALL MOBILE
+========================================= */
+
+@media (
+    max-width: 600px
+) {
+
+    .section {
+
+        padding-left:
+            20px;
+
+        padding-right:
+            20px;
+
+    }
+
+
+    .section-header {
+
+        gap:
+            16px;
+
+    }
+
+
+    .outline-button,
+    .primary-button {
+
+        max-width:
+            100%;
+
+    }
+
+}
