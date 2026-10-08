@@ -185,11 +185,37 @@ function calculateStrength(c){
 }
 function relationLabel(t){return ({alliance:"同盟",mutual_defense:"相互防衛条約",non_aggression:"不可侵条約",trade:"通商・貿易",technology:"技術協定",joint_exercise:"共同演習",ceasefire:"停戦",recognition:"国交樹立",data_share:"データ共有"})[t]||t||"関係"}
 function qs(sel,root=document){return root.querySelector(sel)}function qsa(sel,root=document){return [...root.querySelectorAll(sel)]}
-function topbar(){const el=document.getElementById("country-topbar");if(!el)return;const id=currentId(),u=id?`?id=${encodeURIComponent(id)}`:"";el.className="country-topbar";el.innerHTML=`<div class="country-topbar-inner"><a class="brand mfdco-home-link" href="https://mfdco.net" aria-label="MFDCOホームへ戻る">戻る</a><a class="country-module-link" href="countries.html">国家運営</a><a id="country-active-context" class="country-active-context" href="country-dashboard.html" hidden></a><a href="countries.html">国家一覧</a><a href="country-dashboard.html">ダッシュボード</a><details class="topbar-menu"><summary>見る</summary><div><a href="country-feed.html">国家ニュース</a><a href="country-compare.html">国家比較</a><a href="country-market.html">世界経済</a><a href="country-organizations.html">国際機関・条約</a><a href="country-templates.html">テンプレート</a></div></details>${id?`<details class="topbar-menu"><summary>この国家</summary><div><a href="country.html${u}">国家資料</a><a href="country-strength.html${u}">国家力</a><a href="country-exchange.html${u}">外交</a><a href="country-rights.html${u}">利用条件</a><a href="country.html${u}#country-media-downloads">素材</a></div></details><details id="country-edit-menu" class="topbar-menu" hidden><summary>編集・管理</summary><div id="country-edit-menu-links"></div></details>`:""}<span class="topbar-spacer"></span><a href="country-help.html">ヘルプ</a></div>`;
+function topbar(){const el=document.getElementById("country-topbar");if(!el)return;const id=currentId(),u=id?`?id=${encodeURIComponent(id)}`:"";el.className="country-topbar";el.innerHTML=`<div class="country-topbar-inner"><a class="brand mfdco-home-link" href="https://mfdco.net" aria-label="MFDCOホームへ戻る">戻る</a><a class="country-module-link" href="countries.html">国家運営</a><a id="country-active-context" class="country-active-context" href="country-dashboard.html" hidden></a><a href="countries.html">国家一覧</a><a href="country-dashboard.html">ダッシュボード</a><details class="topbar-menu"><summary>見る</summary><div><a href="country-feed.html">国家ニュース</a><a href="country-compare.html">国家比較</a><a href="country-market.html">世界経済</a><a href="country-organizations.html">国際機関・条約</a><a href="country-templates.html">テンプレート</a></div></details>${id?`<details class="topbar-menu"><summary>この国家</summary><div><a href="country.html${u}">国家資料</a><a href="country-strength.html${u}">国家力</a><a href="country-exchange.html${u}">外交</a><a href="country-rights.html${u}">利用条件</a><a href="country.html${u}#country-media-downloads">素材</a></div></details><details id="country-edit-menu" class="topbar-menu" hidden><summary>編集・管理</summary><div id="country-edit-menu-links"></div></details>`:""}<span class="topbar-spacer"></span><a href="country-help.html">ヘルプ</a><a id="country-account-context" class="country-account-context" href="https://mfdco.net/join.html"><span id="country-account-avatar" class="country-account-avatar" hidden></span><span id="country-account-name">ログイン確認中...</span></a></div>`;
  const menus=[...el.querySelectorAll("details.topbar-menu")];menus.forEach(d=>d.addEventListener("toggle",()=>{if(d.open)menus.forEach(o=>{if(o!==d)o.open=false})}));
  if(!document.querySelector(".fiction-disclaimer-bar")){const note=document.createElement("div");note.className="fiction-disclaimer-bar";note.textContent="このページは架空国家・創作世界の設定資料です。実在の国家・政府・統計を示すものではありません。";el.insertAdjacentElement("afterend",note)}
  setTimeout(async()=>{try{const Cloud=window.MFDCOCountryCloud,box=document.getElementById("country-active-context");if(!Cloud||!box)return;const p=await Cloud.getCountryPreferences(),cid=p.activeCountryId||p.mainCountryId;if(!cid)return;const cc=await Cloud.loadCountry(cid);if(!cc)return;const flag=await Cloud.resolveMedia(cc.media?.flagKey||"");box.href=`country.html?id=${encodeURIComponent(cid)}`;box.innerHTML=`${flag?`<img src="${flag}" alt="">`:""}<span>${esc(cc.name||"アクティブ国家")}</span>`;box.hidden=false}catch(e){console.warn("COUNTRY ACTIVE CONTEXT",e)}},0);
-;setTimeout(refreshTopbarAccess,0)}
+;setTimeout(refreshTopbarAccess,0);setTimeout(refreshMfdcoAccountContext,0)}
+async function refreshMfdcoAccountContext(){
+ const box=document.getElementById("country-account-context");
+ const name=document.getElementById("country-account-name");
+ const avatar=document.getElementById("country-account-avatar");
+ if(!box||!name)return;
+ box.href="https://mfdco.net/join.html?next="+encodeURIComponent(location.href);
+ name.textContent="ログイン";
+ if(avatar){avatar.hidden=true;avatar.innerHTML=""}
+ try{
+  const Cloud=window.MFDCOCountryCloud;
+  if(!Cloud)return;
+  const account=await Cloud.mfdcoAccount();
+  if(!account)return;
+  const p=account.profile||{};
+  const label=String(p.activity_name||account.user?.email?.split("@")[0]||"MFDCOアカウント").trim();
+  name.textContent=label;
+  box.href="https://mfdco.net/mypage.html";
+  box.title=`ログイン中: ${label}`;
+  if(avatar){
+   const url=String(p.icon_url||"").trim();
+   avatar.innerHTML=url?`<img src="${esc(url)}" alt="">`:`<span>${esc(label.slice(0,1)||"M")}</span>`;
+   avatar.hidden=false;
+  }
+ }catch(e){console.warn("COUNTRY ACCOUNT CONTEXT",e)}
+}
+
 async function refreshTopbarAccess(){
  const menu=document.getElementById("country-edit-menu");
  const links=document.getElementById("country-edit-menu-links");
@@ -222,6 +248,6 @@ async function refreshTopbarAccess(){
 function download(name,text,type="application/json"){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 function fileToText(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result));r.onerror=()=>rej(r.error);r.readAsText(file)})}
 function upsertById(list,item){const a=arr(list).slice(),i=a.findIndex(x=>x.id===item.id);if(i>=0)a[i]=item;else a.push(item);return a}
-window.MFDCOCountry={VERSION,STORAGE_KEY,uid,clone,esc,num,arr,str,fmtNum,fmtPopulationMan,fmtMoney,formatDate,slugify,autoUtcFromLongitude,standardMeridianFromUtc,utcLabel,defaultUsagePolicy,defaultCountry,japanSample,migrate,load,save,saveAll,remove,get,currentId,setCurrent,mediaUrl,storeMedia,calculateCompleteness,calculateStrength,relationLabel,qs,qsa,topbar,refreshTopbarAccess,download,fileToText,upsertById};
+window.MFDCOCountry={VERSION,STORAGE_KEY,uid,clone,esc,num,arr,str,fmtNum,fmtPopulationMan,fmtMoney,formatDate,slugify,autoUtcFromLongitude,standardMeridianFromUtc,utcLabel,defaultUsagePolicy,defaultCountry,japanSample,migrate,load,save,saveAll,remove,get,currentId,setCurrent,mediaUrl,storeMedia,calculateCompleteness,calculateStrength,relationLabel,qs,qsa,topbar,refreshTopbarAccess,refreshMfdcoAccountContext,download,fileToText,upsertById};
 document.addEventListener("DOMContentLoaded",topbar);
 })();

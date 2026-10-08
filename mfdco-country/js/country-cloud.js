@@ -2,6 +2,11 @@
 (function(){
 const C=window.MFDCOCountry;
 const L=window.MFDCOCountryLocalDB;
+async function waitForClient(timeoutMs=5000){
+ const started=Date.now();
+ while(!window.supabaseClient && Date.now()-started<timeoutMs){await new Promise(r=>setTimeout(r,40))}
+ return window.supabaseClient||null;
+}
 const MAP={timeline:"timeline",posts:"post",wikiPages:"wiki",statistics:"statistic",mapPoints:"map_point",systems:"system",organizations:"organization",officialEquipment:"official_equipment",cities:"city",companies:"company",territories:"territory",disputes:"dispute",borders:"border",overseasBases:"overseas_base",universities:"university",researchInstitutions:"research_institution",welfarePrograms:"welfare_program",policies:"policy",opinionPolls:"opinion_poll",protests:"protest",trustMetrics:"trust_metric",equalityMetrics:"equality_metric",policeOrganizations:"police_org",criminalOrganizations:"criminal_org",ideologies:"ideology",securityPrograms:"security_program",banks:"bank",conglomerates:"conglomerate",resourceReserves:"resource_reserve",environmentalIssues:"environment_issue",sdgGoals:"sdg_goal",ports:"port",airports:"airport",highways:"highway",railways:"railway",historyMajorPeriods:"history_major_period",historyMinorPeriods:"history_minor_period",regnalEras:"regnal_era",heritageSites:"heritage",socialPlatforms:"social_platform",marketDependencies:"market_dependency"};
 const reverse=Object.fromEntries(Object.entries(MAP).map(([k,v])=>[v,k]));
 function ready(){return !!window.supabaseClient}
@@ -10,6 +15,7 @@ async function user(){
  try{return (await window.supabaseClient.auth.getUser()).data?.user||null}catch{return null}
 }
 async function mfdcoAccount(){
+ await waitForClient();
  if(!ready())return null;
  const u=await user();
  if(!u)return null;
@@ -261,5 +267,5 @@ async function marketPriorityMap(){
  try{const {data,error}=await window.supabaseClient.rpc("mfdco_public_country_market_priorities");if(error)throw error;return Object.fromEntries((data||[]).map(x=>[x.country_id,{isMain:!!x.is_main,isActive:!!x.is_active}]))}catch(e){console.warn("MARKET PRIORITY",e);return {}}
 }
 
-window.MFDCOCountryCloud={ready,user,mfdcoAccount,countryAccess,requireCountryAccess,ownerProfile,coreFromCountry,recordsFromCountry,merge,saveCountry,loadCountry,listCountries,role,uploadMedia,resolveMedia,notifications,markNotification,relations,proposals,createProposal,respondProposal,versions,marketSnapshots,editableCountryChoices,myCountryAccess,accountStorageUsage,countryStorageUsage,publicWorksForAdoption,usageRequests,createUsageRequest,respondUsageRequest,getCountryPreferences,setCountryPreferences,recordMarketSnapshot,marketHistory,backfillMarketHistory,backfillDeterministicMarket,marketPriorityMap};
+window.MFDCOCountryCloud={ready,waitForClient,user,mfdcoAccount,countryAccess,requireCountryAccess,ownerProfile,coreFromCountry,recordsFromCountry,merge,saveCountry,loadCountry,listCountries,role,uploadMedia,resolveMedia,notifications,markNotification,relations,proposals,createProposal,respondProposal,versions,marketSnapshots,editableCountryChoices,myCountryAccess,accountStorageUsage,countryStorageUsage,publicWorksForAdoption,usageRequests,createUsageRequest,respondUsageRequest,getCountryPreferences,setCountryPreferences,recordMarketSnapshot,marketHistory,backfillMarketHistory,backfillDeterministicMarket,marketPriorityMap};
 })();
