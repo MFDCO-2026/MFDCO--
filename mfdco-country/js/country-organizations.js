@@ -1,6 +1,6 @@
 "use strict";
 document.addEventListener("DOMContentLoaded",async()=>{
- const C=MFDCOCountry,V=MFDCOCountryV6,Cloud=MFDCOCountryCloud,root=document.getElementById("org-app"),c=await V.load(),user=await Cloud.user(),role=await Cloud.role(c.id),canManageCountry=["owner","admin"].includes(role)||!Cloud.ready();
+ const C=MFDCOCountry,V=MFDCOCountryV6,Cloud=MFDCOCountryCloud,root=document.getElementById("org-app"),c=await V.load(),user=await Cloud.user(),role=await Cloud.role(c.id),canManageCountry=["owner","admin"].includes(role);
  let orgs=[],members=[],treaties=[],parties=[],countryNames={};
  const joinLabel={open:"自由参加",approval:"承認制",closed:"参加不可"};
  const safeUrl=v=>{try{const u=new URL(v);return ["http:","https:"].includes(u.protocol)?u.href:""}catch{return ""}};

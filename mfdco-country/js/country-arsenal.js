@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded",async()=>{
  const C=MFDCOCountry,V=MFDCOCountryV6,Cloud=MFDCOCountryCloud,c=await V.load(),root=document.getElementById("arsenal-app"),role=await Cloud.role(c.id);
  let rows=C.arr(c.officialEquipment),worksCache=[],selectedWork=null,worksLoadError="",worksLoaded=false;
- const can=["owner","admin","editor"].includes(role)||!Cloud.ready();
+ const can=["owner","admin","editor"].includes(role);
  if(Cloud.ready()){
   const r=await window.supabaseClient.from("country_work_adoptions").select("*,works(id,title,image_url,status,tags,description,submission_type,download_access)").eq("country_id",c.id).order("created_at",{ascending:false});
   if(!r.error)rows=(r.data||[]).map(x=>({...x,workTitle:x.works?.title||x.work_id,workTags:x.works?.tags||[]}));

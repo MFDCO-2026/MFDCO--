@@ -6,9 +6,11 @@ document.addEventListener("DOMContentLoaded",async()=>{
  const root=document.getElementById("manage-app");
  if(!root)return;
 
+ const gate=await Cloud.requireCountryAccess(C.currentId(),"manage");
+ if(!gate.ok){root.innerHTML='<div class="alert warn"><strong>この国家を管理する権限がありません。</strong><br><a class="btn small" href="https://mfdco.net/join.html">MFDCOでログイン</a></div>';return}
  const c=await V.load();
- const u=await Cloud.user();
- const role=await Cloud.role(c.id);
+ const u=gate.account.user;
+ const role=gate.role;
  const roleLabel={owner:"所有者",admin:"管理者",editor:"編集者",viewer:"閲覧者"};
  const canManage=["owner","admin"].includes(role);
  const canEdit=["owner","admin","editor"].includes(role);

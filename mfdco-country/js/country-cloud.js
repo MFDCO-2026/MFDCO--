@@ -5,24 +5,59 @@ const L=window.MFDCOCountryLocalDB;
 const MAP={timeline:"timeline",posts:"post",wikiPages:"wiki",statistics:"statistic",mapPoints:"map_point",systems:"system",organizations:"organization",officialEquipment:"official_equipment",cities:"city",companies:"company",territories:"territory",disputes:"dispute",borders:"border",overseasBases:"overseas_base",universities:"university",researchInstitutions:"research_institution",welfarePrograms:"welfare_program",policies:"policy",opinionPolls:"opinion_poll",protests:"protest",trustMetrics:"trust_metric",equalityMetrics:"equality_metric",policeOrganizations:"police_org",criminalOrganizations:"criminal_org",ideologies:"ideology",securityPrograms:"security_program",banks:"bank",conglomerates:"conglomerate",resourceReserves:"resource_reserve",environmentalIssues:"environment_issue",sdgGoals:"sdg_goal",ports:"port",airports:"airport",highways:"highway",railways:"railway",historyMajorPeriods:"history_major_period",historyMinorPeriods:"history_minor_period",regnalEras:"regnal_era",heritageSites:"heritage",socialPlatforms:"social_platform",marketDependencies:"market_dependency"};
 const reverse=Object.fromEntries(Object.entries(MAP).map(([k,v])=>[v,k]));
 function ready(){return !!window.supabaseClient}
-async function user(){if(!ready())return null;try{return (await window.supabaseClient.auth.getUser()).data?.user||null}catch{return null}}
+async function user(){
+ if(!ready())return null;
+ try{return (await window.supabaseClient.auth.getUser()).data?.user||null}catch{return null}
+}
+async function mfdcoAccount(){
+ if(!ready())return null;
+ const u=await user();
+ if(!u)return null;
+ try{
+  const {data,error}=await window.supabaseClient
+   .from("profiles")
+   .select("id,activity_name,icon_url,fictional_country,flag_url,status,permanent_member,admin")
+   .eq("id",u.id)
+   .maybeSingle();
+  if(error||!data)return null;
+  return {user:u,profile:data};
+ }catch{return null}
+}
+async function countryAccess(countryId){
+ const account=await mfdcoAccount();
+ if(!account)return {account:null,role:null,canEdit:false,canManage:false};
+ const r=await role(countryId);
+ return {
+  account,
+  role:r,
+  canEdit:["owner","admin","editor"].includes(r),
+  canManage:["owner","admin"].includes(r)
+ };
+}
+async function requireCountryAccess(countryId,level="edit"){
+ const a=await countryAccess(countryId);
+ const ok=level==="manage"?a.canManage:level==="view"?!!a.role:a.canEdit;
+ return {...a,ok};
+}
+async function ownerProfile(countryId){
+ if(!ready()||!countryId)return null;
+ try{
+  const {data,error}=await window.supabaseClient.rpc(
+   "mfdco_public_country_owner_profile",
+   {p_country_id:countryId}
+  );
+  if(error)return null;
+  return Array.isArray(data)?(data[0]||null):data||null;
+ }catch{return null}
+}
 function coreFromCountry(c){const core=C.clone(c);for(const k of Object.keys(MAP))delete core[k];core.public=!!c.isPublic;core.schemaVersion=15;core.basic={capital:c.capital?.name||"",government:c.government?.system||""};core._index=core._index||{};const st=C.calculateStrength(c);core._index.strength=st.total;core._index.completeness=C.calculateCompleteness(c);return core}
 function recordsFromCountry(c){const out=[];for(const [key,type] of Object.entries(MAP)){C.arr(c[key]).forEach((item,i)=>out.push({id:item.id||C.uid(),record_type:type,title:item.title||item.name||item.label||`${type} ${i+1}`,sort_order:i,payload:{...item,id:item.id||undefined}}))}return out}
 function merge(core,records){const c=C.clone(core||{});c.isPublic=!!(core?.isPublic??core?.public);for(const k of Object.keys(MAP))c[k]=[];for(const r of records||[]){const key=reverse[r.record_type];if(key)c[key].push({...r.payload,id:r.id,title:r.payload?.title||r.title})}return C.migrate(c)}
 async function saveCountry(c){
- if(!ready()){
-  C.save(c);
-  await L?.saveCountryDraft?.(c.id,"legacy-country",C.clone(c)).catch(()=>{});
-  await L?.setCache?.(`country:${c.id}`,C.clone(c)).catch(()=>{});
-  return c;
- }
- const u=await user();
- if(!u){
-  C.save(c);
-  await L?.saveCountryDraft?.(c.id,"legacy-country",C.clone(c)).catch(()=>{});
-  await L?.setCache?.(`country:${c.id}`,C.clone(c)).catch(()=>{});
-  return c;
- }
+ if(!ready())throw new Error("MFDCO本体のアカウント接続が必要です");
+ const account=await mfdcoAccount();
+ if(!account)throw new Error("MFDCOアカウントでログインしてください");
+ const u=account.user;
  const core=coreFromCountry(c),records=recordsFromCountry(c),snapshot=C.clone(c);
  const {data,error}=await window.supabaseClient.rpc("mfdco_save_country",{p_core:core,p_records:records,p_snapshot:snapshot});
  if(error)throw error;
@@ -41,7 +76,7 @@ async function loadCountry(id){
  try{
   const {data,error}=await window.supabaseClient.from("countries").select("id,core_data,is_public").eq("id",id).maybeSingle();
   if(error)throw error;
-  if(!data)return localFallback();
+  if(!data)return null;
   const rr=await window.supabaseClient.from("country_records").select("id,record_type,title,sort_order,payload").eq("country_id",id).order("record_type").order("sort_order");
   if(rr.error)throw rr.error;
   const c=merge({...data.core_data,id:data.id,isPublic:data.is_public},rr.data||[]);
@@ -49,17 +84,25 @@ async function loadCountry(id){
   await L?.setCache?.(`country:${c.id}`,C.clone(c)).catch(()=>{});
   return c
  }catch(e){
-  console.warn("CLOUD LOAD fallback",e);
-  return localFallback()
+  console.warn("CLOUD LOAD",e);
+  return null;
  }
 }
 async function listCountries({mine=false,publicOnly=false}={}){if(!ready())return C.load();let q=window.supabaseClient.from("countries").select("id,name,short_name,english_name,code,summary,is_public,tags,updated_at,population,area_km2,capital,government,strength_score,completeness_score,flag_key,cover_key,owner_id").is("archived_at",null);const u=await user();if(mine&&u)q=q.eq("owner_id",u.id);if(publicOnly)q=q.eq("is_public",true);const {data,error}=await q.order("updated_at",{ascending:false});if(error){console.warn(error);return C.load()}return (data||[]).map(x=>({id:x.id,name:x.name,shortName:x.short_name,englishName:x.english_name,code:x.code,summary:x.summary,isPublic:x.is_public,tags:x.tags||[],updatedAt:x.updated_at,population:x.population,territory:{area:x.area_km2},capital:{name:x.capital},government:{system:x.government},media:{flagKey:x.flag_key,coverKey:x.cover_key},_index:{strength:x.strength_score,completeness:x.completeness_score},ownerId:x.owner_id}))}
-async function role(id){if(!ready())return "owner";const {data,error}=await window.supabaseClient.rpc("mfdco_country_role",{p_country_id:id});if(error)return null;return data}
+async function role(id){
+ if(!ready())return null;
+ const account=await mfdcoAccount();
+ if(!account)return null;
+ const {data,error}=await window.supabaseClient.rpc("mfdco_country_role",{p_country_id:id});
+ if(error)return null;
+ return data||null;
+}
 async function uploadMedia(country,file,slot="file"){
  const FILE_LIMIT=25*1024*1024;if(file.size>FILE_LIMIT)throw new Error("1ファイル25MiBまでです");
- if(!ready())return L?.saveFile?await L.saveFile(file,slot,country?.id||""):C.storeMedia(file,slot);
- const u=await user();
- if(!u)return L?.saveFile?await L.saveFile(file,slot,country?.id||""):C.storeMedia(file,slot);
+ if(!ready())throw new Error("MFDCO本体のアカウント接続が必要です");
+ const account=await mfdcoAccount();
+ if(!account)throw new Error("MFDCOアカウントでログインしてください");
+ const u=account.user;
  const quota=await window.supabaseClient.rpc("mfdco_check_country_media_quota",{p_country_id:country.id,p_added_bytes:file.size,p_slot:slot});
  if(quota.error)throw quota.error;
  if(quota.data&&!quota.data.allowed){
@@ -94,8 +137,9 @@ async function respondProposal(id,status){const {data,error}=await window.supaba
 
 
 async function editableCountryChoices({manageOnly=false}={}){
- if(!ready())return C.load().map(x=>({id:x.id,name:x.name,code:x.code||"",flagKey:x.media?.flagKey||""}));
- const u=await user();if(!u)return [];
+ if(!ready())return [];
+ const account=await mfdcoAccount();if(!account)return [];
+ const u=account.user;
  const owned=await window.supabaseClient.from("countries").select("id,name,code,flag_key").eq("owner_id",u.id).is("archived_at",null);
  const roles=manageOnly?["owner","admin"]:["owner","admin","editor"];
  const mem=await window.supabaseClient.from("country_members").select("country_id,role").eq("user_id",u.id).in("role",roles);
@@ -106,14 +150,15 @@ async function editableCountryChoices({manageOnly=false}={}){
  return rows.map(x=>({id:x.id,name:x.name,code:x.code||"",flagKey:x.flag_key||""}));
 }
 async function myCountryAccess(){
- if(!ready())return C.load().map(x=>({id:x.id,name:x.name,shortName:x.shortName||"",code:x.code||"",summary:x.summary||"",isPublic:!!x.isPublic,updatedAt:x.updatedAt||null,flagKey:x.media?.flagKey||"",coverKey:x.media?.coverKey||"",strengthScore:x._index?.strength||0,completenessScore:x._index?.completeness||0,role:"owner",displayRole:"所有者",canEdit:true,canManage:true}));
- const u=await user();if(!u)return [];
+ if(!ready())return [];
+ const account=await mfdcoAccount();if(!account)return [];
+ const u=account.user;
  const {data,error}=await window.supabaseClient.rpc("mfdco_my_country_access");
  if(error){console.warn("MY COUNTRY ACCESS",error);return []}
  return (data||[]).map(x=>({id:x.id,name:x.name,shortName:x.short_name||"",code:x.code||"",summary:x.summary||"",isPublic:!!x.is_public,updatedAt:x.updated_at,flagKey:x.flag_key||"",coverKey:x.cover_key||"",strengthScore:Number(x.strength_score)||0,completenessScore:Number(x.completeness_score)||0,role:x.role||"viewer",displayRole:x.display_role||"",canEdit:!!x.can_edit,canManage:!!x.can_manage}));
 }
 async function accountStorageUsage(){
- if(!ready()||!(await user()))return null;
+ if(!ready()||!(await mfdcoAccount()))return null;
  const {data,error}=await window.supabaseClient.rpc("mfdco_account_storage_usage");
  if(error){console.warn("ACCOUNT STORAGE",error);return null}
  return data||null;
@@ -216,5 +261,5 @@ async function marketPriorityMap(){
  try{const {data,error}=await window.supabaseClient.rpc("mfdco_public_country_market_priorities");if(error)throw error;return Object.fromEntries((data||[]).map(x=>[x.country_id,{isMain:!!x.is_main,isActive:!!x.is_active}]))}catch(e){console.warn("MARKET PRIORITY",e);return {}}
 }
 
-window.MFDCOCountryCloud={ready,user,coreFromCountry,recordsFromCountry,merge,saveCountry,loadCountry,listCountries,role,uploadMedia,resolveMedia,notifications,markNotification,relations,proposals,createProposal,respondProposal,versions,marketSnapshots,editableCountryChoices,myCountryAccess,accountStorageUsage,countryStorageUsage,publicWorksForAdoption,usageRequests,createUsageRequest,respondUsageRequest,getCountryPreferences,setCountryPreferences,recordMarketSnapshot,marketHistory,backfillMarketHistory,backfillDeterministicMarket,marketPriorityMap};
+window.MFDCOCountryCloud={ready,user,mfdcoAccount,countryAccess,requireCountryAccess,ownerProfile,coreFromCountry,recordsFromCountry,merge,saveCountry,loadCountry,listCountries,role,uploadMedia,resolveMedia,notifications,markNotification,relations,proposals,createProposal,respondProposal,versions,marketSnapshots,editableCountryChoices,myCountryAccess,accountStorageUsage,countryStorageUsage,publicWorksForAdoption,usageRequests,createUsageRequest,respondUsageRequest,getCountryPreferences,setCountryPreferences,recordMarketSnapshot,marketHistory,backfillMarketHistory,backfillDeterministicMarket,marketPriorityMap};
 })();

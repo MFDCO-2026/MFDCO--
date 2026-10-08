@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
  async function loadContext(){
   if(!sourceId){rel=[];props=[];canManage=false;return}
   [rel,props]=await Promise.all([Cloud.relations(sourceId),Cloud.proposals(sourceId)]);
-  const role=await Cloud.role(sourceId);canManage=["owner","admin"].includes(role)||!Cloud.ready();
+  const role=await Cloud.role(sourceId);canManage=["owner","admin"].includes(role);
  }
  function sourcePreview(){const s=source();if(!s)return '<div class="alert info">外交提案を送信できる管理国家がありません。</div>';const img=flagUrls[s.id];return `<div class="proposal-source-card"><div class="proposal-source-flag">${img?`<img src="${C.esc(img)}" alt="${C.esc(s.name)}の国旗">`:`<span>${C.esc((s.code||s.name||"?").slice(0,3))}</span>`}</div><div class="proposal-source-info"><small>提案国</small><strong>${C.esc(s.name)}</strong><span>${C.esc(s.code||"")}</span></div><div class="field proposal-source-select"><label>提案国を変更</label><select id="source-country" class="select">${choices.map(x=>`<option value="${x.id}" ${x.id===sourceId?"selected":""}>${C.esc(x.name)}</option>`).join("")}</select></div></div>`}
  function targetOptions(){return all.filter(x=>x.id!==sourceId).map(x=>`<option value="${x.id}">${C.esc(x.name)}</option>`).join("")}

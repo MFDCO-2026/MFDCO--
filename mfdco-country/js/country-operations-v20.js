@@ -1,7 +1,9 @@
 "use strict";
 document.addEventListener("DOMContentLoaded",async()=>{
- const C=window.MFDCOCountry,V=window.MFDCOCountryV6,D=window.MFDCOCountryV20Data,L=window.MFDCOCountryLocalDB;
+ const C=window.MFDCOCountry,V=window.MFDCOCountryV6,D=window.MFDCOCountryV20Data,L=window.MFDCOCountryLocalDB,Cloud=window.MFDCOCountryCloud;
  const root=document.getElementById("operations-app");
+ const gate=await Cloud.requireCountryAccess(C.currentId(),"edit");
+ if(!gate.ok){root.innerHTML='<div class="alert warn"><strong>この国家を編集する権限がありません。</strong><br><a class="btn small" href="https://mfdco.net/join.html">MFDCOでログイン</a></div>';return}
  const country=await V.load();
  const countryId=country.id;
  let active="core";

@@ -207,6 +207,12 @@ async function boot(){
    );
   }
 
+  const gate=await Cloud.requireCountryAccess(C.currentId(),"edit");
+  if(!gate.ok){
+   main.innerHTML=`<section class="card section-card"><div class="alert warn"><strong>この国家を編集する権限がありません。</strong><br>MFDCOアカウントでログインし、所有者または共同編集権限を確認してください。<div class="toolbar" style="margin-top:10px"><a class="btn small" href="https://mfdco.net/join.html">MFDCOでログイン</a><a class="btn ghost small" href="country.html?id=${encodeURIComponent(C.currentId())}">国家資料へ戻る</a></div></div></section>`;
+   return;
+  }
+
   c=await V.load();
 
   if(!c){

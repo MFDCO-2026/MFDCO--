@@ -306,3 +306,53 @@
 .country-manage-row{align-items:flex-start;gap:12px}
 .country-manage-row>.toolbar{justify-content:flex-end}
 @media(max-width:760px){.country-manage-row{flex-direction:column}.country-manage-row>.toolbar{justify-content:flex-start}}
+
+
+/* v20.3 MFDCO account ownership */
+.country-owner-card{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid var(--line);
+}
+.country-owner-label{
+  margin-bottom:7px;
+  color:#667085;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.08em;
+}
+.country-owner-card>a{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:inherit;
+  text-decoration:none;
+}
+.country-owner-card>a:hover strong{
+  text-decoration:underline;
+}
+.country-owner-card img,
+.country-owner-avatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  object-fit:cover;
+  flex:0 0 auto;
+  border:1px solid var(--line);
+}
+.country-owner-avatar{
+  display:grid;
+  place-items:center;
+  background:#164b4b;
+  color:#fff;
+  font-weight:800;
+}
+.country-owner-card span>strong,
+.country-owner-card span>small{
+  display:block;
+}
+.country-owner-card span>small{
+  margin-top:2px;
+  color:#667085;
+  font-size:11px;
+}

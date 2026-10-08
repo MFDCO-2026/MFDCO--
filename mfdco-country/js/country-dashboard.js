@@ -6,9 +6,10 @@ document.addEventListener("DOMContentLoaded",async()=>{
  if(!root)return;
 
  const roleLabel={owner:"所有者",admin:"管理者",editor:"編集者",viewer:"閲覧者"};
- const u=await Cloud.user();
- if(Cloud.ready()&&!u){
-  root.innerHTML=`<div class="alert warn">共同編集・国家管理を利用するにはMFDCOアカウントでログインしてください。</div>`;
+ const account=await Cloud.mfdcoAccount();
+ const u=account?.user||null;
+ if(!account){
+  root.innerHTML=`<div class="alert warn"><strong>国家ダッシュボードにはMFDCOアカウントでのログインが必要です。</strong><br><a class="btn small" href="https://mfdco.net/join.html">MFDCOでログイン</a></div>`;
   return;
  }
 

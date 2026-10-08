@@ -1,5 +1,5 @@
 "use strict";
-document.addEventListener("DOMContentLoaded",async()=>{
+document.addEventListener("DOMContentLoaded",async()=>{const C0=window.MFDCOCountry,Cloud0=window.MFDCOCountryCloud;const gate0=await Cloud0.requireCountryAccess(C0.currentId(),"edit");if(!gate0.ok){const r0=document.getElementById('regions-app');if(r0)r0.innerHTML='<div class="alert warn"><strong>この国家を編集する権限がありません。</strong><br><a class="btn small" href="https://mfdco.net/join.html">MFDCOでログイン</a></div>';return;}
 const C=MFDCOCountry,V=MFDCOCountryV6,Cloud=MFDCOCountryCloud,c=await V.load(),root=document.getElementById("regions-app");
 let selected=C.arr(c.administration?.regions)[0]?.id||"";
 function current(){return c.administration.regions.find(x=>x.id===selected)||null}
