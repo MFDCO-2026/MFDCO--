@@ -189,30 +189,23 @@ function topbar(){const el=document.getElementById("country-topbar");if(!el)retu
  const menus=[...el.querySelectorAll("details.topbar-menu")];menus.forEach(d=>d.addEventListener("toggle",()=>{if(d.open)menus.forEach(o=>{if(o!==d)o.open=false})}));
  if(!document.querySelector(".fiction-disclaimer-bar")){const note=document.createElement("div");note.className="fiction-disclaimer-bar";note.textContent="このページは架空国家・創作世界の設定資料です。実在の国家・政府・統計を示すものではありません。";el.insertAdjacentElement("afterend",note)}
  setTimeout(async()=>{try{const Cloud=window.MFDCOCountryCloud,box=document.getElementById("country-active-context");if(!Cloud||!box)return;const p=await Cloud.getCountryPreferences(),cid=p.activeCountryId||p.mainCountryId;if(!cid)return;const cc=await Cloud.loadCountry(cid);if(!cc)return;const flag=await Cloud.resolveMedia(cc.media?.flagKey||"");box.href=`country.html?id=${encodeURIComponent(cid)}`;box.innerHTML=`${flag?`<img src="${flag}" alt="">`:""}<span>${esc(cc.name||"アクティブ国家")}</span>`;box.hidden=false}catch(e){console.warn("COUNTRY ACTIVE CONTEXT",e)}},0);
-;setTimeout(refreshTopbarAccess,0);setTimeout(refreshMfdcoAccountContext,0)}
+ ;setTimeout(refreshTopbarAccess,0);setTimeout(refreshMfdcoAccountContext,0);
+ if(!window.__mfdcoCountryAuthUiBound){window.__mfdcoCountryAuthUiBound=true;window.addEventListener("mfdco-country-auth",()=>{refreshMfdcoAccountContext();refreshTopbarAccess()})}
+}
 async function refreshMfdcoAccountContext(){
- const box=document.getElementById("country-account-context");
- const name=document.getElementById("country-account-name");
- const avatar=document.getElementById("country-account-avatar");
+ const box=document.getElementById("country-account-context"),name=document.getElementById("country-account-name"),avatar=document.getElementById("country-account-avatar");
  if(!box||!name)return;
- box.href="https://mfdco.net/join.html?next="+encodeURIComponent(location.href);
- name.textContent="ログイン";
+ box.href="https://mfdco.net/join.html?next="+encodeURIComponent(location.href);name.textContent="ログイン";box.title="MFDCOアカウントでログイン";
  if(avatar){avatar.hidden=true;avatar.innerHTML=""}
  try{
-  const Cloud=window.MFDCOCountryCloud;
-  if(!Cloud)return;
-  const account=await Cloud.mfdcoAccount();
-  if(!account)return;
-  const p=account.profile||{};
-  const label=String(p.activity_name||account.user?.email?.split("@")[0]||"MFDCOアカウント").trim();
-  name.textContent=label;
-  box.href="https://mfdco.net/mypage.html";
-  box.title=`ログイン中: ${label}`;
-  if(avatar){
-   const url=String(p.icon_url||"").trim();
-   avatar.innerHTML=url?`<img src="${esc(url)}" alt="">`:`<span>${esc(label.slice(0,1)||"M")}</span>`;
-   avatar.hidden=false;
-  }
+  let st=null;
+  if(window.MFDCOCountrySession?.getState)st=await window.MFDCOCountrySession.getState();
+  else if(window.MFDCOCountryCloud?.sessionIdentity)st=await window.MFDCOCountryCloud.sessionIdentity();
+  const u=st?.user||null,p=st?.profile||null;
+  if(!u)return;
+  const label=String(p?.activity_name||u.email?.split("@")[0]||`ID ${String(u.id||"").slice(0,8)}`).trim();
+  name.textContent=label;box.href=`https://mfdco.net/mypage.html?id=${encodeURIComponent(u.id)}`;box.title=`ログイン中: ${label} / ${u.id}`;
+  if(avatar){const url=String(p?.icon_url||"").trim();avatar.innerHTML=url?`<img src="${esc(url)}" alt="">`:`<span>${esc(label.slice(0,1)||"M")}</span>`;avatar.hidden=false}
  }catch(e){console.warn("COUNTRY ACCOUNT CONTEXT",e)}
 }
 

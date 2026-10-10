@@ -10,24 +10,26 @@ async function waitForClient(timeoutMs=5000){
 const MAP={timeline:"timeline",posts:"post",wikiPages:"wiki",statistics:"statistic",mapPoints:"map_point",systems:"system",organizations:"organization",officialEquipment:"official_equipment",cities:"city",companies:"company",territories:"territory",disputes:"dispute",borders:"border",overseasBases:"overseas_base",universities:"university",researchInstitutions:"research_institution",welfarePrograms:"welfare_program",policies:"policy",opinionPolls:"opinion_poll",protests:"protest",trustMetrics:"trust_metric",equalityMetrics:"equality_metric",policeOrganizations:"police_org",criminalOrganizations:"criminal_org",ideologies:"ideology",securityPrograms:"security_program",banks:"bank",conglomerates:"conglomerate",resourceReserves:"resource_reserve",environmentalIssues:"environment_issue",sdgGoals:"sdg_goal",ports:"port",airports:"airport",highways:"highway",railways:"railway",historyMajorPeriods:"history_major_period",historyMinorPeriods:"history_minor_period",regnalEras:"regnal_era",heritageSites:"heritage",socialPlatforms:"social_platform",marketDependencies:"market_dependency"};
 const reverse=Object.fromEntries(Object.entries(MAP).map(([k,v])=>[v,k]));
 function ready(){return !!window.supabaseClient}
-async function user(){
- if(!ready())return null;
- try{return (await window.supabaseClient.auth.getUser()).data?.user||null}catch{return null}
-}
-async function mfdcoAccount(){
- await waitForClient();
- if(!ready())return null;
- const u=await user();
- if(!u)return null;
+async function sessionIdentity(force=false){
+ await waitForClient(8000);
+ if(window.MFDCOCountrySession?.getState){
+  const st=await window.MFDCOCountrySession.getState(force);
+  return {user:st?.user||null,profile:st?.profile||null,linked:!!(st?.user&&st?.profile),error:st?.error||null};
+ }
+ if(!ready())return {user:null,profile:null,linked:false,error:"Supabase client unavailable"};
  try{
-  const {data,error}=await window.supabaseClient
-   .from("profiles")
-   .select("id,activity_name,icon_url,fictional_country,flag_url,status,permanent_member,admin")
-   .eq("id",u.id)
-   .maybeSingle();
-  if(error||!data)return null;
-  return {user:u,profile:data};
- }catch{return null}
+  const {data,error}=await window.supabaseClient.auth.getSession();
+  if(error)throw error;
+  const u=data?.session?.user||null;
+  if(!u)return {user:null,profile:null,linked:false,error:null};
+  const q=await window.supabaseClient.from("profiles").select("id,activity_name,icon_url,status,permanent_member,admin").eq("id",u.id).maybeSingle();
+  return {user:u,profile:q.error?null:(q.data||null),linked:!!q.data,error:q.error?.message||null};
+ }catch(e){return {user:null,profile:null,linked:false,error:e?.message||String(e)}}
+}
+async function user(){return (await sessionIdentity()).user||null}
+async function mfdcoAccount(){
+ const st=await sessionIdentity();
+ return st.linked?{user:st.user,profile:st.profile}:null;
 }
 async function countryAccess(countryId){
  const account=await mfdcoAccount();
@@ -46,15 +48,23 @@ async function requireCountryAccess(countryId,level="edit"){
  return {...a,ok};
 }
 async function ownerProfile(countryId){
- if(!ready()||!countryId)return null;
+ if(!countryId)return null;
+ await waitForClient(8000);
+ if(!ready())return null;
  try{
-  const {data,error}=await window.supabaseClient.rpc(
-   "mfdco_public_country_owner_profile",
-   {p_country_id:countryId}
-  );
-  if(error)return null;
-  return Array.isArray(data)?(data[0]||null):data||null;
- }catch{return null}
+  const rpc=await window.supabaseClient.rpc("mfdco_public_country_owner_profile",{p_country_id:countryId});
+  if(!rpc.error){const row=Array.isArray(rpc.data)?(rpc.data[0]||null):(rpc.data||null);if(row)return row}
+ }catch(e){console.warn("OWNER PROFILE RPC",e)}
+ try{
+  const cq=await window.supabaseClient.from("countries").select("owner_id").eq("id",countryId).maybeSingle();
+  const ownerId=cq.data?.owner_id||null;
+  if(!ownerId)return null;
+  const pq=await window.supabaseClient.from("profiles")
+   .select("id,activity_name,icon_url,fictional_country,flag_url,permanent_member")
+   .eq("id",ownerId).maybeSingle();
+  if(!pq.error&&pq.data)return {user_id:pq.data.id,activity_name:pq.data.activity_name||"",icon_url:pq.data.icon_url||"",fictional_country:pq.data.fictional_country||"",flag_url:pq.data.flag_url||"",permanent_member:!!pq.data.permanent_member};
+  return {user_id:ownerId,activity_name:"MFDCOアカウント",icon_url:"",fictional_country:"",flag_url:"",permanent_member:false};
+ }catch(e){console.warn("OWNER PROFILE FALLBACK",e);return null}
 }
 function coreFromCountry(c){const core=C.clone(c);for(const k of Object.keys(MAP))delete core[k];core.public=!!c.isPublic;core.schemaVersion=15;core.basic={capital:c.capital?.name||"",government:c.government?.system||""};core._index=core._index||{};const st=C.calculateStrength(c);core._index.strength=st.total;core._index.completeness=C.calculateCompleteness(c);return core}
 function recordsFromCountry(c){const out=[];for(const [key,type] of Object.entries(MAP)){C.arr(c[key]).forEach((item,i)=>out.push({id:item.id||C.uid(),record_type:type,title:item.title||item.name||item.label||`${type} ${i+1}`,sort_order:i,payload:{...item,id:item.id||undefined}}))}return out}
@@ -80,12 +90,12 @@ async function loadCountry(id){
  };
  if(!ready())return localFallback();
  try{
-  const {data,error}=await window.supabaseClient.from("countries").select("id,core_data,is_public").eq("id",id).maybeSingle();
+  const {data,error}=await window.supabaseClient.from("countries").select("id,core_data,is_public,owner_id").eq("id",id).maybeSingle();
   if(error)throw error;
   if(!data)return null;
   const rr=await window.supabaseClient.from("country_records").select("id,record_type,title,sort_order,payload").eq("country_id",id).order("record_type").order("sort_order");
   if(rr.error)throw rr.error;
-  const c=merge({...data.core_data,id:data.id,isPublic:data.is_public},rr.data||[]);
+  const c=merge({...data.core_data,id:data.id,isPublic:data.is_public,ownerId:data.owner_id||data.core_data?.ownerId||""},rr.data||[]);
   C.save(c);
   await L?.setCache?.(`country:${c.id}`,C.clone(c)).catch(()=>{});
   return c
@@ -159,9 +169,60 @@ async function myCountryAccess(){
  if(!ready())return [];
  const account=await mfdcoAccount();if(!account)return [];
  const u=account.user;
- const {data,error}=await window.supabaseClient.rpc("mfdco_my_country_access");
- if(error){console.warn("MY COUNTRY ACCESS",error);return []}
- return (data||[]).map(x=>({id:x.id,name:x.name,shortName:x.short_name||"",code:x.code||"",summary:x.summary||"",isPublic:!!x.is_public,updatedAt:x.updated_at,flagKey:x.flag_key||"",coverKey:x.cover_key||"",strengthScore:Number(x.strength_score)||0,completenessScore:Number(x.completeness_score)||0,role:x.role||"viewer",displayRole:x.display_role||"",canEdit:!!x.can_edit,canManage:!!x.can_manage}));
+ const byId=new Map();
+
+ const normalize=x=>({
+  id:x.id,
+  name:x.name||"",
+  shortName:x.short_name||"",
+  code:x.code||"",
+  summary:x.summary||"",
+  isPublic:!!x.is_public,
+  updatedAt:x.updated_at||null,
+  flagKey:x.flag_key||"",
+  coverKey:x.cover_key||"",
+  strengthScore:Number(x.strength_score)||0,
+  completenessScore:Number(x.completeness_score)||0,
+  role:x.role||"viewer",
+  displayRole:x.display_role||"",
+  canEdit:!!x.can_edit,
+  canManage:!!x.can_manage
+ });
+
+ // Shared/owner access from the canonical RPC.
+ try{
+  const {data,error}=await window.supabaseClient.rpc("mfdco_my_country_access");
+  if(error)console.warn("MY COUNTRY ACCESS RPC",error);
+  else for(const x of data||[])byId.set(x.id,normalize(x));
+ }catch(e){console.warn("MY COUNTRY ACCESS RPC",e)}
+
+ // Ownership is canonical in countries.owner_id.
+ // Always merge it directly so an old/missing country_members owner mirror
+ // can never hide an owned country from the dashboard.
+ try{
+  const {data,error}=await window.supabaseClient
+   .from("countries")
+   .select("id,name,short_name,code,summary,is_public,updated_at,flag_key,cover_key,strength_score,completeness_score,owner_id")
+   .eq("owner_id",u.id)
+   .is("archived_at",null)
+   .order("updated_at",{ascending:false});
+  if(error)console.warn("MY OWNED COUNTRIES",error);
+  else for(const x of data||[]){
+   byId.set(x.id,normalize({
+    ...x,
+    role:"owner",
+    display_role:"所有者",
+    can_edit:true,
+    can_manage:true
+   }));
+  }
+ }catch(e){console.warn("MY OWNED COUNTRIES",e)}
+
+ const rank={owner:0,admin:1,editor:2,viewer:3};
+ return [...byId.values()].sort((a,b)=>
+  (rank[a.role]??9)-(rank[b.role]??9) ||
+  String(b.updatedAt||"").localeCompare(String(a.updatedAt||""))
+ );
 }
 async function accountStorageUsage(){
  if(!ready()||!(await mfdcoAccount()))return null;
