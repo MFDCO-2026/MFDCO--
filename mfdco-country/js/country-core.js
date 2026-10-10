@@ -217,10 +217,11 @@ async function refreshTopbarAccess(){
  const id=currentId();
  if(!id||!window.supabaseClient)return;
  try{
-  const ud=await window.supabaseClient.auth.getUser(),u=ud.data?.user;
-  if(!u)return;
-  const pr=await window.supabaseClient.from("profiles").select("id").eq("id",u.id).maybeSingle();
-  if(pr.error||!pr.data)return;
+  const Cloud=window.MFDCOCountryCloud;
+  if(!Cloud)return;
+  const st=await Cloud.sessionIdentity(false);
+  const u=st?.user||null;
+  if(!u||!st?.profile)return;
   const rr=await window.supabaseClient.rpc("mfdco_country_role",{p_country_id:id});
   const role=rr.error?null:rr.data;
   if(!["owner","admin","editor"].includes(role))return;

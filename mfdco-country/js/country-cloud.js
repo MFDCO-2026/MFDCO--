@@ -2,29 +2,74 @@
 (function(){
 const C=window.MFDCOCountry;
 const L=window.MFDCOCountryLocalDB;
-async function waitForClient(timeoutMs=5000){
+async function waitForClient(timeoutMs=2500){
  const started=Date.now();
  while(!window.supabaseClient && Date.now()-started<timeoutMs){await new Promise(r=>setTimeout(r,40))}
  return window.supabaseClient||null;
+}
+function withTimeout(promise,timeoutMs=3000,label="request timeout"){
+ let timer;
+ const timeout=new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error(label)),timeoutMs)});
+ return Promise.race([Promise.resolve(promise),timeout]).finally(()=>clearTimeout(timer));
 }
 const MAP={timeline:"timeline",posts:"post",wikiPages:"wiki",statistics:"statistic",mapPoints:"map_point",systems:"system",organizations:"organization",officialEquipment:"official_equipment",cities:"city",companies:"company",territories:"territory",disputes:"dispute",borders:"border",overseasBases:"overseas_base",universities:"university",researchInstitutions:"research_institution",welfarePrograms:"welfare_program",policies:"policy",opinionPolls:"opinion_poll",protests:"protest",trustMetrics:"trust_metric",equalityMetrics:"equality_metric",policeOrganizations:"police_org",criminalOrganizations:"criminal_org",ideologies:"ideology",securityPrograms:"security_program",banks:"bank",conglomerates:"conglomerate",resourceReserves:"resource_reserve",environmentalIssues:"environment_issue",sdgGoals:"sdg_goal",ports:"port",airports:"airport",highways:"highway",railways:"railway",historyMajorPeriods:"history_major_period",historyMinorPeriods:"history_minor_period",regnalEras:"regnal_era",heritageSites:"heritage",socialPlatforms:"social_platform",marketDependencies:"market_dependency"};
 const reverse=Object.fromEntries(Object.entries(MAP).map(([k,v])=>[v,k]));
 function ready(){return !!window.supabaseClient}
 async function sessionIdentity(force=false){
- await waitForClient(8000);
+ await waitForClient(2500);
+
  if(window.MFDCOCountrySession?.getState){
-  const st=await window.MFDCOCountrySession.getState(force);
-  return {user:st?.user||null,profile:st?.profile||null,linked:!!(st?.user&&st?.profile),error:st?.error||null};
+  try{
+   const st=await withTimeout(
+    window.MFDCOCountrySession.getState(force),
+    4500,
+    "country session timeout"
+   );
+   return {
+    user:st?.user||null,
+    profile:st?.profile||null,
+    linked:!!(st?.user&&st?.profile),
+    error:st?.error||null
+   };
+  }catch(e){
+   return {user:null,profile:null,linked:false,error:e?.message||String(e)};
+  }
  }
- if(!ready())return {user:null,profile:null,linked:false,error:"Supabase client unavailable"};
+
+ if(!ready())return {
+  user:null,profile:null,linked:false,error:"Supabase client unavailable"
+ };
+
  try{
-  const {data,error}=await window.supabaseClient.auth.getSession();
+  const {data,error}=await withTimeout(
+   window.supabaseClient.auth.getSession(),
+   3000,
+   "login session lookup timeout"
+  );
   if(error)throw error;
+
   const u=data?.session?.user||null;
   if(!u)return {user:null,profile:null,linked:false,error:null};
-  const q=await window.supabaseClient.from("profiles").select("id,activity_name,icon_url,status,permanent_member,admin").eq("id",u.id).maybeSingle();
-  return {user:u,profile:q.error?null:(q.data||null),linked:!!q.data,error:q.error?.message||null};
- }catch(e){return {user:null,profile:null,linked:false,error:e?.message||String(e)}}
+
+  const q=await withTimeout(
+   window.supabaseClient
+    .from("profiles")
+    .select("id,activity_name,icon_url,status,permanent_member,admin")
+    .eq("id",u.id)
+    .maybeSingle(),
+   3000,
+   "profile lookup timeout"
+  );
+
+  return {
+   user:u,
+   profile:q.error?null:(q.data||null),
+   linked:!!q.data,
+   error:q.error?.message||null
+  };
+ }catch(e){
+  return {user:null,profile:null,linked:false,error:e?.message||String(e)};
+ }
 }
 async function user(){return (await sessionIdentity()).user||null}
 async function mfdcoAccount(){
@@ -104,7 +149,55 @@ async function loadCountry(id){
   return null;
  }
 }
-async function listCountries({mine=false,publicOnly=false}={}){if(!ready())return C.load();let q=window.supabaseClient.from("countries").select("id,name,short_name,english_name,code,summary,is_public,tags,updated_at,population,area_km2,capital,government,strength_score,completeness_score,flag_key,cover_key,owner_id").is("archived_at",null);const u=await user();if(mine&&u)q=q.eq("owner_id",u.id);if(publicOnly)q=q.eq("is_public",true);const {data,error}=await q.order("updated_at",{ascending:false});if(error){console.warn(error);return C.load()}return (data||[]).map(x=>({id:x.id,name:x.name,shortName:x.short_name,englishName:x.english_name,code:x.code,summary:x.summary,isPublic:x.is_public,tags:x.tags||[],updatedAt:x.updated_at,population:x.population,territory:{area:x.area_km2},capital:{name:x.capital},government:{system:x.government},media:{flagKey:x.flag_key,coverKey:x.cover_key},_index:{strength:x.strength_score,completeness:x.completeness_score},ownerId:x.owner_id}))}
+async function listCountries({mine=false,publicOnly=false}={}){
+ if(!ready())return C.load();
+
+ let q=window.supabaseClient
+  .from("countries")
+  .select("id,name,short_name,english_name,code,summary,is_public,tags,updated_at,population,area_km2,capital,government,strength_score,completeness_score,flag_key,cover_key,owner_id")
+  .is("archived_at",null);
+
+ // Public country listing must never wait for authentication.
+ // Only resolve a user when the caller explicitly asks for "mine".
+ if(mine){
+  const u=await user();
+  if(!u)return [];
+  q=q.eq("owner_id",u.id);
+ }
+
+ if(publicOnly)q=q.eq("is_public",true);
+
+ try{
+  const {data,error}=await withTimeout(
+   q.order("updated_at",{ascending:false}),
+   6000,
+   "country list timeout"
+  );
+  if(error)throw error;
+
+  return (data||[]).map(x=>({
+   id:x.id,
+   name:x.name,
+   shortName:x.short_name,
+   englishName:x.english_name,
+   code:x.code,
+   summary:x.summary,
+   isPublic:x.is_public,
+   tags:x.tags||[],
+   updatedAt:x.updated_at,
+   population:x.population,
+   territory:{area:x.area_km2},
+   capital:{name:x.capital},
+   government:{system:x.government},
+   media:{flagKey:x.flag_key,coverKey:x.cover_key},
+   _index:{strength:x.strength_score,completeness:x.completeness_score},
+   ownerId:x.owner_id
+  }));
+ }catch(e){
+  console.warn("COUNTRY LIST",e);
+  return C.load();
+ }
+}
 async function role(id){
  if(!ready())return null;
  const account=await mfdcoAccount();
@@ -328,5 +421,5 @@ async function marketPriorityMap(){
  try{const {data,error}=await window.supabaseClient.rpc("mfdco_public_country_market_priorities");if(error)throw error;return Object.fromEntries((data||[]).map(x=>[x.country_id,{isMain:!!x.is_main,isActive:!!x.is_active}]))}catch(e){console.warn("MARKET PRIORITY",e);return {}}
 }
 
-window.MFDCOCountryCloud={ready,waitForClient,user,mfdcoAccount,countryAccess,requireCountryAccess,ownerProfile,coreFromCountry,recordsFromCountry,merge,saveCountry,loadCountry,listCountries,role,uploadMedia,resolveMedia,notifications,markNotification,relations,proposals,createProposal,respondProposal,versions,marketSnapshots,editableCountryChoices,myCountryAccess,accountStorageUsage,countryStorageUsage,publicWorksForAdoption,usageRequests,createUsageRequest,respondUsageRequest,getCountryPreferences,setCountryPreferences,recordMarketSnapshot,marketHistory,backfillMarketHistory,backfillDeterministicMarket,marketPriorityMap};
+window.MFDCOCountryCloud={ready,waitForClient,withTimeout,sessionIdentity,user,mfdcoAccount,countryAccess,requireCountryAccess,ownerProfile,coreFromCountry,recordsFromCountry,merge,saveCountry,loadCountry,listCountries,role,uploadMedia,resolveMedia,notifications,markNotification,relations,proposals,createProposal,respondProposal,versions,marketSnapshots,editableCountryChoices,myCountryAccess,accountStorageUsage,countryStorageUsage,publicWorksForAdoption,usageRequests,createUsageRequest,respondUsageRequest,getCountryPreferences,setCountryPreferences,recordMarketSnapshot,marketHistory,backfillMarketHistory,backfillDeterministicMarket,marketPriorityMap};
 })();
