@@ -5,7 +5,12 @@ document.addEventListener("DOMContentLoaded",async()=>{
  const gate=await Cloud.requireCountryAccess(C.currentId(),"edit");
  if(!gate.ok){root.innerHTML='<div class="alert warn"><strong>この国家を編集する権限がありません。</strong><br><a class="btn small" href="https://mfdco.net/join.html">MFDCOでログイン</a></div>';return}
  const country=await V.load();
+ if(!country){
+  root.innerHTML='<div class="alert warn">国家データを読み込めませんでした。</div>';
+  return;
+ }
  const countryId=country.id;
+ const defaultEditVisibility=gate.role==="owner"?"owner":"collaborators";
  let active="core";
  const docState={};
 
@@ -61,6 +66,15 @@ document.addEventListener("DOMContentLoaded",async()=>{
   docState.budget=await D.getDocument(countryId,"budget",legacyBudget);
   docState.demography=await D.getDocument(countryId,"demography",legacyDemo);
   docState.supply=await D.getDocument(countryId,"supply",legacySupply);
+
+  if(gate.role!=="owner"){
+   for(const key of ["budget","demography","supply"]){
+    const row=docState[key];
+    if(row && !row.updated_at && row.visibility==="owner"){
+     row.visibility=defaultEditVisibility;
+    }
+   }
+  }
  }
 
  async function render(){
@@ -103,7 +117,14 @@ document.addEventListener("DOMContentLoaded",async()=>{
    <div class="metric"><div class="metric-label">電力自給率</div><div class="metric-value">${metrics.powerSelfSufficiency==null?"—":fmt(metrics.powerSelfSufficiency)+"%"}</div></div>
    <div class="metric"><div class="metric-label">貿易収支</div><div class="metric-value">${fmt(metrics.tradeBalance)}</div></div>
    </div><div class="toolbar"><button id="save-metrics" class="btn secondary">計算値を検索用キャッシュへ保存</button></div></section>`);
-  bindDocInputs();document.getElementById("save-metrics").onclick=async()=>{await D.saveMetrics(countryId,metrics);V.toast("計算値を保存しました")};
+  bindDocInputs();document.getElementById("save-metrics").onclick=async()=>{
+   const b=document.getElementById("save-metrics");b.disabled=true;
+   try{
+    const saved=await D.saveMetrics(countryId,metrics);
+    V.toast(saved?.pendingSync?"端末に保存しました。クラウド同期は待機中です":"計算値を保存しました",saved?.pendingSync?"warn":"info");
+   }catch(e){V.toast(`計算値を保存できませんでした: ${e?.message||e}`,"danger")}
+   finally{b.disabled=false}
+  };
  }
 
  function bindDocInputs(){
@@ -118,8 +139,28 @@ document.addEventListener("DOMContentLoaded",async()=>{
   });
   root.querySelectorAll(".save-doc").forEach(b=>b.onclick=async()=>{
    const name=b.dataset.doc,row=docState[name];
-   docState[name]=await D.saveDocument(countryId,name,row.payload,{status:row.status||"draft",visibility:row.visibility||"owner"});
-   V.toast("保存しました");
+   b.disabled=true;
+   try{
+    docState[name]=await D.saveDocument(
+     countryId,
+     name,
+     row.payload,
+     {
+      status:row.status||"draft",
+      visibility:row.visibility||defaultEditVisibility
+     }
+    );
+    if(docState[name]?.pendingSync||docState[name]?.localOnly){
+     V.toast("端末に保存しました。クラウド同期は待機中です","warn");
+    }else{
+     V.toast("保存しました");
+    }
+   }catch(e){
+    console.error("OPERATIONS DOCUMENT SAVE",e);
+    V.toast(`保存できませんでした: ${e?.message||e}`,"danger");
+   }finally{
+    b.disabled=false;
+   }
   });
  }
 
@@ -135,7 +176,9 @@ document.addEventListener("DOMContentLoaded",async()=>{
   bindEntities();
  }
  function entityCard(type,r,def){
+  const pending=r?._pendingSync||r?.pendingSync;
   return `<div class="operations-entity" data-id="${r.id}" data-type="${type}">
+   ${pending?`<div class="alert warn operations-sync-note">端末には保存済みです。クラウド同期を待っています。${r?.syncError?` ${esc(r.syncError)}`:""}</div>`:""}
    <div class="form-grid three">
     <div class="field"><label>名称</label><input class="input ent-base" data-key="name" value="${esc(r.name)}"></div>
     <div class="field"><label>状態</label><select class="select ent-base" data-key="status">${statusOptions(r.status)}</select></div>
@@ -146,17 +189,82 @@ document.addEventListener("DOMContentLoaded",async()=>{
  }
  function bindEntities(){
   root.querySelectorAll(".add-entity").forEach(b=>b.onclick=async()=>{
-   await D.saveEntity(countryId,{name:"新しい項目",status:"draft",visibility:"owner",payload:{}},{entityType:b.dataset.type});render()
+   const oldText=b.textContent;
+   b.disabled=true;
+   b.textContent="追加中…";
+   try{
+    const saved=await D.saveEntity(
+     countryId,
+     {
+      name:"新しい項目",
+      status:"draft",
+      visibility:defaultEditVisibility,
+      payload:{}
+     },
+     {entityType:b.dataset.type}
+    );
+
+    await render();
+
+    if(saved?.pendingSync||saved?.localOnly){
+     V.toast("追加しました。クラウド同期は待機中です","warn");
+    }else{
+     V.toast("追加しました");
+    }
+   }catch(e){
+    console.error("OPERATIONS ADD",e);
+    V.toast(`追加できませんでした: ${e?.message||e}`,"danger");
+   }finally{
+    if(document.body.contains(b)){
+     b.disabled=false;
+     b.textContent=oldText;
+    }
+   }
   });
+
   root.querySelectorAll(".operations-entity").forEach(box=>{
    const id=box.dataset.id,type=box.dataset.type;
+
    box.querySelector(".save-entity").onclick=async()=>{
+    const btn=box.querySelector(".save-entity");
     const entity={id,payload:{}};
+
     box.querySelectorAll(".ent-base").forEach(el=>entity[el.dataset.key]=el.value);
-    box.querySelectorAll(".ent-payload").forEach(el=>entity.payload[el.dataset.key]=el.type==="number"?(el.value===""?null:Number(el.value)):el.value);
-    await D.saveEntity(countryId,entity,{entityType:type});V.toast("保存しました")
+    box.querySelectorAll(".ent-payload").forEach(el=>{
+     entity.payload[el.dataset.key]=el.type==="number"
+      ?(el.value===""?null:Number(el.value))
+      :el.value;
+    });
+
+    btn.disabled=true;
+    try{
+     const saved=await D.saveEntity(countryId,entity,{entityType:type});
+     if(saved?.pendingSync||saved?.localOnly){
+      V.toast("端末に保存しました。クラウド同期は待機中です","warn");
+     }else{
+      V.toast("保存しました");
+     }
+     await render();
+    }catch(e){
+     console.error("OPERATIONS SAVE",e);
+     V.toast(`保存できませんでした: ${e?.message||e}`,"danger");
+    }finally{
+     if(document.body.contains(btn))btn.disabled=false;
+    }
    };
-   box.querySelector(".delete-entity").onclick=async()=>{if(confirm("削除しますか？")){await D.deleteEntity(countryId,id,type);render()}};
+
+   box.querySelector(".delete-entity").onclick=async()=>{
+    if(!confirm("削除しますか？"))return;
+    try{
+     const result=await D.deleteEntity(countryId,id,type);
+     await render();
+     if(result?.pendingSync)V.toast("端末から削除しました。クラウド同期は待機中です","warn");
+     else V.toast("削除しました");
+    }catch(e){
+     console.error("OPERATIONS DELETE",e);
+     V.toast(`削除できませんでした: ${e?.message||e}`,"danger");
+    }
+   };
   });
  }
  async function renderAccess(){
@@ -166,7 +274,15 @@ document.addEventListener("DOMContentLoaded",async()=>{
    <div class="table-wrap"><table><thead><tr><th>パス</th><th>公開範囲</th></tr></thead><tbody>${rules.map(x=>`<tr><td>${esc(x.path)}</td><td>${esc(x.visibility)}</td></tr>`).join("")||'<tr><td colspan="2">例外設定なし</td></tr>'}</tbody></table></div></section>
    <section class="card section-card"><h2>変更差分</h2><div class="table-wrap"><table><thead><tr><th>日時</th><th>種別</th><th>対象</th><th>変更</th></tr></thead><tbody>${changes.map(x=>`<tr><td>${esc(x.changed_at||"")}</td><td>${esc(x.change_type)}</td><td>${esc(x.entity_type||x.document_key||"")}</td><td>${esc(x.path||"")}</td></tr>`).join("")||'<tr><td colspan="4">クラウド差分履歴はまだありません。</td></tr>'}</tbody></table></div></section>
    <section class="card section-card"><h2>ユーザー領域</h2><p>IndexedDB: 下書き ${estimate?.counts?.drafts||0} / キャッシュ ${estimate?.counts?.cache||0} / 同期待ち ${estimate?.counts?.queue||0}</p><p class="help">草案・開閉状態・一時キャッシュは端末側へ保存し、正式公開データだけをDBへ送る設計です。</p></section>`);
-  document.getElementById("add-rule").onclick=async()=>{await D.saveVisibilityRule(countryId,document.getElementById("vis-path").value,document.getElementById("vis-value").value);render()};
+  document.getElementById("add-rule").onclick=async()=>{
+   const b=document.getElementById("add-rule");b.disabled=true;
+   try{
+    const saved=await D.saveVisibilityRule(countryId,document.getElementById("vis-path").value,document.getElementById("vis-value").value);
+    V.toast(saved?.pendingSync?"端末に保存しました。クラウド同期は待機中です":"公開設定を保存しました",saved?.pendingSync?"warn":"info");
+    await render();
+   }catch(e){V.toast(`公開設定を保存できませんでした: ${e?.message||e}`,"danger")}
+   finally{if(document.body.contains(b))b.disabled=false}
+  };
  }
 
  await loadDocs();

@@ -385,8 +385,79 @@ async function marketSnapshots(){
 }
 const PREF_KEY="mfdco_country_preferences_v15";
 function localPrefs(){try{return JSON.parse(localStorage.getItem(PREF_KEY)||"{}")||{}}catch{return {}}}
-async function getCountryPreferences(){const u=await user();if(!ready()||!u)return localPrefs();const {data,error}=await window.supabaseClient.from("country_user_preferences").select("main_country_id,active_country_id").eq("user_id",u.id).maybeSingle();if(error)return localPrefs();const p={mainCountryId:data?.main_country_id||"",activeCountryId:data?.active_country_id||""};localStorage.setItem(PREF_KEY,JSON.stringify(p));return p}
-async function setCountryPreferences(patch){const cur={...localPrefs(),...patch};localStorage.setItem(PREF_KEY,JSON.stringify(cur));const u=await user();if(ready()&&u){const row={user_id:u.id,main_country_id:cur.mainCountryId||null,active_country_id:cur.activeCountryId||null,updated_at:new Date().toISOString()};const {error}=await window.supabaseClient.from("country_user_preferences").upsert(row,{onConflict:"user_id"});if(error)throw error}return cur}
+function isMissingPreferencesTableError(error){
+ const code=String(error?.code||"");
+ const msg=String(error?.message||error||"").toLowerCase();
+ return code==="PGRST205" ||
+        code==="42P01" ||
+        (msg.includes("country_user_preferences") &&
+         (msg.includes("schema cache") || msg.includes("does not exist")));
+}
+async function getCountryPreferences(){
+ const u=await user();
+ if(!ready()||!u)return localPrefs();
+ try{
+  const {data,error}=await window.supabaseClient
+   .from("country_user_preferences")
+   .select("main_country_id,active_country_id")
+   .eq("user_id",u.id)
+   .maybeSingle();
+
+  if(error){
+   if(isMissingPreferencesTableError(error)){
+    console.warn("COUNTRY PREFS: DB table missing; using local preferences until DB hotfix is applied.");
+    return localPrefs();
+   }
+   console.warn("COUNTRY PREFS READ",error);
+   return localPrefs();
+  }
+
+  const p={
+   mainCountryId:data?.main_country_id||"",
+   activeCountryId:data?.active_country_id||""
+  };
+  localStorage.setItem(PREF_KEY,JSON.stringify(p));
+  return p;
+ }catch(e){
+  console.warn("COUNTRY PREFS READ",e);
+  return localPrefs();
+ }
+}
+async function setCountryPreferences(patch){
+ const cur={...localPrefs(),...patch};
+ localStorage.setItem(PREF_KEY,JSON.stringify(cur));
+
+ const u=await user();
+ if(ready()&&u){
+  const row={
+   user_id:u.id,
+   main_country_id:cur.mainCountryId||null,
+   active_country_id:cur.activeCountryId||null,
+   updated_at:new Date().toISOString()
+  };
+
+  try{
+   const {error}=await window.supabaseClient
+    .from("country_user_preferences")
+    .upsert(row,{onConflict:"user_id"});
+
+   if(error){
+    if(isMissingPreferencesTableError(error)){
+     console.warn("COUNTRY PREFS: DB table missing; preference was kept locally.");
+     return cur;
+    }
+    throw error;
+   }
+  }catch(e){
+   if(isMissingPreferencesTableError(e)){
+    console.warn("COUNTRY PREFS: DB table missing; preference was kept locally.");
+    return cur;
+   }
+   throw e;
+  }
+ }
+ return cur;
+}
 async function recordMarketSnapshot(country,state,worldAverage=null){if(!country?.id||!state?.enabled)return;
  if(!ready()){const key="mfdco_market_history_v17_3",rows=JSON.parse(localStorage.getItem(key)||"[]"),hour=new Date().toISOString().slice(0,13)+":00:00Z",row={country_id:country.id,captured_hour:hour,market_date:state.date,market_month:state.month,market_hour:state.hour,change_pct:state.pct,fx_value:state.fx,stock_value:state.stock,world_average_pct:worldAverage,themes:{version:"hourly-v17.3",regime:state.regime||state.theme}};const i=rows.findIndex(x=>x.country_id===country.id&&x.captured_hour===hour);if(i>=0)rows[i]=row;else rows.push(row);localStorage.setItem(key,JSON.stringify(rows.slice(-5000)));return}
  const u=await user();if(!u)return;const row={country_id:country.id,captured_hour:new Date().toISOString().slice(0,13)+":00:00Z",market_date:state.date,market_month:state.month,market_hour:state.hour,change_pct:state.pct,fx_value:state.fx,stock_value:state.stock,world_average_pct:worldAverage,themes:{version:"hourly-v17.3",regime:state.regime||state.theme},recorded_by:u.id};await window.supabaseClient.from("country_market_history").upsert(row,{onConflict:"country_id,captured_hour"})}

@@ -1,5 +1,5 @@
 -- =====================================================================
--- MFDCO COUNTRY DATABASE v23.5 / ADOPTION SCHEMA FIX
+-- MFDCO COUNTRY DATABASE v23.7 / PREFERENCES EARLY-CREATE FIX
 -- =====================================================================
 -- IMPORTANT / 必ず全文を実行してください
 --
@@ -65,6 +65,10 @@ begin
 end
 $mfdco_preflight$;
 
+-- Existing MFDCO Work integration field used by Country adoption.
+alter table public.works
+  add column if not exists country_adoption_count bigint not null default 0;
+
 -- ---------------------------------------------------------------------
 -- COMPATIBILITY RESET FOR RPCs WHOSE RETURN TYPE CHANGED
 -- PostgreSQL cannot change a function's OUT/return row type with
@@ -90,6 +94,14 @@ create table if not exists public.countries (
   tags text[] not null default '{}',
   schema_version integer not null default 23,
   core_data jsonb not null default '{}'::jsonb,
+  population bigint not null default 0,
+  area_km2 numeric not null default 0,
+  capital text not null default '',
+  government text not null default '',
+  strength_score numeric not null default 0,
+  completeness_score integer not null default 0,
+  flag_key text not null default '',
+  cover_key text not null default '',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   archived_at timestamptz
@@ -110,6 +122,32 @@ create table if not exists public.country_members (
 );
 
 create index if not exists country_members_user_idx on public.country_members(user_id);
+
+-- ---------------------------------------------------------------------
+-- USER COUNTRY PREFERENCES
+-- Create this in the initial table phase so a later migration failure
+-- cannot leave the Web app without its main/active-country preference table.
+-- ---------------------------------------------------------------------
+create table if not exists public.country_user_preferences (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  main_country_id text null references public.countries(id) on delete set null,
+  active_country_id text null references public.countries(id) on delete set null,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.country_user_preferences enable row level security;
+
+drop policy if exists "country prefs own" on public.country_user_preferences;
+create policy "country prefs own"
+on public.country_user_preferences
+for all
+to authenticated
+using(user_id=auth.uid())
+with check(user_id=auth.uid());
+
+grant select,insert,update,delete
+on public.country_user_preferences
+to authenticated;
 
 create table if not exists public.country_records (
   id text primary key,
@@ -144,8 +182,12 @@ create table if not exists public.country_media (
   kind text not null default 'image' check(kind in ('image','audio','file')),
   mime_type text not null default '',
   original_name text not null default '',
+  display_name text not null default '',
+  download_access_override text null,
+  download_terms_override text null,
   size_bytes bigint not null default 0 check(size_bytes >= 0),
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
 );
 
 create index if not exists country_media_country_idx on public.country_media(country_id);
@@ -1566,10 +1608,35 @@ create table if not exists public.international_organizations (
   charter text not null default '',
   logo_key text not null default '',
   is_public boolean not null default true,
+  join_mode text not null default 'approval'
+    check(join_mode in ('open','approval','closed')),
+  headquarters text not null default '',
+  founded text not null default '',
+  website text not null default '',
+  founder_country_id text null references public.countries(id) on delete set null,
   created_by uuid not null references auth.users(id) on delete cascade,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Canonical normalization for an already-existing / partially-installed table.
+alter table public.international_organizations
+  add column if not exists join_mode text not null default 'approval',
+  add column if not exists headquarters text not null default '',
+  add column if not exists founded text not null default '',
+  add column if not exists website text not null default '',
+  add column if not exists founder_country_id text null references public.countries(id) on delete set null;
+
+alter table public.international_organizations
+  drop constraint if exists international_organizations_join_mode_check;
+
+alter table public.international_organizations
+  add constraint international_organizations_join_mode_check
+  check(join_mode in ('open','approval','closed'));
+
+create index if not exists international_organizations_founder_country_idx
+  on public.international_organizations(founder_country_id)
+  where founder_country_id is not null;
 
 create table if not exists public.international_organization_members (
   organization_id uuid not null references public.international_organizations(id) on delete cascade,
@@ -2406,9 +2473,10 @@ order by column_name;
 
 begin;
 
-create or replace function public.mfdco_public_market_snapshots()
+drop function if exists public.mfdco_public_market_snapshots();
+create function public.mfdco_public_market_snapshots()
 returns table (
-    id uuid,
+    id text,
     name text,
     payload jsonb
 )
@@ -5068,3 +5136,803 @@ left join public.country_members cm
   on cm.country_id=c.id and cm.user_id=c.owner_id
 where c.archived_at is null
 order by c.updated_at desc;
+
+-- ============================================================
+-- MFDCO Country DB v23.7 HOTFIX
+-- Fix: PostgREST cannot find public.country_user_preferences
+-- Safe for an existing / partially-installed Country DB.
+-- ============================================================
+
+begin;
+
+create table if not exists public.country_user_preferences (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  main_country_id text null references public.countries(id) on delete set null,
+  active_country_id text null references public.countries(id) on delete set null,
+  updated_at timestamptz not null default now()
+);
+
+-- Normalize a legacy installation if the preference columns were UUID.
+do $mfdco_pref_normalize$
+declare
+  v_main_type text;
+  v_active_type text;
+begin
+  select data_type into v_main_type
+  from information_schema.columns
+  where table_schema='public'
+    and table_name='country_user_preferences'
+    and column_name='main_country_id';
+
+  select data_type into v_active_type
+  from information_schema.columns
+  where table_schema='public'
+    and table_name='country_user_preferences'
+    and column_name='active_country_id';
+
+  if v_main_type is not null and v_main_type <> 'text' then
+    alter table public.country_user_preferences
+      drop constraint if exists country_user_preferences_main_country_id_fkey;
+    alter table public.country_user_preferences
+      alter column main_country_id type text using main_country_id::text;
+  end if;
+
+  if v_active_type is not null and v_active_type <> 'text' then
+    alter table public.country_user_preferences
+      drop constraint if exists country_user_preferences_active_country_id_fkey;
+    alter table public.country_user_preferences
+      alter column active_country_id type text using active_country_id::text;
+  end if;
+end
+$mfdco_pref_normalize$;
+
+-- Ensure FKs point to TEXT country IDs.
+alter table public.country_user_preferences
+  drop constraint if exists country_user_preferences_main_country_id_fkey;
+alter table public.country_user_preferences
+  drop constraint if exists country_user_preferences_active_country_id_fkey;
+
+alter table public.country_user_preferences
+  add constraint country_user_preferences_main_country_id_fkey
+  foreign key(main_country_id)
+  references public.countries(id)
+  on delete set null;
+
+alter table public.country_user_preferences
+  add constraint country_user_preferences_active_country_id_fkey
+  foreign key(active_country_id)
+  references public.countries(id)
+  on delete set null;
+
+alter table public.country_user_preferences enable row level security;
+
+drop policy if exists "country prefs own" on public.country_user_preferences;
+create policy "country prefs own"
+on public.country_user_preferences
+for all
+to authenticated
+using(user_id=auth.uid())
+with check(
+  user_id=auth.uid()
+  and (
+    main_country_id is null
+    or exists(
+      select 1
+      from public.countries c
+      where c.id=main_country_id
+        and (
+          c.owner_id=auth.uid()
+          or exists(
+            select 1
+            from public.country_members m
+            where m.country_id=c.id
+              and m.user_id=auth.uid()
+              and m.role in ('owner','admin','editor')
+          )
+        )
+    )
+  )
+  and (
+    active_country_id is null
+    or exists(
+      select 1
+      from public.countries c
+      where c.id=active_country_id
+        and (
+          c.owner_id=auth.uid()
+          or exists(
+            select 1
+            from public.country_members m
+            where m.country_id=c.id
+              and m.user_id=auth.uid()
+              and m.role in ('owner','admin','editor')
+          )
+        )
+    )
+  )
+);
+
+revoke all on public.country_user_preferences from anon;
+grant select,insert,update,delete on public.country_user_preferences to authenticated;
+
+-- Rebuild the public market-priority helper after the table is guaranteed to exist.
+drop function if exists public.mfdco_public_country_market_priorities();
+
+create function public.mfdco_public_country_market_priorities()
+returns table(
+  country_id text,
+  is_main boolean,
+  is_active boolean
+)
+language sql
+stable
+security definer
+set search_path=public
+as $$
+  select
+    c.id,
+    coalesce(p.main_country_id=c.id,false),
+    coalesce(p.active_country_id=c.id,false)
+  from public.countries c
+  left join public.country_user_preferences p
+    on p.user_id=c.owner_id
+  where c.is_public=true
+    and c.archived_at is null
+$$;
+
+revoke all on function public.mfdco_public_country_market_priorities() from public;
+grant execute on function public.mfdco_public_country_market_priorities()
+to anon,authenticated;
+
+commit;
+
+notify pgrst, 'reload schema';
+
+-- Verification: this must return public.country_user_preferences.
+select to_regclass('public.country_user_preferences') as preference_table;
+
+select
+  column_name,
+  data_type
+from information_schema.columns
+where table_schema='public'
+  and table_name='country_user_preferences'
+order by ordinal_position;
+
+-- ============================================================
+-- MFDCO Country DB v23.8 HOTFIX
+-- Fix: Country Operations / Plan additions cannot be saved.
+-- Safe for existing / partially-installed v23.x databases.
+-- ============================================================
+
+begin;
+
+create extension if not exists pgcrypto;
+
+-- ------------------------------------------------------------
+-- Operations tables
+-- ------------------------------------------------------------
+create table if not exists public.country_documents (
+  country_id text not null references public.countries(id) on delete cascade,
+  document_key text not null,
+  status text not null default 'draft',
+  visibility text not null default 'owner',
+  payload jsonb not null default '{}'::jsonb,
+  revision integer not null default 1,
+  updated_by uuid references auth.users(id) on delete set null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  primary key(country_id,document_key)
+);
+
+create table if not exists public.country_entities (
+  id uuid primary key default gen_random_uuid(),
+  country_id text not null references public.countries(id) on delete cascade,
+  parent_id uuid references public.country_entities(id) on delete set null,
+  entity_type text not null,
+  name text not null default '',
+  status text not null default 'draft',
+  visibility text not null default 'owner',
+  valid_from text,
+  valid_to text,
+  sort_order integer not null default 0,
+  payload jsonb not null default '{}'::jsonb,
+  created_by uuid references auth.users(id) on delete set null,
+  updated_by uuid references auth.users(id) on delete set null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.country_links (
+  id uuid primary key default gen_random_uuid(),
+  country_id text not null references public.countries(id) on delete cascade,
+  target_country_id text references public.countries(id) on delete cascade,
+  source_entity_id uuid references public.country_entities(id) on delete cascade,
+  target_entity_id uuid references public.country_entities(id) on delete set null,
+  link_type text not null,
+  status text not null default 'draft',
+  visibility text not null default 'owner',
+  payload jsonb not null default '{}'::jsonb,
+  created_by uuid references auth.users(id) on delete set null,
+  updated_by uuid references auth.users(id) on delete set null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.country_metrics (
+  country_id text not null references public.countries(id) on delete cascade,
+  metric_key text not null,
+  value numeric,
+  details jsonb not null default '{}'::jsonb,
+  computed_at timestamptz not null default now(),
+  primary key(country_id,metric_key)
+);
+
+create table if not exists public.country_visibility_rules (
+  country_id text not null references public.countries(id) on delete cascade,
+  path text not null,
+  visibility text not null default 'owner',
+  updated_by uuid references auth.users(id) on delete set null,
+  updated_at timestamptz not null default now(),
+  primary key(country_id,path)
+);
+
+create table if not exists public.country_change_log (
+  id bigint generated by default as identity primary key,
+  country_id text not null references public.countries(id) on delete cascade,
+  actor_id uuid references auth.users(id) on delete set null,
+  change_type text not null,
+  document_key text,
+  entity_type text,
+  entity_id uuid,
+  path text not null default '',
+  old_value jsonb,
+  new_value jsonb,
+  changed_at timestamptz not null default now()
+);
+
+-- Normalize missing columns in partially-created tables.
+alter table public.country_documents
+  add column if not exists status text not null default 'draft',
+  add column if not exists visibility text not null default 'owner',
+  add column if not exists payload jsonb not null default '{}'::jsonb,
+  add column if not exists revision integer not null default 1,
+  add column if not exists updated_by uuid references auth.users(id) on delete set null,
+  add column if not exists created_at timestamptz not null default now(),
+  add column if not exists updated_at timestamptz not null default now();
+
+alter table public.country_entities
+  add column if not exists parent_id uuid references public.country_entities(id) on delete set null,
+  add column if not exists entity_type text not null default 'generic',
+  add column if not exists name text not null default '',
+  add column if not exists status text not null default 'draft',
+  add column if not exists visibility text not null default 'owner',
+  add column if not exists valid_from text,
+  add column if not exists valid_to text,
+  add column if not exists sort_order integer not null default 0,
+  add column if not exists payload jsonb not null default '{}'::jsonb,
+  add column if not exists created_by uuid references auth.users(id) on delete set null,
+  add column if not exists updated_by uuid references auth.users(id) on delete set null,
+  add column if not exists created_at timestamptz not null default now(),
+  add column if not exists updated_at timestamptz not null default now();
+
+create index if not exists country_documents_country_status_idx
+  on public.country_documents(country_id,status,document_key);
+
+create index if not exists country_entities_country_type_idx
+  on public.country_entities(country_id,entity_type,status,sort_order,updated_at);
+
+create index if not exists country_entities_parent_idx
+  on public.country_entities(parent_id)
+  where parent_id is not null;
+
+create index if not exists country_links_source_idx
+  on public.country_links(country_id,link_type,status,updated_at);
+
+create index if not exists country_metrics_key_value_idx
+  on public.country_metrics(metric_key,value desc);
+
+create index if not exists country_change_log_country_idx
+  on public.country_change_log(country_id,changed_at desc);
+
+-- ------------------------------------------------------------
+-- Validation helpers
+-- ------------------------------------------------------------
+create or replace function public.mfdco_country_visibility_allowed(
+  p_country_id text,
+  p_visibility text
+)
+returns boolean
+language sql
+stable
+security definer
+set search_path=public
+as $$
+  select case coalesce(p_visibility,'owner')
+    when 'public' then public.mfdco_country_can_view(p_country_id)
+    when 'members' then auth.uid() is not null and (
+      exists(
+        select 1
+        from public.countries c
+        where c.id=p_country_id
+          and c.archived_at is null
+          and c.owner_id=auth.uid()
+      )
+      or exists(
+        select 1
+        from public.country_members m
+        where m.country_id=p_country_id
+          and m.user_id=auth.uid()
+      )
+    )
+    when 'collaborators' then public.mfdco_country_can_edit(p_country_id)
+    when 'owner' then exists(
+      select 1
+      from public.countries c
+      where c.id=p_country_id
+        and c.archived_at is null
+        and c.owner_id=auth.uid()
+    )
+    else false
+  end
+$$;
+
+revoke all on function public.mfdco_country_visibility_allowed(text,text) from public;
+grant execute on function public.mfdco_country_visibility_allowed(text,text)
+to anon,authenticated;
+
+-- ------------------------------------------------------------
+-- Touch triggers
+-- ------------------------------------------------------------
+create or replace function public.mfdco_v20_touch_document()
+returns trigger
+language plpgsql
+set search_path=public
+as $$
+begin
+  new.updated_at=now();
+  new.updated_by=auth.uid();
+  if tg_op='UPDATE' then
+    new.revision=coalesce(old.revision,0)+1;
+  end if;
+  return new;
+end
+$$;
+
+drop trigger if exists country_documents_v20_touch on public.country_documents;
+create trigger country_documents_v20_touch
+before insert or update on public.country_documents
+for each row execute function public.mfdco_v20_touch_document();
+
+create or replace function public.mfdco_v20_touch_entity()
+returns trigger
+language plpgsql
+set search_path=public
+as $$
+begin
+  new.updated_at=now();
+  new.updated_by=auth.uid();
+  if tg_op='INSERT' and new.created_by is null then
+    new.created_by=auth.uid();
+  end if;
+  return new;
+end
+$$;
+
+drop trigger if exists country_entities_v20_touch on public.country_entities;
+create trigger country_entities_v20_touch
+before insert or update on public.country_entities
+for each row execute function public.mfdco_v20_touch_entity();
+
+-- ------------------------------------------------------------
+-- RLS
+-- ------------------------------------------------------------
+alter table public.country_documents enable row level security;
+alter table public.country_entities enable row level security;
+alter table public.country_links enable row level security;
+alter table public.country_metrics enable row level security;
+alter table public.country_visibility_rules enable row level security;
+alter table public.country_change_log enable row level security;
+
+drop policy if exists country_documents_read_v20 on public.country_documents;
+create policy country_documents_read_v20
+on public.country_documents
+for select
+to anon,authenticated
+using(
+  public.mfdco_country_can_edit(country_id)
+  or (
+    status='official'
+    and public.mfdco_country_visibility_allowed(country_id,visibility)
+  )
+);
+
+drop policy if exists country_documents_write_v20 on public.country_documents;
+create policy country_documents_write_v20
+on public.country_documents
+for all
+to authenticated
+using(public.mfdco_country_can_edit(country_id))
+with check(
+  public.mfdco_country_can_edit(country_id)
+  and (
+    visibility<>'owner'
+    or exists(
+      select 1
+      from public.countries c
+      where c.id=country_id
+        and c.owner_id=auth.uid()
+    )
+  )
+);
+
+drop policy if exists country_entities_read_v20 on public.country_entities;
+create policy country_entities_read_v20
+on public.country_entities
+for select
+to anon,authenticated
+using(
+  public.mfdco_country_can_edit(country_id)
+  or (
+    status='official'
+    and public.mfdco_country_visibility_allowed(country_id,visibility)
+  )
+);
+
+drop policy if exists country_entities_write_v20 on public.country_entities;
+create policy country_entities_write_v20
+on public.country_entities
+for all
+to authenticated
+using(public.mfdco_country_can_edit(country_id))
+with check(
+  public.mfdco_country_can_edit(country_id)
+  and (
+    visibility<>'owner'
+    or exists(
+      select 1
+      from public.countries c
+      where c.id=country_id
+        and c.owner_id=auth.uid()
+    )
+  )
+);
+
+drop policy if exists country_metrics_read_v20 on public.country_metrics;
+create policy country_metrics_read_v20
+on public.country_metrics
+for select
+to anon,authenticated
+using(public.mfdco_country_can_view(country_id));
+
+drop policy if exists country_metrics_write_v20 on public.country_metrics;
+create policy country_metrics_write_v20
+on public.country_metrics
+for all
+to authenticated
+using(public.mfdco_country_can_edit(country_id))
+with check(public.mfdco_country_can_edit(country_id));
+
+drop policy if exists country_visibility_read_v20 on public.country_visibility_rules;
+create policy country_visibility_read_v20
+on public.country_visibility_rules
+for select
+to authenticated
+using(public.mfdco_country_can_edit(country_id));
+
+drop policy if exists country_visibility_write_v20 on public.country_visibility_rules;
+create policy country_visibility_write_v20
+on public.country_visibility_rules
+for all
+to authenticated
+using(public.mfdco_country_can_manage(country_id))
+with check(public.mfdco_country_can_manage(country_id));
+
+drop policy if exists country_change_log_read_v20 on public.country_change_log;
+create policy country_change_log_read_v20
+on public.country_change_log
+for select
+to authenticated
+using(public.mfdco_country_can_edit(country_id));
+
+grant select on
+  public.country_documents,
+  public.country_entities,
+  public.country_links,
+  public.country_metrics
+to anon,authenticated;
+
+grant insert,update,delete on
+  public.country_documents,
+  public.country_entities,
+  public.country_links,
+  public.country_metrics,
+  public.country_visibility_rules
+to authenticated;
+
+grant select on
+  public.country_visibility_rules,
+  public.country_change_log
+to authenticated;
+
+commit;
+
+notify pgrst, 'reload schema';
+
+-- Verification.
+select table_name
+from information_schema.tables
+where table_schema='public'
+  and table_name in (
+    'country_documents',
+    'country_entities',
+    'country_links',
+    'country_metrics',
+    'country_visibility_rules',
+    'country_change_log'
+  )
+order by table_name;
+
+select
+  id,
+  name,
+  owner_id,
+  public.mfdco_country_role(id) as current_user_role
+from public.countries
+where archived_at is null
+order by updated_at desc
+limit 20;
+
+-- ============================================================
+-- MFDCO Country DB v23.9 HOTFIX
+-- Fix: international_organizations.founded missing from schema cache
+-- Also normalizes all organization metadata columns used by the Web UI.
+-- Safe for existing / partially-installed v23.x databases.
+-- ============================================================
+
+begin;
+
+create table if not exists public.international_organizations (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  short_name text not null default '',
+  org_type text not null default 'その他',
+  summary text not null default '',
+  charter text not null default '',
+  logo_key text not null default '',
+  is_public boolean not null default true,
+  join_mode text not null default 'approval',
+  headquarters text not null default '',
+  founded text not null default '',
+  website text not null default '',
+  founder_country_id text null references public.countries(id) on delete set null,
+  created_by uuid not null references auth.users(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.international_organizations
+  add column if not exists join_mode text not null default 'approval',
+  add column if not exists headquarters text not null default '',
+  add column if not exists founded text not null default '',
+  add column if not exists website text not null default '',
+  add column if not exists founder_country_id text null references public.countries(id) on delete set null;
+
+alter table public.international_organizations
+  drop constraint if exists international_organizations_join_mode_check;
+
+alter table public.international_organizations
+  add constraint international_organizations_join_mode_check
+  check(join_mode in ('open','approval','closed'));
+
+create index if not exists international_organizations_founder_country_idx
+  on public.international_organizations(founder_country_id)
+  where founder_country_id is not null;
+
+create or replace function public.mfdco_org_touch_updated_at()
+returns trigger
+language plpgsql
+set search_path=public
+as $$
+begin
+  new.updated_at=now();
+  return new;
+end
+$$;
+
+drop trigger if exists international_org_touch
+on public.international_organizations;
+
+create trigger international_org_touch
+before update on public.international_organizations
+for each row
+execute function public.mfdco_org_touch_updated_at();
+
+commit;
+
+notify pgrst, 'reload schema';
+
+-- Verification: these five rows must be present.
+select
+  column_name,
+  data_type
+from information_schema.columns
+where table_schema='public'
+  and table_name='international_organizations'
+  and column_name in (
+    'join_mode',
+    'headquarters',
+    'founded',
+    'website',
+    'founder_country_id'
+  )
+order by column_name;
+
+-- ============================================================
+-- MFDCO Country v24.0 RUNTIME SCHEMA GUARD
+-- Proactive repair for columns that were historically added in later migrations.
+-- Run on an existing Country DB after the normal v23.x installation/hotfixes.
+-- ============================================================
+
+begin;
+
+alter table public.countries
+  add column if not exists population bigint not null default 0,
+  add column if not exists area_km2 numeric not null default 0,
+  add column if not exists capital text not null default '',
+  add column if not exists government text not null default '',
+  add column if not exists strength_score numeric not null default 0,
+  add column if not exists completeness_score integer not null default 0,
+  add column if not exists flag_key text not null default '',
+  add column if not exists cover_key text not null default '';
+
+alter table public.country_media
+  add column if not exists download_access_override text null,
+  add column if not exists download_terms_override text null,
+  add column if not exists display_name text not null default '',
+  add column if not exists updated_at timestamptz not null default now();
+
+alter table public.works
+  add column if not exists country_adoption_count bigint not null default 0;
+
+alter table public.country_work_adoptions
+  add column if not exists unit_name text not null default '',
+  add column if not exists branch_names text[] not null default '{}'::text[],
+  add column if not exists unit_names text[] not null default '{}'::text[];
+
+alter table public.international_organizations
+  add column if not exists join_mode text not null default 'approval',
+  add column if not exists headquarters text not null default '',
+  add column if not exists founded text not null default '',
+  add column if not exists website text not null default '',
+  add column if not exists founder_country_id text null references public.countries(id) on delete set null;
+
+commit;
+
+notify pgrst, 'reload schema';
+
+
+
+-- ============================================================
+-- v25 DASHBOARD OVERVIEW RPC
+-- Compact read model for the Country dashboard.
+-- ============================================================
+begin;
+
+drop function if exists public.mfdco_country_dashboard_overview(text);
+create function public.mfdco_country_dashboard_overview(p_country_id text default null)
+returns jsonb
+language plpgsql
+stable
+security definer
+set search_path=public
+as $$
+declare
+  v_country_id text:=nullif(p_country_id,'');
+  v_news jsonb:='[]'::jsonb;
+  v_orgs jsonb:='[]'::jsonb;
+  v_treaties jsonb:='[]'::jsonb;
+  v_activity jsonb:='{}'::jsonb;
+begin
+  if v_country_id is not null and not public.mfdco_country_can_view(v_country_id) then
+    v_country_id:=null;
+  end if;
+
+  select coalesce(jsonb_agg(to_jsonb(x)),'[]'::jsonb) into v_news
+  from (
+    select
+      r.id as record_id,c.id as country_id,c.name as country_name,c.code as country_code,
+      r.title as post_title,coalesce(r.payload->>'date','') as post_date,
+      coalesce(r.payload->>'category','更新') as category,
+      coalesce(r.payload->>'summary','') as summary,
+      r.updated_at
+    from public.country_records r
+    join public.countries c on c.id=r.country_id
+    where r.record_type='post'
+      and c.is_public=true
+      and c.archived_at is null
+      and coalesce((r.payload->>'published')::boolean,true)=true
+    order by coalesce(nullif(r.payload->>'date',''),'0000-00-00') desc,r.updated_at desc
+    limit 6
+  ) x;
+
+  select coalesce(jsonb_agg(to_jsonb(x)),'[]'::jsonb) into v_orgs
+  from (
+    select
+      o.id,o.name,o.short_name,o.org_type,o.updated_at,o.is_public,o.founder_country_id,
+      (select count(*)::int from public.international_organization_members m where m.organization_id=o.id and m.status='active') as member_count
+    from public.international_organizations o
+    where o.is_public=true
+       or o.created_by=auth.uid()
+       or exists(
+         select 1
+         from public.international_organization_members m
+         join public.countries c on c.id=m.country_id
+         where m.organization_id=o.id and m.status='active'
+           and (c.owner_id=auth.uid() or exists(select 1 from public.country_members cm where cm.country_id=c.id and cm.user_id=auth.uid()))
+       )
+    order by o.updated_at desc
+    limit 6
+  ) x;
+
+  select coalesce(jsonb_agg(to_jsonb(x)),'[]'::jsonb) into v_treaties
+  from (
+    select
+      t.id,t.organization_id,t.title,t.treaty_type,t.status,t.effective_date,t.updated_at,o.name as organization_name
+    from public.international_organization_treaties t
+    join public.international_organizations o on o.id=t.organization_id
+    where o.is_public=true or o.created_by=auth.uid()
+    order by t.updated_at desc
+    limit 6
+  ) x;
+
+  if v_country_id is not null and public.mfdco_country_can_edit(v_country_id) then
+    select jsonb_build_object(
+      'pending_proposals',(select count(*)::int from public.country_proposals p where (p.source_country_id=v_country_id or p.target_country_id=v_country_id) and p.status='pending'),
+      'relations',(select count(*)::int from public.country_relations r where r.country_a_id=v_country_id or r.country_b_id=v_country_id),
+      'organizations',(select count(*)::int from public.international_organization_members m where m.country_id=v_country_id and m.status='active'),
+      'projects',(select count(*)::int from public.country_entities e where e.country_id=v_country_id and e.entity_type='national_project' and e.status<>'archived'),
+      'laws',(select count(*)::int from public.country_entities e where e.country_id=v_country_id and e.entity_type='law_history' and e.status<>'archived'),
+      'military_units',(select count(*)::int from public.country_entities e where e.country_id=v_country_id and e.entity_type='military_unit' and e.status<>'archived')
+    ) into v_activity;
+  end if;
+
+  return jsonb_build_object(
+    'generated_at',now(),
+    'news',v_news,
+    'organizations',v_orgs,
+    'treaties',v_treaties,
+    'activity',v_activity
+  );
+end
+$$;
+
+revoke all on function public.mfdco_country_dashboard_overview(text) from public;
+grant execute on function public.mfdco_country_dashboard_overview(text) to anon,authenticated;
+
+commit;
+notify pgrst, 'reload schema';
+
+
+
+-- ============================================================
+-- v25 FINAL REQUIRED OBJECT VERIFICATION
+-- ============================================================
+do $mfdco_v25_verify$
+begin
+  if to_regclass('public.countries') is null then raise exception 'Missing table: countries'; end if;
+  if to_regclass('public.country_user_preferences') is null then raise exception 'Missing table: country_user_preferences'; end if;
+  if to_regclass('public.country_entities') is null then raise exception 'Missing table: country_entities'; end if;
+  if to_regclass('public.country_documents') is null then raise exception 'Missing table: country_documents'; end if;
+  if to_regclass('public.country_work_adoptions') is null then raise exception 'Missing table: country_work_adoptions'; end if;
+  if to_regclass('public.international_organizations') is null then raise exception 'Missing table: international_organizations'; end if;
+  if to_regprocedure('public.mfdco_save_country(jsonb,jsonb,jsonb)') is null then raise exception 'Missing RPC: mfdco_save_country'; end if;
+  if to_regprocedure('public.mfdco_my_country_access()') is null then raise exception 'Missing RPC: mfdco_my_country_access'; end if;
+  if to_regprocedure('public.mfdco_public_country_feed(integer,integer)') is null then raise exception 'Missing RPC: mfdco_public_country_feed'; end if;
+  if to_regprocedure('public.mfdco_country_dashboard_overview(text)') is null then raise exception 'Missing RPC: mfdco_country_dashboard_overview'; end if;
+end
+$mfdco_v25_verify$;
+
+notify pgrst, 'reload schema';
+
+select 'MFDCO Country DB v25.0 installed' as result, now() as checked_at;
