@@ -8,5 +8,7 @@ window.MFDCO_COUNTRY_SITE_CONFIG = Object.freeze({
   searchUrl: "search.html",
   toolsUrl: "tools.html",
   mapToolUrl: "", // 地図ツール導入後: tools/MFDCO_<tool-id>/index.html
-  mapToolId: ""
+  mapToolId: "",
+  // Web Push: VAPID公開鍵をここ、またはwindow.MFDCO_PUSH_PUBLIC_KEYへ設定。
+  pushPublicKey: window.MFDCO_PUSH_PUBLIC_KEY || ""
 });

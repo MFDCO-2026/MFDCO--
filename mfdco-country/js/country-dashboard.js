@@ -99,9 +99,9 @@ document.addEventListener("DOMContentLoaded",async()=>{
  const activeName=activeCountry?.name||activeAccess?.name||"アクティブ国家未設定";
  const activeHref=activeId?`country.html${q(activeId)}`:"countries.html";
  const actions=activeId?[
-  ["国家資料",`country.html${q(activeId)}`],["運営・計画",`country-operations.html${q(activeId)}`],["外交",`country-exchange.html${q(activeId)}`],["正式採用",`country-arsenal.html${q(activeId)}`],["ニュース投稿",`country-feed.html`],["世界経済","country-market.html"],["国際機関",`country-organizations.html${q(activeId)}`],["設定編集",`country-edit.html${q(activeId)}`]
+  ["国家資料",`country.html${q(activeId)}`],["運営・計画",`country-operations.html${q(activeId)}`],["外交",`country-exchange.html${q(activeId)}`],["正式採用",`country-arsenal.html${q(activeId)}`],["ニュース投稿",`country-feed.html`],["世界経済","country-market.html"],["国際機関",`country-organizations.html${q(activeId)}`],["設定編集",`country-edit.html${q(activeId)}`],["公開・通知設定","country-settings.html"]
  ]:[
-  ["国家一覧","countries.html"],["国家を作成","country-templates.html"],["世界経済","country-market.html"],["国際機関","country-organizations.html"]
+  ["国家一覧","countries.html"],["国家を作成","country-templates.html"],["世界経済","country-market.html"],["国際機関","country-organizations.html"],["公開・通知設定","country-settings.html"]
  ];
 
  function smallCountry(c){
@@ -130,6 +130,8 @@ document.addEventListener("DOMContentLoaded",async()=>{
    </div>
    <div class="dashboard-command-actions">${actions.map(([label,href])=>`<a href="${href}">${e(label)}</a>`).join("")}</div>
   </section>
+
+  ${activeCountry&&!activeCountry.isPublic?`<section class="dashboard-publication-alert"><div><strong>この国家はまだ非公開です</strong><span>利用条件を確認すると公開できます。</span></div><a class="btn publish-primary small" href="country-publish.html?id=${encodeURIComponent(activeId)}">国家を公開</a><a class="btn ghost small" href="country-settings.html">公開設定</a></section>`:""}
 
   <div class="dashboard-metrics-compact">
    <a href="countries.html"><span>所有国家</span><strong>${owned.length}</strong></a>

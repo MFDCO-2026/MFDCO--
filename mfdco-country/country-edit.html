@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>設定資料編集 | MFDCO</title>
-  <link rel="stylesheet" href="css/country.css?v=21.0">
-  <link rel="stylesheet" href="css/country-edit-v17.css?v=21.0">
+  <link rel="stylesheet" href="css/country.css?v=21.1">
+  <link rel="stylesheet" href="css/country-edit-v17.css?v=21.1">
 </head>
 <body class="country-edit-v17">
   <div class="country-shell">
@@ -17,6 +17,8 @@
       <p class="page-lead">
         左のカテゴリを選択すると、右側だけをそのカテゴリへ入れ替えます。
       </p>
+
+      <section id="editor-publication-banner" class="editor-publication-banner"><div><span class="editor-publication-kicker">PUBLICATION</span><strong>公開状態を確認しています…</strong><small>国家を公開する前に利用条件を確認します。</small></div><a id="editor-publish-link" class="btn publish-primary" href="country-publish.html">国家を公開</a></section>
 
       <div class="toolbar" id="country-editor-toolbar">
         <a id="preview-link" class="btn secondary" href="country.html">公開プレビュー</a>
@@ -166,6 +168,7 @@
           変更は自動では保存されません
         </span>
         <div class="toolbar" style="margin:0">
+          <a id="bottom-publish" class="btn secondary" href="country-publish.html">公開設定</a>
           <a id="bottom-preview" class="btn ghost" href="country.html">
             プレビュー
           </a>
@@ -176,11 +179,11 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/js/supabase-config.js?v=mfdco-main"></script><script src="js/country-session.js?v=21.0"></script>
-  <script src="js/country-local-db.js?v=21.0"></script><script src="js/country-core.js?v=21.0"></script>
-  <script src="js/country-cloud.js?v=21.0"></script><script src="js/country-v20-data.js?v=21.0"></script>
-  <script src="js/country-v6.js?v=21.0"></script>
-  <script src="js/country-v11.js?v=21.0"></script>
-  <script src="js/country-edit-v17.js?v=21.0"></script>
+  <script src="/js/supabase-config.js?v=mfdco-main"></script><script src="js/country-session.js?v=21.1"></script>
+  <script src="js/country-local-db.js?v=21.1"></script><script src="js/country-core.js?v=21.1"></script>
+  <script src="js/country-cloud.js?v=21.1"></script><script src="js/country-v20-data.js?v=21.1"></script>
+  <script src="js/country-v6.js?v=21.1"></script>
+  <script src="js/country-v11.js?v=21.1"></script>
+  <script src="js/country-edit-v17.js?v=21.1"></script>
 </body>
 </html>

@@ -458,6 +458,88 @@ async function setCountryPreferences(patch){
  }
  return cur;
 }
+
+const ACCOUNT_SETTINGS_KEY="mfdco.country.account.settings.v26";
+function defaultAccountSettings(){return {
+ notificationPreferences:{push_enabled:false,email_enabled:false,level:"important",quiet_enabled:false,quiet_start:"23:00",quiet_end:"07:00"},
+ defaultUsagePolicy:C.defaultUsagePolicy()
+}}
+function localAccountSettings(){try{return {...defaultAccountSettings(),...JSON.parse(localStorage.getItem(ACCOUNT_SETTINGS_KEY)||"{}")}}catch{return defaultAccountSettings()}}
+async function getAccountSettings(){
+ const fallback=localAccountSettings();
+ const u=await user();if(!ready()||!u)return fallback;
+ try{
+  const {data,error}=await window.supabaseClient.from("country_account_settings").select("notification_preferences,default_usage_policy,updated_at").eq("user_id",u.id).maybeSingle();
+  if(error)throw error;
+  const result={
+   notificationPreferences:{...fallback.notificationPreferences,...(data?.notification_preferences||{})},
+   defaultUsagePolicy:{...C.defaultUsagePolicy(),...(data?.default_usage_policy||{})},
+   updatedAt:data?.updated_at||null
+  };
+  localStorage.setItem(ACCOUNT_SETTINGS_KEY,JSON.stringify(result));return result;
+ }catch(e){console.warn("ACCOUNT SETTINGS FALLBACK",e);return fallback}
+}
+async function saveAccountSettings(settings){
+ const u=await user();if(!u)throw new Error("MFDCOアカウントでログインしてください");
+ const merged={
+  notificationPreferences:{...defaultAccountSettings().notificationPreferences,...(settings?.notificationPreferences||{})},
+  defaultUsagePolicy:{...C.defaultUsagePolicy(),...(settings?.defaultUsagePolicy||{})}
+ };
+ localStorage.setItem(ACCOUNT_SETTINGS_KEY,JSON.stringify(merged));
+ if(!ready())return {...merged,localOnly:true};
+ const row={user_id:u.id,notification_preferences:merged.notificationPreferences,default_usage_policy:merged.defaultUsagePolicy,updated_at:new Date().toISOString()};
+ const {data,error}=await window.supabaseClient.from("country_account_settings").upsert(row,{onConflict:"user_id"}).select().single();
+ if(error)throw error;return {...merged,updatedAt:data?.updated_at||row.updated_at}
+}
+async function publicationStatus(countryId){
+ if(!ready()||!countryId)return null;
+ const {data,error}=await window.supabaseClient.from("countries").select("id,name,is_public,published_at,usage_policy_confirmed_at,owner_id").eq("id",countryId).maybeSingle();
+ if(error)throw error;return data||null
+}
+async function ownedPublicationRows(){
+ const u=await user();if(!ready()||!u)return [];
+ const {data,error}=await window.supabaseClient.from("countries").select("id,name,short_name,is_public,published_at,usage_policy_confirmed_at,updated_at").eq("owner_id",u.id).is("archived_at",null).order("updated_at",{ascending:false});
+ if(error)throw error;return data||[]
+}
+async function publishCountry(countryId){
+ if(!ready())throw new Error("Supabase接続が必要です");
+ const {data,error}=await window.supabaseClient.rpc("mfdco_publish_country",{p_country_id:countryId});if(error)throw error;return data
+}
+async function unpublishCountry(countryId){
+ if(!ready())throw new Error("Supabase接続が必要です");
+ const {data,error}=await window.supabaseClient.rpc("mfdco_unpublish_country",{p_country_id:countryId});if(error)throw error;return data
+}
+async function applyDefaultUsageToOwnedCountries(){
+ if(!ready())throw new Error("Supabase接続が必要です");
+ const {data,error}=await window.supabaseClient.rpc("mfdco_apply_default_usage_to_owned_countries");if(error)throw error;return Number(data||0)
+}
+async function bulkPublishOwnedCountries(applyDefaults=true){
+ if(!ready())throw new Error("Supabase接続が必要です");
+ const {data,error}=await window.supabaseClient.rpc("mfdco_bulk_publish_owned_countries",{p_apply_default_usage:!!applyDefaults});if(error)throw error;return Number(data||0)
+}
+async function bulkUnpublishOwnedCountries(){
+ if(!ready())throw new Error("Supabase接続が必要です");
+ const {data,error}=await window.supabaseClient.rpc("mfdco_bulk_unpublish_owned_countries");if(error)throw error;return Number(data||0)
+}
+async function unreadNotificationCount(){
+ const u=await user();if(!ready()||!u)return 0;
+ const {count,error}=await window.supabaseClient.from("country_notifications").select("id",{count:"exact",head:true}).eq("user_id",u.id).is("read_at",null);
+ if(error)return 0;return Number(count||0)
+}
+async function markAllNotificationsRead(){
+ const u=await user();if(!ready()||!u)return;
+ const {error}=await window.supabaseClient.from("country_notifications").update({read_at:new Date().toISOString()}).eq("user_id",u.id).is("read_at",null);if(error)throw error
+}
+async function registerPushSubscription(subscription,deviceLabel=""){
+ if(!ready())throw new Error("Supabase接続が必要です");
+ const raw=subscription?.toJSON?subscription.toJSON():subscription;
+ const {data,error}=await window.supabaseClient.rpc("mfdco_register_push_subscription",{p_subscription:raw,p_device_label:deviceLabel||navigator.userAgent.slice(0,120)});if(error)throw error;return data
+}
+async function unregisterPushSubscription(endpoint){
+ if(!ready())return false;
+ const {data,error}=await window.supabaseClient.rpc("mfdco_unregister_push_subscription",{p_endpoint:endpoint});if(error)throw error;return !!data
+}
+
 async function recordMarketSnapshot(country,state,worldAverage=null){if(!country?.id||!state?.enabled)return;
  if(!ready()){const key="mfdco_market_history_v17_3",rows=JSON.parse(localStorage.getItem(key)||"[]"),hour=new Date().toISOString().slice(0,13)+":00:00Z",row={country_id:country.id,captured_hour:hour,market_date:state.date,market_month:state.month,market_hour:state.hour,change_pct:state.pct,fx_value:state.fx,stock_value:state.stock,world_average_pct:worldAverage,themes:{version:"hourly-v17.3",regime:state.regime||state.theme}};const i=rows.findIndex(x=>x.country_id===country.id&&x.captured_hour===hour);if(i>=0)rows[i]=row;else rows.push(row);localStorage.setItem(key,JSON.stringify(rows.slice(-5000)));return}
  const u=await user();if(!u)return;const row={country_id:country.id,captured_hour:new Date().toISOString().slice(0,13)+":00:00Z",market_date:state.date,market_month:state.month,market_hour:state.hour,change_pct:state.pct,fx_value:state.fx,stock_value:state.stock,world_average_pct:worldAverage,themes:{version:"hourly-v17.3",regime:state.regime||state.theme},recorded_by:u.id};await window.supabaseClient.from("country_market_history").upsert(row,{onConflict:"country_id,captured_hour"})}
@@ -492,5 +574,5 @@ async function marketPriorityMap(){
  try{const {data,error}=await window.supabaseClient.rpc("mfdco_public_country_market_priorities");if(error)throw error;return Object.fromEntries((data||[]).map(x=>[x.country_id,{isMain:!!x.is_main,isActive:!!x.is_active}]))}catch(e){console.warn("MARKET PRIORITY",e);return {}}
 }
 
-window.MFDCOCountryCloud={ready,waitForClient,withTimeout,sessionIdentity,user,mfdcoAccount,countryAccess,requireCountryAccess,ownerProfile,coreFromCountry,recordsFromCountry,merge,saveCountry,loadCountry,listCountries,role,uploadMedia,resolveMedia,notifications,markNotification,relations,proposals,createProposal,respondProposal,versions,marketSnapshots,editableCountryChoices,myCountryAccess,accountStorageUsage,countryStorageUsage,publicWorksForAdoption,usageRequests,createUsageRequest,respondUsageRequest,getCountryPreferences,setCountryPreferences,recordMarketSnapshot,marketHistory,backfillMarketHistory,backfillDeterministicMarket,marketPriorityMap};
+window.MFDCOCountryCloud={ready,waitForClient,withTimeout,sessionIdentity,user,mfdcoAccount,countryAccess,requireCountryAccess,ownerProfile,coreFromCountry,recordsFromCountry,merge,saveCountry,loadCountry,listCountries,role,uploadMedia,resolveMedia,notifications,markNotification,relations,proposals,createProposal,respondProposal,versions,marketSnapshots,editableCountryChoices,myCountryAccess,accountStorageUsage,countryStorageUsage,publicWorksForAdoption,usageRequests,createUsageRequest,respondUsageRequest,getCountryPreferences,setCountryPreferences,getAccountSettings,saveAccountSettings,publicationStatus,ownedPublicationRows,publishCountry,unpublishCountry,applyDefaultUsageToOwnedCountries,bulkPublishOwnedCountries,bulkUnpublishOwnedCountries,unreadNotificationCount,markAllNotificationsRead,registerPushSubscription,unregisterPushSubscription,recordMarketSnapshot,marketHistory,backfillMarketHistory,backfillDeterministicMarket,marketPriorityMap};
 })();
