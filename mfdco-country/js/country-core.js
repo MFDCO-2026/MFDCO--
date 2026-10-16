@@ -185,6 +185,18 @@ function calculateStrength(c){
 }
 function relationLabel(t){return ({alliance:"同盟",mutual_defense:"相互防衛条約",non_aggression:"不可侵条約",trade:"通商・貿易",technology:"技術協定",joint_exercise:"共同演習",ceasefire:"停戦",recognition:"国交樹立",data_share:"データ共有"})[t]||t||"関係"}
 function qs(sel,root=document){return root.querySelector(sel)}function qsa(sel,root=document){return [...root.querySelectorAll(sel)]}
+function countryModuleBase(){
+ const script=[...document.scripts].find(x=>/\/js\/country-core\.js(?:\?|$)/.test(x.src||""));
+ if(script?.src){
+  try{return new URL("../",script.src)}
+  catch{}
+ }
+ return new URL("./",location.href);
+}
+function countryModuleUrl(path=""){
+ try{return new URL(String(path||""),countryModuleBase()).href}
+ catch{return String(path||"")}
+}
 function topbar(){
  const el=document.getElementById("country-topbar");if(!el)return;
  const id=currentId(),q=id?`?id=${encodeURIComponent(id)}`:"";
@@ -193,16 +205,16 @@ function topbar(){
  el.className="country-topbar";
  el.innerHTML=`<div class="country-topbar-inner">
   <a class="brand mfdco-home-link" href="https://mfdco.net" aria-label="MFDCOホームへ戻る">戻る</a>
-  <a class="country-module-link" href="countries.html">国家運営</a>
+  <a class="country-module-link" href="${countryModuleUrl("countries.html")}">国家運営</a>
   <nav class="country-primary-nav" aria-label="国家運営メインナビ">
-   <a class="${active("country-dashboard.html")}" href="country-dashboard.html">ダッシュボード</a>
-   <a class="${active("countries.html")}" href="countries.html">国家一覧</a>
-   <a class="${active("country-feed.html","country-post.html","country-article.html")}" href="country-feed.html">ニュース</a>
-   <a class="${active("country-market.html")}" href="country-market.html">世界経済</a>
-   <a class="${active("country-organizations.html")}" href="country-organizations.html${q}">国際機関</a>
-   <a class="${active("country-settings.html","country-publish.html")}" href="country-settings.html">設定</a>
+   <a class="${active("country-dashboard.html")}" href="${countryModuleUrl("country-dashboard.html")}">ダッシュボード</a>
+   <a class="${active("countries.html")}" href="${countryModuleUrl("countries.html")}">国家一覧</a>
+   <a class="${active("country-feed.html","country-post.html","country-article.html")}" href="${countryModuleUrl("country-feed.html")}">ニュース</a>
+   <a class="${active("country-market.html")}" href="${countryModuleUrl("country-market.html")}">世界経済</a>
+   <a class="${active("country-organizations.html")}" href="${countryModuleUrl(`country-organizations.html${q}`)}">国際機関</a>
+   <a class="${active("country-settings.html","country-publish.html")}" href="${countryModuleUrl("country-settings.html")}">設定</a>
   </nav>
-  <a id="country-active-context" class="country-active-context" href="country-dashboard.html" hidden></a>
+  <a id="country-active-context" class="country-active-context" href="${countryModuleUrl("country-dashboard.html")}" hidden></a>
   ${id?`<details class="topbar-menu"><summary>この国家</summary><div>
     <a href="country.html${q}">国家資料</a>
     <a href="country-operations.html${q}">国家運営・計画</a>
@@ -214,19 +226,75 @@ function topbar(){
    <details id="country-edit-menu" class="topbar-menu" hidden><summary>編集</summary><div id="country-edit-menu-links"></div></details>`:""}
   <details class="topbar-menu"><summary>その他</summary><div>
    <a href="country-compare.html">国家比較</a>
-   <a href="country-notifications.html">通知</a>
-   <a href="country-templates.html">テンプレート</a>
-   <a href="country-help.html">ヘルプ</a>
+   <a href="${countryModuleUrl("country-notifications.html")}">通知</a>
+   <a href="${countryModuleUrl("country-templates.html")}">テンプレート</a>
+   <a href="${countryModuleUrl("country-help.html")}">ヘルプ</a>
   </div></details>
   <span class="topbar-spacer"></span>
   <details id="country-notification-menu" class="country-notification-menu">
    <summary id="country-notification-bell" aria-label="通知"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span id="country-notification-count" class="country-notification-count" hidden>0</span></summary>
-   <div class="country-notification-popover"><div class="country-notification-head"><strong>通知</strong><a href="country-settings.html#notifications">通知設定</a></div><div id="country-notification-preview"><div class="fine">読み込み中…</div></div><div class="country-notification-foot"><a href="country-notifications.html">すべての通知を見る</a></div></div>
+   <div class="country-notification-popover"><div class="country-notification-head"><strong>通知</strong><a href="${countryModuleUrl("country-settings.html#notifications")}">通知設定</a></div><div id="country-notification-preview"><div class="fine">読み込み中…</div></div><div class="country-notification-foot"><a href="${countryModuleUrl("country-notifications.html")}">すべての通知を見る</a></div></div>
   </details>
   <a id="country-account-context" class="country-account-context" href="https://mfdco.net/join.html"><span id="country-account-avatar" class="country-account-avatar" hidden></span><span id="country-account-name">ログイン</span></a>
  </div>`;
- const menus=[...el.querySelectorAll("details.topbar-menu")];
- menus.forEach(d=>d.addEventListener("toggle",()=>{if(d.open)menus.forEach(o=>{if(o!==d)o.open=false})}));
+ const menus=[...el.querySelectorAll("details.topbar-menu, details.country-notification-menu")];
+
+ function closeOtherMenus(current=null){
+  menus.forEach(o=>{if(o!==current)o.open=false});
+ }
+
+ menus.forEach(d=>d.addEventListener("toggle",async()=>{
+  if(!d.open)return;
+
+  closeOtherMenus(d);
+
+  if(d.id==="country-notification-menu"){
+   const badge=document.getElementById("country-notification-count");
+   const preview=document.getElementById("country-notification-preview");
+
+   // Opening the bell itself means the notifications have been noticed.
+   // Update the UI immediately, then persist the read state in Supabase.
+   if(badge){
+    badge.textContent="0";
+    badge.hidden=true;
+   }
+   preview?.querySelectorAll(".is-unread").forEach(x=>x.classList.remove("is-unread"));
+
+   try{
+    const Cloud=window.MFDCOCountryCloud;
+    if(Cloud?.markAllNotificationsRead){
+     await Cloud.markAllNotificationsRead();
+    }
+   }catch(e){
+    console.warn("NOTIFICATION MARK ALL READ",e);
+   }
+  }
+ }));
+
+ // Same interaction model for every header dropdown:
+ // click elsewhere -> close / Escape -> close / another menu -> previous closes.
+ if(!window.__mfdcoCountryTopbarDismissBound){
+  window.__mfdcoCountryTopbarDismissBound=true;
+
+  document.addEventListener("click",event=>{
+   const currentTopbar=document.getElementById("country-topbar");
+   if(!currentTopbar)return;
+
+   const openMenus=[...currentTopbar.querySelectorAll("details[open]")];
+   if(!openMenus.length)return;
+
+   // Clicking inside an open details element is handled by the element itself.
+   if(openMenus.some(d=>d.contains(event.target)))return;
+
+   openMenus.forEach(d=>d.open=false);
+  });
+
+  document.addEventListener("keydown",event=>{
+   if(event.key!=="Escape")return;
+   document.querySelectorAll("#country-topbar details[open]").forEach(d=>d.open=false);
+  });
+ }
+
  if(!document.querySelector(".fiction-disclaimer-bar")){
   const note=document.createElement("div");note.className="fiction-disclaimer-bar";note.textContent="架空国家・創作世界の設定・運営用ページです。";el.insertAdjacentElement("afterend",note)
  }
@@ -283,7 +351,7 @@ async function refreshTopbarAccess(){
    `<a href="country-wiki.html${q}">Wiki</a>`,
    `<a href="country-arsenal.html${q}">正式採用</a>`
   ];
-  if(["owner","admin"].includes(role))parts.push(`<a href="country-manage.html${q}">管理</a>`);parts.push(`<a href="country-settings.html">全体設定</a>`);
+  if(["owner","admin"].includes(role))parts.push(`<a href="country-manage.html${q}">管理</a>`);parts.push(`<a href="${countryModuleUrl("country-settings.html")}">全体設定</a>`);
   links.innerHTML=parts.join("");
   menu.hidden=false;
  }catch(e){console.warn("COUNTRY TOPBAR ACCESS",e)}
@@ -348,6 +416,6 @@ if(!window.__mfdcoCountryRuntimeErrorBound){
 function download(name,text,type="application/json"){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 function fileToText(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result));r.onerror=()=>rej(r.error);r.readAsText(file)})}
 function upsertById(list,item){const a=arr(list).slice(),i=a.findIndex(x=>x.id===item.id);if(i>=0)a[i]=item;else a.push(item);return a}
-window.MFDCOCountry={VERSION,STORAGE_KEY,uid,clone,esc,num,arr,str,fmtNum,fmtPopulationMan,fmtMoney,formatDate,slugify,autoUtcFromLongitude,standardMeridianFromUtc,utcLabel,defaultUsagePolicy,defaultCountry,japanSample,migrate,load,save,saveAll,remove,get,currentId,setCurrent,mediaUrl,storeMedia,calculateCompleteness,calculateStrength,relationLabel,qs,qsa,topbar,refreshTopbarAccess,refreshMfdcoAccountContext,refreshNotificationBell,reportRuntimeError,download,fileToText,upsertById};
+window.MFDCOCountry={countryModuleBase,countryModuleUrl,VERSION,STORAGE_KEY,uid,clone,esc,num,arr,str,fmtNum,fmtPopulationMan,fmtMoney,formatDate,slugify,autoUtcFromLongitude,standardMeridianFromUtc,utcLabel,defaultUsagePolicy,defaultCountry,japanSample,migrate,load,save,saveAll,remove,get,currentId,setCurrent,mediaUrl,storeMedia,calculateCompleteness,calculateStrength,relationLabel,qs,qsa,topbar,refreshTopbarAccess,refreshMfdcoAccountContext,refreshNotificationBell,reportRuntimeError,download,fileToText,upsertById};
 document.addEventListener("DOMContentLoaded",topbar);
 })();
