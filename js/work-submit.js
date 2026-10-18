@@ -1927,14 +1927,15 @@ async function uploadWorkFile(
     bucket
 ) {
 
-    const filename =
-        getSafeStorageFilename(
+    // Storage key: UUID and ASCII-only extension. The original name stays in DB.
+    const extension =
+        getSafeStorageExtension(
             file
         );
 
 
     const path =
-        `${currentUser.id}/${workId}/${createUuid()}-${filename}`;
+        `${currentUser.id}/${workId}/${createUuid()}.${extension}`;
 
 
     const {
@@ -2596,50 +2597,18 @@ function getFileType(
 
 
 /* =========================================================
-   SAFE STORAGE FILENAME
+   STORAGE FILE EXTENSION
+   Storage names must not contain arbitrary user-supplied characters.
+   Keep the original filename in works.original_filename.
 ========================================================= */
 
-function getSafeStorageFilename(
-    file
-) {
+function getSafeStorageExtension(file) {
+    const originalName = String(file?.name || "")
+        .normalize("NFKC");
 
-    const original =
-        String(
-            file?.name ||
-            "file"
-        );
-
-
-    const normalized =
-        original
-            .normalize(
-                "NFKC"
-            )
-            .replace(
-                /[\\/:*?"<>|#%{}[\]`~&+]/g,
-                "_"
-            )
-            .replace(
-                /\s+/g,
-                "_"
-            )
-            .replace(
-                /_+/g,
-                "_"
-            )
-            .replace(
-                /^_+|_+$/g,
-                ""
-            );
-
-
-    return (
-        normalized ||
-        "file"
-    );
-
+    const match = originalName.match(/\.([a-zA-Z0-9]{1,20})$/);
+    return match ? match[1].toLowerCase() : "bin";
 }
-
 
 /* =========================================================
    FORMAT FILE SIZE

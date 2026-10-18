@@ -1072,11 +1072,12 @@ async function uploadPreviewImage(workId, file) {
 }
 
 async function uploadWorkFile(workId, file, bucket) {
-    const safeFilename =
-        getSafeStorageFilename(file);
+    // Storage key: UUID and ASCII-only extension. The original name stays in DB.
+    const extension =
+        getSafeStorageExtension(file);
 
     const path =
-        `${currentUser.id}/${workId}/${createUuid()}-${safeFilename}`;
+        `${currentUser.id}/${workId}/${createUuid()}.${extension}`;
 
     const { error } = await window.supabaseClient
         .storage
@@ -1340,18 +1341,14 @@ function getFileType(file) {
         : file?.type || "FILE";
 }
 
-function getSafeStorageFilename(file) {
-    const original =
-        String(file?.name || "file");
+function getSafeStorageExtension(file) {
+    // Filename is stored separately as works.original_filename.
+    // Storage object keys need only an ASCII extension, not the original name.
+    const originalName = String(file?.name || "")
+        .normalize("NFKC");
 
-    const normalized = original
-        .normalize("NFKC")
-        .replace(/[\\/:*?"<>|#%{}[\]`~&+]/g, "_")
-        .replace(/\s+/g, "_")
-        .replace(/_+/g, "_")
-        .replace(/^_+|_+$/g, "");
-
-    return normalized || "file";
+    const match = originalName.match(/\.([a-zA-Z0-9]{1,20})$/);
+    return match ? match[1].toLowerCase() : "bin";
 }
 
 function formatFileSize(bytes) {
